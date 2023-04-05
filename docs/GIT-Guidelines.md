@@ -42,8 +42,7 @@ Issue: #123
 
 ### :warning: Issues
 
-- First create an issue on GitHub, after that connect the issue to a
-  Trello card.
+- First create an issue on GitHub, after that connect the issue to Jira.
 
 - The issue number must be on the footer in the commit message.
 
