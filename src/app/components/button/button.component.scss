@@ -1,0 +1,102 @@
+/**
+- author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+- version: 0.0.1
+- date: 06.04.2023
+- description: Button styles
+*/
+
+/**
+  * Button style
+*/
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  height: var(--btn-height);
+  width: var(--btn-width);
+  border: none;
+  outline: none;
+  pointer-events: auto;
+  cursor: default;
+  box-shadow: 0 4px 4px rgba(242, 157, 56, 0.25),
+    inset 2px 1px 4px rgba(255, 255, 255, 0.25);
+  &.hover-active {
+    cursor: pointer;
+    &:hover {
+      background-color: var(--hover-color) !important;
+    }
+
+    &:active {
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+/**
+  * Icon container style
+*/
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+/**
+  * Icon color style
+*/
+.icon-color {
+  color: #ffffff;
+}
+
+/**
+  * Text container style
+*/
+.text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/**
+  * Text style
+*/
+.text {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/**
+  * This media query applies to all devices with a screen width of 600px or less,
+  * including the iPhone SE, iPhone XR, Pixel 5, Samsung Galaxy S8+, and Samsung Galaxy A51/71.
+*/
+@media screen and (max-width: 600px) {
+  /**
+    * Button style
+  */
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /**
+    * Icon container style
+  */
+  .icon-container {
+    width: 24px;
+    height: 24px;
+  }
+
+  /**
+    * Icon color style
+  */
+  .icon-color {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
