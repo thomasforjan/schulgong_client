@@ -1,0 +1,25 @@
+<mat-toolbar color="primary" class="header">
+  <button mat-icon-button (click)="toggleSidenav.emit()">
+    <mat-icon class="icon">{{ isSidebarOpen ? "close" : "menu" }}</mat-icon>
+  </button>
+  <span class="title" [routerLink]="['/']">Schulgong</span>
+  <span class="dash">—</span>
+  <span class="routing-link">{{ currentRouteName }}</span>
+  <span class="spacer"></span>
+  <span class="username">Admin</span>
+  <span></span>
+
+  <mat-icon
+    [matMenuTriggerFor]="menu"
+    class="clickable-icon"
+    aria-label="User Profile"
+    style="height: 64px; width: 70px"
+    >account_circle</mat-icon
+  >
+  <!-- Menu which is called on mat-icon (User profile icon) -->
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item class="menu-person">
+      <mat-icon class="menu-icon-person">person</mat-icon>Admin
+    </button>
+  </mat-menu>
+</mat-toolbar>

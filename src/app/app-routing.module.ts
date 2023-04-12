@@ -1,16 +1,18 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {AppComponent} from "./app.component";
-import {TestComponent} from "./test/test.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
-  {path: '', component: AppComponent},
-  {path: 'test', component: TestComponent}
+  // test route
+  { path: 'test', component: TestComponent },
+
+  // otherwise redirect to dashboard ('/')
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}
