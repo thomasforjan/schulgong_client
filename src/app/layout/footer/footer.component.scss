@@ -1,0 +1,24 @@
+/**
+- author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+- version: 0.0.1
+- date: 02.04.2023
+- description: Defines the style properties for the footer component.
+*/
+
+/**
+  * Defines the style properties for the footer component.
+*/
+.footer {
+  height: 40px;
+  background-color: #333;
+  font-size: 12px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin: 0px;
+  text-align: center;
+}

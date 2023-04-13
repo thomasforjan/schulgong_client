@@ -1,0 +1,185 @@
+/**
+- author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+- version: 0.0.1
+- date: 31.03.2023
+- description: Header styles
+*/
+
+/**
+  * Styles for the header
+*/
+.header {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/**
+  * Styles for the title
+*/
+.title {
+  font-size: 32px;
+  margin-left: 16px;
+  cursor: pointer;
+}
+
+/**
+  * Styles for the dash, routing link
+*/
+.dash,
+.routing-link {
+  margin-left: 15px;
+  font-weight: 200;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/**
+  * Styles for the icon
+*/
+.icon {
+  color: #f29d38;
+  font-size: 28px;
+}
+
+/**
+  * Styles for the spacer
+*/
+.spacer {
+  flex: 1 1 auto;
+}
+
+/**
+  * Styles for the username
+*/
+.username {
+  font-size: 16px;
+  margin-right: 16px;
+}
+
+/**
+  * Styles for the clickable icon
+*/
+.clickable-icon {
+  cursor: pointer;
+  font-size: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/**
+  * This media query applies specificly to Galaxy Fold.
+*/
+@media screen and (max-width: 280px), screen and (max-height: 653px) {
+  .title {
+    font-size: 16px !important;
+    margin-left: 0px !important;
+    cursor: pointer;
+  }
+
+  .username {
+    display: none !important;
+  }
+
+  .dash,
+  .routing-link {
+    margin-left: 2px !important;
+    font-size: 11px !important;
+    font-weight: 200;
+  }
+}
+
+/**
+  * This media query applies to all devices with a screen width of 600px or less,
+  * including the iPhone SE, iPhone XR, Pixel 5, Samsung Galaxy S8+, and Samsung Galaxy A51/71.
+*/
+@media screen and (max-width: 600px) {
+  .title {
+    font-size: 24px;
+    margin-left: 5px;
+  }
+
+  .dash,
+  .routing-link {
+    margin-left: 5px;
+    font-size: 14px;
+    font-weight: 200;
+  }
+
+  .username {
+    display: none;
+  }
+
+  .clickable-icon {
+    font-size: 40px;
+  }
+
+  .icon {
+    font-size: 24px;
+  }
+}
+
+/**
+  * Nest Hub support
+*/
+@media screen and (max-width: 1024px) and (max-height: 600px) {
+  .title {
+    font-size: 32px !important;
+  }
+
+  .dash,
+  .routing-link {
+    margin-left: 10px !important;
+    font-size: 24px !important;
+    font-weight: 200 !important;
+  }
+
+  .menu-person,
+  .menu-icon-person {
+    font-size: 22px !important;
+  }
+}
+
+/**
+  * Media query for Surface Pro 7 (912x1368)
+*/
+@media screen and (min-width: 912px) and (max-width: 1368px) {
+  /* Styles for the title element */
+  .title {
+    font-size: 36px;
+    margin-left: 12px;
+  }
+
+  /* Styles for the navigation elements */
+  .dash,
+  .routing-link {
+    margin-left: 10px;
+    font-size: 24px;
+    font-weight: 200;
+  }
+
+  /* Styles for the icons */
+  .icon {
+    font-size: 24px;
+  }
+
+  /* Styles for the clickable icons */
+  .clickable-icon {
+    font-size: 64px;
+    margin-left: 5px;
+  }
+
+  /* Styles for the username */
+  .username {
+    font-size: 21px;
+    margin-right: 12px;
+  }
+
+  .menu-icon-person,
+  .menu-person {
+    font-size: 22px !important;
+  }
+}

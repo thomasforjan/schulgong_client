@@ -1,0 +1,92 @@
+<div class="grid-container">
+  <ng-container *ngFor="let item of cards; let i = index">
+    <div class="grid-item">
+      <mat-card
+        class="card"
+        [ngClass]="{ 'hover-active': hoverActive }"
+        [routerLink]="linkArray ? linkArray[i] : null"
+      >
+        <mat-card-header>
+          <div mat-card-avatar *ngIf="index" class="index-circle">
+            <p>{{ i + 1 }}</p>
+          </div>
+          <mat-card-title *ngIf="matCardTitle" class="mat-card-title">{{
+            matCardTitle[i]
+          }}</mat-card-title>
+          <mat-card-subtitle
+            *ngIf="matCardSubtitle"
+            class="mat-card-subtitle"
+            >{{ matCardSubtitle[i] }}</mat-card-subtitle
+          >
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="image-container">
+            <img
+              mat-card-image
+              class="card-icon"
+              *ngIf="icon && icon[i]"
+              [src]="icon[i]"
+              alt="card-icon"
+            />
+          </div>
+          <div class="paragraph-container">
+            <p
+              *ngIf="matCardContentParagraph"
+              class="mat-card-content-paragraph"
+            >
+              {{ matCardContentParagraph[i] }}
+            </p>
+            <p
+              *ngIf="matCardContentParagraph2"
+              class="mat-card-content-paragraph2"
+            >
+              {{ matCardContentParagraph2[i] }}
+            </p>
+            <p
+              *ngIf="matCardContentParagraph3"
+              class="mat-card-content-paragraph3"
+            >
+              {{ matCardContentParagraph3[i] }}
+            </p>
+          </div>
+        </mat-card-content>
+
+        <div class="card-actions-wrapper" *ngIf="showButtonContainer">
+          <mat-card-actions class="card-buttons-container">
+            <app-button
+              *ngIf="showEditButton"
+              class="editBtn"
+              bgColor="#f29d38"
+              icon="edit"
+              [hoverActive]="true"
+              hoverColor="#FFA24A"
+              (btnClick)="onEdit(i)"
+              matTooltip="Klingelton bearbeiten"
+            ></app-button>
+            <app-button
+              *ngIf="showPlayButton"
+              class="playBtn"
+              bgColor="#f29d38"
+              icon="play_arrow"
+              [hoverActive]="true"
+              hoverColor="#FFA24A"
+              (btnClick)="onPlay(i)"
+              matTooltip="Klingelton abspielen"
+            ></app-button>
+            <app-button
+              *ngIf="showDeleteButton"
+              class="deleteBtn"
+              bgColor="#EB3223"
+              icon="delete"
+              [hoverActive]="true"
+              hoverColor="#FF3626"
+              (btnClick)="onDelete(i)"
+              matTooltip="Klingelton löschen"
+            ></app-button>
+          </mat-card-actions>
+        </div>
+      </mat-card>
+    </div>
+  </ng-container>
+</div>

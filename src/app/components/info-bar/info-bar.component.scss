@@ -1,0 +1,176 @@
+/**
+- author: Thomas Forjan
+- version: 0.0.1
+- date: 10.04.2023
+- description: Info bar styles
+*/
+
+/**
+  * Styles for the info bar
+*/
+.app-info-bar {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  grid-gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 14px;
+  width: 100%;
+  padding: 0 10px;
+
+  /**
+    * Styles for the datetime container
+  */
+  .datetime {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    white-space: nowrap;
+    margin-right: 10px;
+  }
+
+  /**
+    * Styles for the date
+  */
+  .date {
+    font-weight: bold;
+  }
+
+  /**
+    * Styles for the time
+  */
+  .time {
+    margin-top: 4px;
+  }
+
+  /**
+    * Styles for the app button
+  */
+  app-button {
+    margin-right: 10px;
+  }
+
+  /**
+    * Styles for the next gong container
+  */
+  .next-gong {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: -10px;
+  }
+
+  /**
+    * Styles for the next gong label
+  */
+  .next-gong-label {
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /**
+    * Styles for the button (orange clock container)
+  */
+  .btn {
+    --btn-width: 40px !important;
+    --btn-height: 40px !important;
+  }
+
+  /**
+    * This media query applies to all devices with a screen width of 600px or less,
+    * including the iPhone SE, iPhone XR, Pixel 5, Samsung Galaxy S8+, and Samsung Galaxy A51/71.
+  */
+  @media screen and (max-width: 600px) {
+    .datetime,
+    .next-gong {
+      text-align: center;
+    }
+
+    .time {
+      margin-top: 8px;
+    }
+  }
+
+  /**
+    * This media query applies to all devices with a screen width of 916px or less,
+    * including the iPhone 11 Pro Max, Pixel 4 XL, Samsung Galaxy S20+, and Samsung Galaxy Note 20.
+  */
+  @media screen and (max-width: 916px) {
+    .next-gong {
+      padding-right: 20px;
+      text-align: center;
+    }
+  }
+
+  /**
+    * Media query Nest Hub Max
+  */
+  @media screen and (max-width: 1280px), screen and (max-height: 801px) {
+    grid-template-columns: 11fr 0fr 1fr;
+  }
+}
+
+/**
+  * Galaxy Fold specific media query
+*/
+@media screen and (max-width: 280px), screen and (max-height: 653px) {
+  .app-info-bar {
+    grid-template-columns: auto auto 1fr;
+  }
+
+  .next-gong {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
+
+/**
+  * Surface Pro 7 media query
+*/
+@media screen and (width: 912px) and (height: 1368px) {
+  .app-info-bar {
+    font-size: 26px;
+  }
+}
+
+/**
+  * Nest Hub support
+*/
+@media screen and (max-width: 1024px) and (max-height: 600px) {
+  .app-info-bar {
+    grid-template-columns: 8fr 0fr 1fr;
+    font-size: 18px;
+  }
+}
+
+/**
+  * Nest Hub Max support
+*/
+@media screen and (width: 1280px) and (height: 800px) {
+  .app-info-bar {
+    font-size: 18px;
+  }
+}
+
+/**
+  * IPad Air support
+*/
+@media screen and (width: 820px) and (height: 1180px) {
+  .app-info-bar {
+    font-size: 18px;
+  }
+}
+
+/**
+  * IPad Mini support
+*/
+@media screen and (width: 768px) and (height: 1024px) {
+  .app-info-bar {
+    font-size: 18px;
+  }
+}

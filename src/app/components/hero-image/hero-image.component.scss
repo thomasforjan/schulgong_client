@@ -1,0 +1,87 @@
+/**
+- author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+- version: 0.0.1
+- date: 05.04.2023
+- description: Hero image styles
+*/
+
+/**
+  * Hero image properties
+ */
+.hero-image {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+  margin-bottom: 10%;
+}
+
+/**
+  * Media querie for max width 992px
+*/
+@media screen and (max-width: 992px) {
+  .hero-image {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/**
+  * This media query applies specificly to Nest Hub Max
+*/
+@media screen and (min-width: 992px) and (max-width: 1420px) {
+  .hero-image {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/**
+  * This media query applies specificly to Nest Hub
+*/
+@media screen and (min-width: 950px) and (max-width: 1024px) {
+  .hero-image {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/**
+  * This media query applies to all devices with a screen width of 600px or less,
+  * including the iPhone SE, iPhone XR, Pixel 5, Samsung Galaxy S8+, and Samsung Galaxy A51/71.
+*/
+@media screen and (max-width: 600px) {
+  .hero-image {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/**
+  * This media query applies specificly to IPad Air
+*/
+@media screen and (width: 820px) and (height: 1180px) {
+  .hero-image {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/**
+  * This media query applies specificly to IPad Mini
+*/
+@media screen and (width: 768px), screen and (height: 1024px) {
+  .hero-image {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/**
+  * This media query applies specificly to Galaxy Fold.
+*/
+@media screen and (max-width: 280px), screen and (max-height: 653px) {
+  .hero-image {
+    width: 100px;
+    height: 100px;
+  }
+}

@@ -1,0 +1,13 @@
+<button
+  class="btn"
+  [class.hover-active]="hoverActive"
+  [matTooltip]="tooltipText ?? ''"
+  (click)="onClick()"
+>
+  <div class="icon-container" *ngIf="icon">
+    <mat-icon class="icon-color">{{ icon }}</mat-icon>
+  </div>
+  <div class="text-container" *ngIf="text">
+    <span class="text">{{ text }}</span>
+  </div>
+</button>

@@ -1,0 +1,27 @@
+<div class="sidebar" [class.closed]="!isOpen">
+  <button class="first-btn" mat-raised-button [routerLink]="['/']">
+    <span class="content-wrapper">
+      <span class="icon-wrapper">
+        <img
+          class="sidebar-icon"
+          *ngIf="icons && icons.length > 0"
+          [src]="icons[0]"
+        />
+      </span>
+      <span>{{ titles[0] }}</span>
+    </span>
+  </button>
+  <button
+    class="btn"
+    mat-raised-button
+    *ngFor="let icon of icons.slice(1); let i = index"
+    [routerLink]="[routerLinks[i + 1]]"
+  >
+    <span class="content-wrapper">
+      <span class="icon-wrapper">
+        <img class="sidebar-icon" *ngIf="icon" [src]="icon" />
+      </span>
+      <span>{{ titles[i + 1] }}</span>
+    </span>
+  </button>
+</div>
