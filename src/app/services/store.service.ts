@@ -6,7 +6,11 @@ import { Injectable } from '@angular/core';
 export enum RoutingLinks {
   DashboardLink = '',
   RingtonesLink = 'ringtones',
-  BellTimeLink = 'bellTime',
+  RingTimeLink = 'ringTime',
+  LiveLink = 'live',
+  NoSchoolLink = 'noSchool',
+  CalendarLink = 'calendar',
+  UserLink = 'user'
 }
 
 /**
@@ -15,7 +19,7 @@ export enum RoutingLinks {
 export enum MenuNames {
   Dashboard = 'Dashboard',
   Ringtones = 'Klingeltöne',
-  BellTime = 'Klingelzeit',
+  RingTime = 'Klingelzeit',
   Live = 'Live',
   NoSchool = 'Schulfrei',
   Calendar = 'Kalender',
@@ -28,7 +32,7 @@ export enum MenuNames {
 export enum MenuIcons {
   DashboardIcon = '../../../assets/images/sidebar/dashboard.svg',
   RingtonesIcon = '../../../assets/images/sidebar/music_note.svg',
-  BellTimeIcon = '../../../assets/images/sidebar/access_time.svg',
+  RingTimeIcon = '../../../assets/images/sidebar/access_time.svg',
   LiveIcon = '../../../assets/images/sidebar/live.svg',
   NoSchoolIcon = '../../../assets/images/sidebar/no_school.svg',
   CalendarIcon = '../../../assets/images/sidebar/kalendar.svg',
@@ -47,7 +51,7 @@ export enum HeroImages {
  */
 export enum DashboardIcons {
   RingtonesIcon = '../../../assets/images/dashboard/music_note.svg',
-  BellTimeIcon = '../../../assets/images/dashboard/access_time.svg',
+  RingTimeIcon = '../../../assets/images/dashboard/access_time.svg',
   LiveIcon = '../../../assets/images/dashboard/live.svg',
   NoSchoolIcon = '../../../assets/images/dashboard/no_school.svg',
   CalendarIcon = '../../../assets/images/dashboard/kalendar.svg',

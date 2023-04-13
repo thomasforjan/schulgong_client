@@ -555,3 +555,60 @@
     font-size: 16px;
   }
 }
+
+/**
+  * Media query for width between 540px and 668px
+**/
+@media screen and (min-width: 540px) and (max-width: 668px) {
+  .card-icon {
+    height: 76px;
+    width: 76px;
+  }
+  .card {
+    width: 200px !important;
+    height: 170px !important;
+  }
+
+  .mat-card-content-paragraph, .mat-card-content-paragraph2, .mat-card-content-paragraph3 {
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
+/**
+  * Media query for width between 670px and 992px
+**/
+@media screen and (min-width: 670px) and (max-width: 992px) {
+  .card-icon {
+    height: 76px;
+    width: 76px;
+  }
+  .card {
+    width: 200px !important;
+    height: 170px !important;
+  }
+
+  .mat-card-content-paragraph, .mat-card-content-paragraph2, .mat-card-content-paragraph3 {
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
+/**
+  * Media query for width between 992px and 1070px
+**/
+@media screen and (min-width: 992px) and (max-width: 1070px) {
+  .card-icon {
+    height: 76px;
+    width: 76px;
+  }
+  .card {
+    width: 200px !important;
+    height: 170px !important;
+  }
+
+  .mat-card-content-paragraph, .mat-card-content-paragraph2, .mat-card-content-paragraph3 {
+    font-size: 20px;
+    text-align: center;
+  }
+}
