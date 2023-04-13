@@ -25,6 +25,13 @@ import { HeroImageComponent } from './components/hero-image/hero-image.component
  * Test Components
  */
 import { TestComponent } from './test/test.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { RingtonesComponent } from './pages/ringtones/ringtones.component';
+import { RingtimeComponent } from './pages/ringtime/ringtime.component';
+import { LiveComponent } from './pages/live/live.component';
+import { NoSchoolComponent } from './pages/no-school/no-school.component';
+import { CalendarComponent } from './pages/calendar/calendar.component';
+import { UserComponent } from './pages/user/user.component';
 
 @NgModule({
   declarations: [
@@ -36,8 +43,15 @@ import { TestComponent } from './test/test.component';
     InfoBarComponent,
     ButtonComponent,
     HeroImageComponent,
+    DashboardComponent,
+    RingtonesComponent,
+    RingtimeComponent,
+    LiveComponent,
+    NoSchoolComponent,
+    CalendarComponent,
+    UserComponent,
 
-    TestComponent, // Test Component
+    TestComponent,  // Test Component
   ],
   imports: [
     BrowserModule,
