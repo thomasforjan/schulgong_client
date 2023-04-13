@@ -6,7 +6,7 @@
 */
 
 import { Component } from '@angular/core';
-import { MenuNames, RoutingLinks, DashboardIcons } from '../../../services/store.service';
+import { MenuNames, RoutingLinks, DashboardIcons } from '../../services/store.service';
 
 @Component({
   selector: 'app-dashboard',

@@ -25,7 +25,7 @@ import { HeroImageComponent } from './components/hero-image/hero-image.component
  * Test Components
  */
 import { TestComponent } from './test/test.component';
-import { DashboardComponent } from './pages/dashboard/dashboard/dashboard.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { RingtonesComponent } from './pages/ringtones/ringtones.component';
 import { RingtimeComponent } from './pages/ringtime/ringtime.component';
 import { LiveComponent } from './pages/live/live.component';

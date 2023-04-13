@@ -4,7 +4,7 @@ import { MenuNames } from './services/store.service';
 import { RoutingLinks } from './services/store.service';
 
 import { TestComponent } from './test/test.component';
-import { DashboardComponent } from './pages/dashboard/dashboard/dashboard.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { RingtonesComponent } from './pages/ringtones/ringtones.component';
 import { LiveComponent } from './pages/live/live.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
