@@ -1,5 +1,5 @@
 <div class="grid-container">
-  <ng-container *ngFor="let item of cards; let i = index">
+  <ng-container *ngFor="let f of [].constructor(cards); let i = index">
     <div class="grid-item">
       <mat-card
         class="card"
@@ -8,15 +8,15 @@
       >
         <mat-card-header>
           <div mat-card-avatar *ngIf="index" class="index-circle">
-            <p>{{ i + 1 }}</p>
+            <p>{{i+1}}</p>
           </div>
           <mat-card-title *ngIf="matCardTitle" class="mat-card-title">{{
             matCardTitle[i]
-          }}</mat-card-title>
+            }}</mat-card-title>
           <mat-card-subtitle
             *ngIf="matCardSubtitle"
             class="mat-card-subtitle"
-            >{{ matCardSubtitle[i] }}</mat-card-subtitle
+          >{{ matCardSubtitle[i] }}</mat-card-subtitle
           >
         </mat-card-header>
 

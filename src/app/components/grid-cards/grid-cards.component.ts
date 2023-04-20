@@ -1,9 +1,9 @@
 /**
-- author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
-- version: 0.0.1
-- date: 07.04.2023
-- description: Grid cards component
-*/
+ - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ - version: 0.0.1
+ - date: 07.04.2023
+ - description: Grid cards component
+ */
 
 import {
   Component,
@@ -29,7 +29,7 @@ export class GridCardsComponent implements OnChanges {
   /**
    * Defines the number of cards of the grid.
    */
-  @Input() cards!: number[];
+  @Input() cards!: number | null;
 
   /**
    * Defines the width of the cards.
@@ -59,19 +59,19 @@ export class GridCardsComponent implements OnChanges {
   /**
    * Defines the title of the cards.
    */
-  @Input() matCardTitle?: string[] = [];
+  @Input() matCardTitle?: string[] | null = [];
 
   /**
    * Defines the subtitle of the cards.
    */
-  @Input() matCardSubtitle?: string[] = [];
+  @Input() matCardSubtitle?: string[] | null = [];
 
   /**
    * Defines the paragraphs of the cards.
    */
-  @Input() matCardContentParagraph?: string[] = [];
-  @Input() matCardContentParagraph2?: string[] = [];
-  @Input() matCardContentParagraph3?: string[] = [];
+  @Input() matCardContentParagraph?: string[] | null = [];
+  @Input() matCardContentParagraph2?: string[] | null = [];
+  @Input() matCardContentParagraph3?: string[] | null = [];
 
   /**
    * Defines the icon of the cards.
