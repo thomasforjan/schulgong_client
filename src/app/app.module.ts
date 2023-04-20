@@ -32,6 +32,11 @@ import { LiveComponent } from './pages/live/live.component';
 import { NoSchoolComponent } from './pages/no-school/no-school.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { UserComponent } from './pages/user/user.component';
+import {DatePipe} from "@angular/common";
+import { AddEditRingtimeComponent } from './pages/ringtime/add-edit-ringtime/add-edit-ringtime.component';
+import {MatOptionModule} from "@angular/material/core";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -51,7 +56,8 @@ import { UserComponent } from './pages/user/user.component';
     CalendarComponent,
     UserComponent,
 
-    TestComponent,  // Test Component
+    TestComponent,
+      AddEditRingtimeComponent,  // Test Component
   ],
   imports: [
     BrowserModule,
@@ -59,8 +65,11 @@ import { UserComponent } from './pages/user/user.component';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    MatOptionModule,
+    MatCheckboxModule,
+    MatSelectModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
