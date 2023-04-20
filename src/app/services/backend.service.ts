@@ -14,10 +14,39 @@ export class BackendService {
    * @description URL to backend
    */
   private readonly BACKEND_URL = 'http://localhost:8080';
+  private ringtoneURL = "/ringtones"
 
   constructor(private storeService: StoreService, private http: HttpClient) {
   }
-  
+
+  /** Read Method */
+  getRingtoneResponse(): Observable<HttpResponse<RingtoneResponse>> {
+    return this.http.get<RingtoneResponse>(`${this.BACKEND_URL}/ringTones`, {
+      observe: 'response',
+    });
+  }
+
+  /** Post Method */
+  postRingtoneRequest(data: RingtonePayload): Observable<HttpResponse<Ringtone>> {
+    return this.http.post<Ringtone>(`${this.BACKEND_URL}/ringTones`, data, {
+      observe: 'response',
+    });
+  }
+
+  /** Update Method */
+  updateRingtoneResource(data: Ringtone): Observable<HttpResponse<Ringtone>> {
+    return this.http.put<Ringtone>(`${this.BACKEND_URL}/ringTones/${data.id}`, data, {
+      observe: 'response',
+    });
+  }
+
+  /** Delete Method */
+  deleteRingtoneResource(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.BACKEND_URL}/ringTones/${id}`);
+  }
+
+
+
   /** Read Method */
   getRingTimeResponse(): Observable<HttpResponse<RingTimeResponse>> {
     return this.http.get<RingTimeResponse>(`${this.BACKEND_URL}/periods`, {
