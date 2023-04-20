@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { RingTime } from '../models/RingTime';
+import {Ringtone} from "../models/Ringtone";
 
 /**
  * Enum for routing links
@@ -44,6 +47,7 @@ export enum MenuIcons {
  */
 export enum HeroImages {
   RingtonesHeroImage = '../../../assets/images/pages/music_note.svg',
+  RingTimesHeroImage = '../../../assets/images/pages/access_time.svg',
 }
 
 /**
@@ -61,4 +65,31 @@ export enum DashboardIcons {
 @Injectable({
   providedIn: 'root',
 })
-export class StoreService {}
+export class StoreService {
+
+  // private BehaviorSubject for ringtoneList
+  private _ringtoneList$ = new BehaviorSubject<Ringtone[]>([])
+
+  // public Observable instance for ringtoneList
+  public ringtoneList$ = this._ringtoneList$.asObservable();
+
+  // Method to update ringtoneList
+  updateRingtoneList(newList: Ringtone[]) {
+    this._ringtoneList$.next(newList);
+  }
+
+  // private BehaviorSubject for ringTimeList
+  private _ringTimeList$ = new BehaviorSubject<RingTime[]>([]);
+
+  // public Observable instance for ringTimeList
+  public ringTimeList$ = this._ringTimeList$.asObservable();
+
+  // Method to update ringTimeList
+  updateRingTimeList(newList: RingTime[]) {
+    this._ringTimeList$.next(newList);
+  }
+
+  public isEditRingTime = false;
+  public isAddRingTime = false;
+
+}
