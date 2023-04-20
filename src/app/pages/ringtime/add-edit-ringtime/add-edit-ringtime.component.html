@@ -1,0 +1,136 @@
+<form [formGroup]="ringTimeForm">
+  <h2 mat-dialog-title class="dialog-header">
+    <ng-container *ngIf="storeService.isEditRingTime"
+    >Klingelzeit - Bearbeiten
+    </ng-container
+    >
+    <ng-container *ngIf="storeService.isAddRingTime"
+    >Klingelzeit - Hinzufügen
+    </ng-container
+    >
+  </h2>
+  <app-hero-image [imageUrl]="ringTimeIcon[1]"></app-hero-image>
+  <div mat-dialog-content>
+    <mat-form-field appearance="fill" class="dialog-input-fields">
+      <mat-label>Bezeichnung</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Beginn 1. Stunde"
+        formControlName="name"
+      />
+      <mat-hint align="end">MM/DD/YYYY</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="dialog-input-fields">
+      <mat-label>Startdatum</mat-label>
+      <input
+        type="date"
+        matInput
+        placeholder="04/09/2023"
+        required
+        formControlName="startDate"
+        (change)="startDateChange($event)"
+      />
+      <mat-error
+        *ngIf="ringTimeForm.get('startDate')?.hasError('required')"
+      >
+        <p>Startdatum wird benötigt!</p>
+      </mat-error>
+      <mat-hint align="end">MM/DD/YYYY</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="dialog-input-fields">
+      <mat-label>Enddatum</mat-label>
+      <input
+        type="date"
+        matInput
+        placeholder="09/02/2024"
+        formControlName="endDate"
+        (change)="endDateChange($event)"
+      />
+      <mat-hint align="end">MM/DD/YYYY</mat-hint>
+    </mat-form-field>
+
+    <section class="klingeldays-section">
+      <h3 class="klingeldays-header">Klingeltage</h3>
+      <div class="klingeldays">
+        <p style="float: left; text-align: center">
+          MO
+          <br>
+          <mat-checkbox formControlName="monday"></mat-checkbox>
+        </p>
+        <p style="float: left; text-align: center">
+          DI
+          <br>
+          <mat-checkbox formControlName="tuesday"></mat-checkbox>
+        </p>
+        <p style="float: left; text-align: center">
+          MI
+          <br/>
+          <mat-checkbox formControlName="wednesday"></mat-checkbox>
+        </p>
+        <p style="float: left; text-align: center">
+          DO
+          <br/>
+          <mat-checkbox formControlName="thursday"></mat-checkbox>
+        </p>
+        <p style="float: left; text-align: center">
+          FR
+          <br/>
+          <mat-checkbox formControlName="friday"></mat-checkbox>
+        </p>
+        <p style="float: left; text-align: center">
+          SA
+          <br/>
+          <mat-checkbox formControlName="saturday"></mat-checkbox>
+        </p>
+        <p style="float: left; text-align: center">
+          SO
+          <br/>
+          <mat-checkbox formControlName="sunday"></mat-checkbox>
+        </p>
+      </div>
+    </section>
+    <div style="clear: both"></div>
+
+    <mat-form-field appearance="fill" class="dialog-input-fields">
+      <mat-label>Uhrzeit</mat-label>
+      <input
+        type="time"
+        matInput
+        placeholder="08:00"
+        formControlName="playTime"
+        (change)="playTimeChange($event)"
+      />
+      <mat-hint align="end">MM/DD/YYYY</mat-hint>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill" class="dialog-input-fields">
+      <mat-label>Klingelton auswählen</mat-label>
+      <mat-select formControlName="ringToneId">
+        <mat-option *ngFor="let item of storeService.ringtoneList$ | async" [value]="item.id">{{
+          item?.name
+          }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="ringTimeForm.get('ringToneId')?.hasError('required')">
+        <p>Klingelton wird benötigt!</p>
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+</form>
+
+<div mat-dialog-actions align="center">
+  <button
+    mat-button mat-raised-button color="primary"
+    (click)="onSaveClick()" [disabled]="ringTimeForm.invalid"
+  >
+    Save
+  </button>
+  <button
+    mat-button mat-raised-button color="warn"
+    (click)="onCancelClick()">Cancel
+  </button>
+</div>
