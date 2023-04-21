@@ -21,6 +21,11 @@ import {
 })
 export class ButtonComponent implements OnChanges {
   /**
+   * Defines the disabled state of the button.
+   */
+  @Input() disabled?: boolean;
+
+  /**
    * Defines the width of the button.
    */
   @Input() width?: number | string;
@@ -64,6 +69,11 @@ export class ButtonComponent implements OnChanges {
    * Defines the tooltip text of the button.
    */
   @Input() tooltipText?: string;
+
+   /**
+     * Defines the aria-label text of the button.
+     */
+    @Input() ariaLabelText?: string;
 
   /**
    * Defines a button click event.

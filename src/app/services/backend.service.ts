@@ -21,28 +21,28 @@ export class BackendService {
 
   /** Read Method */
   getRingtoneResponse(): Observable<HttpResponse<RingtoneResponse>> {
-    return this.http.get<RingtoneResponse>(`${this.BACKEND_URL}/ringTones`, {
+    return this.http.get<RingtoneResponse>(`${this.BACKEND_URL}/ringtones`, {
       observe: 'response',
     });
   }
 
   /** Post Method */
   postRingtoneRequest(data: RingtonePayload): Observable<HttpResponse<Ringtone>> {
-    return this.http.post<Ringtone>(`${this.BACKEND_URL}/ringTones`, data, {
+    return this.http.post<Ringtone>(`${this.BACKEND_URL}/ringtones`, data, {
       observe: 'response',
     });
   }
 
   /** Update Method */
   updateRingtoneResource(data: Ringtone): Observable<HttpResponse<Ringtone>> {
-    return this.http.put<Ringtone>(`${this.BACKEND_URL}/ringTones/${data.id}`, data, {
+    return this.http.put<Ringtone>(`${this.BACKEND_URL}/ringtones/${data.id}`, data, {
       observe: 'response',
     });
   }
 
   /** Delete Method */
   deleteRingtoneResource(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.BACKEND_URL}/ringTones/${id}`);
+    return this.http.delete<void>(`${this.BACKEND_URL}/ringtones/${id}`);
   }
 
 

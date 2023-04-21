@@ -3,6 +3,8 @@
   [class.hover-active]="hoverActive"
   [matTooltip]="tooltipText ?? ''"
   (click)="onClick()"
+  [disabled]="disabled"
+  aria-label="ariaLabelText"
 >
   <div class="icon-container" *ngIf="icon">
     <mat-icon class="icon-color">{{ icon }}</mat-icon>

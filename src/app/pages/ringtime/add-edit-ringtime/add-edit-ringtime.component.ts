@@ -81,10 +81,10 @@ export class AddEditRingtimeComponent {
           if (
             response.body &&
             response.body._embedded &&
-            response.body._embedded.ringToneDTOList
+            response.body._embedded.ringtoneDTOList
 
           ) {
-            const ringtoneList = response.body._embedded.ringToneDTOList;
+            const ringtoneList = response.body._embedded.ringtoneDTOList;
             this.storeService.updateRingtoneList(ringtoneList);
           }
         })
@@ -93,7 +93,7 @@ export class AddEditRingtimeComponent {
   }
 
 
-  onSaveClick() {
+  onSubmitClick() {
     const startDate = new Date(this.ringTimeForm.value.startDate);
     const endDate = new Date(this.ringTimeForm.value.endDate);
     this.ringTimeForm.value.startDate = this.convertDateTimeToString(startDate, 'en-CA');

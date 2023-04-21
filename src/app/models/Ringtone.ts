@@ -3,7 +3,7 @@ export interface Ringtone {
   name: string;
   filename: string;
   path: string;
-  date: string;
+  date: Date;
   size: number;
 }
 
@@ -11,13 +11,13 @@ export interface RingtonePayload {
   name: string;
   filename: string;
   path: string;
-  date: string;
+  date: Date;
   size: number;
 }
 
 export interface RingtoneResponse {
   _embedded: {
-    ringToneDTOList: Ringtone[];
+    ringtoneDTOList: Ringtone[];
   };
 }
 
