@@ -1,25 +1,25 @@
 
-<div mat-dialog-content *ngIf="isEditRingTime" >
+<div mat-dialog-content >
   <div class="header">
     <h1 mat-dialog-title class="title">
-      <ng-container *ngIf="isEditRingTime">
+      <ng-container *ngIf="isEditRingtime">
         <span class="title-word">Klingelzeit </span>
         <span class="title-action">editieren</span>
       </ng-container>
-      <ng-container *ngIf="isAddRingTime">
+      <ng-container *ngIf="isAddRingtime">
         <span class="title-word">Klingelzeit </span>
         <span class="title-action">hinzufügen</span>
       </ng-container
       >
     </h1>
     <div class="hero-image-container">
-      <app-hero-image [imageUrl]="ringTimeIcon[1]"></app-hero-image>
+      <app-hero-image [imageUrl]="ringtimeIcon[1]"></app-hero-image>
     </div>
 
     <hr class="divider"/>
   </div>
 
-  <div class="form-field-container">
+  <div class="form-field-container" *ngIf="isEditRingtime">
     <mat-form-field appearance="fill" class="form-field index-form-field">
       <mat-label>Index</mat-label>
       <input
@@ -31,7 +31,7 @@
     </mat-form-field>
   </div>
 
-  <form [formGroup]="ringTimeForm">
+  <form [formGroup]="ringtimeForm">
     <div class="form-field-container">
       <mat-form-field aria-label="ringtimeName" appearance="fill" class="form-field index-form-field">
         <mat-label>Bezeichnung</mat-label>
@@ -56,7 +56,7 @@
           (change)="startDateChange($event)"
         />
         <mat-error
-          *ngIf="ringTimeForm.get('startDate')?.hasError('required')"
+          *ngIf="ringtimeForm.get('startDate')?.hasError('required')"
         >
           <p>Startdatum wird benötigt!</p>
         </mat-error>
@@ -141,13 +141,13 @@
     <div class="form-field-container">
       <mat-form-field aria-label="ringtimeRingtone" appearance="fill" class="form-field index-form-field">
         <mat-label>Klingelton auswählen</mat-label>
-        <mat-select formControlName="ringToneId">
+        <mat-select formControlName="ringtoneId">
           <mat-option *ngFor="let item of storeService.ringtoneList$ | async" [value]="item.id">{{
             item?.name
             }}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="ringTimeForm.get('ringToneId')?.hasError('required')">
+        <mat-error *ngIf="ringtimeForm.get('ringtoneId')?.hasError('required')">
           <p>Klingelton wird benötigt!</p>
         </mat-error>
       </mat-form-field>
@@ -165,7 +165,7 @@
           [height]="45"
           (click)="onSubmitClick()"
           aria-label="ringtimeSaveButton"
-          [disabled]="ringTimeForm.invalid"
+          [disabled]="ringtimeForm.invalid"
         ></app-button>
       </div>
 

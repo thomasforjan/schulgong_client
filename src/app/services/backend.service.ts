@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {StoreService} from './store.service';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {RingTime, RingTimePayload, RingTimeResponse} from "../models/RingTime";
+import {Ringtime, RingtimePayload, RingtimeResponse} from "../models/Ringtime";
 import {Ringtone, RingtonePayload, RingtoneResponse} from "../models/Ringtone";
 
 
@@ -48,27 +48,27 @@ export class BackendService {
 
 
   /** Read Method */
-  getRingTimeResponse(): Observable<HttpResponse<RingTimeResponse>> {
-    return this.http.get<RingTimeResponse>(`${this.BACKEND_URL}/periods`, {
+  getRingtimeResponse(): Observable<HttpResponse<RingtimeResponse>> {
+    return this.http.get<RingtimeResponse>(`${this.BACKEND_URL}/periods`, {
       observe: 'response',
     });
   }
   /** Post Method */
-  postRingTimeRequest(data: RingTimePayload): Observable<HttpResponse<RingTime>> {
-    return this.http.post<RingTime>(`${this.BACKEND_URL}/periods`, data, {
+  postRingtimeRequest(data: RingtimePayload): Observable<HttpResponse<Ringtime>> {
+    return this.http.post<Ringtime>(`${this.BACKEND_URL}/periods`, data, {
       observe: 'response',
     });
   }
   /** Update Method */
-  updateRingTimeResource(ringTime: RingTime): Observable<HttpResponse<RingTime>> {
-    console.log('BACKEND updateRingTimeResource')
-    console.log(ringTime)
-    return this.http.put<RingTime>(`${this.BACKEND_URL}/periods/${ringTime.id}`, ringTime, {
+  updateRingtimeResource(ringtime: Ringtime): Observable<HttpResponse<Ringtime>> {
+    console.log('BACKEND updateRingtimeResource')
+    console.log(ringtime)
+    return this.http.put<Ringtime>(`${this.BACKEND_URL}/periods/${ringtime.id}`, ringtime, {
       observe: 'response',
     });
   }
   /** Delete Method */
-  deleteRingTimeResource(id: number): Observable<void> {
+  deleteRingtimeResource(id: number): Observable<void> {
     return this.http.delete<void>(`${this.BACKEND_URL}/periods/${id}`);
   }
 

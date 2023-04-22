@@ -1,10 +1,10 @@
 import { Ringtone } from './Ringtone';
 import {Time} from "@angular/common";
 
-export interface RingTime {
+export interface Ringtime {
   id: number;
   name: string;
-  ringToneDTO: Ringtone;
+  ringtoneDTO: Ringtone;
   startDate: Date;
   endDate: Date;
   playTime: Time;
@@ -18,9 +18,9 @@ export interface RingTime {
   // addInfo: string;
 }
 
-export interface RingTimePayload {
+export interface RingtimePayload {
   name: string;
-  ringToneDTO: RingToneOnlyId;
+  ringtoneDTO: RingtoneOnlyId;
   startDate: Date;
   endDate: Date;
   playTime: Time;
@@ -34,16 +34,16 @@ export interface RingTimePayload {
   // addInfo: string;
 }
 
-export interface RingTimeResponse {
+export interface RingtimeResponse {
   _embedded: {
-    ringTimeDTOList: RingTime[];
+    ringtimeDTOList: Ringtime[];
   }
 }
 
-export interface RingTimeDialog {
+export interface RingtimeDialog {
   id: number;
   name: string;
-  ringToneId: number;
+  ringtoneId: number;
   startDate: Date;
   endDate: Date;
   playTime: Time;
@@ -57,6 +57,6 @@ export interface RingTimeDialog {
   // addInfo: string;
 }
 
-export interface RingToneOnlyId {
+export interface RingtoneOnlyId {
   id: number;
 }

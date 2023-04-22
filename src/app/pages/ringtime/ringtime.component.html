@@ -8,7 +8,7 @@
       icon="add"
       [hoverActive]="true"
       hoverColor="#FFA24A"
-      (btnClick)="openDialogAddRingTime()"
+      (btnClick)="openDialogAddRingtime()"
       [width]="117"
       [height]="40"
       aria-label="addRingtime"
@@ -20,11 +20,11 @@
     <app-grid-cards
       [index]="true"
 
-      [matCardTitle]="getRingToneName() | async"
-      [matCardSubtitle]="getRingTimeName() | async"
-      [matCardContentParagraph]="getRingTimeStartAndEndDateAsString() | async"
+      [matCardTitle]="getRingtoneName() | async"
+      [matCardSubtitle]="getRingtimeName() | async"
+      [matCardContentParagraph]="getRingtimeStartAndEndDateAsString() | async"
       [matCardContentParagraph2]="getWeekDaysAsString() | async"
-      [matCardContentParagraph3]="getRingTimePlayTimeAsString() | async"
+      [matCardContentParagraph3]="getRingtimePlayTimeAsString() | async"
 
       [cards_width]="330"
       [cards_height]="220"
@@ -35,46 +35,12 @@
       [showButtonContainer]="true"
       [showEditButton]="true"
       [showDeleteButton]="true"
-      (edit)="onEditRingTime($event)"
-      (delete)="onDeleteRingTime($event)"
+      (edit)="onEditRingtime($event)"
+      (delete)="onDeleteRingtime($event)"
     ></app-grid-cards>
   </div>
 
 </div>
 
-
-<!--<input matInput type="text" [(ngModel)]="formData" />
-&lt;!&ndash;<button mat-raised-button (click)="submitData()">&ndash;&gt;
-&lt;!&ndash;  {{ isEditing ? "Update" : "Submit" }}&ndash;&gt;
-&lt;!&ndash;</button>&ndash;&gt;
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Info</th>
-    <th>Name</th>
-    <th>Dateiname</th>
-    <th>Pfad</th>
-    <th>Datum</th>
-    <th>Größe</th>
-  </tr>
-  <tr *ngFor="let ringtone of storeService.ringtoneList$ | async">
-    <td>{{ ringtone.id }}</td>
-    <td>{{ ringtone.name }}</td>
-    <td>{{ ringtone.filename }}</td>
-    <td>{{ ringtone.path }}</td>
-    <td>{{ ringtone.date }}</td>
-    <td>{{ ringtone.size }}</td>
-&lt;!&ndash;    <td>
-&lt;!&ndash;      <button mat-icon-button color="primary" (click)="editTest(ringtone.id)">&ndash;&gt;
-&lt;!&ndash;        <mat-icon>edit</mat-icon>&ndash;&gt;
-&lt;!&ndash;      </button>&ndash;&gt;
-    </td>&ndash;&gt;
-    <td>
-      <button mat-icon-button color="warn" (click)="onDeleteRingtone(ringtone.id)">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </td>
-  </tr>
-</table>-->
 
 

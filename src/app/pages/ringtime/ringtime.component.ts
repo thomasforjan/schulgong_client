@@ -3,7 +3,7 @@ import {map, Observable, take, tap} from 'rxjs';
 import {HeroImages, MenuNames, RoutingLinks, StoreService} from 'src/app/services/store.service';
 import {BackendService} from "../../services/backend.service";
 import {DatePipe, Time} from '@angular/common'
-import {RingTime, RingTimeDialog, RingTimePayload} from "../../models/RingTime";
+import {Ringtime, RingtimeDialog, RingtimePayload} from "../../models/Ringtime";
 import {AddEditRingtimeComponent} from "./add-edit-ringtime/add-edit-ringtime.component";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -32,20 +32,12 @@ export class RingtimeComponent {
   /**
    * Dashboard icons from enum in store service
    */
-  ringTimeIcon: string[] = Object.values(HeroImages);
+  ringtimeIcon: string[] = Object.values(HeroImages);
 
 
-  editingRingTimeId: number | null = null;
+  editingRingtimeId: number | null = null;
   matCardParagraph: {} | undefined;
-  // cardNumber$ = this.storeService.ringTimeList$.pipe(
-  //   map((list) => {
-  //     if(list.length > 4) {
-  //       return 4;
-  //     }else {
-  //       return 6;
-  //     }
-  //   }));
-  cardLength$ = this.storeService.ringTimeList$.pipe(
+  cardLength$ = this.storeService.ringtimeList$.pipe(
     map((list) => list.length));
 
   ngOnInit(): void {
@@ -65,37 +57,37 @@ export class RingtimeComponent {
    * Get the size of the ringTime
    * @returns
    */
-  getRingTimeId(): Observable<number[]> {
-    return this.storeService.ringTimeList$.pipe(
-      map((ringTimeList) => ringTimeList.map((ringTime) => ringTime.id))
+  getRingtimeId(): Observable<number[]> {
+    return this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.id))
     );
   }
 
-  getRingTimeName(): Observable<string[]> {
-    return this.storeService.ringTimeList$.pipe(
-      map((ringTimeList) => ringTimeList.map((ringTime) => ringTime.name))
+  getRingtimeName(): Observable<string[]> {
+    return this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.name))
     );
   }
 
-  getRingTimeStartDate(): Observable<string[]> {
-    return this.storeService.ringTimeList$.pipe(
-      map((ringTimeList) => ringTimeList.map((ringTime) => {
-        return ringTime.startDate.toLocaleString()
+  getRingtimeStartDate(): Observable<string[]> {
+    return this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => {
+        return ringtime.startDate.toLocaleString()
       }))
     );
   }
 
-  getRingTimeEndDate(): Observable<Date[]> {
-    return this.storeService.ringTimeList$.pipe(
-      map((ringTimeList) => ringTimeList.map((ringTime) => ringTime.endDate))
+  getRingtimeEndDate(): Observable<Date[]> {
+    return this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.endDate))
     );
   }
 
-  getRingTimeStartAndEndDateAsString(): Observable<string[]> {
-    return this.storeService.ringTimeList$.pipe(
-      map((ringTimeList) => ringTimeList.map((ringTime) => {
-        const startDate = new Date(ringTime.startDate);
-        const endDate = new Date(ringTime.endDate);
+  getRingtimeStartAndEndDateAsString(): Observable<string[]> {
+    return this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => {
+        const startDate = new Date(ringtime.startDate);
+        const endDate = new Date(ringtime.endDate);
         const formattedStartDate = startDate.toLocaleDateString('de-DE', {
           day: '2-digit',
           month: '2-digit',
@@ -111,107 +103,107 @@ export class RingtimeComponent {
     );
   }
 
-  getRingToneName(): Observable<string[]> {
-    return this.storeService.ringTimeList$.pipe(
-      map((ringTimeList) => ringTimeList.map((ringTime) => ringTime.ringToneDTO.name))
+  getRingtoneName(): Observable<string[]> {
+    return this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.ringtoneDTO.name))
     );
   }
 
-  getRingTimePlayTime(): Observable<Time[]> {
-    return this.storeService.ringTimeList$.pipe(
-      map((ringTimeList) => ringTimeList.map((ringTime) => ringTime.playTime))
+  getRingtimePlayTime(): Observable<Time[]> {
+    return this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.playTime))
     );
   }
 
-  getRingTimePlayTimeAsString(): Observable<string[]> {
-    return this.storeService.ringTimeList$.pipe(
-      map((ringTimeList) => ringTimeList.map((ringTime) => {
-        const playTime = ringTime.playTime;
+  getRingtimePlayTimeAsString(): Observable<string[]> {
+    return this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => {
+        const playTime = ringtime.playTime;
         const unit = "Uhr"
         return `${playTime} ${unit}`;
       }))
     );
   }
 
-  getRingTimeMonday(): Observable<boolean[]> {
-    return this.storeService.ringTimeList$.pipe(
-      map((ringTimeList) => ringTimeList.map((ringTime) => ringTime.monday))
+  getRingtimeMonday(): Observable<boolean[]> {
+    return this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.monday))
     );
   }
 
-  getRingTimeTuesday(): Observable<boolean[]> {
-    return this.storeService.ringTimeList$.pipe(
-      map((ringTimeList) => ringTimeList.map((ringTime) => ringTime.tuesday))
+  getRingtimeTuesday(): Observable<boolean[]> {
+    return this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.tuesday))
     );
   }
 
-  getRingTimeWednesday(): Observable<boolean[]> {
-    return this.storeService.ringTimeList$.pipe(
-      map((ringTimeList) => ringTimeList.map((ringTime) => ringTime.wednesday))
+  getRingtimeWednesday(): Observable<boolean[]> {
+    return this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.wednesday))
     );
   }
 
-  getRingTimeThursday(): Observable<boolean[]> {
-    return this.storeService.ringTimeList$.pipe(
-      map((ringTimeList) => ringTimeList.map((ringTime) => ringTime.thursday))
+  getRingtimeThursday(): Observable<boolean[]> {
+    return this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.thursday))
     );
   }
 
-  getRingTimeFriday(): Observable<boolean[]> {
-    return this.storeService.ringTimeList$.pipe(
-      map((ringTimeList) => ringTimeList.map((ringTime) => ringTime.friday))
+  getRingtimeFriday(): Observable<boolean[]> {
+    return this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.friday))
     );
   }
 
-  getRingTimeSaturday(): Observable<boolean[]> {
-    return this.storeService.ringTimeList$.pipe(
-      map((ringTimeList) => ringTimeList.map((ringTime) => ringTime.saturday))
+  getRingtimeSaturday(): Observable<boolean[]> {
+    return this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.saturday))
     );
   }
 
-  getRingTimeSunday(): Observable<boolean[]> {
-    return this.storeService.ringTimeList$.pipe(
-      map((ringTimeList) => ringTimeList.map((ringTime) => ringTime.sunday))
+  getRingtimeSunday(): Observable<boolean[]> {
+    return this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.sunday))
     );
   }
 
-  /*getRingTimeAddInfo(): Observable<string[]> {
-    return this.storeService.ringTimeList$.pipe(
-      map((ringTimeList) => ringTimeList.map((ringTime) => ringTime.addInfo))
+  /*getRingtimeAddInfo(): Observable<string[]> {
+    return this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.addInfo))
     );
   }*/
 
   getWeekDaysAsString(): Observable<string[]> {
-    return this.storeService.ringTimeList$.pipe(
-      map((ringTimeList) => ringTimeList.map((ringTime) => {
-        const weekDays = this.getWeekDaysFromOneRingTimeAsString(ringTime);
+    return this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => {
+        const weekDays = this.getWeekDaysFromOneRingtimeAsString(ringtime);
         return `${weekDays}`;
       }))
     );
   }
 
-  getWeekDaysFromOneRingTimeAsString(ringTime: RingTime) {
+  getWeekDaysFromOneRingtimeAsString(ringtime: Ringtime) {
     let weekDays: string[] = []
 
-    if (ringTime.monday) {
+    if (ringtime.monday) {
       weekDays.push("MO")
     }
-    if (ringTime.tuesday) {
+    if (ringtime.tuesday) {
       weekDays.push("DI")
     }
-    if (ringTime.wednesday) {
+    if (ringtime.wednesday) {
       weekDays.push("MI")
     }
-    if (ringTime.thursday) {
+    if (ringtime.thursday) {
       weekDays.push("DO")
     }
-    if (ringTime.friday) {
+    if (ringtime.friday) {
       weekDays.push("FR")
     }
-    if (ringTime.saturday) {
+    if (ringtime.saturday) {
       weekDays.push("SA")
     }
-    if (ringTime.sunday) {
+    if (ringtime.sunday) {
       weekDays.push("SO")
     }
     return weekDays.join(", ")
@@ -222,44 +214,34 @@ export class RingtimeComponent {
    * Method which is called when the edit button is clicked
    * @param index index of the ringTime
    */
-  onEditRingTime(index: number) {
-    this.storeService.ringTimeList$.pipe(
-      take(1)).subscribe((ringTimeList) => {
-      this.openDialogEditRingTime(ringTimeList[index], index);
+  onEditRingtime(index: number) {
+    this.storeService.ringtimeList$.pipe(
+      take(1)).subscribe((ringtimeList) => {
+      this.openDialogEditRingtime(ringtimeList[index], index);
     })
   }
 
-  getRingTime(index: number) {
-    return this.storeService.ringTimeList$.pipe(
-      take(1)).subscribe((ringTimeList) => {
-      return ringTimeList[index].id;
+  getRingtime(index: number) {
+    return this.storeService.ringtimeList$.pipe(
+      take(1)).subscribe((ringtimeList) => {
+      return ringtimeList[index].id;
     })
   }
-
-  /*
-    /!**
-     * Method which is called when the delete button is clicked
-     * @param index index of the ringTime
-     *!/
-    onDeleteRingTime(index: number) {
-      const ringTime = this.getRingTime(index);
-      console.log('Delete ringTime:', ringTime);
-    }*/
 
   // Response
   showResponse() {
     this.backendService
-      .getRingTimeResponse()
+      .getRingtimeResponse()
       .pipe(
         tap((response) => {
           if (
             response.body &&
             response.body._embedded &&
-            response.body._embedded.ringTimeDTOList
+            response.body._embedded.ringtimeDTOList
 
           ) {
-            const ringTimeList = response.body._embedded.ringTimeDTOList;
-            this.storeService.updateRingTimeList(ringTimeList);
+            const ringtimeList = response.body._embedded.ringtimeDTOList;
+            this.storeService.updateRingtimeList(ringtimeList);
           }
         })
       )
@@ -267,62 +249,62 @@ export class RingtimeComponent {
   }
 
   // Delete
-  onDeleteRingTime(index: number): void {
+  onDeleteRingtime(index: number): void {
     index = this.getRealId(index)
-    this.backendService.deleteRingTimeResource(index)
+    this.backendService.deleteRingtimeResource(index)
       .subscribe(() => {
-        this.storeService.ringTimeList$.pipe(take(1)).subscribe((ringTimeList) => {
-          const updatedRingTimeList = ringTimeList.filter((ringTime) => ringTime.id !== index);
-          this.storeService.updateRingTimeList(updatedRingTimeList);
+        this.storeService.ringtimeList$.pipe(take(1)).subscribe((ringtimeList) => {
+          const updatedRingtimeList = ringtimeList.filter((ringtime) => ringtime.id !== index);
+          this.storeService.updateRingtimeList(updatedRingtimeList);
         });
       });
   }
 
   // transform shown number into real id of object
   getRealId(index: number) {
-    this.storeService.ringTimeList$.pipe(
-      take(1)).subscribe((ringTimeList) => {
-      index = ringTimeList[index].id;
+    this.storeService.ringtimeList$.pipe(
+      take(1)).subscribe((ringtimeList) => {
+      index = ringtimeList[index].id;
     })
     return index
   }
 
   /**
-   * Opens a Modal-Dialog for add and updating a ringTime
-   * @param ringTime updated ringTime object
+   * Opens a Modal-Dialog for add and updating a ringtime
+   * @param ringtime updated ringtime object
    * @param edit add/edit mode
    */
-  openDialogEditRingTime(ringTime: RingTime, index: number) {
-    let ringTimeDialog = this.createDialogResultFromRingTime(ringTime)
+  openDialogEditRingtime(ringtime: Ringtime, index: number) {
+    let ringtimeDialog = this.createDialogResultFromRingtime(ringtime)
     const dialogRef = this.dialog.open(AddEditRingtimeComponent, {
       width: '500px',
       height: '720px',
-      data: { isAddRingtone: false, ringTimeDialog, index },
+      data: { isAddRingtone: false, ringtimeDialog: ringtimeDialog, index },
     });
-    dialogRef.afterClosed().subscribe((result: RingTimeDialog) => {
+    dialogRef.afterClosed().subscribe((result: RingtimeDialog) => {
       if (result) {
         console.log("AFTER CLOSED")
         console.log(result)
-        this.convertDialogResultIntoRingTime(result, ringTime)
+        this.convertDialogResultIntoRingtime(result, ringtime)
 
-        ringTime.ringToneDTO = this.getRingToneDTOById(result.ringToneId);
+        ringtime.ringtoneDTO = this.getRingtoneDTOById(result.ringtoneId);
 
-        this.backendService.updateRingTimeResource(ringTime).subscribe((response) => {
-          const updatedRingTime = response.body;
-          if (updatedRingTime) {
-            this.storeService.ringTimeList$
+        this.backendService.updateRingtimeResource(ringtime).subscribe((response) => {
+          const updatedRingtime = response.body;
+          if (updatedRingtime) {
+            this.storeService.ringtimeList$
               .pipe(take(1))
-              .subscribe((currentRingTimeList) => {
-                const updatedList = currentRingTimeList.map((ringTime) =>
-                  ringTime.id === updatedRingTime.id ? updatedRingTime : ringTime
+              .subscribe((currentRingtimeList) => {
+                const updatedList = currentRingtimeList.map((ringtime) =>
+                  ringtime.id === updatedRingtime.id ? updatedRingtime : ringtime
                 );
-                this.storeService.updateRingTimeList(updatedList);
+                this.storeService.updateRingtimeList(updatedList);
               });
           }
         });
 
         this._snackBar.open(
-          `Klingelzeit ${ringTime.name} wird aktualisieriert`,
+          `Klingelzeit ${ringtime.name} wird aktualisieriert`,
           'Ok',
           {
             horizontalPosition: 'end',
@@ -334,8 +316,8 @@ export class RingtimeComponent {
     });
   }
 
-  openDialogAddRingTime() {
-    let ringTime: RingTimePayload;
+  openDialogAddRingtime() {
+    let ringtime: RingtimePayload;
     const dialogRef = this.dialog.open(AddEditRingtimeComponent, {
       width: '500px',
       height: '720px',
@@ -345,18 +327,18 @@ export class RingtimeComponent {
       if (result) {
         console.log("SAVE ADD")
         console.log(result)
-        let ringTone = this.getRingToneDTOById(result.ringToneId);
-        ringTime = this.createRingTimePayloadFromDialogResult(result, ringTone);
+        let ringtone = this.getRingtoneDTOById(result.ringtoneId);
+        ringtime = this.createRingtimePayloadFromDialogResult(result, ringtone);
         console.log("RINGTIME")
-        console.log(ringTime)
-        this.backendService.postRingTimeRequest(ringTime).subscribe((response)=>{
+        console.log(ringtime)
+        this.backendService.postRingtimeRequest(ringtime).subscribe((response)=>{
           const newRingtone = response.body;
           if (newRingtone){
-            this.storeService.ringTimeList$
+            this.storeService.ringtimeList$
               .pipe(take(1))
               .subscribe((currentRingtoneList) => {
                 const updatedList = [...currentRingtoneList, newRingtone];
-                this.storeService.updateRingTimeList(updatedList);
+                this.storeService.updateRingtimeList(updatedList);
               });
           }
         });
@@ -370,69 +352,69 @@ export class RingtimeComponent {
     });
   }
 
-  convertDialogResultIntoRingTime(result: RingTimeDialog, ringTime: RingTime) {
-    ringTime.id = result.id;
-    ringTime.name = result.name;
-    ringTime.startDate = result.startDate;
-    ringTime.endDate = result.endDate;
-    ringTime.playTime = result.playTime;
-    ringTime.monday = result.monday;
-    ringTime.tuesday = result.tuesday;
-    ringTime.wednesday = result.wednesday;
-    ringTime.thursday = result.thursday;
-    ringTime.friday = result.friday;
-    ringTime.saturday = result.saturday;
-    ringTime.sunday = result.sunday;
+  convertDialogResultIntoRingtime(result: RingtimeDialog, ringtime: Ringtime) {
+    ringtime.id = result.id;
+    ringtime.name = result.name;
+    ringtime.startDate = result.startDate;
+    ringtime.endDate = result.endDate;
+    ringtime.playTime = result.playTime;
+    ringtime.monday = result.monday;
+    ringtime.tuesday = result.tuesday;
+    ringtime.wednesday = result.wednesday;
+    ringtime.thursday = result.thursday;
+    ringtime.friday = result.friday;
+    ringtime.saturday = result.saturday;
+    ringtime.sunday = result.sunday;
   }
 
-  createDialogResultFromRingTime(ringTime: RingTime) {
+  createDialogResultFromRingtime(ringtime: Ringtime) {
     return {
-      id: ringTime.id,
-      name: ringTime.name,
-      ringToneId: ringTime.ringToneDTO.id,
-      startDate: ringTime.startDate,
-      endDate: ringTime.endDate,
-      playTime: ringTime.playTime,
-      monday: ringTime.monday,
-      tuesday: ringTime.tuesday,
-      wednesday: ringTime.wednesday,
-      thursday: ringTime.thursday,
-      friday: ringTime.friday,
-      saturday: ringTime.saturday,
-      sunday: ringTime.sunday
+      id: ringtime.id,
+      name: ringtime.name,
+      ringtoneId: ringtime.ringtoneDTO.id,
+      startDate: ringtime.startDate,
+      endDate: ringtime.endDate,
+      playTime: ringtime.playTime,
+      monday: ringtime.monday,
+      tuesday: ringtime.tuesday,
+      wednesday: ringtime.wednesday,
+      thursday: ringtime.thursday,
+      friday: ringtime.friday,
+      saturday: ringtime.saturday,
+      sunday: ringtime.sunday
     }
   }
 
-  createRingTimePayloadFromDialogResult(ringTimeDialog: RingTimeDialog, ringtone: Ringtone) {
-    let ringToneOnlyId = {
-      id: ringTimeDialog.ringToneId
+  createRingtimePayloadFromDialogResult(ringtimeDialog: RingtimeDialog, ringtone: Ringtone) {
+    let ringtoneOnlyId = {
+      id: ringtimeDialog.ringtoneId
     }
     return {
-      name: ringTimeDialog.name,
-      ringToneDTO: ringToneOnlyId,
-      startDate: ringTimeDialog.startDate,
-      endDate: ringTimeDialog.endDate,
-      playTime: ringTimeDialog.playTime,
-      monday: ringTimeDialog.monday ? true : false,
-      tuesday: ringTimeDialog.tuesday ? true : false,
-      wednesday: ringTimeDialog.wednesday ? true : false,
-      thursday: ringTimeDialog.thursday ? true : false,
-      friday: ringTimeDialog.friday ? true : false,
-      saturday: ringTimeDialog.saturday ? true : false,
-      sunday: ringTimeDialog.sunday ? true : false
+      name: ringtimeDialog.name,
+      ringtoneDTO: ringtoneOnlyId,
+      startDate: ringtimeDialog.startDate,
+      endDate: ringtimeDialog.endDate,
+      playTime: ringtimeDialog.playTime,
+      monday: ringtimeDialog.monday ? true : false,
+      tuesday: ringtimeDialog.tuesday ? true : false,
+      wednesday: ringtimeDialog.wednesday ? true : false,
+      thursday: ringtimeDialog.thursday ? true : false,
+      friday: ringtimeDialog.friday ? true : false,
+      saturday: ringtimeDialog.saturday ? true : false,
+      sunday: ringtimeDialog.sunday ? true : false
     }
   }
 
-  getRingToneDTOById(ringToneId: number) {
-    let ringTone!: Ringtone;
+  getRingtoneDTOById(ringtoneId: number) {
+    let ringtone!: Ringtone;
     this.storeService.ringtoneList$.pipe(
       take(1)).subscribe((ringtoneList) => {
       for (let i = 0; i < ringtoneList.length; i++) {
-        if (ringtoneList[i].id === ringToneId) {
-          ringTone =  ringtoneList[i];
+        if (ringtoneList[i].id === ringtoneId) {
+          ringtone =  ringtoneList[i];
         }
       }
     });
-    return ringTone;
+    return ringtone;
   }
 }
