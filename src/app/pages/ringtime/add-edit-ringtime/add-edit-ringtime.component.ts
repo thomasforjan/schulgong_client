@@ -14,6 +14,8 @@ import {Ringtone} from "../../../models/Ringtone";
 })
 export class AddEditRingtimeComponent {
   ringTimeForm!: FormGroup;
+  public isEditRingTime = false;
+  public isAddRingTime = false;
 
   /**
    * Dashboard icons from enum in store service
@@ -24,12 +26,12 @@ export class AddEditRingtimeComponent {
     private _backendService: BackendService,
     private _formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddEditRingtimeComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: RingTimeDialog,
-    public storeService: StoreService
+    public storeService: StoreService,
+    @Inject(MAT_DIALOG_DATA)
+    public data: {isAddRingtime: boolean; ringTimeDialog: RingTimeDialog; index: string},
   ) {
-
-    this.storeService.isEditRingTime = false;
-    this.storeService.isAddRingTime = false;
+    this.isAddRingTime = data.isAddRingtime;
+    this.isEditRingTime = !data.isAddRingtime;
   }
 
   ngOnInit() {
@@ -37,24 +39,23 @@ export class AddEditRingtimeComponent {
 
     if (this.data) {
       console.log(this.data)
-      this.storeService.isEditRingTime = true;
+      this.isEditRingTime = true;
       this.ringTimeForm = this._formBuilder.group({
-        id: [this.data.id],
-        name: [this.data.name, Validators.required],
-        startDate: [this.convertDateTimeToString(this.data.startDate, 'en-CA'), Validators.required],
-        endDate: [this.convertDateTimeToString(this.data.endDate, 'en-CA')],
-        monday: [this.data.monday],
-        tuesday: [this.data.tuesday],
-        wednesday: [this.data.wednesday],
-        thursday: [this.data.thursday],
-        friday: [this.data.friday],
-        saturday: [this.data.saturday],
-        sunday: [this.data.sunday],
-        playTime: [this.data.playTime, Validators.required],
-        ringToneId: [this.data.ringToneId, Validators.required]
+        name: [this.data.ringTimeDialog.name, Validators.required],
+        startDate: [this.convertDateTimeToString(this.data.ringTimeDialog.startDate, 'en-CA'), Validators.required],
+        endDate: [this.convertDateTimeToString(this.data.ringTimeDialog.endDate, 'en-CA')],
+        monday: [this.data.ringTimeDialog.monday],
+        tuesday: [this.data.ringTimeDialog.tuesday],
+        wednesday: [this.data.ringTimeDialog.wednesday],
+        thursday: [this.data.ringTimeDialog.thursday],
+        friday: [this.data.ringTimeDialog.friday],
+        saturday: [this.data.ringTimeDialog.saturday],
+        sunday: [this.data.ringTimeDialog.sunday],
+        playTime: [this.data.ringTimeDialog.playTime, Validators.required],
+        ringToneId: [this.data.ringTimeDialog.ringToneId, Validators.required]
       });
     } else {
-      this.storeService.isAddRingTime = true;
+      this.isAddRingTime = true;
       this.ringTimeForm = this._formBuilder.group({
         name: ['', Validators.required],
         startDate: ['', Validators.required],

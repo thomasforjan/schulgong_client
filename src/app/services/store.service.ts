@@ -47,7 +47,7 @@ export enum MenuIcons {
  */
 export enum HeroImages {
   RingtonesHeroImage = '../../../assets/images/pages/music_note.svg',
-  RingTimesHeroImage = '../../../assets/images/pages/access_time.svg',
+  RingtimeHeroImage = '../../../assets/images/pages/access_time.svg', // <---------------------------
 }
 
 /**
@@ -88,8 +88,5 @@ export class StoreService {
   updateRingTimeList(newList: RingTime[]) {
     this._ringTimeList$.next(newList);
   }
-
-  public isEditRingTime = false;
-  public isAddRingTime = false;
 
 }

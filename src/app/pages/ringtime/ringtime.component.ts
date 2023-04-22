@@ -17,6 +17,8 @@ import {Ringtone} from "../../models/Ringtone";
 })
 export class RingtimeComponent {
 
+  ringtimeHeroImage: string = HeroImages.RingtimeHeroImage;
+
   /**
    * Menu titles from enum in store service
    */
@@ -223,7 +225,7 @@ export class RingtimeComponent {
   onEditRingTime(index: number) {
     this.storeService.ringTimeList$.pipe(
       take(1)).subscribe((ringTimeList) => {
-      this.openDialogEditRingTime(ringTimeList[index]);
+      this.openDialogEditRingTime(ringTimeList[index], index);
     })
   }
 
@@ -264,75 +266,6 @@ export class RingtimeComponent {
       .subscribe();
   }
 
-  /* // Post and Update
-   submitData(){
-     if (this.isEditing){
-       this.updateData()
-     } else {
-       const formData: RingtonePayload = {};
-       this.backendService.postRingtoneRequest(formData).subscribe((response)=>{
-         const newRingtone = response.body;
-         if (newRingtone){
-           this.storeService.ringtoneList$
-             .pipe(take(1))
-             .subscribe((currentRingtoneList) => {
-               const updatedList = [...currentRingtoneList, newRingtone];
-               this.storeService.updateRingtoneList(updatedList);
-               this.formData = '';
-             });
-         }
-       });
-     }
-   }
-*/
-
-  /* // load data into modal window
-   loadCurrentRingTime(id: number): void {
-     this.isEditing = true;
-     this.editingRingTimeId = id;
-     this.storeService.ringtoneList$
-       .pipe(take(1))
-       .subscribe((ringTimeList) => {
-         const ringTimeToEdit = ringTimeList.find((ringTime) => ringTime.id === id);
-         if (ringTimeToEdit) {
-           this.formData = ringTimeToEdit.info;
-         }
-       });
-   }*/
-
-  /*// Update
-  updateData(): void {
-    if (this.editingRingTimeId !== null) {
-      const updateRingTime: RingTime = {
-        id: this.editingRingTimeId,
-        name: this.formData,
-        filename: this.formData,
-        path: this.formData,
-        date: this.formData,
-        //TODO was machen sachen?
-        size: +this.formData
-      };
-      this.backendService
-        .updateRingTimeResource(updateRingTime)
-        .subscribe((response) => {
-          const updatedRingTime = response.body;
-          if (updatedRingTime) {
-            this.storeService.ringTimeList$
-              .pipe(take(1))
-              .subscribe((currentRingtoneList) => {
-                const updatedList = currentRingtoneList.map((ringTime) =>
-                  ringTime.id === updatedRingTime.id ? updatedRingTime : ringTime
-                );
-                this.storeService.updateRingTimeList(updatedList);
-                this.formData = '';
-                this.isEditing = false;
-                this.editingRingTimeId = null;
-              });
-          }
-        });
-    }
-  }*/
-
   // Delete
   onDeleteRingTime(index: number): void {
     index = this.getRealId(index)
@@ -359,12 +292,12 @@ export class RingtimeComponent {
    * @param ringTime updated ringTime object
    * @param edit add/edit mode
    */
-  openDialogEditRingTime(ringTime: RingTime) {
+  openDialogEditRingTime(ringTime: RingTime, index: number) {
     let ringTimeDialog = this.createDialogResultFromRingTime(ringTime)
     const dialogRef = this.dialog.open(AddEditRingtimeComponent, {
       width: '500px',
       height: '720px',
-      data: ringTimeDialog,
+      data: { isAddRingtone: false, ringTimeDialog, index },
     });
     dialogRef.afterClosed().subscribe((result: RingTimeDialog) => {
       if (result) {
