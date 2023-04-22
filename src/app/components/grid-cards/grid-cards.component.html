@@ -6,7 +6,7 @@
         [ngClass]="{ 'hover-active': hoverActive }"
         [routerLink]="linkArray ? linkArray[i] : null"
       >
-        <mat-card-header>
+        <mat-card-header class="mat-card-header">
           <div mat-card-avatar *ngIf="index" class="index-circle">
             <p>{{i+1}}</p>
           </div>
@@ -20,7 +20,8 @@
           >
         </mat-card-header>
 
-        <mat-card-content>
+        <mat-card-content class="mat-card-center">
+          <div>
           <div class="image-container">
             <img
               mat-card-image
@@ -49,6 +50,7 @@
             >
               {{ matCardContentParagraph3[i] }}
             </p>
+          </div>
           </div>
         </mat-card-content>
 

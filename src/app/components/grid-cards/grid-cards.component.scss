@@ -4,16 +4,8 @@
 - date: 06.04.2023
 - description: Grid cards styles
 */
-
-/**
-  * Grid container style properties
-*/
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(var(--columns, 3), minmax(0, 1fr));
-  grid-gap: 150px;
-  align-items: center;
-}
+$originalCardWidth: 330px;
+$originalColumn: 6;
 
 /**
   * Grid item style properties
@@ -28,7 +20,7 @@
 .card {
   display: flex;
   flex-direction: column;
-  width: var(--card-width, 330px);
+  width: var(--card-width, $originalCardWidth);
   height: var(--card-height, 220px);
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -49,6 +41,19 @@
     }
   }
 }
+
+/**
+  * Grid container style properties
+*/
+.grid-container {
+  $cardWidth: $originalCardWidth;
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(#{$originalColumn}, minmax(0, 1fr));
+  grid-column-gap: calc((100vw - (#{$cardWidth} * #{$originalColumn})) / (#{$originalColumn} + 1));
+  grid-row-gap: 25px;
+}
+
 
 /**
   * Card content style properties
@@ -117,8 +122,8 @@
   padding: 0 20px;
   position: absolute;
 
-  --btn-width: 40px !important;
-  --btn-height: 40px !important;
+  --btn-width: 40px;
+  --btn-height: 40px;
 }
 
 /**
@@ -143,477 +148,1033 @@
   margin-right: auto;
 }
 
-/**
-  * This Media Query applies to all devices with a screen width of 992px or less,
-  * including the iPhone SE, iPhone XR, iPhone 12 Pro, Pixel 5, Samsung Galaxy S8+,
-  * Samsung Galaxy S20 Ultra, iPad Air, iPad Mini, Surface Pro 7, Surface Duo, Galaxy Fold,
-  * Samsung Galaxy A51/71, Nest Hub, and Nest Hub Max.
-*/
-@media screen and (max-width: 992px) {
-  .grid-item {
-    flex-basis: calc(50% - 24px);
-    margin-right: 12px;
-    margin-left: 12px;
-  }
+.mat-card-title {
+  font-weight: bold;
+  font-size: 24px;
+  word-wrap: anywhere;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
 
-  .card-buttons-container {
-    width: 80%;
-  }
+.mat-card-subtitle {
+  word-wrap: anywhere;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 
-  .index-circle {
-    height: 32px !important;
-    width: 32px !important;
-  }
+}
 
-  .index-circle p {
-    font-size: 16px;
+.mat-card-content-paragraph {
+  margin-top: 5px;
+  margin-bottom: 0px;
+  font-weight: bold;
+}
+
+.mat-card-content-paragraph2 {
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
+.mat-card-content-paragraph3 {
+  margin-top: 5px;
+  margin-bottom: 0px;
+  font-weight: bold;
+}
+
+@media screen and (min-width: 1800px) and (max-width: 2155px) {
+
+  .grid-container {
+    $cardWidth: $originalCardWidth;
+    $column: $originalColumn;
+    @if $column > 5 {
+      $column: 5;
+    }
+    grid-column-gap: calc((100vw - (#{$cardWidth} * #{$column})) / (#{$column} + 1));
+    grid-template-columns: repeat(#{$column}, minmax(0, 1fr));
+    grid-row-gap: 25px;
+    align-items: center;
   }
 }
 
-/**
-  * This media query applies to the Nest Hub and the Nest Hub Max.
-  * It applies to all devices with a screen width of at least 950px and at most 1420px,
-  * and to devices with a width of at least 950px and at most 1024px.
-*/
-@media screen and (min-width: 992px) and (max-width: 1420px),
-  screen and (min-width: 950px) and (max-width: 1024px) {
+@media screen and (min-width: 1445px) and (max-width: 1799px) {
+
   .grid-container {
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
+    $cardWidth: $originalCardWidth;
+    $column: $originalColumn;
+    @if $column > 4 {
+      $column: 4;
+    }
+    grid-column-gap: calc((100vw - (#{$cardWidth} * #{$column})) / (#{$column} + 1));
+    grid-template-columns: repeat(#{$column}, minmax(0, 1fr));
+    align-items: center;
+  }
+}
+
+@media screen and (min-width: 1090px) and (max-width: 1444px) {
+
+  .grid-container {
+    $cardWidth: $originalCardWidth;
+    $column: $originalColumn;
+    @if $column > 3 {
+      $column: 3;
+    }
+    grid-column-gap: calc((100vw - (#{$cardWidth} * #{$column})) / (#{$column} + 1));
+    grid-template-columns: repeat(#{$column}, minmax(0, 1fr));
+    align-items: center;
+  }
+
+}
+
+@media screen and (min-width: 940px) and (max-width: 1089px) {
+  $cardWidth: 280px;
+  $cardHeight: 220px;
+  $column: $originalColumn;
+  .grid-container {
+
+    @if $column > 3 {
+      $column: 3;
+    }
+    grid-column-gap: 25px;
+    grid-template-columns: repeat(#{$column}, minmax(0, 1fr));
+    align-items: center;
   }
 
   .card {
-    height: 212px;
-    width: 330px;
+    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $cardWidth: min(#{$originalCardWidth}, #{$dynamicCardWidth});
+    width: $cardWidth;
+    height: $cardHeight;
   }
 
-  .card-buttons-container {
-    width: 80%;
-  }
-
-  .index-circle {
-    height: 32px !important;
-    width: 32px !important;
-  }
-
-  .index-circle p {
-    font-size: 16px;
-  }
 }
 
-/**
-  * This media query is specific to the Nest Hub Max.
-  * It applies to all devices with a screen width of at least 960px and at most 1280px.
-*/
-@media screen and (min-width: 960px) and (max-width: 1280px) {
+@media screen and (min-width: 760px) and (max-width: 939px) {
+  //$cardWidth: 220px;
+  $cardHeight: 220px;
+  $column: $originalColumn;
   .grid-container {
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
-  }
 
-  .index-circle {
-    height: 32px !important;
-    width: 32px !important;
-  }
-
-  .index-circle p {
-    font-size: 16px;
-  }
-}
-
-/**
-  * This media query applies specifically to the Nest Hub.
-  * It applies to all devices with a screen width of at least 480px and at most 1024px.
-*/
-@media screen and (min-width: 480px) and (max-width: 1024px) {
-  .grid-container {
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
-  }
-
-  .index-circle {
-    height: 32px !important;
-    width: 32px !important;
-  }
-
-  .index-circle p {
-    font-size: 16px;
-  }
-}
-
-/**
-  * This media query applies specificly to Nest Hub.
-*/
-@media screen and (max-width: 1024px) and (max-height: 600px) {
-  .grid-container {
-    grid-template-columns: repeat(3, 1fr) !important;
-    grid-gap: 20px !important;
+    @if $column > 3 {
+      $column: 3;
+    }
+    grid-column-gap: 25px;
+    grid-template-columns: repeat(#{$column}, minmax(0, 1fr));
+    align-items: center;
   }
 
   .card {
-    width: 180px !important;
-    height: 150px !important;
+    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $cardWidth: min(#{$originalCardWidth}, #{$dynamicCardWidth});
+    width: $cardWidth;
+    height: $cardHeight;
   }
 
   .index-circle {
-    height: 32px !important;
-    width: 32px !important;
+    height: 36px;
+    width: 36px;
   }
 
   .index-circle p {
+    font-size: 18px;
+  }
+
+  .mat-card-title {
+    font-weight: bold;
+    font-size: 18px;
+    word-wrap: anywhere;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .mat-card-subtitle {
     font-size: 16px;
-  }
-}
+    word-wrap: anywhere;
+    padding-left: 0px;
+    padding-right: 0px;
 
-/**
-  * This media query applies to all devices with a screen width of 600px or less,
-  * including the iPhone SE, iPhone XR, Pixel 5, Samsung Galaxy S8+, and Samsung Galaxy A51/71.
-*/
-@media screen and (max-width: 600px) {
-  .grid-container {
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 50px;
-  }
-  .grid-item {
-    flex-basis: calc(100% - 24px);
-    margin-right: 12px;
-    margin-left: 12px;
   }
 
-  mat-card {
-    font-size: 20px;
-    width: 150px !important;
-    height: 140px !important;
+  .mat-card-content-paragraph {
+    font-size: 14px
+  }
+
+  .mat-card-content-paragraph2 {
+    font-size: 14px
+  }
+
+  .mat-card-content-paragraph3 {
+    font-size: 14px
   }
 
   .card-buttons-container {
-    width: 80%;
-
-    --btn-width: 32px !important;
-    --btn-height: 32px !important;
-  }
-
-  .index-circle {
-    height: 32px !important;
-    width: 32px !important;
-  }
-
-  .index-circle p {
-    font-size: 16px;
+    bottom: 0px;
+    --btn-width: 32px;
+    --btn-height: 32px;
   }
 }
 
-/**
-  * This media query applies to all devices with a screen width of 480px or less,
-  * including the iPhone SE and Samsung Galaxy A51/71.
-*/
-@media screen and (max-width: 480px) {
+
+@media screen and (min-width: 679px) and (max-width: 759px) {
+  //$cardWidth: 220px;
+
+  $cardHeight: 220px;
+  $column: $originalColumn;
   .grid-container {
-    grid-template-columns: repeat(2, 1fr);
-    grid-row-gap: 30px;
-    grid-column-gap: 0px;
-  }
 
-  .grid-item {
-    flex-basis: calc(50% - 24px);
-    margin-right: 12px;
-    margin-left: 12px;
-  }
-
-  .card-buttons-container {
-    width: 80%;
-  }
-
-  .index-circle {
-    height: 25px !important;
-    width: 25px !important;
-  }
-
-  .index-circle p {
-    font-size: 16px;
-  }
-
-}
-
-/**
-  * This media query applies to all devices with a screen width of at least 481px and at most 767px,
-  * including the iPhone XR and Samsung Galaxy S20 Ultra.
-*/
-@media screen and (min-width: 481px) and (max-width: 767px) {
-  .grid-container {
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 50px;
-  }
-  .grid-item {
-    flex-basis: calc(50% - 24px);
-    margin-right: 12px;
-    margin-left: 12px;
-  }
-  mat-card {
-    width: 100%;
-  }
-
-  .card-buttons-container {
-    width: 80%;
-  }
-
-  .index-circle {
-    height: 32px !important;
-    width: 32px !important;
-  }
-
-  .index-circle p {
-    font-size: 16px;
-  }
-}
-
-/**
-  * This media query applies to all devices with a screen width of at least 768px
-  * and at most 991px, including the iPad Air.
-*/
-@media screen and (min-width: 768px) and (max-width: 991px) {
-  .grid-container {
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 50px;
-  }
-  .grid-item {
-    flex-basis: calc(50% - 24px);
-    margin-right: 12px;
-    margin-left: 12px;
-  }
-  mat-card {
-    width: 100%;
-  }
-
-  .card-buttons-container {
-    width: 80%;
-  }
-
-  .index-circle {
-    height: 32px !important;
-    width: 32px !important;
-  }
-
-  .index-circle p {
-    font-size: 16px;
-  }
-}
-
-/**
-  * This media query applies to all devices with a screen width of 767px or less,
-  * including the iPhone XR and Samsung Galaxy S20 Ultra.
-*/
-@media screen and (max-width: 767px) {
-  .grid-container {
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 50px;
-  }
-  .grid-item {
-    flex-basis: calc(50% - 24px);
-    margin-right: 12px;
-    margin-left: 12px;
-  }
-  mat-card {
-    width: 100%;
-  }
-
-  .card-buttons-container {
-    width: 80%;
-  }
-
-  .index-circle {
-    height: 32px !important;
-    width: 32px !important;
-  }
-
-  .index-circle p {
-    font-size: 16px;
-  }
-}
-
-/**
-  * This media query applies to all device with a maximum width of 480px,
-*/
-@media screen and (max-width: 480px) {
-  .grid-container {
-    grid-template-columns: repeat(2, 1fr);
-    grid-row-gap: 30px;
-    grid-column-gap: 0px;
-  }
-
-  .grid-item {
-    flex-basis: calc(50% - 24px);
-    margin-right: 12px;
-    margin-left: 12px;
-  }
-
-  .card-buttons-container {
-    width: 80%;
-  }
-
-  .index-circle {
-    height: 25px !important;
-    width: 25px !important;
-  }
-
-  .index-circle p {
-    font-size: 16px;
-  }
-}
-
-/**
-  * This media query applies specificly to Galaxy Fold.
-*/
-@media screen and (max-width: 280px), screen and (max-height: 653px) {
-  .grid-container {
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 20px;
-  }
-
-  .grid-item {
-    flex-basis: 100%;
-  }
-
-  .card-buttons-container {
-    width: 80%;
-  }
-
-  .index-circle {
-    height: 32px !important;
-    width: 32px !important;
-  }
-
-  .index-circle p {
-    font-size: 16px;
-  }
-}
-
-/**
-  * This media query applies specificly to IPad Air.
-*/
-@media screen and (width: 820px) and (height: 1180px) {
-  .grid-container {
-    grid-template-columns: repeat(2, 1fr);
-    padding-right: 12px;
-    padding-left: 12px;
-    grid-gap: 40px;
-  }
-
-  .index-circle {
-    height: 32px !important;
-    width: 32px !important;
-  }
-
-  .index-circle p {
-    font-size: 16px;
-  }
-}
-
-/**
-  * This media query applies specificly to IPad Mini.
-*/
-@media screen and (width: 768px) and (height: 1024px) {
-  .grid-container {
-    grid-template-columns: repeat(2, 1fr);
-    padding-right: 12px;
-    padding-left: 12px;
-    grid-gap: 40px;
+    @if $column > 2 {
+      $column: 2;
+    }
+    grid-column-gap: 25px;
+    grid-template-columns: repeat(#{$column}, minmax(0, 1fr));
+    align-items: center;
   }
 
   .card {
-    width: 220px;
-    height: 180px;
+    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $cardWidth: min($originalCardWidth, $dynamicCardWidth);
+    width: $cardWidth;
+    height: $cardHeight;
   }
-
-  .index-circle {
-    height: 32px !important;
-    width: 32px !important;
-  }
-
-  .index-circle p {
-    font-size: 16px;
-  }
+  //
+  //.index-circle {
+  //  height: 36px !important;
+  //  width: 36px !important;
+  //}
+  //
+  //.index-circle p {
+  //  font-size: 18px !important;
+  //}
+  //
+  //.mat-card-title {
+  //  font-weight: bold;
+  //  font-size: 18px;
+  //  word-wrap: anywhere;
+  //  padding-left: 0px !important;
+  //  padding-right: 0px !important;
+  //}
+  //
+  //.mat-card-subtitle {
+  //  font-size: 16px;
+  //  word-wrap: anywhere;
+  //  padding-left: 0px !important;
+  //  padding-right: 0px !important;
+  //
+  //}
+  //
+  //.mat-card-content-paragraph {
+  //  font-size: 14px
+  //}
+  //
+  //.mat-card-content-paragraph2 {
+  //  font-size: 14px
+  //}
+  //
+  //.mat-card-content-paragraph3 {
+  //  font-size: 14px
+  //}
+  //
+  //.card-buttons-container {
+  //  bottom: 0px;
+  //  --btn-width: 32px;
+  //  --btn-height: 32px;
+  //}
 }
 
-/**
-  * This media query applies specificly to Surface Pro 7.
-*/
-@media screen and (width: 912px) and (height: 1368px) {
+@media screen and (min-width: 515px) and (max-width: 678px) {
+  //$cardWidth: 220px;
+
+  $cardHeight: 220px;
+  $column: $originalColumn;
   .grid-container {
-    grid-template-columns: repeat(2, 1fr);
-    padding-right: 12px;
-    padding-left: 12px;
-    grid-gap: 40px;
+
+    @if $column > 2 {
+      $column: 2;
+    }
+    grid-column-gap: 25px;
+    grid-template-columns: repeat(#{$column}, minmax(0, 1fr));
+    align-items: center;
   }
 
   .card {
-    width: 280px !important;
-    height: 220px !important;
+    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $cardWidth: min($originalCardWidth, $dynamicCardWidth);
+    width: $cardWidth;
+    height: $cardHeight;
   }
 
   .index-circle {
-    height: 32px !important;
-    width: 32px !important;
+    height: 36px;
+    width: 36px;
   }
 
   .index-circle p {
+    font-size: 18px;
+  }
+
+  .mat-card-title {
+    font-weight: bold;
+    font-size: 18px;
+    word-wrap: anywhere;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .mat-card-subtitle {
     font-size: 16px;
+    word-wrap: anywhere;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+
+  }
+
+  .mat-card-content-paragraph {
+    font-size: 14px
+  }
+
+  .mat-card-content-paragraph2 {
+    font-size: 14px
+  }
+
+  .mat-card-content-paragraph3 {
+    font-size: 14px
+  }
+
+  .card-buttons-container {
+    bottom: 0px;
+    --btn-width: 32px;
+    --btn-height: 32px;
   }
 }
 
-/**
-  * Media query for width between 540px and 668px
-**/
-@media screen and (min-width: 540px) and (max-width: 668px) {
-  .card-icon {
-    height: 76px;
-    width: 76px;
+@media screen and (min-width: 435px) and (max-width: 514px) {
+  //$cardWidth: 180px;
+  $cardHeight: 220px;
+  $column: $originalColumn;
+  .grid-container {
+    @if $column > 2 {
+      $column: 2;
+    }
+    grid-column-gap: 25px;
+    grid-template-columns: repeat(#{$column}, minmax(0, 1fr));
+    align-items: center;
   }
+
   .card {
-    width: 200px !important;
-    height: 170px !important;
+    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $cardWidth: min($originalCardWidth, $dynamicCardWidth);
+    width: $cardWidth;
+    height: $cardHeight;
   }
 
-  .mat-card-content-paragraph, .mat-card-content-paragraph2, .mat-card-content-paragraph3 {
-    font-size: 20px;
-    text-align: center;
+  .index-circle {
+    height: 36px;
+    width: 36px;
+  }
+
+  .index-circle p {
+    font-size: 18px;
+  }
+
+  .mat-card-title {
+    font-weight: bold;
+    font-size: 16px;
+    word-wrap: anywhere;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .mat-card-subtitle {
+    font-size: 14px;
+    word-wrap: anywhere;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+
+  }
+
+  .mat-card-content-paragraph {
+    font-size: 12px
+  }
+
+  .mat-card-content-paragraph2 {
+    font-size: 12px
+  }
+
+  .mat-card-content-paragraph3 {
+    font-size: 12px
+  }
+
+  .card-buttons-container {
+    bottom: 0px;
+    --btn-width: 32px;
+    --btn-height: 32px;
   }
 }
 
-/**
-  * Media query for width between 670px and 992px
-**/
-@media screen and (min-width: 670px) and (max-width: 992px) {
-  .card-icon {
-    height: 76px;
-    width: 76px;
+//@media screen and (min-width: 375px) and (max-width: 434px) {
+//  //$cardWidth: 150px;
+//  $cardHeight: 160px;
+//  $column: $originalColumn;
+//  .grid-container {
+//    @if $column > 2 {
+//      $column: 2;
+//    }
+//    grid-column-gap: 25px;
+//    grid-template-columns: repeat(#{$column}, minmax(0, 1fr));
+//    align-items: center;
+//  }
+//
+//  .card {
+//    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+//    $cardWidth: min($originalCardWidth, $dynamicCardWidth);
+//    width: $cardWidth;
+//    height: $cardHeight;
+//  }
+//
+//  .mat-mdc-card-header {
+//    padding: 10px 10px 0px 10px;
+//  }
+//
+//  .mat-mdc-card-content {
+//    padding: 0px 10px;
+//  }
+//
+//  .index-circle p {
+//    font-size: 14px;
+//  }
+//
+//  .index-circle{
+//    margin-right: 5px;
+//    width: 25px;
+//    height: 25px;
+//  }
+//
+//  .mat-card-title {
+//    font-weight: bold;
+//    font-size: 14px;
+//    padding: 0px;
+//  }
+//
+//  .mat-card-subtitle {
+//    display: none;
+//  }
+//
+//  .mat-card-content-paragraph {
+//    margin-top: 0px;
+//    margin-bottom: 0px;
+//    font-size: 10px;
+//    font-weight: bold;
+//  }
+//
+//  .mat-card-content-paragraph2 {
+//    margin-top: 0px;
+//    margin-bottom: 0px;
+//    font-size: 10px;
+//  }
+//
+//  .mat-card-content-paragraph3 {
+//    margin-top: 0px;
+//    margin-bottom: 0px;
+//    font-weight: bold;
+//    font-size: 10px;
+//  }
+//
+//  .card-buttons-container {
+//    width: 90%;
+//    --btn-width: 25px;
+//    --btn-height: 25px;
+//    bottom: 0px;
+//  }
+//}
+
+@media screen and (max-width: 434px) {
+  //$cardWidth: 220px;
+  $cardHeight: 220px;
+  $column: $originalColumn;
+  .grid-container {
+    @if $column > 1 {
+      $column: 1;
+    }
+    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $cardWidth: min($originalCardWidth, $dynamicCardWidth);
+    width: $cardWidth;
+    grid-template-columns: repeat(#{$column}, minmax(0, 1fr));
+    align-items: center;
   }
+
   .card {
-    width: 200px !important;
-    height: 170px !important;
-  }
-
-  .mat-card-content-paragraph, .mat-card-content-paragraph2, .mat-card-content-paragraph3 {
-    font-size: 20px;
-    text-align: center;
+    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $cardWidth: min($originalCardWidth, $dynamicCardWidth);
+    width: $cardWidth;
+    height: $cardHeight;
   }
 }
 
-/**
-  * Media query for width between 992px and 1070px
-**/
-@media screen and (min-width: 992px) and (max-width: 1070px) {
-  .card-icon {
-    height: 76px;
-    width: 76px;
+@media screen and (max-width: 325px) {
+  //$cardWidth: 220px;
+  $cardHeight: 220px;
+  $column: $originalColumn;
+  .grid-container {
+    @if $column > 1 {
+      $column: 1;
+    }
+    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $cardWidth: min($originalCardWidth, $dynamicCardWidth);
+    width: $cardWidth;
+    grid-template-columns: repeat(#{$column}, minmax(0, 1fr));
+    align-items: center;
   }
+
   .card {
-    width: 200px !important;
-    height: 170px !important;
+    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $cardWidth: min($originalCardWidth, $dynamicCardWidth);
+    width: $cardWidth;
+    height: $cardHeight;
   }
 
-  .mat-card-content-paragraph, .mat-card-content-paragraph2, .mat-card-content-paragraph3 {
-    font-size: 20px;
-    text-align: center;
+  .index-circle {
+    height: 36px;
+    width: 36px;
+  }
+
+  .index-circle p {
+    font-size: 18px;
+  }
+
+  .mat-card-title {
+    font-weight: bold;
+    font-size: 18px;
+    word-wrap: anywhere;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .mat-card-subtitle {
+    font-size: 16px;
+    word-wrap: anywhere;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+
+  }
+
+  .mat-card-content-paragraph {
+    font-size: 14px
+  }
+
+  .mat-card-content-paragraph2 {
+    font-size: 14px
+  }
+
+  .mat-card-content-paragraph3 {
+    font-size: 14px
+  }
+
+  .card-buttons-container {
+    bottom: 0px;
+    --btn-width: 32px;
+    --btn-height: 32px;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///**
+//  * This Media Query applies to all devices with a screen width of 992px or less,
+//  * including the iPhone SE, iPhone XR, iPhone 12 Pro, Pixel 5, Samsung Galaxy S8+,
+//  * Samsung Galaxy S20 Ultra, iPad Air, iPad Mini, Surface Pro 7, Surface Duo, Galaxy Fold,
+//  * Samsung Galaxy A51/71, Nest Hub, and Nest Hub Max.
+//*/
+//@media screen and (max-width: 992px) {
+//  .grid-item {
+//    flex-basis: calc(50% - 24px);
+//    margin-right: 12px;
+//    margin-left: 12px;
+//  }
+//
+//  .card-buttons-container {
+//    width: 80%;
+//  }
+//
+//  .index-circle {
+//    height: 32px !important;
+//    width: 32px !important;
+//  }
+//
+//  .index-circle p {
+//    font-size: 16px;
+//  }
+//}
+//
+///**
+//  * This media query applies to the Nest Hub and the Nest Hub Max.
+//  * It applies to all devices with a screen width of at least 950px and at most 1420px,
+//  * and to devices with a width of at least 950px and at most 1024px.
+//*/
+//@media screen and (min-width: 992px) and (max-width: 1420px),
+//  screen and (min-width: 950px) and (max-width: 1024px) {
+//  .grid-container {
+//    grid-template-columns: repeat(3, 1fr);
+//    grid-gap: 20px;
+//  }
+//
+//  .card {
+//    height: 212px;
+//    width: 330px;
+//  }
+//
+//  .card-buttons-container {
+//    width: 80%;
+//  }
+//
+//  .index-circle {
+//    height: 32px !important;
+//    width: 32px !important;
+//  }
+//
+//  .index-circle p {
+//    font-size: 16px;
+//  }
+//}
+//
+///**
+//  * This media query is specific to the Nest Hub Max.
+//  * It applies to all devices with a screen width of at least 960px and at most 1280px.
+//*/
+//@media screen and (min-width: 960px) and (max-width: 1280px) {
+//  .grid-container {
+//    grid-template-columns: repeat(3, 1fr);
+//    grid-gap: 20px;
+//  }
+//
+//  .index-circle {
+//    height: 32px !important;
+//    width: 32px !important;
+//  }
+//
+//  .index-circle p {
+//    font-size: 16px;
+//  }
+//}
+//
+///**
+//  * This media query applies specifically to the Nest Hub.
+//  * It applies to all devices with a screen width of at least 480px and at most 1024px.
+//*/
+//@media screen and (min-width: 480px) and (max-width: 1024px) {
+//  .grid-container {
+//    grid-template-columns: repeat(3, 1fr);
+//    grid-gap: 20px;
+//  }
+//
+//  .index-circle {
+//    height: 32px !important;
+//    width: 32px !important;
+//  }
+//
+//  .index-circle p {
+//    font-size: 16px;
+//  }
+//}
+//
+///**
+//  * This media query applies specificly to Nest Hub.
+//*/
+//@media screen and (max-width: 1024px) and (max-height: 600px) {
+//  .grid-container {
+//    grid-template-columns: repeat(3, 1fr) !important;
+//    grid-gap: 20px !important;
+//  }
+//
+//  .card {
+//    width: 180px !important;
+//    height: 150px !important;
+//  }
+//
+//  .index-circle {
+//    height: 32px !important;
+//    width: 32px !important;
+//  }
+//
+//  .index-circle p {
+//    font-size: 16px;
+//  }
+//}
+//
+///**
+//  * This media query applies to all devices with a screen width of 600px or less,
+//  * including the iPhone SE, iPhone XR, Pixel 5, Samsung Galaxy S8+, and Samsung Galaxy A51/71.
+//*/
+//@media screen and (max-width: 600px) {
+//  .grid-container {
+//    grid-template-columns: repeat(2, 1fr);
+//    grid-gap: 50px;
+//  }
+//  .grid-item {
+//    flex-basis: calc(100% - 24px);
+//    margin-right: 12px;
+//    margin-left: 12px;
+//  }
+//
+//  mat-card {
+//    font-size: 20px;
+//    width: 150px !important;
+//    height: 140px !important;
+//  }
+//
+//  .card-buttons-container {
+//    width: 80%;
+//
+//    --btn-width: 32px !important;
+//    --btn-height: 32px !important;
+//  }
+//
+//  .index-circle {
+//    height: 32px !important;
+//    width: 32px !important;
+//  }
+//
+//  .index-circle p {
+//    font-size: 16px;
+//  }
+//}
+//
+///**
+//  * This media query applies to all devices with a screen width of 480px or less,
+//  * including the iPhone SE and Samsung Galaxy A51/71.
+//*/
+//@media screen and (max-width: 480px) {
+//  .grid-container {
+//    grid-template-columns: repeat(2, 1fr);
+//    grid-row-gap: 30px;
+//    grid-column-gap: 0px;
+//  }
+//
+//  .grid-item {
+//    flex-basis: calc(50% - 24px);
+//    margin-right: 12px;
+//    margin-left: 12px;
+//  }
+//
+//  .card-buttons-container {
+//    width: 80%;
+//  }
+//
+//  .index-circle {
+//    height: 25px;
+//    width: 25px;
+//  }
+//
+//  .index-circle p {
+//    font-size: 16px;
+//  }
+//
+//}
+//
+///**
+//  * This media query applies to all devices with a screen width of at least 481px and at most 767px,
+//  * including the iPhone XR and Samsung Galaxy S20 Ultra.
+//*/
+//@media screen and (min-width: 481px) and (max-width: 767px) {
+//  .grid-container {
+//    grid-template-columns: repeat(2, 1fr);
+//    grid-gap: 50px;
+//  }
+//  .grid-item {
+//    flex-basis: calc(50% - 24px);
+//    margin-right: 12px;
+//    margin-left: 12px;
+//  }
+//  mat-card {
+//    width: 100%;
+//  }
+//
+//  .card-buttons-container {
+//    width: 80%;
+//  }
+//
+//  .index-circle {
+//    height: 32px !important;
+//    width: 32px !important;
+//  }
+//
+//  .index-circle p {
+//    font-size: 16px;
+//  }
+//}
+//
+///**
+//  * This media query applies to all devices with a screen width of at least 768px
+//  * and at most 991px, including the iPad Air.
+//*/
+//@media screen and (min-width: 768px) and (max-width: 991px) {
+//  .grid-container {
+//    grid-template-columns: repeat(2, 1fr);
+//    grid-gap: 50px;
+//  }
+//  .grid-item {
+//    flex-basis: calc(50% - 24px);
+//    margin-right: 12px;
+//    margin-left: 12px;
+//  }
+//  mat-card {
+//    width: 100%;
+//  }
+//
+//  .card-buttons-container {
+//    width: 80%;
+//  }
+//
+//  .index-circle {
+//    height: 32px !important;
+//    width: 32px !important;
+//  }
+//
+//  .index-circle p {
+//    font-size: 16px;
+//  }
+//}
+//
+///**
+//  * This media query applies to all devices with a screen width of 767px or less,
+//  * including the iPhone XR and Samsung Galaxy S20 Ultra.
+//*/
+//@media screen and (max-width: 767px) {
+//  .grid-container {
+//    grid-template-columns: repeat(2, 1fr);
+//    grid-gap: 50px;
+//  }
+//  .grid-item {
+//    flex-basis: calc(50% - 24px);
+//    margin-right: 12px;
+//    margin-left: 12px;
+//  }
+//  mat-card {
+//    width: 100%;
+//  }
+//
+//  .card-buttons-container {
+//    width: 80%;
+//  }
+//
+//  .index-circle {
+//    height: 32px !important;
+//    width: 32px !important;
+//  }
+//
+//  .index-circle p {
+//    font-size: 16px;
+//  }
+//}
+//
+///**
+//  * This media query applies to all device with a maximum width of 480px,
+//*/
+//@media screen and (max-width: 480px) {
+//  .grid-container {
+//    grid-template-columns: repeat(2, 1fr);
+//    grid-row-gap: 30px;
+//    grid-column-gap: 0px;
+//  }
+//
+//  .grid-item {
+//    flex-basis: calc(50% - 24px);
+//    margin-right: 12px;
+//    margin-left: 12px;
+//  }
+//
+//  .card-buttons-container {
+//    width: 80%;
+//  }
+//
+//  .index-circle {
+//    height: 25px;
+//    width: 25px;
+//  }
+//
+//  .index-circle p {
+//    font-size: 16px;
+//  }
+//}
+//
+///**
+//  * This media query applies specificly to Galaxy Fold.
+//*/
+//@media screen and (max-width: 280px), screen and (max-height: 653px) {
+//  .grid-container {
+//    grid-template-columns: repeat(2, 1fr);
+//    row-gap: 20px;
+//  }
+//
+//  .grid-item {
+//    flex-basis: 100%;
+//  }
+//
+//  .card-buttons-container {
+//    width: 80%;
+//  }
+//
+//  .index-circle {
+//    height: 32px !important;
+//    width: 32px !important;
+//  }
+//
+//  .index-circle p {
+//    font-size: 16px;
+//  }
+//}
+//
+///**
+//  * This media query applies specificly to IPad Air.
+//*/
+//@media screen and (width: 820px) and (height: 1180px) {
+//  .grid-container {
+//    grid-template-columns: repeat(2, 1fr);
+//    padding-right: 12px;
+//    padding-left: 12px;
+//    grid-gap: 40px;
+//  }
+//
+//  .index-circle {
+//    height: 32px !important;
+//    width: 32px !important;
+//  }
+//
+//  .index-circle p {
+//    font-size: 16px;
+//  }
+//}
+//
+///**
+//  * This media query applies specificly to IPad Mini.
+//*/
+//@media screen and (width: 768px) and (height: 1024px) {
+//  .grid-container {
+//    grid-template-columns: repeat(2, 1fr);
+//    padding-right: 12px;
+//    padding-left: 12px;
+//    grid-gap: 40px;
+//  }
+//
+//  .card {
+//    width: 220px;
+//    height: 180px;
+//  }
+//
+//  .index-circle {
+//    height: 32px !important;
+//    width: 32px !important;
+//  }
+//
+//  .index-circle p {
+//    font-size: 16px;
+//  }
+//}
+//
+///**
+//  * This media query applies specificly to Surface Pro 7.
+//*/
+//@media screen and (width: 912px) and (height: 1368px) {
+//  .grid-container {
+//    grid-template-columns: repeat(2, 1fr);
+//    padding-right: 12px;
+//    padding-left: 12px;
+//    grid-gap: 40px;
+//  }
+//
+//  .card {
+//    width: 280px !important;
+//    height: 220px !important;
+//  }
+//
+//  .index-circle {
+//    height: 32px !important;
+//    width: 32px !important;
+//  }
+//
+//  .index-circle p {
+//    font-size: 16px;
+//  }
+//}
+//
+///**
+//  * Media query for width between 540px and 668px
+//**/
+//@media screen and (min-width: 540px) and (max-width: 668px) {
+//  .card-icon {
+//    height: 76px;
+//    width: 76px;
+//  }
+//  .card {
+//    width: 200px;
+//    height: 170px !important;
+//  }
+//
+//  .mat-card-content-paragraph, .mat-card-content-paragraph2, .mat-card-content-paragraph3 {
+//    font-size: 20px;
+//    text-align: center;
+//  }
+//}
+//
+///**
+//  * Media query for width between 670px and 992px
+//**/
+//@media screen and (min-width: 670px) and (max-width: 992px) {
+//  .card-icon {
+//    height: 76px;
+//    width: 76px;
+//  }
+//  .card {
+//    width: 200px !important;
+//    height: 170px !important;
+//  }
+//
+//  .mat-card-content-paragraph, .mat-card-content-paragraph2, .mat-card-content-paragraph3 {
+//    font-size: 20px;
+//    text-align: center;
+//  }
+//}
+//
+///**
+//  * Media query for width between 992px and 1070px
+//**/
+//@media screen and (min-width: 992px) and (max-width: 1070px) {
+//  .card-icon {
+//    height: 76px;
+//    width: 76px;
+//  }
+//  .card {
+//    width: 200px !important;
+//    height: 170px !important;
+//  }
+//
+//  .mat-card-content-paragraph, .mat-card-content-paragraph2, .mat-card-content-paragraph3 {
+//    font-size: 20px;
+//    text-align: center;
+//  }
+//}

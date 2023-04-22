@@ -1,299 +1,17 @@
-
-$card-width-test: 330px ;
-$card-height: 220px;
-$column: 6;
-
-:root {
-  --card-width: 320px;
-}
-
-
-:host ::ng-deep .mat-card-title {
-  font-weight: bold;
-  font-size: 24px;
-}
-
-:host ::ng-deep .mat-card-content-paragraph {
-  margin-top: 5px;
-  margin-bottom: 0px;
-  font-weight: bold;
-}
-
-:host ::ng-deep .mat-card-content-paragraph2 {
-  margin-top: 5px;
-  margin-bottom: 0px;
-}
-
-:host ::ng-deep .mat-card-content-paragraph3 {
-  margin-top: 5px;
-  margin-bottom: 0px;
-  font-weight: bold;
-}
-
-/**
-  * This Media Query applies to all devices with a screen width of 992px or less,
-  * including the iPhone SE, iPhone XR, iPhone 12 Pro, Pixel 5, Samsung Galaxy S8+,
-  * Samsung Galaxy S20 Ultra, iPad Air, iPad Mini, Surface Pro 7, Surface Duo, Galaxy Fold,
-  * Samsung Galaxy A51/71, Nest Hub, and Nest Hub Max.
-*/
-@media screen and (max-width: 1800px) {
-  .grid-container {
-
-        $column: 4;
-        $card-width-test: 320px;
-        grid-template-columns: repeat(#{$column}, minmax(0, 1fr)) !important;
-        grid-gap: calc((100vw - (#{$card-width-test} * #{$column})) / (#{$column} + 1)) !important;
-        align-items: center;
-
-  }
-}
-
-/**
-  * This media query applies to all devices with a screen width of 767px or less,
-  * including the iPhone XR and Samsung Galaxy S20 Ultra.
-*/
-@media screen and (max-width: 767px) {
-  .grid-container {
-    grid-template-columns: repeat(1, 1fr) !important;
-  }
-}
-
-/**
-  * This media query applies specificly to Nest Hub.
-*/
-@media screen and (max-width: 1024px) and (max-height: 600px) {
-  :host ::ng-deep .mat-card-title {
-    font-weight: bold;
-    font-size: 16px;
-    padding: 0px !important;
-  }
-
-  :host ::ng-deep .mat-card-subtitle {
-    font-size: 14px;
-    padding: 0px !important;
-  }
-
-  :host ::ng-deep .index-circle{
-    margin-right: 10px !important;
-  }
-
-  :host ::ng-deep .mat-card-content-paragraph {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-size: 12px !important;
-    font-weight: bold !important;
-    text-align: left !important;
-  }
-
-  :host ::ng-deep .mat-card-content-paragraph2 {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-size: 12px !important;
-    text-align: left !important;
-  }
-
-  :host ::ng-deep .mat-card-content-paragraph3 {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-weight: bold !important;
-    font-size: 12px !important;
-    text-align: left !important;
-  }
-
-  :host ::ng-deep .card-buttons-container {
-    width: 90% !important;
-    --btn-width: 25px !important;
-    --btn-height: 25px !important;
-    bottom: 3px !important;
-  }
-}
-
-/**
-  * This media query applies to all devices with a screen width of 600px or less,
-  * including the iPhone SE, iPhone XR, Pixel 5, Samsung Galaxy S8+, and Samsung Galaxy A51/71.
-*/
-@media screen and (max-width: 600px) {
-  .grid-container {
-    grid-template-columns: repeat(1, 1fr) !important;
-  }
-  .grid-item {
-    flex-basis: calc(100% - 24px);
-    margin-right: 12px;
-    margin-left: 12px;
-  }
-
-  mat-card {
-    font-size: 20px;
-    width: 150px !important;
-    height: 140px !important;
-  }
-
-  .card-buttons-container {
-    width: 80%;
-
-    --btn-width: 32px !important;
-    --btn-height: 32px !important;
-  }
-
-  .index-circle {
-    height: 32px !important;
-    width: 32px !important;
-  }
-
-  .index-circle p {
-    font-size: 16px;
-  }
-}
-
-/**
-  * This media query applies to all device with a maximum width of 480px,
-*/
-@media screen and (max-width: 480px) {
-
-  .grid-container {
-    grid-template-columns: repeat(1, 1fr) !important;
-  }
-
-  :host ::ng-deep .mat-mdc-card-header {
-    padding: 10px 10px 0px 10px !important;
-  }
-
-  :host ::ng-deep .mat-mdc-card-content {
-    padding: 0px 10px;
-  }
-
-  :host ::ng-deep .index-circle{
-    margin-right: 5px !important;
-    width: 25px !important;
-    height: 25px !important;
-  }
-
-  :host ::ng-deep .mat-card-title {
-    font-weight: bold;
-    font-size: 14px;
-    padding: 0px !important;
-  }
-
-  :host ::ng-deep .mat-card-subtitle {
-    font-size: 12px;
-    padding: 0px !important;
-  }
-
-  :host ::ng-deep .mat-card-content-paragraph {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-size: 10px;
-    font-weight: bold;
-  }
-
-  :host ::ng-deep .mat-card-content-paragraph2 {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-size: 10px;
-  }
-
-  :host ::ng-deep .mat-card-content-paragraph3 {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-weight: bold;
-    font-size: 10px;
-  }
-
-  :host ::ng-deep .card-buttons-container {
-    width: 90% !important;
-    --btn-width: 25px !important;
-    --btn-height: 25px !important;
-    bottom: 0px !important;
-  }
-}
-
-/**
-  * This media query applies to all device with a maximum width of 480px,
-*/
-@media screen and (max-width: 360px) {
-
-  :host ::ng-deep .mat-mdc-card-header {
-    padding: 10px 10px 0px 10px !important;
-  }
-
-  :host ::ng-deep .mat-mdc-card-content {
-    padding: 0px 10px;
-  }
-
-  :host ::ng-deep .index-circle{
-    margin-right: 5px !important;
-    width: 25px !important;
-    height: 25px !important;
-  }
-
-  :host ::ng-deep .mat-card-title {
-    font-weight: bold;
-    font-size: 14px;
-    padding: 0px !important;
-  }
-
-  :host ::ng-deep .mat-card-subtitle {
-    display: none;
-  }
-
-  :host ::ng-deep .mat-card-content-paragraph {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-size: 10px;
-    font-weight: bold;
-  }
-
-  :host ::ng-deep .mat-card-content-paragraph2 {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-size: 10px;
-  }
-
-  :host ::ng-deep .mat-card-content-paragraph3 {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-weight: bold;
-    font-size: 10px;
-  }
-
-  :host ::ng-deep .card-buttons-container {
-    width: 90% !important;
-    --btn-width: 25px !important;
-    --btn-height: 25px !important;
-    bottom: 0px !important;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///**
-//  * Grid container style properties
-//*/
-//:host ::ng-deep .grid-container {
-//  $card-width-test: 320px;
-//  grid-template-columns: repeat(#{$column}, minmax(0, 1fr)) !important;
-//  grid-gap: calc((100vw - (#{$card-width-test} * #{$column})) / (#{$column} + 1)) !important;
-//  align-items: center;
-//}
 //
 //@media screen and (max-width: 2100px) {
 //
 //  :host ::ng-deep .grid-container {
-//    $column: 5;
 //    $card-width-test: 320px;
-//    grid-template-columns: repeat(#{$column}, minmax(0, 1fr)) !important;
+//    $column: 4;
+//    $column: min(5, $column);
+//    @if($column == 4) {
+//      $column: 3;
+//
+//    }
 //    grid-gap: calc((100vw - (#{$card-width-test} * #{$column})) / (#{$column} + 1)) !important;
+//    grid-template-columns: repeat(#{$column}, minmax(0, 1fr)) !important;
+//
 //    align-items: center;
 //  }
 //}
@@ -301,7 +19,7 @@ $column: 6;
 //@media screen and (max-width: 1820px) {
 //
 //  :host ::ng-deep .grid-container {
-//    $column: 4;
+//    $column: var(--columns) - 1;
 //    $card-width-test: 320px;
 //    grid-template-columns: repeat(#{$column}, minmax(0, 1fr)) !important;
 //    grid-gap: calc((100vw - (#{$card-width-test} * #{$column})) / (#{$column} + 1)) !important;
@@ -312,7 +30,7 @@ $column: 6;
 //@media screen and (max-width: 1420px) {
 //
 //  :host ::ng-deep .grid-container {
-//    $column: 3;
+//    $column: var(--columns) - 1;
 //    $card-width-test: 320px;
 //    grid-template-columns: repeat(#{$column}, minmax(0, 1fr)) !important;
 //    grid-gap: calc((100vw - (#{$card-width-test} * #{$column})) / (#{$column} + 1)) !important;
