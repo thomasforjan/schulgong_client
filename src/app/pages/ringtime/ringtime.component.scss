@@ -1,44 +1,103 @@
 .button{
   margin-bottom: 1rem;
 }
+:host ::ng-deep .mat-card-content-paragraph {
+  margin-top: 5px;
+  margin-bottom: 0px;
+  font-weight: bold;
+}
+
+:host ::ng-deep .mat-card-content-paragraph2 {
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
+:host ::ng-deep .mat-card-content-paragraph3 {
+  margin-top: 5px;
+  margin-bottom: 0px;
+  font-weight: bold;
+}
+
+@media screen and (min-width: 1800px) and (max-width: 2155px) {
+
+}
+
+@media screen and (min-width: 1445px) and (max-width: 1799px) {
+
+}
+
+@media screen and (min-width: 1090px) and (max-width: 1444px) {
+
+}
+
+@media screen and (min-width: 940px) and (max-width: 1089px) {
+
+}
+
+@media screen and (min-width: 760px) and (max-width: 939px) {
+  :host ::ng-deep .mat-card-content-paragraph {
+    font-size: 14px
+  }
+
+  :host ::ng-deep .mat-card-content-paragraph2 {
+    font-size: 14px
+  }
+
+  :host ::ng-deep .mat-card-content-paragraph3 {
+    font-size: 14px
+  }
+}
 
 
-//
-//@media screen and (max-width: 2100px) {
-//
-//  :host ::ng-deep .grid-container {
-//    $card-width-test: 320px;
-//    $column: 4;
-//    $column: min(5, $column);
-//    @if($column == 4) {
-//      $column: 3;
-//
-//    }
-//    grid-gap: calc((100vw - (#{$card-width-test} * #{$column})) / (#{$column} + 1)) !important;
-//    grid-template-columns: repeat(#{$column}, minmax(0, 1fr)) !important;
-//
-//    align-items: center;
-//  }
-//}
-//
-//@media screen and (max-width: 1820px) {
-//
-//  :host ::ng-deep .grid-container {
-//    $column: var(--columns) - 1;
-//    $card-width-test: 320px;
-//    grid-template-columns: repeat(#{$column}, minmax(0, 1fr)) !important;
-//    grid-gap: calc((100vw - (#{$card-width-test} * #{$column})) / (#{$column} + 1)) !important;
-//    align-items: center;
-//  }
-//}
-//
-//@media screen and (max-width: 1420px) {
-//
-//  :host ::ng-deep .grid-container {
-//    $column: var(--columns) - 1;
-//    $card-width-test: 320px;
-//    grid-template-columns: repeat(#{$column}, minmax(0, 1fr)) !important;
-//    grid-gap: calc((100vw - (#{$card-width-test} * #{$column})) / (#{$column} + 1)) !important;
-//    align-items: center;
-//  }
-//}
+@media screen and (min-width: 679px) and (max-width: 759px) {
+
+}
+
+@media screen and (min-width: 515px) and (max-width: 678px) {
+  :host ::ng-deep .mat-card-content-paragraph {
+    font-size: 14px
+  }
+
+  :host ::ng-deep .mat-card-content-paragraph2 {
+    font-size: 14px
+  }
+
+  :host ::ng-deep .mat-card-content-paragraph3 {
+    font-size: 14px
+  }
+}
+
+@media screen and (min-width: 435px) and (max-width: 514px) {
+  :host ::ng-deep .mat-card-content-paragraph {
+    font-size: 12px
+  }
+
+  :host ::ng-deep .mat-card-content-paragraph2 {
+    font-size: 12px
+  }
+
+  :host ::ng-deep .mat-card-content-paragraph3 {
+    font-size: 12px
+  }
+
+}
+
+@media screen and (max-width: 434px) {
+
+}
+
+@media screen and (max-width: 325px) {
+  :host ::ng-deep .mat-card-content-paragraph {
+    font-size: 14px
+  }
+
+  :host ::ng-deep .mat-card-content-paragraph2 {
+    font-size: 14px
+  }
+
+  :host ::ng-deep .mat-card-content-paragraph3 {
+    font-size: 14px
+  }
+
+}
+
