@@ -44,7 +44,7 @@ export class AddEditRingtimeComponent {
       this.isEditRingtime = true;
       this.ringtimeForm = this._formBuilder.group({
         id: [this.data.ringtimeDialog.id],
-        name: [this.data.ringtimeDialog.name, Validators.required],
+        name: [this.data.ringtimeDialog.name],
         startDate: [this.convertDateTimeToString(this.data.ringtimeDialog.startDate, 'en-CA'), Validators.required],
         endDate: [this.convertDateTimeToString(this.data.ringtimeDialog.endDate, 'en-CA')],
         monday: [this.data.ringtimeDialog.monday],
