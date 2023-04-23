@@ -49,13 +49,13 @@ export class BackendService {
 
   /** Read Method */
   getRingtimeResponse(): Observable<HttpResponse<RingtimeResponse>> {
-    return this.http.get<RingtimeResponse>(`${this.BACKEND_URL}/periods`, {
+    return this.http.get<RingtimeResponse>(`${this.BACKEND_URL}/ringtimes`, {
       observe: 'response',
     });
   }
   /** Post Method */
   postRingtimeRequest(data: RingtimePayload): Observable<HttpResponse<Ringtime>> {
-    return this.http.post<Ringtime>(`${this.BACKEND_URL}/periods`, data, {
+    return this.http.post<Ringtime>(`${this.BACKEND_URL}/ringtimes`, data, {
       observe: 'response',
     });
   }
@@ -63,13 +63,13 @@ export class BackendService {
   updateRingtimeResource(ringtime: Ringtime): Observable<HttpResponse<Ringtime>> {
     console.log('BACKEND updateRingtimeResource')
     console.log(ringtime)
-    return this.http.put<Ringtime>(`${this.BACKEND_URL}/periods/${ringtime.id}`, ringtime, {
+    return this.http.put<Ringtime>(`${this.BACKEND_URL}/ringtimes/${ringtime.id}`, ringtime, {
       observe: 'response',
     });
   }
   /** Delete Method */
   deleteRingtimeResource(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.BACKEND_URL}/periods/${id}`);
+    return this.http.delete<void>(`${this.BACKEND_URL}/ringtimes/${id}`);
   }
 
 
