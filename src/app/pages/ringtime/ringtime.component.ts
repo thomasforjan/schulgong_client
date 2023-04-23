@@ -8,6 +8,7 @@ import {AddEditRingtimeComponent} from "./add-edit-ringtime/add-edit-ringtime.co
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Ringtone} from "../../models/Ringtone";
+import {DeleteDialogComponent} from "../../components/delete-dialog/delete-dialog.component";
 
 
 @Component({
@@ -248,17 +249,6 @@ export class RingtimeComponent {
       .subscribe();
   }
 
-  // Delete
-  onDeleteRingtime(index: number): void {
-    index = this.getRealId(index)
-    this.backendService.deleteRingtimeResource(index)
-      .subscribe(() => {
-        this.storeService.ringtimeList$.pipe(take(1)).subscribe((ringtimeList) => {
-          const updatedRingtimeList = ringtimeList.filter((ringtime) => ringtime.id !== index);
-          this.storeService.updateRingtimeList(updatedRingtimeList);
-        });
-      });
-  }
 
   // transform shown number into real id of object
   getRealId(index: number) {
@@ -320,7 +310,7 @@ export class RingtimeComponent {
     let ringtime: RingtimePayload;
     const dialogRef = this.dialog.open(AddEditRingtimeComponent, {
       width: '500px',
-      height: '950px',
+      height: '880px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -347,6 +337,30 @@ export class RingtimeComponent {
           horizontalPosition: 'end',
           verticalPosition: 'bottom',
           duration: 2000,
+        });
+      }
+    });
+  }
+
+  onDeleteRingtime(index: any): void {
+    index = this.getRealId(index);
+
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '720px',
+      height: '500px',
+      data: { index: index },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.backendService.deleteRingtimeResource(index).subscribe(() => {
+          this.storeService.ringtimeList$
+            .pipe(take(1))
+            .subscribe((ringtimeList) => {
+              const updatedRingtimeList = ringtimeList.filter(
+                (ringtime) => ringtime.id !== index
+              );
+              this.storeService.updateRingtimeList(updatedRingtimeList);
+            });
         });
       }
     });

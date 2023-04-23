@@ -47,7 +47,8 @@ export enum MenuIcons {
  */
 export enum HeroImages {
   RingtonesHeroImage = '../../../assets/images/pages/music_note.svg',
-  RingtimeHeroImage = '../../../assets/images/pages/access_time.svg', // <---------------------------
+  RingtimeHeroImage = '../../../assets/images/pages/access_time.svg',
+  DeleteHeroImage = '../../../assets/images/pages/delete_shield.svg',
 }
 
 /**
