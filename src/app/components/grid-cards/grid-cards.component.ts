@@ -124,6 +124,13 @@ export class GridCardsComponent implements OnChanges {
   cardHeight: string | null = null;
 
   /**
+   * Defines the playing state of the cards.
+   */
+  @Input() playing: boolean[] = [];
+
+  matTooltipText!: string;
+
+  /**
    * Constructor of the GridCardsComponent.
    * @param elRef element reference
    */
@@ -155,6 +162,14 @@ export class GridCardsComponent implements OnChanges {
    */
   onEdit(index: number): void {
     this.edit.emit(index);
+  }
+
+  /**
+   * Toggles the play state of the card.
+   * @param index of the object
+   */
+  togglePlayPause(index: number): void {
+    this.play.emit(index);
   }
 
   /**
