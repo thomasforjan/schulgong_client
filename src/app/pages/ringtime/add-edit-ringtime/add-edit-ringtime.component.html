@@ -82,22 +82,22 @@
       <section class="klingeldays-section">
         <h3 class="klingeldays-header">Klingeltage</h3>
         <div class="klingeldays">
-          <p style="float: left; text-align: center">
+          <p style="float: left; text-align: center; margin-bottom: 0px">
             MO
             <br>
             <mat-checkbox aria-label="ringtimeCheckboxMonday" formControlName="monday"></mat-checkbox>
           </p>
-          <p class="checkboxPartOne" style="float: left; text-align: center">
+          <p class="checkboxPartOne" style="float: left; text-align: center; margin-bottom: 0px">
             DI
             <br>
             <mat-checkbox aria-label="ringtimeCheckboxTuesday" formControlName="tuesday"></mat-checkbox>
           </p>
-          <p style="float: left; text-align: center">
+          <p style="float: left; text-align: center; margin-bottom: 0px">
             MI
             <br/>
             <mat-checkbox aria-label="ringtimeCheckboxWednesday" formControlName="wednesday"></mat-checkbox>
           </p>
-          <p style="float: left; text-align: center">
+          <p style="float: left; text-align: center; margin-bottom: 0px">
             DO
             <br/>
             <mat-checkbox aria-label="ringtimeCheckboxThursday" formControlName="thursday"></mat-checkbox>
@@ -134,7 +134,7 @@
           formControlName="playTime"
           (change)="playTimeChange($event)"
         />
-        <mat-hint align="end">MM/DD/YYYY</mat-hint>
+        <mat-hint align="end">HH/MM</mat-hint>
       </mat-form-field>
     </div>
 
@@ -147,9 +147,6 @@
             }}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="ringtimeForm.get('ringtoneId')?.hasError('required')">
-          <p>Klingelton wird benötigt!</p>
-        </mat-error>
       </mat-form-field>
     </div>
 

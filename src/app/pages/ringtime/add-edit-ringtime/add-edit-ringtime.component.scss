@@ -30,7 +30,8 @@
   background-color: #f29d38;
   border: none;
   border-radius: 20px;
-  margin: 10px 50px 40px 50px;
+  margin: 10px 2.5% 40px 2.5%;
+  width: 95%;
 }
 
 .index {
@@ -134,6 +135,10 @@
 }
 
 .mat-mdc-dialog-content {
-  max-height: 700px;
+  max-height: 960px;
+}
+
+.klingeldays-header {
+  margin-bottom: 0px;
 }
 
