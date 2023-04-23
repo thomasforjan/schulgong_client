@@ -37,6 +37,7 @@ import { AddEditRingtimeComponent } from './pages/ringtime/add-edit-ringtime/add
 import {MatOptionModule} from "@angular/material/core";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatSelectModule} from "@angular/material/select";
+import {DeleteDialogComponent} from "./components/delete-dialog/delete-dialog.component";
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import {MatSelectModule} from "@angular/material/select";
     NoSchoolComponent,
     CalendarComponent,
     UserComponent,
+    DeleteDialogComponent,
 
     TestComponent,
       AddEditRingtimeComponent,  // Test Component
