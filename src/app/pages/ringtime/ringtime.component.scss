@@ -1,6 +1,8 @@
 .button{
   margin-bottom: 1rem;
+  width: fit-content;
 }
+
 :host ::ng-deep .mat-card-content-paragraph {
   margin-top: 5px;
   margin-bottom: 0px;

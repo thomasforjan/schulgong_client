@@ -5,10 +5,11 @@
         class="card"
         [ngClass]="{ 'hover-active': hoverActive }"
         [routerLink]="linkArray ? linkArray[i] : null"
+        data-cy="card"
       >
-        <mat-card-header class="mat-card-header">
+        <mat-card-header>
           <div mat-card-avatar *ngIf="index" class="index-circle">
-            <p>{{i+1}}</p>
+            <p>{{ i + 1 }}</p>
           </div>
           <mat-card-title *ngIf="matCardTitle" class="mat-card-title">{{
             matCardTitle[i]
@@ -28,12 +29,14 @@
               *ngIf="icon && icon[i]"
               [src]="icon[i]"
               alt="card-icon"
+              data-cy="icon"
             />
           </div>
           <div class="paragraph-container">
             <p
               *ngIf="matCardContentParagraph"
               class="mat-card-content-paragraph"
+              data-cy="matCardContentParagraph"
             >
               {{ matCardContentParagraph[i] }}
             </p>
@@ -62,17 +65,21 @@
               [hoverActive]="true"
               hoverColor="#FFA24A"
               (btnClick)="onEdit(i)"
-              matTooltip="Klingelton bearbeiten"
+              matTooltip="Bearbeiten"
             ></app-button>
             <app-button
               *ngIf="showPlayButton"
               class="playBtn"
               bgColor="#f29d38"
-              icon="play_arrow"
+              [playIcon]="playing[i] ? 'stop' : 'play_arrow'"
+              [stopIcon]="'stop'"
+              [playing]="playing[i]"
               [hoverActive]="true"
               hoverColor="#FFA24A"
-              (btnClick)="onPlay(i)"
-              matTooltip="Klingelton abspielen"
+              (btnClick)="togglePlayPause(i)"
+              [matTooltip]="
+                playing[i] ? 'Klingelton anhalten' : 'Klingelton abspielen'
+              "
             ></app-button>
             <app-button
               *ngIf="showDeleteButton"
@@ -81,8 +88,11 @@
               icon="delete"
               [hoverActive]="true"
               hoverColor="#FF3626"
+              [boxShadow]="
+                '0 4px 4px rgba(235, 50, 35, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
+              "
               (btnClick)="onDelete(i)"
-              matTooltip="Klingelton löschen"
+              matTooltip="Löschen"
             ></app-button>
           </mat-card-actions>
         </div>
