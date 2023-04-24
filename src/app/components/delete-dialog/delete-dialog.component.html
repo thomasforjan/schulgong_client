@@ -1,0 +1,46 @@
+<div class="dialog-container">
+  <div class="content-container">
+    <div mat-dialog-content>
+      <div class="header">
+        <div class="hero-image-container">
+          <app-hero-image [imageUrl]="deleteHeroImage"></app-hero-image>
+        </div>
+
+        <hr class="divider"/>
+
+        <div class="title" mat-dialog-title>
+          <span class="title-word">Möchten Sie den Eintrag</span>
+          <span class="title-word">wirklich</span>
+          <span class="title-word">löschen?</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions-container" mat-dialog-actions>
+      <app-button
+        (click)="onSubmitClick()"
+        [height]="45"
+        [hoverActive]="true"
+        [width]="100"
+        bgColor="#F29D38"
+        class="submitBtn"
+        hoverColor="#FFA24A"
+        icon="check_circle"
+      ></app-button>
+
+      <app-button
+        (click)="onCancelClick()"
+        [boxShadow]="
+          '0 4px 4px rgba(185, 185, 185, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
+        "
+        [height]="45"
+        [hoverActive]="true"
+        [width]="100"
+        bgColor="#B9B9B9"
+        class="cancelBtn"
+        hoverColor="#C9C9C9"
+        icon="cancel"
+      ></app-button>
+    </div>
+  </div>
+</div>
