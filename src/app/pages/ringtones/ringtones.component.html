@@ -1,1 +1,38 @@
-<p>ringtones works!</p>
+<app-hero-image [imageUrl]="ringtoneHeroImage"></app-hero-image>
+
+<div class="container">
+  <div class="button">
+    <app-button
+      (click)="ringtoneAddDialog()"
+      [height]="40"
+      [hoverActive]="true"
+      [width]="117"
+      bgColor="#F29D38"
+      class="uploadBtn"
+      hoverColor="#FFA24A"
+      icon="add"
+      matTooltip="Hinzufügen"
+    ></app-button>
+  </div>
+  <div class="content-container">
+    <app-grid-cards
+      (delete)="onDeleteRingtone($event)"
+      (edit)="onEditRingtone($event)"
+      (play)="togglePlayPause($event)"
+      [cards]="cardLength$ | async"
+      [cards_height]="220"
+      [cards_width]="330"
+      [columns]="4"
+      [index]="true"
+      [matCardContentParagraph2]="ringToneSize$ | async"
+      [matCardContentParagraph]="ringToneDate$ | async"
+      [matCardSubtitle]="ringToneFilename$ | async"
+      [matCardTitle]="ringToneName$ | async"
+      [playing]="playing"
+      [showButtonContainer]="true"
+      [showDeleteButton]="true"
+      [showEditButton]="true"
+      [showPlayButton]="true"
+    ></app-grid-cards>
+  </div>
+</div>

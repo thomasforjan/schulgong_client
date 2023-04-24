@@ -1,0 +1,212 @@
+/**
+  * Style for the title
+*/
+.title {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 32px;
+  font-family: "Montserrat", sans-serif;
+
+  .title-word {
+    display: inline;
+  }
+
+  .title-action {
+    display: inline;
+  }
+}
+
+/**
+  * Style for the hero-image
+*/
+.hero-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/**
+  * Style for the hero-image
+*/
+:host ::ng-deep app-hero-image {
+  padding: 20px;
+  width: 96px !important;
+  height: 96px !important;
+}
+
+/**
+  * Style for the divider
+*/
+.divider {
+  height: 4px;
+  color: #f29d38;
+  background-color: #f29d38;
+  border: none;
+  border-radius: 20px;
+  margin: 10px 50px 40px 50px;
+}
+
+/**
+  * Style for the index
+*/
+.index {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/**
+  * Style for the index container
+*/
+.index-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 450px;
+}
+
+/**
+  * Style for the form
+*/
+form {
+  margin-bottom: 20px;
+}
+
+/**
+  * Style for the form-field
+*/
+.form-field {
+  width: 50%;
+}
+
+/**
+  * Style for the form fields
+*/
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .form-field-container {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 450px;
+    margin-bottom: 20px;
+
+    .form-field {
+      flex-grow: 1;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .full-width {
+      flex-grow: 1;
+    }
+  }
+}
+
+/**
+  * Style for the upload button wrapper
+*/
+.uploadBtn-wrapper {
+  position: absolute;
+  right: 30px;
+  transform: translateX(-50%);
+  min-width: 85px;
+  height: 45px;
+  margin-right: 20px;
+}
+
+/**
+  * Style for the upload button wrapper add
+*/
+.uploadBtn-wrapper.add-mode {
+  top: 59.8%;
+}
+
+/**
+  * Style for the upload button wrapper edit
+*/
+.uploadBtn-wrapper.edit-mode {
+  top: 72.17%;
+}
+
+/**
+  * Style for the actions container
+*/
+.actions-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+
+  .button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/**
+  * Style for the app-button
+*/
+:host ::ng-deep app-button .btn {
+  border-radius: 24px !important;
+}
+
+/**
+  * Style for the dialog content
+*/
+.mat-mdc-dialog-content {
+  max-height: 610px;
+}
+
+/**
+  * Media Query for mobile devices
+*/
+@media screen and (max-width: 870px) {
+  .form-field {
+    width: 70%;
+  }
+  .title {
+    font-size: 24px;
+    margin-top: 10px;
+
+    .title-word {
+      display: block;
+    }
+
+    .title-action {
+      display: block;
+      margin-top: 20px;
+    }
+  }
+
+  .form-fields {
+    position: relative;
+
+    .form-field-container {
+      margin-bottom: 10px;
+    }
+  }
+
+  .input-with-upload-container {
+    flex-direction: column;
+  }
+
+  .uploadBtn-wrapper {
+    position: static;
+    transform: none;
+    margin-top: 10px;
+    margin-left: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

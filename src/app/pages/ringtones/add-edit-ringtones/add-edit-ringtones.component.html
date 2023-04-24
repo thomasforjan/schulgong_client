@@ -1,0 +1,120 @@
+<div mat-dialog-content>
+  <div class="header">
+    <h1 class="title" mat-dialog-title>
+      <ng-container *ngIf="data.isAddRingtone">
+        <span class="title-word">Klingelton</span>
+        <span class="title-action">hinzufügen</span>
+      </ng-container>
+      <ng-container *ngIf="!data.isAddRingtone">
+        <span class="title-word">Klingelton </span>
+        <span class="title-action">editieren</span>
+      </ng-container>
+    </h1>
+
+    <div class="hero-image-container">
+      <app-hero-image [imageUrl]="ringtonesHeroImage"></app-hero-image>
+    </div>
+    <hr class="divider"/>
+    <div *ngIf="isEditRingtone" class="form-field-container form-fields">
+      <mat-form-field appearance="fill" class="form-field index-form-field">
+        <mat-label>Index</mat-label>
+        <input
+          [disabled]="true"
+          matInput
+          type="text"
+          value="{{ data.index }}"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <form [formGroup]="ringtoneForm">
+    <div class="form-field-container form-fields">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Bezeichnung</mat-label>
+        <input
+          formControlName="ringtoneDescriptionFormControl"
+          matInput
+          required
+          type="text"
+        />
+        <mat-error
+          *ngIf="
+            ringtoneForm
+              .get('ringtoneDescriptionFormControl')
+              ?.hasError('required')
+          "
+        >
+          Bezeichnung wird benötigt!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-field-container form-fields">
+      <mat-form-field appearance="fill" class="form-field full-width">
+        <mat-label>Klingeltonname</mat-label>
+        <input
+          formControlName="uploadedRingtoneFormControl"
+          matInput
+          readonly
+          type="text"
+        />
+        <mat-error
+          *ngIf="
+            ringtoneForm
+              .get('ringtoneDescriptionFormControl')
+              ?.hasError('required') && isAddRingtone
+          "
+        >
+          Klingeltonname wird benötigt!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div
+      [ngClass]="{
+        'add-mode': data.isAddRingtone,
+        'edit-mode': !data.isAddRingtone
+      }"
+      class="uploadBtn-wrapper"
+    >
+      <app-button
+        (click)="onUploadRingtone()"
+        [height]="45"
+        [hoverActive]="true"
+        [width]="85"
+        bgColor="#F29D38"
+        class="uploadBtn"
+        hoverColor="#FFA24A"
+        icon="upload"
+      ></app-button>
+    </div>
+
+    <div class="actions-container" mat-dialog-actions>
+      <div class="button-container">
+        <app-button
+          (click)="onSubmitClick()"
+          [disabled]="ringtoneForm.invalid"
+          [height]="45"
+          [hoverActive]="true"
+          [width]="85"
+          bgColor="#F29D38"
+          class="submitBtn"
+          hoverColor="#FFA24A"
+          icon="check_circle"
+        ></app-button>
+      </div>
+
+      <div class="button-container">
+        <app-button
+          (click)="onCancelClick()"
+          [height]="45"
+          [hoverActive]="true"
+          [width]="85"
+          bgColor="#B9B9B9"
+          class="cancelBtn"
+          hoverColor="#C9C9C9"
+          icon="cancel"
+        ></app-button>
+      </div>
+    </div>
+  </form>
+</div>
