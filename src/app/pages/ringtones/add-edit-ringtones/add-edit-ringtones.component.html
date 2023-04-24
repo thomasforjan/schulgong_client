@@ -14,7 +14,7 @@
     <div class="hero-image-container">
       <app-hero-image [imageUrl]="ringtonesHeroImage"></app-hero-image>
     </div>
-    <hr class="divider"/>
+    <hr class="divider" />
     <div *ngIf="isEditRingtone" class="form-field-container form-fields">
       <mat-form-field appearance="fill" class="form-field index-form-field">
         <mat-label>Index</mat-label>
@@ -68,26 +68,25 @@
           Klingeltonname wird benötigt!
         </mat-error>
       </mat-form-field>
-      <div
-        [ngClass]="{
+    </div>
+    <div
+      [ngClass]="{
         'add-mode': data.isAddRingtone,
         'edit-mode': !data.isAddRingtone
       }"
-        class="uploadBtn-wrapper"
-      >
-        <app-button
-          (click)="onUploadRingtone()"
-          [height]="45"
-          [hoverActive]="true"
-          [width]="85"
-          bgColor="#F29D38"
-          class="uploadBtn"
-          hoverColor="#FFA24A"
-          icon="upload"
-        ></app-button>
-      </div>
+      class="uploadBtn-wrapper"
+    >
+      <app-button
+        (click)="onUploadRingtone()"
+        [height]="45"
+        [hoverActive]="true"
+        [width]="85"
+        bgColor="#F29D38"
+        class="uploadBtn"
+        hoverColor="#FFA24A"
+        icon="upload"
+      ></app-button>
     </div>
-
 
     <div class="actions-container" mat-dialog-actions>
       <div class="button-container">
@@ -111,6 +110,9 @@
           [hoverActive]="true"
           [width]="100"
           bgColor="#B9B9B9"
+          [boxShadow]="
+            '0 4px 4px rgba(185, 185, 185, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
+          "
           class="cancelBtn"
           hoverColor="#C9C9C9"
           icon="cancel"

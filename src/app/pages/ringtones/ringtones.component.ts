@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {HeroImages, StoreService} from '../../services/store.service';
-import {BackendService} from '../../services/backend.service';
-import {map, take} from 'rxjs/operators';
-import {Ringtone} from '../../models/Ringtone';
-import {MatDialog} from '@angular/material/dialog';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {Howl} from 'howler';
-import {AddEditRingtonesComponent} from "./add-edit-ringtones/add-edit-ringtones.component";
-import {DeleteDialogComponent} from "../../components/delete-dialog/delete-dialog.component";
+import { Component, OnInit } from '@angular/core';
+import { HeroImages, StoreService } from '../../services/store.service';
+import { BackendService } from '../../services/backend.service';
+import { map, take } from 'rxjs/operators';
+import { Ringtone } from '../../models/Ringtone';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Howl } from 'howler';
+import { AddEditRingtonesComponent } from './add-edit-ringtones/add-edit-ringtones.component';
+import { DeleteDialogComponent } from '../../components/delete-dialog/delete-dialog.component';
 
 /**
  - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -16,7 +16,9 @@ import {DeleteDialogComponent} from "../../components/delete-dialog/delete-dialo
  - description: Ringtone component
  */
 @Component({
-  selector: 'app-ringtones', templateUrl: './ringtones.component.html', styleUrls: ['./ringtones.component.scss'],
+  selector: 'app-ringtones',
+  templateUrl: './ringtones.component.html',
+  styleUrls: ['./ringtones.component.scss'],
 })
 export class RingtonesComponent implements OnInit {
   /**
@@ -34,28 +36,42 @@ export class RingtonesComponent implements OnInit {
   /**
    * Get the length of the ringtone list
    */
-  cardLength$ = this.storeService.ringtoneList$.pipe(map((list) => list.length));
+  cardLength$ = this.storeService.ringtoneList$.pipe(
+    map((list) => list.length)
+  );
   /**
    * Get the ringtone name from the ringtone list
    */
-  ringToneName$ = this.storeService.ringtoneList$.pipe(map((ringtoneList) => ringtoneList.map((ringtone) => ringtone.name)));
+  ringToneName$ = this.storeService.ringtoneList$.pipe(
+    map((ringtoneList) => ringtoneList.map((ringtone) => ringtone.name))
+  );
   /**
    * Get the ringtone filename from the ringtone list
    */
-  ringToneFilename$ = this.storeService.ringtoneList$.pipe(map((ringtoneList) => ringtoneList.map((ringtone) => ringtone.filename)));
+  ringToneFilename$ = this.storeService.ringtoneList$.pipe(
+    map((ringtoneList) => ringtoneList.map((ringtone) => ringtone.filename))
+  );
   /**
    * Get the ringtone date from the ringtone list
    */
-  ringToneDate$ = this.storeService.ringtoneList$.pipe(map((ringTimeList) => ringTimeList.map((ringTone) => {
-    const date = new Date(ringTone.date);
-    return date.toLocaleDateString('de-DE', {
-      day: '2-digit', month: '2-digit', year: 'numeric',
-    });
-  })));
+  ringToneDate$ = this.storeService.ringtoneList$.pipe(
+    map((ringTimeList) =>
+      ringTimeList.map((ringTone) => {
+        const date = new Date(ringTone.date);
+        return date.toLocaleDateString('de-DE', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+        });
+      })
+    )
+  );
   /**
    * Get the ringtone size from the ringtone list
    */
-  ringToneSize$ = this.storeService.ringtoneList$.pipe(map((ringtoneList) => ringtoneList.map((ringtone) => ringtone.size + ' MB')));
+  ringToneSize$ = this.storeService.ringtoneList$.pipe(
+    map((ringtoneList) => ringtoneList.map((ringtone) => ringtone.size + ' MB'))
+  );
   /**
    * path of fileserver
    */
@@ -69,8 +85,12 @@ export class RingtonesComponent implements OnInit {
    */
   private updatedRingtones = new Set<number>();
 
-  constructor(public storeService: StoreService, private backendService: BackendService, private dialog: MatDialog, private _snackBar: MatSnackBar) {
-  }
+  constructor(
+    public storeService: StoreService,
+    private backendService: BackendService,
+    private dialog: MatDialog,
+    private _snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.getRingtones();
@@ -86,7 +106,9 @@ export class RingtonesComponent implements OnInit {
       this.storeService.ringtoneList$
         .pipe(take(1))
         .subscribe((ringtoneList) => {
-          const ringtoneToEdit = ringtoneList.find((ringtone) => ringtone.id === realId);
+          const ringtoneToEdit = ringtoneList.find(
+            (ringtone) => ringtone.id === realId
+          );
           if (ringtoneToEdit) {
             this.ringtoneEditDialog(ringtoneToEdit, index + 1);
           }
@@ -117,28 +139,38 @@ export class RingtonesComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '720px',
       height: '500px',
-      data: {index: index},
+      data: { index: index },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.backendService.deleteRingtoneResource(index).subscribe(() => {
-          this.storeService.ringtoneList$
-            .pipe(take(1))
-            .subscribe((ringtoneList) => {
-              const updateRingtoneList = ringtoneList.filter(
-                (ringtone) => ringtone.id !== index
-              );
-              this.storeService.updateRingtoneList(updateRingtoneList);
-            });
+        this.backendService.deleteRingtoneResource(index).subscribe(
+          () => {
+            this.storeService.ringtoneList$
+              .pipe(take(1))
+              .subscribe((ringtoneList) => {
+                const updateRingtoneList = ringtoneList.filter(
+                  (ringtone) => ringtone.id !== index
+                );
+                this.storeService.updateRingtoneList(updateRingtoneList);
+              });
             this._snackBar.open('Klingelton erfolgreich gelöscht!', 'Ok', {
-              horizontalPosition: 'end', verticalPosition: 'bottom', duration: 2000,
+              horizontalPosition: 'end',
+              verticalPosition: 'bottom',
+              duration: 2000,
             });
-        },
+          },
           (error) => {
-            this._snackBar.open('Klingelton konnte nicht gelöscht werden (Info: möglicherweise wird der Klingelton für eine Klingelzeit verwendet).', 'Ok', {
-              horizontalPosition: 'end', verticalPosition: 'bottom', duration: 4000,
-            });
-          });
+            this._snackBar.open(
+              'Klingelton konnte nicht gelöscht werden (Info: möglicherweise wird der Klingelton für eine Klingelzeit verwendet).',
+              'Ok',
+              {
+                horizontalPosition: 'end',
+                verticalPosition: 'bottom',
+                duration: 4000,
+              }
+            );
+          }
+        );
       }
     });
   }
@@ -160,7 +192,9 @@ export class RingtonesComponent implements OnInit {
    */
   ringtoneAddDialog() {
     const dialogRef = this.dialog.open(AddEditRingtonesComponent, {
-      width: '720px', height: '50vh', data: {isAddRingtone: this.isAddRingtone},
+      width: '720px',
+      height: '600px',
+      data: { isAddRingtone: this.isAddRingtone },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -177,7 +211,9 @@ export class RingtonesComponent implements OnInit {
                 });
 
               this._snackBar.open('Klingelton wird hinzugefügt', 'Ok', {
-                horizontalPosition: 'end', verticalPosition: 'bottom', duration: 2000,
+                horizontalPosition: 'end',
+                verticalPosition: 'bottom',
+                duration: 2000,
               });
             }
           });
@@ -191,7 +227,9 @@ export class RingtonesComponent implements OnInit {
    */
   ringtoneEditDialog(ringtone: Ringtone, index: number) {
     const dialogRef = this.dialog.open(AddEditRingtonesComponent, {
-      width: '720px', height: '50vh', data: {isAddRingtone: false, ringtone, index},
+      width: '720px',
+      height: '600px',
+      data: { isAddRingtone: false, ringtone, index },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -202,7 +240,10 @@ export class RingtonesComponent implements OnInit {
           formData.append('song', result.get('song'));
         }
 
-        const updateRequest = this.backendService.updateRingtoneResource(formData, ringtone.id);
+        const updateRequest = this.backendService.updateRingtoneResource(
+          formData,
+          ringtone.id
+        );
 
         updateRequest.subscribe((response) => {
           const updatedRingtone = response.body;
@@ -210,7 +251,11 @@ export class RingtonesComponent implements OnInit {
             this.storeService.ringtoneList$
               .pipe(take(1))
               .subscribe((result) => {
-                const updatedList = result.map((ringtone) => ringtone.id === updatedRingtone.id ? updatedRingtone : ringtone);
+                const updatedList = result.map((ringtone) =>
+                  ringtone.id === updatedRingtone.id
+                    ? updatedRingtone
+                    : ringtone
+                );
                 this.storeService.updateRingtoneList(updatedList);
               });
 
@@ -218,7 +263,9 @@ export class RingtonesComponent implements OnInit {
             this.updatedRingtones.add(updatedRingtone.id);
 
             this._snackBar.open('Klingelton wurde aktualisiert', 'Ok', {
-              horizontalPosition: 'end', verticalPosition: 'bottom', duration: 2000,
+              horizontalPosition: 'end',
+              verticalPosition: 'bottom',
+              duration: 2000,
             });
           }
         });
@@ -251,7 +298,8 @@ export class RingtonesComponent implements OnInit {
 
             // Create a new sound for the ringtone
             sound = new Howl({
-              src: [ringtonePath], onloaderror: (soundId, error) => {
+              src: [ringtonePath],
+              onloaderror: (soundId, error) => {
                 console.error('Howler Load Error:', error);
               },
             });
