@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {map, Observable, take, tap} from 'rxjs';
 import {HeroImages, MenuNames, RoutingLinks, StoreService} from 'src/app/services/store.service';
 import {BackendService} from "../../services/backend.service";
-import {DatePipe, Time} from '@angular/common'
+import {DatePipe} from '@angular/common'
 import {Ringtime, RingtimeDialog, RingtimePayload} from "../../models/Ringtime";
 import {AddEditRingtimeComponent} from "./add-edit-ringtime/add-edit-ringtime.component";
 import {MatDialog} from "@angular/material/dialog";
@@ -71,38 +71,39 @@ export class RingtimeComponent {
       map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.id))
     );
   }
+
   /**
    * Get the ringtime name from the ringtime list
    */
   ringtimeName$ = this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.name)));
+    map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.name)));
 
   /**
    * Get the start and end date in one string from the ringtime list
    */
   ringtimeStartAndEndDateAsString$ = this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => {
-        const startDate = new Date(ringtime.startDate);
-        const endDate = new Date(ringtime.endDate);
-        const formattedStartDate = startDate.toLocaleDateString('de-DE', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric'
-        });
-        const formattedEndDate = endDate.toLocaleDateString('de-DE', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric'
-        });
-        return `${formattedStartDate} - ${formattedEndDate}`;
-      }))
-    );
+    map((ringtimeList) => ringtimeList.map((ringtime) => {
+      const startDate = new Date(ringtime.startDate);
+      const endDate = new Date(ringtime.endDate);
+      const formattedStartDate = startDate.toLocaleDateString('de-DE', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      });
+      const formattedEndDate = endDate.toLocaleDateString('de-DE', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      });
+      return `${formattedStartDate} - ${formattedEndDate}`;
+    }))
+  );
 
   /**
    * Get the ringtone name from the ringtime list
    */
   ringtoneName$ = this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.ringtoneDTO.name)));
+    map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.ringtoneDTO.name)));
 
   // ringtimePlayTime$ = this.storeService.ringtimeList$.pipe(
   //     map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.playTime)));
@@ -111,21 +112,21 @@ export class RingtimeComponent {
    * Get the playtime with unit in one string from the ringtime list
    */
   ringtimePlayTimeAsString$ = this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => {
-        const playTime = ringtime.playTime;
-        const unit = "Uhr"
-        return `${playTime} ${unit}`;
-      }))
-    );
+    map((ringtimeList) => ringtimeList.map((ringtime) => {
+      const playTime = ringtime.playTime;
+      const unit = "Uhr"
+      return `${playTime} ${unit}`;
+    }))
+  );
 
   /**
    * Get the weekdays in one string from the ringtime list
    */
   weekDaysAsString$ = this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => {
-        const weekDays = this.getWeekDaysFromOneRingtimeAsString(ringtime);
-        return `${weekDays}`;
-      })));
+    map((ringtimeList) => ringtimeList.map((ringtime) => {
+      const weekDays = this.getWeekDaysFromOneRingtimeAsString(ringtime);
+      return `${weekDays}`;
+    })));
 
   /**
    * Transform separate days from a ringtime into one string
@@ -215,7 +216,7 @@ export class RingtimeComponent {
     const dialogRef = this.dialog.open(AddEditRingtimeComponent, {
       width: '500px',
       height: '65vh',
-      data: { isAddRingtone: false, ringtimeDialog: ringtimeDialog, index },
+      data: {isAddRingtone: false, ringtimeDialog: ringtimeDialog, index},
     });
     dialogRef.afterClosed().subscribe((result: RingtimeDialog) => {
       if (result) {
@@ -264,9 +265,9 @@ export class RingtimeComponent {
       if (result) {
         let ringtone = this.getRingtoneDTOById(result.ringtoneId);
         ringtime = this.createRingtimePayloadFromDialogResult(result, ringtone);
-        this.backendService.postRingtimeRequest(ringtime).subscribe((response)=>{
+        this.backendService.postRingtimeRequest(ringtime).subscribe((response) => {
           const newRingtone = response.body;
-          if (newRingtone){
+          if (newRingtone) {
             this.storeService.ringtimeList$
               .pipe(take(1))
               .subscribe((currentRingtoneList) => {
@@ -295,7 +296,7 @@ export class RingtimeComponent {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '720px',
       height: '500px',
-      data: { index: index },
+      data: {index: index},
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -308,6 +309,9 @@ export class RingtimeComponent {
               );
               this.storeService.updateRingtimeList(updatedRingtimeList);
             });
+          this._snackBar.open('Klingelzeit erfolgreich gelöscht!', 'Ok', {
+            horizontalPosition: 'end', verticalPosition: 'bottom', duration: 2000,
+          });
         });
       }
     });
@@ -384,7 +388,7 @@ export class RingtimeComponent {
       take(1)).subscribe((ringtoneList) => {
       for (let i = 0; i < ringtoneList.length; i++) {
         if (ringtoneList[i].id === ringtoneId) {
-          ringtone =  ringtoneList[i];
+          ringtone = ringtoneList[i];
         }
       }
     });
