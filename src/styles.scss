@@ -77,3 +77,10 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background-color: #b38458; /* Orange slider on hover */
 }
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: var(
+      --mdc-dialog-container-shape,
+      var(--mdc-shape-medium, 20px)
+  ) !important;
+}

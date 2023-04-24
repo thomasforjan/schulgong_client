@@ -13,6 +13,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 /**
  * Angular Material components
@@ -24,6 +31,14 @@ const material = [
   MatButtonModule,
   MatTooltipModule,
   MatMenuModule,
+  MatDialogModule,
+  MatSnackBarModule,
+  FormsModule,
+  ReactiveFormsModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 ];
 
 @NgModule({

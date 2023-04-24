@@ -1,0 +1,30 @@
+/**
+  * Styles for the card content paragraph
+*/
+:host ::ng-deep .mat-card-title {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+/**
+  * Styles for the card
+*/
+:host ::ng-deep .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+:host ::ng-deep .mat-card-content-paragraph {
+  display: inline;
+  margin-left: 80px;
+}
+
+:host ::ng-deep .mat-card-content-paragraph2 {
+  display: inline;
+  margin-left: 58px;
+}
+
+.button{
+  margin-bottom: 1rem;
+}

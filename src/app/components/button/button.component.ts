@@ -1,9 +1,9 @@
 /**
-- author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
-- version: 0.0.1
-- date: 06.04.2023
-- description: Button component
-*/
+ - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ - version: 0.0.1
+ - date: 06.04.2023
+ - description: Button component
+ */
 import {
   Component,
   Input,
@@ -20,6 +20,11 @@ import {
   styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent implements OnChanges {
+  /**
+   * Defines the disabled state of the button.
+   */
+  @Input() disabled?: boolean;
+
   /**
    * Defines the width of the button.
    */
@@ -61,9 +66,35 @@ export class ButtonComponent implements OnChanges {
   @Input() activeColor?: string;
 
   /**
+   * Defines the orange box shadow of the button.
+   */
+  @Input() boxShadow: string =
+    '0 4px 4px rgba(242, 157, 56, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)';
+
+  /**
+   * Defines the aria-label text of the button.
+   */
+  @Input() ariaLabelText?: string;
+
+  /**
    * Defines the tooltip text of the button.
    */
   @Input() tooltipText?: string;
+
+  /**
+   * Defines if the button should display the pause icon.
+   */
+  @Input() playing?: boolean;
+
+  /**
+   * Defines the play icon of the button.
+   */
+  @Input() playIcon?: string;
+
+  /**
+   * Defines the pause icon of the button.
+   */
+  @Input() stopIcon?: string;
 
   /**
    * Defines a button click event.
@@ -94,6 +125,7 @@ export class ButtonComponent implements OnChanges {
       btnEl.style.backgroundColor = this.bgColor;
       btnEl.style.setProperty('--hover-color', this.hoverColor);
       btnEl.style.setProperty('--active-color', this.activeColor);
+      btnEl.style.setProperty('--box-shadow', this.boxShadow);
     }
   }
 

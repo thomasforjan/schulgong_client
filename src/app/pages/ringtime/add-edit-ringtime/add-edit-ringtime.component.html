@@ -1,0 +1,192 @@
+
+<div mat-dialog-content >
+  <div class="header">
+    <h1 mat-dialog-title class="title">
+      <ng-container *ngIf="isEditRingtime">
+        <span class="title-word">Klingelzeit </span>
+        <span class="title-action">editieren</span>
+      </ng-container>
+      <ng-container *ngIf="isAddRingtime">
+        <span class="title-word">Klingelzeit </span>
+        <span class="title-action">hinzufügen</span>
+      </ng-container
+      >
+    </h1>
+    <div class="hero-image-container">
+      <app-hero-image [imageUrl]="ringtimeIcon[1]"></app-hero-image>
+    </div>
+
+    <hr class="divider"/>
+  </div>
+
+  <div class="form-field-container" *ngIf="isEditRingtime">
+    <mat-form-field appearance="fill" class="form-field index-form-field">
+      <mat-label>Index</mat-label>
+      <input
+        value="{{ data.index + 1 }}"
+        type="text"
+        matInput
+        [disabled]="true"
+      />
+    </mat-form-field>
+  </div>
+
+  <form [formGroup]="ringtimeForm">
+    <div class="form-field-container">
+      <mat-form-field aria-label="ringtimeName" appearance="fill" class="form-field index-form-field">
+        <mat-label>Bezeichnung</mat-label>
+        <input
+          type="text"
+          matInput
+          placeholder="Beginn 1. Stunde"
+          formControlName="name"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="form-field-container">
+      <mat-form-field aria-label="ringtimeStartdate" appearance="fill" class="form-field index-form-field">
+        <mat-label>Startdatum</mat-label>
+        <input
+          [matDatepicker]="pickerStartDate"
+          matInput
+          placeholder="04/09/2023"
+          required
+          formControlName="startDate"
+          (change)="startDateChange($event)"
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerStartDate></mat-datepicker>
+        <mat-error
+          *ngIf="ringtimeForm.get('startDate')?.hasError('required')"
+        >
+          <p>Startdatum wird benötigt!</p>
+        </mat-error>
+        <mat-hint align="end">MM/DD/YYYY</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="form-field-container">
+      <mat-form-field aria-label="ringtimeEnddate" appearance="fill" class="form-field index-form-field">
+        <mat-label>Enddatum</mat-label>
+        <input
+          [matDatepicker]="pickerEndDate"
+          matInput
+          placeholder="09/02/2024"
+          formControlName="endDate"
+          (change)="endDateChange($event)"
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerEndDate></mat-datepicker>
+        <mat-hint align="end">MM/DD/YYYY</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="form-field-container">
+      <section class="klingeldays-section">
+        <h3 class="klingeldays-header">Klingeltage</h3>
+        <div class="klingeldays">
+          <p style="float: left; text-align: center; margin-bottom: 0px">
+            MO
+            <br>
+            <mat-checkbox aria-label="ringtimeCheckboxMonday" formControlName="monday"></mat-checkbox>
+          </p>
+          <p class="checkboxPartOne" style="float: left; text-align: center; margin-bottom: 0px">
+            DI
+            <br>
+            <mat-checkbox aria-label="ringtimeCheckboxTuesday" formControlName="tuesday"></mat-checkbox>
+          </p>
+          <p style="float: left; text-align: center; margin-bottom: 0px">
+            MI
+            <br/>
+            <mat-checkbox aria-label="ringtimeCheckboxWednesday" formControlName="wednesday"></mat-checkbox>
+          </p>
+          <p style="float: left; text-align: center; margin-bottom: 0px">
+            DO
+            <br/>
+            <mat-checkbox aria-label="ringtimeCheckboxThursday" formControlName="thursday"></mat-checkbox>
+          </p>
+          <div style="float: left;">
+            <p style="float: left; text-align: center">
+              FR
+              <br/>
+              <mat-checkbox aria-label="ringtimeCheckboxFriday" formControlName="friday"></mat-checkbox>
+            </p>
+            <p style="float: left; text-align: center">
+              SA
+              <br/>
+              <mat-checkbox aria-label="ringtimeCheckboxSaturday" formControlName="saturday"></mat-checkbox>
+            </p>
+            <p style="float: left; text-align: center">
+              SO
+              <br/>
+              <mat-checkbox aria-label="ringtimeCheckboxSunday" formControlName="sunday"></mat-checkbox>
+            </p>
+          </div>
+        </div>
+      </section>
+      <div style="clear: both"></div>
+    </div>
+
+    <div class="form-field-container">
+      <mat-form-field aria-label="ringtimePlaytime" appearance="fill" class="form-field index-form-field">
+        <mat-label>Uhrzeit</mat-label>
+        <input
+          type="time"
+          matInput
+          placeholder="08:00"
+          formControlName="playTime"
+          (change)="playTimeChange($event)"
+        />
+        <mat-hint align="end">HH/MM</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="form-field-container">
+      <mat-form-field aria-label="ringtimeRingtone" appearance="fill" class="form-field index-form-field">
+        <mat-label>Klingelton auswählen</mat-label>
+        <mat-select formControlName="ringtoneId">
+          <mat-option *ngFor="let item of storeService.ringtoneList$ | async" [value]="item.id">{{
+            item?.name
+            }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions class="actions-container">
+      <div class="button-container">
+        <app-button
+          class="submitBtn"
+          bgColor="#F29D38"
+          icon="check_circle"
+          [hoverActive]="true"
+          hoverColor="#FFA24A"
+          [width]="100"
+          [height]="45"
+          (click)="onSubmitClick()"
+          aria-label="ringtimeSaveButton"
+          [disabled]="ringtimeForm.invalid"
+        ></app-button>
+      </div>
+
+      <div class="button-container">
+        <app-button
+          class="cancelBtn"
+          bgColor="#B9B9B9"
+          icon="cancel"
+          [hoverActive]="true"
+          hoverColor="#C9C9C9"
+          [width]="100"
+          [height]="45"
+          aria-label="ringtimeCancelButton"
+          (click)="onCancelClick()"
+          [boxShadow]="
+            '0 4px 4px rgba(185, 185, 185, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
+          "
+        ></app-button>
+      </div>
+    </div>
+  </form>
+</div>
+
