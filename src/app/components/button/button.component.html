@@ -1,13 +1,18 @@
 <button
-  class="btn"
-  [class.hover-active]="hoverActive"
-  [matTooltip]="tooltipText ?? ''"
   (click)="onClick()"
+  [class.hover-active]="hoverActive"
+  [disabled]="disabled"
+  [matTooltip]="tooltipText ?? ''"
+  class="btn"
 >
-  <div class="icon-container" *ngIf="icon">
-    <mat-icon class="icon-color">{{ icon }}</mat-icon>
-  </div>
-  <div class="text-container" *ngIf="text">
-    <span class="text">{{ text }}</span>
+  <div *ngIf="icon || playIcon" class="icon-container">
+    <mat-icon *ngIf="!playIcon; else playIconTemplate" class="icon-color">
+      {{ icon }}
+    </mat-icon>
+    <ng-template #playIconTemplate>
+      <mat-icon class="icon-color">{{
+        playing ? stopIcon : playIcon
+        }}</mat-icon>
+    </ng-template>
   </div>
 </button>

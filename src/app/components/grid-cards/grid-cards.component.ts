@@ -1,24 +1,13 @@
+import {Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges,} from '@angular/core';
+
 /**
-- author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
-- version: 0.0.1
-- date: 07.04.2023
-- description: Grid cards component
-*/
-
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-
+ - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ - version: 0.0.1
+ - date: 07.04.2023
+ - description: Grid cards component
+ */
 @Component({
-  selector: 'app-grid-cards',
-  templateUrl: './grid-cards.component.html',
-  styleUrls: ['./grid-cards.component.scss'],
+  selector: 'app-grid-cards', templateUrl: './grid-cards.component.html', styleUrls: ['./grid-cards.component.scss'],
 })
 export class GridCardsComponent implements OnChanges {
   /**
@@ -29,7 +18,7 @@ export class GridCardsComponent implements OnChanges {
   /**
    * Defines the number of cards of the grid.
    */
-  @Input() cards!: number[];
+  @Input() cards!: number | null;
 
   /**
    * Defines the width of the cards.
@@ -59,19 +48,19 @@ export class GridCardsComponent implements OnChanges {
   /**
    * Defines the title of the cards.
    */
-  @Input() matCardTitle?: string[] = [];
+  @Input() matCardTitle?: string[] | null = [];
 
   /**
    * Defines the subtitle of the cards.
    */
-  @Input() matCardSubtitle?: string[] = [];
+  @Input() matCardSubtitle?: string[] | null = [];
 
   /**
    * Defines the paragraphs of the cards.
    */
-  @Input() matCardContentParagraph?: string[] = [];
-  @Input() matCardContentParagraph2?: string[] = [];
-  @Input() matCardContentParagraph3?: string[] = [];
+  @Input() matCardContentParagraph?: string[] | null = [];
+  @Input() matCardContentParagraph2?: string[] | null = [];
+  @Input() matCardContentParagraph3?: string[] | null = [];
 
   /**
    * Defines the icon of the cards.
@@ -109,7 +98,7 @@ export class GridCardsComponent implements OnChanges {
   @Output() play = new EventEmitter<number>();
 
   /**
-   * Defines the delete EventEmitter of the cards.
+   * Defines delete EventEmitter of the cards.
    */
   @Output() delete = new EventEmitter<number>();
 
@@ -124,10 +113,16 @@ export class GridCardsComponent implements OnChanges {
   cardHeight: string | null = null;
 
   /**
+   * Defines the playing state of the cards.
+   */
+  @Input() playing: boolean[] = [];
+
+  /**
    * Constructor of the GridCardsComponent.
    * @param elRef element reference
    */
-  constructor(private elRef: ElementRef) {}
+  constructor(private elRef: ElementRef) {
+  }
 
   /**
    * Defines the onChanges method of the GridCardsComponent.
@@ -135,8 +130,7 @@ export class GridCardsComponent implements OnChanges {
    */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['columns']) {
-      const gridContainerEl: HTMLElement | null =
-        this.elRef.nativeElement.querySelector('.grid-container');
+      const gridContainerEl: HTMLElement | null = this.elRef.nativeElement.querySelector('.grid-container');
       if (gridContainerEl) {
         gridContainerEl.style.setProperty('--columns', this.columns.toString());
       }
@@ -158,10 +152,10 @@ export class GridCardsComponent implements OnChanges {
   }
 
   /**
-   * Emits the play event.
+   * Toggles the play state of the card.
    * @param index of the object
    */
-  onPlay(index: number): void {
+  togglePlayPause(index: number): void {
     this.play.emit(index);
   }
 

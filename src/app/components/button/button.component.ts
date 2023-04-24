@@ -1,25 +1,22 @@
-/**
-- author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
-- version: 0.0.1
-- date: 06.04.2023
-- description: Button component
-*/
-import {
-  Component,
-  Input,
-  ElementRef,
-  OnChanges,
-  SimpleChanges,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges,} from '@angular/core';
 
+/**
+ - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ - version: 0.0.1
+ - date: 06.04.2023
+ - description: Button component
+ */
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent implements OnChanges {
+  /**
+   * Defines the disabled state of the button.
+   */
+  @Input() disabled?: boolean;
+
   /**
    * Defines the width of the button.
    */
@@ -61,9 +58,30 @@ export class ButtonComponent implements OnChanges {
   @Input() activeColor?: string;
 
   /**
+   * Defines the orange box shadow of the button.
+   */
+  @Input() boxShadow: string =
+    '0 4px 4px rgba(242, 157, 56, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)';
+
+  /**
    * Defines the tooltip text of the button.
    */
   @Input() tooltipText?: string;
+
+  /**
+   * Defines if the button should display the pause icon.
+   */
+  @Input() playing?: boolean;
+
+  /**
+   * Defines the play icon of the button.
+   */
+  @Input() playIcon?: string;
+
+  /**
+   * Defines the pause icon of the button.
+   */
+  @Input() stopIcon?: string;
 
   /**
    * Defines a button click event.
@@ -74,7 +92,8 @@ export class ButtonComponent implements OnChanges {
    * Constructor of the button component.
    * @param elRef element reference
    */
-  constructor(private elRef: ElementRef) {}
+  constructor(private elRef: ElementRef) {
+  }
 
   /**
    * Defines the onChanges method of the button component.

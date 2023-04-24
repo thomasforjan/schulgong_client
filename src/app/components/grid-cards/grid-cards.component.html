@@ -1,39 +1,42 @@
 <div class="grid-container">
-  <ng-container *ngFor="let item of cards; let i = index">
+  <ng-container *ngFor="let f of [].constructor(cards); let i = index">
     <div class="grid-item">
       <mat-card
-        class="card"
         [ngClass]="{ 'hover-active': hoverActive }"
         [routerLink]="linkArray ? linkArray[i] : null"
+        class="card"
       >
         <mat-card-header>
-          <div mat-card-avatar *ngIf="index" class="index-circle">
-            <p>{{ i + 1 }}</p>
+          <div *ngIf="index" class="index-circle" mat-card-avatar>
+            <p>{{i + 1}}</p>
           </div>
           <mat-card-title *ngIf="matCardTitle" class="mat-card-title">{{
             matCardTitle[i]
-          }}</mat-card-title>
+            }}</mat-card-title>
           <mat-card-subtitle
             *ngIf="matCardSubtitle"
             class="mat-card-subtitle"
-            >{{ matCardSubtitle[i] }}</mat-card-subtitle
+          >{{ matCardSubtitle[i] }}</mat-card-subtitle
           >
         </mat-card-header>
 
-        <mat-card-content>
+        <mat-card-content class="mat-card-center">
           <div class="image-container">
             <img
-              mat-card-image
-              class="card-icon"
               *ngIf="icon && icon[i]"
               [src]="icon[i]"
               alt="card-icon"
+              class="card-icon"
+              data-cy="icon"
+              mat-card-image
             />
           </div>
+
           <div class="paragraph-container">
             <p
               *ngIf="matCardContentParagraph"
               class="mat-card-content-paragraph"
+              data-cy="matCardContentParagraph"
             >
               {{ matCardContentParagraph[i] }}
             </p>
@@ -50,39 +53,43 @@
               {{ matCardContentParagraph3[i] }}
             </p>
           </div>
-        </mat-card-content>
 
-        <div class="card-actions-wrapper" *ngIf="showButtonContainer">
+        </mat-card-content>
+        <div *ngIf="showButtonContainer" class="card-actions-wrapper">
           <mat-card-actions class="card-buttons-container">
             <app-button
-              *ngIf="showEditButton"
-              class="editBtn"
-              bgColor="#f29d38"
-              icon="edit"
-              [hoverActive]="true"
-              hoverColor="#FFA24A"
               (btnClick)="onEdit(i)"
-              matTooltip="Klingelton bearbeiten"
-            ></app-button>
-            <app-button
-              *ngIf="showPlayButton"
-              class="playBtn"
+              *ngIf="showEditButton"
+              [hoverActive]="true"
               bgColor="#f29d38"
-              icon="play_arrow"
-              [hoverActive]="true"
+              class="editBtn"
               hoverColor="#FFA24A"
-              (btnClick)="onPlay(i)"
-              matTooltip="Klingelton abspielen"
+              icon="edit"
+              matTooltip="Bearbeiten"
             ></app-button>
             <app-button
-              *ngIf="showDeleteButton"
-              class="deleteBtn"
-              bgColor="#EB3223"
-              icon="delete"
+              (btnClick)="togglePlayPause(i)"
+              *ngIf="showPlayButton"
               [hoverActive]="true"
-              hoverColor="#FF3626"
+              [matTooltip]="
+                playing[i] ? 'Klingelton anhalten' : 'Klingelton abspielen'
+              "
+              [playIcon]="playing[i] ? 'stop' : 'play_arrow'"
+              [playing]="playing[i]"
+              [stopIcon]="'stop'"
+              bgColor="#f29d38"
+              class="playBtn"
+              hoverColor="#FFA24A"
+            ></app-button>
+            <app-button
               (btnClick)="onDelete(i)"
-              matTooltip="Klingelton löschen"
+              *ngIf="showDeleteButton"
+              [hoverActive]="true"
+              bgColor="#EB3223"
+              class="deleteBtn"
+              hoverColor="#FF3626"
+              icon="delete"
+              matTooltip="Löschen"
             ></app-button>
           </mat-card-actions>
         </div>
