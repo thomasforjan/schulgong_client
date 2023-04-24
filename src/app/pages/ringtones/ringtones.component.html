@@ -1,77 +1,38 @@
-<app-hero-image [imageUrl]="ringtoneIcon[0]"></app-hero-image>
+<app-hero-image [imageUrl]="ringtoneHeroImage"></app-hero-image>
 
 <div class="container">
   <div class="button">
     <app-button
-      class="uploadBtn"
-      bgColor="#F29D38"
-      icon="add"
+      (click)="ringtoneAddDialog()"
+      [height]="40"
       [hoverActive]="true"
+      [width]="117"
+      bgColor="#F29D38"
+      class="uploadBtn"
       hoverColor="#FFA24A"
-      text="Add"
+      icon="add"
+      matTooltip="HinzufÃ¼gen"
     ></app-button>
-
-
   </div>
-<!--  <div class="content-container">-->
-<!--    <app-grid-cards-->
-<!--      [index]="true"-->
-
-<!--      [matCardTitle]="getRingToneName() | async"-->
-<!--      [matCardSubtitle]="getRingToneFilename() | async"-->
-<!--      [matCardContentParagraph]="getRingToneDate() | async"-->
-<!--      [matCardContentParagraph2]="getRingToneSize() | async"-->
-
-<!--      [cards_width]="330"-->
-<!--      [cards_height]="220"-->
-<!--      [columns]="4"-->
-<!--      [cards]="cardLength$ | async"-->
-
-
-<!--      [showButtonContainer]="true"-->
-<!--      [showEditButton]="true"-->
-<!--      [showPlayButton]="true"-->
-<!--      [showDeleteButton]="true"-->
-<!--      (edit)="onEditRingtone($event)"-->
-<!--      (delete)="onDeleteRingtone($event)"-->
-<!--    ></app-grid-cards>-->
-<!--  </div>-->
-
-<!--</div>-->
-
-
-<!--<input matInput type="text" [(ngModel)]="formData" />
-&lt;!&ndash;<button mat-raised-button (click)="submitData()">&ndash;&gt;
-&lt;!&ndash;  {{ isEditing ? "Update" : "Submit" }}&ndash;&gt;
-&lt;!&ndash;</button>&ndash;&gt;
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Info</th>
-    <th>Name</th>
-    <th>Dateiname</th>
-    <th>Pfad</th>
-    <th>Datum</th>
-    <th>Größe</th>
-  </tr>
-  <tr *ngFor="let ringtone of storeService.ringtoneList$ | async">
-    <td>{{ ringtone.id }}</td>
-    <td>{{ ringtone.name }}</td>
-    <td>{{ ringtone.filename }}</td>
-    <td>{{ ringtone.path }}</td>
-    <td>{{ ringtone.date }}</td>
-    <td>{{ ringtone.size }}</td>
-&lt;!&ndash;    <td>
-&lt;!&ndash;      <button mat-icon-button color="primary" (click)="editTest(ringtone.id)">&ndash;&gt;
-&lt;!&ndash;        <mat-icon>edit</mat-icon>&ndash;&gt;
-&lt;!&ndash;      </button>&ndash;&gt;
-    </td>&ndash;&gt;
-    <td>
-      <button mat-icon-button color="warn" (click)="onDeleteRingtone(ringtone.id)">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </td>
-  </tr>
-</table>-->
-
-
+  <div class="content-container">
+    <app-grid-cards
+      (delete)="onDeleteRingtone($event)"
+      (edit)="onEditRingtone($event)"
+      (play)="togglePlayPause($event)"
+      [cards]="cardLength$ | async"
+      [cards_height]="220"
+      [cards_width]="330"
+      [columns]="4"
+      [index]="true"
+      [matCardContentParagraph2]="ringToneSize$ | async"
+      [matCardContentParagraph]="ringToneDate$ | async"
+      [matCardSubtitle]="ringToneFilename$ | async"
+      [matCardTitle]="ringToneName$ | async"
+      [playing]="playing"
+      [showButtonContainer]="true"
+      [showDeleteButton]="true"
+      [showEditButton]="true"
+      [showPlayButton]="true"
+    ></app-grid-cards>
+  </div>
+</div>

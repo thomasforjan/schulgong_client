@@ -1,19 +1,11 @@
+import {Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges,} from '@angular/core';
+
 /**
  - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
  - version: 0.0.1
- - date: 06.04.2023
+ - date: April 2023
  - description: Button component
  */
-import {
-  Component,
-  Input,
-  ElementRef,
-  OnChanges,
-  SimpleChanges,
-  Output,
-  EventEmitter,
-} from '@angular/core';
-
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
@@ -105,7 +97,8 @@ export class ButtonComponent implements OnChanges {
    * Constructor of the button component.
    * @param elRef element reference
    */
-  constructor(private elRef: ElementRef) {}
+  constructor(private elRef: ElementRef) {
+  }
 
   /**
    * Defines the onChanges method of the button component.

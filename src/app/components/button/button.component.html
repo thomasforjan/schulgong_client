@@ -1,13 +1,13 @@
 <button
-  class="btn"
-  [class.hover-active]="hoverActive"
-  [matTooltip]="tooltipText ?? ''"
   (click)="onClick()"
+  [class.hover-active]="hoverActive"
   [disabled]="disabled"
+  [matTooltip]="tooltipText ?? ''"
+  class="btn"
   aria-label="ariaLabelText"
-
 >
-  <div class="icon-container" *ngIf="icon || playIcon">
+
+  <div *ngIf="icon || playIcon" class="icon-container">
     <mat-icon *ngIf="!playIcon; else playIconTemplate" class="icon-color">
       {{ icon }}
     </mat-icon>

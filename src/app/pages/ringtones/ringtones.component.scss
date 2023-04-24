@@ -1,30 +1,87 @@
 /**
-  * Styles for the card content paragraph
+  * Style for the first content paragraph
 */
-:host ::ng-deep .mat-card-title {
-  font-weight: bold;
-  font-size: 24px;
+:host ::ng-deep .mat-card-content-paragraph {
+  margin-top: 0px !important;
+  display: inline;
+  margin-left: 63px;
 }
 
 /**
-  * Styles for the card
+  * Style for the second content paragraph
 */
-:host ::ng-deep .card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-:host ::ng-deep .mat-card-content-paragraph {
-  display: inline;
-  margin-left: 80px;
-}
-
 :host ::ng-deep .mat-card-content-paragraph2 {
   display: inline;
-  margin-left: 58px;
+  float: right;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
 }
 
-.button{
+/**
+  * Style for the subtitle
+*/
+:host ::ng-deep .mat-card-subtitle {
   margin-bottom: 1rem;
+}
+
+/**
+  * Style for the button
+*/
+.button {
+  margin-bottom: 1rem;
+  width: fit-content;
+}
+
+/**
+  * Media queries for devices between 940 and 1089 px width
+*/
+@media screen and (min-width: 940px) and (max-width: 1089px) {
+  :host ::ng-deep .mat-card-content-paragraph2 {
+    float: right;
+  }
+}
+
+/**
+  * Media queries for devices between 760 and 939 px width
+*/
+@media screen and (min-width: 760px) and (max-width: 939px) {
+  :host ::ng-deep .mat-card-content-paragraph {
+    margin-left: 51px;
+  }
+}
+
+/**
+  * Media queries for devices between 515 and 678 px width
+*/
+@media screen and (min-width: 515px) and (max-width: 678px) {
+  :host ::ng-deep .mat-card-content-paragraph {
+    margin-left: 51px;
+  }
+}
+
+/**
+  * Media queries for devices between 435 and 514 px width
+*/
+@media screen and (min-width: 435px) and (max-width: 514px) {
+  :host ::ng-deep .mat-card-content-paragraph {
+    font-size: 12px;
+    margin-left: 51px;
+  }
+
+  :host ::ng-deep .mat-card-content-paragraph2 {
+    font-size: 12px;
+  }
+}
+
+/**
+  * Media queries for devices til max width of 325 px
+*/
+@media screen and (max-width: 325px) {
+  :host ::ng-deep .mat-card-content-paragraph {
+    font-size: 12px;
+    margin-left: 51px;
+  }
+  :host ::ng-deep .mat-card-content-paragraph2 {
+    font-size: 12px;
+  }
 }

@@ -2,14 +2,14 @@
   <ng-container *ngFor="let f of [].constructor(cards); let i = index">
     <div class="grid-item">
       <mat-card
-        class="card"
         [ngClass]="{ 'hover-active': hoverActive }"
         [routerLink]="linkArray ? linkArray[i] : null"
+        class="card"
         data-cy="card"
       >
         <mat-card-header>
-          <div mat-card-avatar *ngIf="index" class="index-circle">
-            <p>{{ i + 1 }}</p>
+          <div *ngIf="index" class="index-circle" mat-card-avatar>
+            <p>{{i + 1}}</p>
           </div>
           <mat-card-title *ngIf="matCardTitle" class="mat-card-title">{{
             matCardTitle[i]
@@ -24,14 +24,15 @@
         <mat-card-content class="mat-card-center">
           <div class="image-container">
             <img
-              mat-card-image
-              class="card-icon"
               *ngIf="icon && icon[i]"
               [src]="icon[i]"
               alt="card-icon"
+              class="card-icon"
               data-cy="icon"
+              mat-card-image
             />
           </div>
+
           <div class="paragraph-container">
             <p
               *ngIf="matCardContentParagraph"
@@ -53,18 +54,18 @@
               {{ matCardContentParagraph3[i] }}
             </p>
           </div>
-        </mat-card-content>
 
-        <div class="card-actions-wrapper" *ngIf="showButtonContainer">
+        </mat-card-content>
+        <div *ngIf="showButtonContainer" class="card-actions-wrapper">
           <mat-card-actions class="card-buttons-container">
             <app-button
-              *ngIf="showEditButton"
-              class="editBtn"
-              bgColor="#f29d38"
-              icon="edit"
-              [hoverActive]="true"
-              hoverColor="#FFA24A"
               (btnClick)="onEdit(i)"
+              *ngIf="showEditButton"
+              [hoverActive]="true"
+              bgColor="#f29d38"
+              class="editBtn"
+              hoverColor="#FFA24A"
+              icon="edit"
               matTooltip="Bearbeiten"
             ></app-button>
             <app-button

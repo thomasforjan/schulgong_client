@@ -1,19 +1,31 @@
+/**
+  * Style for the dialog container
+*/
 .dialog-container {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
+/**
+  * Style for the content container
+*/
 .content-container {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
+/**
+  * Style for the mat-dialog content
+*/
 mat-dialog-content {
   flex: 1;
 }
 
+/**
+  * Style for the title
+*/
 .title {
   margin-top: 0;
   display: flex;
@@ -23,12 +35,19 @@ mat-dialog-content {
   font-size: 32px;
   font-family: "Montserrat", sans-serif;
 }
+
+/**
+  * Style for the title text
+*/
 .title-word {
   margin-top: 0;
   word-wrap: normal;
   line-height: normal;
 }
 
+/**
+  * Style for the hero-image
+*/
 .hero-image-container {
   display: flex;
   justify-content: center;
@@ -36,12 +55,18 @@ mat-dialog-content {
   height: 100%;
 }
 
+/**
+  * Style for the hero-image
+*/
 :host ::ng-deep app-hero-image {
   padding: 20px;
   width: 96px !important;
   height: 96px !important;
 }
 
+/**
+  * Style for the divider
+*/
 .divider {
   height: 4px;
   color: #f29d38;
@@ -51,6 +76,9 @@ mat-dialog-content {
   margin: 10px 50px 0px 50px;
 }
 
+/**
+  * style for the buttons container
+*/
 .actions-container {
   display: flex;
   justify-content: space-around;
@@ -66,11 +94,16 @@ mat-dialog-content {
   }
 }
 
+/**
+  * Style for the button
+*/
 :host ::ng-deep app-button .btn {
   border-radius: 24px !important;
 }
 
-// Media Query for mobile devices
+/**
+  * Media Query for mobile devices
+*/
 @media screen and (max-width: 768px) {
   .title {
     font-size: 24px;

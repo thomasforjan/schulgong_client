@@ -30,6 +30,20 @@ export enum MenuNames {
 }
 
 /**
+ * Enum for title names
+ */
+export enum TitleNames {
+  Schulgong = 'Schulgong - ',
+  Dashboard = 'Dashboard',
+  Ringtones = 'Klingeltöne',
+  RingTime = 'Klingelzeit',
+  Live = 'Live',
+  NoSchool = 'Schulfrei',
+  Calendar = 'Kalender',
+  User = 'Benutzer',
+}
+
+/**
  * Icons for sidebar
  */
 export enum MenuIcons {
@@ -67,23 +81,17 @@ export enum DashboardIcons {
   providedIn: 'root',
 })
 export class StoreService {
-
-  /**
-   * private BehaviorSubject for ringtoneList
-   */
+  // private BehaviorSubject for ringtoneList
   private _ringtoneList$ = new BehaviorSubject<Ringtone[]>([])
 
-  /**
-   * public Observable instance for ringtoneList
-   */
+  // public Observable instance for ringtoneList
   public ringtoneList$ = this._ringtoneList$.asObservable();
 
-  /**
-   * Method to update ringtoneList
-   */
+  // Method to update ringtoneList
   updateRingtoneList(newList: Ringtone[]) {
     this._ringtoneList$.next(newList);
   }
+
 
   /**
    * private BehaviorSubject for ringtimeList
@@ -102,5 +110,4 @@ export class StoreService {
   updateRingtimeList(newList: Ringtime[]) {
     this._ringtimeList$.next(newList);
   }
-
 }

@@ -21,8 +21,10 @@
   cursor: default;
   box-shadow: var(--box-shadow, none);
 
+
   &.hover-active {
     cursor: pointer;
+
     &:hover {
       background-color: var(--hover-color) !important;
     }

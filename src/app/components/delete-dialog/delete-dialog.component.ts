@@ -1,7 +1,6 @@
-import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BackendService } from 'src/app/services/backend.service';
-import { HeroImages, StoreService } from 'src/app/services/store.service';
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {HeroImages} from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-delete-dialog',
@@ -10,24 +9,30 @@ import { HeroImages, StoreService } from 'src/app/services/store.service';
 })
 export class DeleteDialogComponent {
   /**
-    Delete Hero Image, enum is in store service
-  */
+   Delete Hero Image, enum is in store service
+   */
   deleteHeroImage: string = HeroImages.DeleteHeroImage;
 
   constructor(
-    public storeService: StoreService,
-    public backendService: BackendService,
     public dialogRef: MatDialogRef<DeleteDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: { deleteItem?: Object; index?: number }
-  ) {}
+  ) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
+  /**
+   * Method which is called when the submit button is clicked
+   */
   onSubmitClick() {
     this.dialogRef.close(this.data);
   }
 
+  /**
+   * Method which is called when the cancel button is clicked
+   */
   onCancelClick() {
     this.dialogRef.close();
   }

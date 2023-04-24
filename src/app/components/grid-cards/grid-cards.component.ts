@@ -1,24 +1,13 @@
+import {Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges,} from '@angular/core';
+
 /**
  - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
  - version: 0.0.1
- - date: 07.04.2023
+ - date: April 2023
  - description: Grid cards component
  */
-
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-
 @Component({
-  selector: 'app-grid-cards',
-  templateUrl: './grid-cards.component.html',
-  styleUrls: ['./grid-cards.component.scss'],
+  selector: 'app-grid-cards', templateUrl: './grid-cards.component.html', styleUrls: ['./grid-cards.component.scss'],
 })
 export class GridCardsComponent implements OnChanges {
   /**
@@ -109,7 +98,7 @@ export class GridCardsComponent implements OnChanges {
   @Output() play = new EventEmitter<number>();
 
   /**
-   * Defines the delete EventEmitter of the cards.
+   * Defines delete EventEmitter of the cards.
    */
   @Output() delete = new EventEmitter<number>();
 
@@ -128,13 +117,12 @@ export class GridCardsComponent implements OnChanges {
    */
   @Input() playing: boolean[] = [];
 
-  matTooltipText!: string;
-
   /**
    * Constructor of the GridCardsComponent.
    * @param elRef element reference
    */
-  constructor(private elRef: ElementRef) {}
+  constructor(private elRef: ElementRef) {
+  }
 
   /**
    * Defines the onChanges method of the GridCardsComponent.
@@ -142,8 +130,7 @@ export class GridCardsComponent implements OnChanges {
    */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['columns']) {
-      const gridContainerEl: HTMLElement | null =
-        this.elRef.nativeElement.querySelector('.grid-container');
+      const gridContainerEl: HTMLElement | null = this.elRef.nativeElement.querySelector('.grid-container');
       if (gridContainerEl) {
         gridContainerEl.style.setProperty('--columns', this.columns.toString());
       }
@@ -169,14 +156,6 @@ export class GridCardsComponent implements OnChanges {
    * @param index of the object
    */
   togglePlayPause(index: number): void {
-    this.play.emit(index);
-  }
-
-  /**
-   * Emits the play event.
-   * @param index of the object
-   */
-  onPlay(index: number): void {
     this.play.emit(index);
   }
 

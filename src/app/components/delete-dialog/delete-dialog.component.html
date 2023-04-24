@@ -16,30 +16,30 @@
       </div>
     </div>
 
-    <div mat-dialog-actions class="actions-container">
+    <div class="actions-container" mat-dialog-actions>
       <app-button
-        class="submitBtn"
-        bgColor="#F29D38"
-        icon="check_circle"
-        [hoverActive]="true"
-        hoverColor="#FFA24A"
-        [width]="100"
-        [height]="45"
         (click)="onSubmitClick()"
+        [height]="45"
+        [hoverActive]="true"
+        [width]="100"
+        bgColor="#F29D38"
+        class="submitBtn"
+        hoverColor="#FFA24A"
+        icon="check_circle"
       ></app-button>
 
       <app-button
-        class="cancelBtn"
-        bgColor="#B9B9B9"
-        icon="cancel"
-        [hoverActive]="true"
-        hoverColor="#C9C9C9"
+        (click)="onCancelClick()"
         [boxShadow]="
           '0 4px 4px rgba(185, 185, 185, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
         "
-        [width]="100"
         [height]="45"
-        (click)="onCancelClick()"
+        [hoverActive]="true"
+        [width]="100"
+        bgColor="#B9B9B9"
+        class="cancelBtn"
+        hoverColor="#C9C9C9"
+        icon="cancel"
       ></app-button>
     </div>
   </div>
