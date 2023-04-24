@@ -118,13 +118,13 @@ export class AddEditRingtimeComponent {
    * Method which is called when the submit button is clicked
    */
   onSubmitClick() {
-    const startDate = new Date(this.ringtimeForm.value.startDate);
-    const endDate = new Date(this.ringtimeForm.value.endDate);
-    this.ringtimeForm.value.startDate = this.convertDateTimeToString(startDate, 'en-CA');
-    this.ringtimeForm.value.endDate = this.convertDateTimeToString(endDate, 'en-CA');
-    console.log(this.ringtimeForm.value)
-    console.log("SAVE")
-    this.dialogRef.close(this.ringtimeForm.value);
+    if(this.ringtimeForm?.valid) {
+      const startDate = new Date(this.ringtimeForm.value.startDate);
+      const endDate = new Date(this.ringtimeForm.value.endDate);
+      this.ringtimeForm.value.startDate = this.convertDateTimeToString(startDate, 'en-CA');
+      this.ringtimeForm.value.endDate = this.convertDateTimeToString(endDate, 'en-CA');
+      this.dialogRef.close(this.ringtimeForm.value);
+    }
   }
 
   /**
