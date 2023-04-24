@@ -1,4 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from "rxjs";
+import {Ringtone} from "../models/Ringtone";
 
 /**
  * Enum for routing links
@@ -27,6 +29,20 @@ export enum MenuNames {
 }
 
 /**
+ * Enum for title names
+ */
+export enum TitleNames {
+  Schulgong = 'Schulgong - ',
+  Dashboard = 'Dashboard',
+  Ringtones = 'Klingeltöne',
+  RingTime = 'Klingelzeit',
+  Live = 'Live',
+  NoSchool = 'Schulfrei',
+  Calendar = 'Kalender',
+  User = 'Benutzer',
+}
+
+/**
  * Icons for sidebar
  */
 export enum MenuIcons {
@@ -44,6 +60,7 @@ export enum MenuIcons {
  */
 export enum HeroImages {
   RingtonesHeroImage = '../../../assets/images/pages/music_note.svg',
+  DeleteHeroImage = '../../../assets/images/pages/delete_shield.svg',
 }
 
 /**
@@ -61,4 +78,16 @@ export enum DashboardIcons {
 @Injectable({
   providedIn: 'root',
 })
-export class StoreService {}
+export class StoreService {
+  // private BehaviorSubject for ringtoneList
+  private _ringtoneList$ = new BehaviorSubject<Ringtone[]>([])
+
+  // public Observable instance for ringtoneList
+  public ringtoneList$ = this._ringtoneList$.asObservable();
+
+  // Method to update ringtoneList
+  updateRingtoneList(newList: Ringtone[]) {
+    this._ringtoneList$.next(newList);
+  }
+
+}
