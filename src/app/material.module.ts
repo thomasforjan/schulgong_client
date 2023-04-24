@@ -18,6 +18,8 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 /**
  * Angular Material components
@@ -35,6 +37,8 @@ const material = [
   ReactiveFormsModule,
   MatInputModule,
   MatFormFieldModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 ];
 
 @NgModule({

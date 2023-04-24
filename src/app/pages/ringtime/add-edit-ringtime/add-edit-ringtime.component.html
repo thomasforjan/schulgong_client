@@ -48,13 +48,15 @@
       <mat-form-field aria-label="ringtimeStartdate" appearance="fill" class="form-field index-form-field">
         <mat-label>Startdatum</mat-label>
         <input
-          type="date"
+          [matDatepicker]="pickerStartDate"
           matInput
           placeholder="04/09/2023"
           required
           formControlName="startDate"
           (change)="startDateChange($event)"
         />
+        <mat-datepicker-toggle matIconSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerStartDate></mat-datepicker>
         <mat-error
           *ngIf="ringtimeForm.get('startDate')?.hasError('required')"
         >
@@ -68,12 +70,14 @@
       <mat-form-field aria-label="ringtimeEnddate" appearance="fill" class="form-field index-form-field">
         <mat-label>Enddatum</mat-label>
         <input
-          type="date"
+          [matDatepicker]="pickerEndDate"
           matInput
           placeholder="09/02/2024"
           formControlName="endDate"
           (change)="endDateChange($event)"
         />
+        <mat-datepicker-toggle matIconSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerEndDate></mat-datepicker>
         <mat-hint align="end">MM/DD/YYYY</mat-hint>
       </mat-form-field>
     </div>
@@ -158,7 +162,7 @@
           icon="check_circle"
           [hoverActive]="true"
           hoverColor="#FFA24A"
-          [width]="85"
+          [width]="100"
           [height]="45"
           (click)="onSubmitClick()"
           aria-label="ringtimeSaveButton"
@@ -173,7 +177,7 @@
           icon="cancel"
           [hoverActive]="true"
           hoverColor="#C9C9C9"
-          [width]="85"
+          [width]="100"
           [height]="45"
           aria-label="ringtimeCancelButton"
           (click)="onCancelClick()"

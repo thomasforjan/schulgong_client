@@ -38,6 +38,7 @@ import {MatOptionModule} from "@angular/material/core";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatSelectModule} from "@angular/material/select";
 import {DeleteDialogComponent} from "./components/delete-dialog/delete-dialog.component";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import {DeleteDialogComponent} from "./components/delete-dialog/delete-dialog.co
     MatOptionModule,
     MatCheckboxModule,
     MatSelectModule,
+    MatDatepickerModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
