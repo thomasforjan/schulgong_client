@@ -117,7 +117,7 @@ export class RingtonesComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '720px',
       height: '500px',
-      data: { index: index },
+      data: {index: index},
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -130,18 +130,17 @@ export class RingtonesComponent implements OnInit {
               );
               this.storeService.updateRingtoneList(updateRingtoneList);
             });
-        });
+            this._snackBar.open('Klingelton erfolgreich gelöscht!', 'Ok', {
+              horizontalPosition: 'end', verticalPosition: 'bottom', duration: 2000,
+            });
+        },
+          (error) => {
+            this._snackBar.open('Klingelton konnte nicht gelöscht werden (Info: möglicherweise wird der Klingelton für eine Klingelzeit verwendet).', 'Ok', {
+              horizontalPosition: 'end', verticalPosition: 'bottom', duration: 4000,
+            });
+          });
       }
     });
-
-    /*this.backendService.deleteRingtoneResource(index).subscribe(() => {
-      this.storeService.ringtoneList$
-        .pipe(take(1))
-        .subscribe((ringtoneList) => {
-          const updatedRingtoneList = ringtoneList.filter((ringtone) => ringtone.id !== index);
-          this.storeService.updateRingtoneList(updatedRingtoneList);
-        });
-    });*/
   }
 
   /**
