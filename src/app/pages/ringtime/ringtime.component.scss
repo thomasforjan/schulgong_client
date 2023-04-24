@@ -1,40 +1,37 @@
+/**
+  * Style for the button
+*/
 .button{
   margin-bottom: 1rem;
   width: fit-content;
 }
 
+/**
+  * Style for the first content paragraph
+*/
 :host ::ng-deep .mat-card-content-paragraph {
   margin-top: 5px;
   margin-bottom: 0px;
   font-weight: bold;
 }
 
+/**
+  * Style for the second content paragraph
+*/
 :host ::ng-deep .mat-card-content-paragraph2 {
   margin-top: 5px;
   margin-bottom: 0px;
 }
 
+/**
+  * Style for the third content paragraph
+*/
 :host ::ng-deep .mat-card-content-paragraph3 {
   margin-top: 5px;
   margin-bottom: 0px;
   font-weight: bold;
 }
 
-@media screen and (min-width: 1800px) and (max-width: 2155px) {
-
-}
-
-@media screen and (min-width: 1445px) and (max-width: 1799px) {
-
-}
-
-@media screen and (min-width: 1090px) and (max-width: 1444px) {
-
-}
-
-@media screen and (min-width: 940px) and (max-width: 1089px) {
-
-}
 
 @media screen and (min-width: 760px) and (max-width: 939px) {
   :host ::ng-deep .mat-card-content-paragraph {
@@ -50,11 +47,9 @@
   }
 }
 
-
-@media screen and (min-width: 679px) and (max-width: 759px) {
-
-}
-
+/**
+  * Media queries for devices between 515 and 678 px width
+*/
 @media screen and (min-width: 515px) and (max-width: 678px) {
   :host ::ng-deep .mat-card-content-paragraph {
     font-size: 14px
@@ -69,6 +64,9 @@
   }
 }
 
+/**
+  * Media queries for devices between 435 and 514 px width
+*/
 @media screen and (min-width: 435px) and (max-width: 514px) {
   :host ::ng-deep .mat-card-content-paragraph {
     font-size: 12px
@@ -84,10 +82,9 @@
 
 }
 
-@media screen and (max-width: 434px) {
-
-}
-
+/**
+  * Media queries for devices til max width of 325 px
+*/
 @media screen and (max-width: 325px) {
   :host ::ng-deep .mat-card-content-paragraph {
     font-size: 14px

@@ -5,16 +5,32 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Ringtime, RingtimeDialog} from "../../../models/Ringtime";
 import {HeroImages, StoreService} from "../../../services/store.service";
 import {map, tap} from "rxjs";
-import {Ringtone} from "../../../models/Ringtone";
 
+/**
+ - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ - version: 0.0.1
+ - date: 12.04.2023
+ - description: Ringtime component
+ */
 @Component({
   selector: 'app-add-edit-ringtime',
   templateUrl: './add-edit-ringtime.component.html',
   styleUrls: ['./add-edit-ringtime.component.scss']
 })
 export class AddEditRingtimeComponent {
+  /**
+   * Formgroup of ringtimeForm
+   */
   ringtimeForm!: FormGroup;
+
+  /**
+   * Boolean to check if the user wants to edit a ringtime
+   */
   public isEditRingtime = false;
+
+  /**
+   * Boolean to check if the user wants to add a new ringtime
+   */
   public isAddRingtime = false;
 
   /**
@@ -37,7 +53,7 @@ export class AddEditRingtimeComponent {
   }
 
   ngOnInit() {
-    this.showResponse();
+    this.loadRingtones();
 
     if (this.data) {
       console.log(this.data)
@@ -76,8 +92,10 @@ export class AddEditRingtimeComponent {
     }
   }
 
-  // Response
-  showResponse() {
+  /**
+   * Load ringtones from the database
+   */
+  loadRingtones() {
     this._backendService
       .getRingtoneResponse()
       .pipe(
@@ -96,7 +114,9 @@ export class AddEditRingtimeComponent {
       .subscribe();
   }
 
-
+  /**
+   * Method which is called when the submit button is clicked
+   */
   onSubmitClick() {
     const startDate = new Date(this.ringtimeForm.value.startDate);
     const endDate = new Date(this.ringtimeForm.value.endDate);
@@ -107,22 +127,37 @@ export class AddEditRingtimeComponent {
     this.dialogRef.close(this.ringtimeForm.value);
   }
 
+  /**
+   * Method which is called when the cancel button is clicked
+   */
   onCancelClick() {
     this.dialogRef.close();
   }
 
+  /**
+   * Method which is called when the start date is changed
+   */
   startDateChange(event: any) {
     this.ringtimeForm.value.startDate = event.target.value;
   }
 
+  /**
+   * Method which is called when the end date is changed
+   */
   endDateChange(event: any) {
     this.ringtimeForm.value.endDate = event.target.value;
   }
 
+  /**
+   * Method which is called when the playtime is changed
+   */
   playTimeChange(event: any) {
     this.ringtimeForm.value.playTime = event.target.value;
   }
 
+  /**
+   * Converts date time to string
+   */
   convertDateTimeToString(date: Date, locales: string): string {
     let dateString = new Date(date).toLocaleDateString(locales, {
       day: '2-digit',
@@ -132,15 +167,5 @@ export class AddEditRingtimeComponent {
     console.log(dateString)
     return dateString;
   }
-
-  /*ringTimeChange(event: any) {
-    this.storeService.ringtoneList$.pipe(
-      map((ringtoneList) => ringtoneList.map((ringtone) => {
-        if (event === ringtone.id) {
-          this.ringTimeForm.value.ringToneDTO = ringtone;
-        }
-      }))
-    );
-  }*/
 
 }

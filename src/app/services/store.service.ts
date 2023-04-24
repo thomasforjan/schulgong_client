@@ -68,24 +68,37 @@ export enum DashboardIcons {
 })
 export class StoreService {
 
-  // private BehaviorSubject for ringtoneList
+  /**
+   * private BehaviorSubject for ringtoneList
+   */
   private _ringtoneList$ = new BehaviorSubject<Ringtone[]>([])
 
-  // public Observable instance for ringtoneList
+  /**
+   * public Observable instance for ringtoneList
+   */
   public ringtoneList$ = this._ringtoneList$.asObservable();
 
-  // Method to update ringtoneList
+  /**
+   * Method to update ringtoneList
+   */
   updateRingtoneList(newList: Ringtone[]) {
     this._ringtoneList$.next(newList);
   }
 
-  // private BehaviorSubject for ringtimeList
+  /**
+   * private BehaviorSubject for ringtimeList
+   */
   private _ringtimeList$ = new BehaviorSubject<Ringtime[]>([]);
 
-  // public Observable instance for ringtimeList
+  /**
+   * public Observable instance for ringtimeList
+   */
   public ringtimeList$ = this._ringtimeList$.asObservable();
 
-  // Method to update ringtimeList
+  /**
+   * Method to update ringtimeList
+   * @param newList ringtime list
+   */
   updateRingtimeList(newList: Ringtime[]) {
     this._ringtimeList$.next(newList);
   }

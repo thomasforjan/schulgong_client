@@ -10,14 +10,21 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {Ringtone} from "../../models/Ringtone";
 import {DeleteDialogComponent} from "../../components/delete-dialog/delete-dialog.component";
 
-
+/**
+ - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ - version: 0.0.1
+ - date: 12.04.2023
+ - description: Ringtime component
+ */
 @Component({
   selector: 'app-ringtime',
   templateUrl: './ringtime.component.html',
   styleUrls: ['./ringtime.component.scss']
 })
 export class RingtimeComponent {
-
+  /**
+   * Ringtime Hero Image from enum in store service
+   */
   ringtimeHeroImage: string = HeroImages.RingtimeHeroImage;
 
   /**
@@ -36,13 +43,14 @@ export class RingtimeComponent {
   ringtimeIcon: string[] = Object.values(HeroImages);
 
 
-  editingRingtimeId: number | null = null;
-  matCardParagraph: {} | undefined;
+  /**
+   * Get the length of the ringtime list
+   */
   cardLength$ = this.storeService.ringtimeList$.pipe(
     map((list) => list.length));
 
   ngOnInit(): void {
-    this.showResponse();
+    this.loadRingtimes();
   }
 
   constructor(
@@ -56,36 +64,23 @@ export class RingtimeComponent {
 
   /**
    * Get the size of the ringTime
-   * @returns
+   * @returns ringtime id's
    */
   getRingtimeId(): Observable<number[]> {
     return this.storeService.ringtimeList$.pipe(
       map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.id))
     );
   }
+  /**
+   * Get the ringtime name from the ringtime list
+   */
+  ringtimeName$ = this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.name)));
 
-  getRingtimeName(): Observable<string[]> {
-    return this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.name))
-    );
-  }
-
-  getRingtimeStartDate(): Observable<string[]> {
-    return this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => {
-        return ringtime.startDate.toLocaleString()
-      }))
-    );
-  }
-
-  getRingtimeEndDate(): Observable<Date[]> {
-    return this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.endDate))
-    );
-  }
-
-  getRingtimeStartAndEndDateAsString(): Observable<string[]> {
-    return this.storeService.ringtimeList$.pipe(
+  /**
+   * Get the start and end date in one string from the ringtime list
+   */
+  ringtimeStartAndEndDateAsString$ = this.storeService.ringtimeList$.pipe(
       map((ringtimeList) => ringtimeList.map((ringtime) => {
         const startDate = new Date(ringtime.startDate);
         const endDate = new Date(ringtime.endDate);
@@ -102,87 +97,39 @@ export class RingtimeComponent {
         return `${formattedStartDate} - ${formattedEndDate}`;
       }))
     );
-  }
 
-  getRingtoneName(): Observable<string[]> {
-    return this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.ringtoneDTO.name))
-    );
-  }
+  /**
+   * Get the ringtone name from the ringtime list
+   */
+  ringtoneName$ = this.storeService.ringtimeList$.pipe(
+      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.ringtoneDTO.name)));
 
-  getRingtimePlayTime(): Observable<Time[]> {
-    return this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.playTime))
-    );
-  }
+  // ringtimePlayTime$ = this.storeService.ringtimeList$.pipe(
+  //     map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.playTime)));
 
-  getRingtimePlayTimeAsString(): Observable<string[]> {
-    return this.storeService.ringtimeList$.pipe(
+  /**
+   * Get the playtime with unit in one string from the ringtime list
+   */
+  ringtimePlayTimeAsString$ = this.storeService.ringtimeList$.pipe(
       map((ringtimeList) => ringtimeList.map((ringtime) => {
         const playTime = ringtime.playTime;
         const unit = "Uhr"
         return `${playTime} ${unit}`;
       }))
     );
-  }
 
-  getRingtimeMonday(): Observable<boolean[]> {
-    return this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.monday))
-    );
-  }
-
-  getRingtimeTuesday(): Observable<boolean[]> {
-    return this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.tuesday))
-    );
-  }
-
-  getRingtimeWednesday(): Observable<boolean[]> {
-    return this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.wednesday))
-    );
-  }
-
-  getRingtimeThursday(): Observable<boolean[]> {
-    return this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.thursday))
-    );
-  }
-
-  getRingtimeFriday(): Observable<boolean[]> {
-    return this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.friday))
-    );
-  }
-
-  getRingtimeSaturday(): Observable<boolean[]> {
-    return this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.saturday))
-    );
-  }
-
-  getRingtimeSunday(): Observable<boolean[]> {
-    return this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.sunday))
-    );
-  }
-
-  /*getRingtimeAddInfo(): Observable<string[]> {
-    return this.storeService.ringtimeList$.pipe(
-      map((ringtimeList) => ringtimeList.map((ringtime) => ringtime.addInfo))
-    );
-  }*/
-
-  getWeekDaysAsString(): Observable<string[]> {
-    return this.storeService.ringtimeList$.pipe(
+  /**
+   * Get the weekdays in one string from the ringtime list
+   */
+  weekDaysAsString$ = this.storeService.ringtimeList$.pipe(
       map((ringtimeList) => ringtimeList.map((ringtime) => {
         const weekDays = this.getWeekDaysFromOneRingtimeAsString(ringtime);
         return `${weekDays}`;
-      }))
-    );
-  }
+      })));
 
+  /**
+   * Transform separate days from a ringtime into one string
+   */
   getWeekDaysFromOneRingtimeAsString(ringtime: Ringtime) {
     let weekDays: string[] = []
 
@@ -213,7 +160,7 @@ export class RingtimeComponent {
 
   /**
    * Method which is called when the edit button is clicked
-   * @param index index of the ringTime
+   * @param index index of the ringtime
    */
   onEditRingtime(index: number) {
     this.storeService.ringtimeList$.pipe(
@@ -222,15 +169,10 @@ export class RingtimeComponent {
     })
   }
 
-  getRingtime(index: number) {
-    return this.storeService.ringtimeList$.pipe(
-      take(1)).subscribe((ringtimeList) => {
-      return ringtimeList[index].id;
-    })
-  }
-
-  // Response
-  showResponse() {
+  /**
+   * Load ringtimes from the database
+   */
+  loadRingtimes() {
     this.backendService
       .getRingtimeResponse()
       .pipe(
@@ -250,7 +192,11 @@ export class RingtimeComponent {
   }
 
 
-  // transform shown number into real id of object
+  /**
+   * Transform shown number into real id of object
+   * @param index of object
+   * @returns real id of object
+   */
   getRealId(index: number) {
     this.storeService.ringtimeList$.pipe(
       take(1)).subscribe((ringtimeList) => {
@@ -260,9 +206,9 @@ export class RingtimeComponent {
   }
 
   /**
-   * Opens a Modal-Dialog for add and updating a ringtime
+   * Opens a Modal-Dialog for updating a ringtime
    * @param ringtime updated ringtime object
-   * @param edit add/edit mode
+   * @param index shown index
    */
   openDialogEditRingtime(ringtime: Ringtime, index: number) {
     let ringtimeDialog = this.createDialogResultFromRingtime(ringtime)
@@ -306,6 +252,9 @@ export class RingtimeComponent {
     });
   }
 
+  /**
+   * Opens a Modal-Dialog for adding a ringtime
+   */
   openDialogAddRingtime() {
     let ringtime: RingtimePayload;
     const dialogRef = this.dialog.open(AddEditRingtimeComponent, {
@@ -342,6 +291,10 @@ export class RingtimeComponent {
     });
   }
 
+  /**
+   * Opens a Modal-Dialog for deleting a ringtime
+   * @param index shown index
+   */
   onDeleteRingtime(index: any): void {
     index = this.getRealId(index);
 
@@ -366,6 +319,9 @@ export class RingtimeComponent {
     });
   }
 
+  /**
+   * Converts ringtimeDialog into ringtime
+   */
   convertDialogResultIntoRingtime(result: RingtimeDialog, ringtime: Ringtime) {
     ringtime.id = result.id;
     ringtime.name = result.name;
@@ -381,6 +337,9 @@ export class RingtimeComponent {
     ringtime.sunday = result.sunday;
   }
 
+  /**
+   * Create a ringTimeDialog from ringtime
+   */
   createDialogResultFromRingtime(ringtime: Ringtime) {
     return {
       id: ringtime.id,
@@ -399,6 +358,9 @@ export class RingtimeComponent {
     }
   }
 
+  /**
+   * Create ringtimePayload from ringtimeDialog
+   */
   createRingtimePayloadFromDialogResult(ringtimeDialog: RingtimeDialog, ringtone: Ringtone) {
     let ringtoneOnlyId = {
       id: ringtimeDialog.ringtoneId
@@ -419,6 +381,9 @@ export class RingtimeComponent {
     }
   }
 
+  /**
+   * Get ringtoneDTO by id
+   */
   getRingtoneDTOById(ringtoneId: number) {
     let ringtone!: Ringtone;
     this.storeService.ringtoneList$.pipe(

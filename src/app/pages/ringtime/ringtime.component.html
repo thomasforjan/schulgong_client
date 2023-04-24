@@ -21,11 +21,11 @@
     <app-grid-cards
       [index]="true"
 
-      [matCardTitle]="getRingtoneName() | async"
-      [matCardSubtitle]="getRingtimeName() | async"
-      [matCardContentParagraph]="getRingtimeStartAndEndDateAsString() | async"
-      [matCardContentParagraph2]="getWeekDaysAsString() | async"
-      [matCardContentParagraph3]="getRingtimePlayTimeAsString() | async"
+      [matCardTitle]="ringtoneName$ | async"
+      [matCardSubtitle]="ringtimeName$ | async"
+      [matCardContentParagraph]="ringtimeStartAndEndDateAsString$ | async"
+      [matCardContentParagraph2]="weekDaysAsString$ | async"
+      [matCardContentParagraph3]="ringtimePlayTimeAsString$ | async"
 
       [cards_width]="330"
       [cards_height]="220"
