@@ -13,7 +13,7 @@ import {DeleteDialogComponent} from "../../components/delete-dialog/delete-dialo
  - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
  - version: 0.0.1
  - date: 12.04.2023
- - description: Dashboard component
+ - description: Ringtone component
  */
 @Component({
   selector: 'app-ringtones', templateUrl: './ringtones.component.html', styleUrls: ['./ringtones.component.scss'],
@@ -161,7 +161,7 @@ export class RingtonesComponent implements OnInit {
    */
   ringtoneAddDialog() {
     const dialogRef = this.dialog.open(AddEditRingtonesComponent, {
-      width: '720px', height: '600px', data: {isAddRingtone: this.isAddRingtone},
+      width: '720px', height: '50vh', data: {isAddRingtone: this.isAddRingtone},
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -192,7 +192,7 @@ export class RingtonesComponent implements OnInit {
    */
   ringtoneEditDialog(ringtone: Ringtone, index: number) {
     const dialogRef = this.dialog.open(AddEditRingtonesComponent, {
-      width: '720px', height: '600px', data: {isAddRingtone: false, ringtone, index},
+      width: '720px', height: '50vh', data: {isAddRingtone: false, ringtone, index},
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {

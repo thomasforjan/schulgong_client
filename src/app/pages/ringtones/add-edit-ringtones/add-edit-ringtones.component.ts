@@ -4,6 +4,12 @@ import {HeroImages} from '../../../services/store.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Ringtone} from 'src/app/models/Ringtone';
 
+/**
+ - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ - version: 0.0.1
+ - date: April 2023
+ - description: Add-edit-ringtones component
+ */
 @Component({
   selector: 'app-add-edit-ringtones',
   templateUrl: './add-edit-ringtones.component.html',

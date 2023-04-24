@@ -2,7 +2,7 @@
   <div class="header">
     <h1 class="title" mat-dialog-title>
       <ng-container *ngIf="data.isAddRingtone">
-        <span class="title-word">Klingelton</span>
+        <span class="title-word">Klingelton </span>
         <span class="title-action">hinzufügen</span>
       </ng-container>
       <ng-container *ngIf="!data.isAddRingtone">
@@ -68,25 +68,26 @@
           Klingeltonname wird benötigt!
         </mat-error>
       </mat-form-field>
-    </div>
-    <div
-      [ngClass]="{
+      <div
+        [ngClass]="{
         'add-mode': data.isAddRingtone,
         'edit-mode': !data.isAddRingtone
       }"
-      class="uploadBtn-wrapper"
-    >
-      <app-button
-        (click)="onUploadRingtone()"
-        [height]="45"
-        [hoverActive]="true"
-        [width]="85"
-        bgColor="#F29D38"
-        class="uploadBtn"
-        hoverColor="#FFA24A"
-        icon="upload"
-      ></app-button>
+        class="uploadBtn-wrapper"
+      >
+        <app-button
+          (click)="onUploadRingtone()"
+          [height]="45"
+          [hoverActive]="true"
+          [width]="85"
+          bgColor="#F29D38"
+          class="uploadBtn"
+          hoverColor="#FFA24A"
+          icon="upload"
+        ></app-button>
+      </div>
     </div>
+
 
     <div class="actions-container" mat-dialog-actions>
       <div class="button-container">
@@ -95,7 +96,7 @@
           [disabled]="ringtoneForm.invalid"
           [height]="45"
           [hoverActive]="true"
-          [width]="85"
+          [width]="100"
           bgColor="#F29D38"
           class="submitBtn"
           hoverColor="#FFA24A"
@@ -108,7 +109,7 @@
           (click)="onCancelClick()"
           [height]="45"
           [hoverActive]="true"
-          [width]="85"
+          [width]="100"
           bgColor="#B9B9B9"
           class="cancelBtn"
           hoverColor="#C9C9C9"

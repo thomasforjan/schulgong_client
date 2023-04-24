@@ -126,14 +126,18 @@ form {
   * Style for the upload button wrapper add
 */
 .uploadBtn-wrapper.add-mode {
-  top: 59.8%;
+  display: inline;
+  float: right;
+  padding-top: 5px;
 }
 
 /**
   * Style for the upload button wrapper edit
 */
 .uploadBtn-wrapper.edit-mode {
-  top: 72.17%;
+  display: inline;
+  float: right;
+  padding-top: 5px;
 }
 
 /**
@@ -164,7 +168,7 @@ form {
   * Style for the dialog content
 */
 .mat-mdc-dialog-content {
-  max-height: 610px;
+  max-height: 50vh;
 }
 
 /**
