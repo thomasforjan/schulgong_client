@@ -19,8 +19,8 @@
   outline: none;
   pointer-events: auto;
   cursor: default;
-  box-shadow: 0 4px 4px rgba(242, 157, 56, 0.25),
-  inset 2px 1px 4px rgba(255, 255, 255, 0.25);
+  box-shadow: var(--box-shadow, none);
+
 
   &.hover-active {
     cursor: pointer;

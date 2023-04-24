@@ -3,7 +3,7 @@ import {Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleCha
 /**
  - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
  - version: 0.0.1
- - date: 07.04.2023
+ - date: April 2023
  - description: Grid cards component
  */
 @Component({

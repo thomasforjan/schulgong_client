@@ -3,7 +3,7 @@ import {Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleCha
 /**
  - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
  - version: 0.0.1
- - date: 06.04.2023
+ - date: April 2023
  - description: Button component
  */
 @Component({
@@ -64,6 +64,11 @@ export class ButtonComponent implements OnChanges {
     '0 4px 4px rgba(242, 157, 56, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)';
 
   /**
+   * Defines the aria-label text of the button.
+   */
+  @Input() ariaLabelText?: string;
+
+  /**
    * Defines the tooltip text of the button.
    */
   @Input() tooltipText?: string;
@@ -113,6 +118,7 @@ export class ButtonComponent implements OnChanges {
       btnEl.style.backgroundColor = this.bgColor;
       btnEl.style.setProperty('--hover-color', this.hoverColor);
       btnEl.style.setProperty('--active-color', this.activeColor);
+      btnEl.style.setProperty('--box-shadow', this.boxShadow);
     }
   }
 

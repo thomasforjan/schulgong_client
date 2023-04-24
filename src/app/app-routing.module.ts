@@ -23,9 +23,9 @@ const routes: Routes = [
     data: {title: MenuNames.Ringtones},
   },
   {
-    path: RoutingLinks.RingTimeLink,
+    path: RoutingLinks.RingtimeLink,
     component: RingtimeComponent,
-    data: {title: MenuNames.RingTime},
+    data: { title: MenuNames.Ringtime },
   },
   {
     path: RoutingLinks.LiveLink,
@@ -47,7 +47,6 @@ const routes: Routes = [
     component: UserComponent,
     data: {title: MenuNames.User},
   },
-
 
   // test route
   {path: 'test', component: TestComponent},

@@ -4,6 +4,7 @@
  - date: April 2023
  - description: Models for ringtones
  */
+
 export interface Ringtone {
   id: number;
   name: string;
@@ -26,3 +27,4 @@ export interface RingtoneResponse {
     ringtoneDTOList: Ringtone[];
   };
 }
+

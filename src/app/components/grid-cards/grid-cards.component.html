@@ -5,6 +5,7 @@
         [ngClass]="{ 'hover-active': hoverActive }"
         [routerLink]="linkArray ? linkArray[i] : null"
         class="card"
+        data-cy="card"
       >
         <mat-card-header>
           <div *ngIf="index" class="index-circle" mat-card-avatar>
@@ -68,27 +69,30 @@
               matTooltip="Bearbeiten"
             ></app-button>
             <app-button
-              (btnClick)="togglePlayPause(i)"
               *ngIf="showPlayButton"
+              class="playBtn"
+              bgColor="#f29d38"
+              [playIcon]="playing[i] ? 'stop' : 'play_arrow'"
+              [stopIcon]="'stop'"
+              [playing]="playing[i]"
               [hoverActive]="true"
+              hoverColor="#FFA24A"
+              (btnClick)="togglePlayPause(i)"
               [matTooltip]="
                 playing[i] ? 'Klingelton anhalten' : 'Klingelton abspielen'
               "
-              [playIcon]="playing[i] ? 'stop' : 'play_arrow'"
-              [playing]="playing[i]"
-              [stopIcon]="'stop'"
-              bgColor="#f29d38"
-              class="playBtn"
-              hoverColor="#FFA24A"
             ></app-button>
             <app-button
-              (btnClick)="onDelete(i)"
               *ngIf="showDeleteButton"
-              [hoverActive]="true"
-              bgColor="#EB3223"
               class="deleteBtn"
-              hoverColor="#FF3626"
+              bgColor="#EB3223"
               icon="delete"
+              [hoverActive]="true"
+              hoverColor="#FF3626"
+              [boxShadow]="
+                '0 4px 4px rgba(235, 50, 35, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
+              "
+              (btnClick)="onDelete(i)"
               matTooltip="Löschen"
             ></app-button>
           </mat-card-actions>

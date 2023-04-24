@@ -1,5 +1,6 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Ringtime } from '../models/Ringtime';
 import {Ringtone} from "../models/Ringtone";
 
 /**
@@ -8,7 +9,7 @@ import {Ringtone} from "../models/Ringtone";
 export enum RoutingLinks {
   DashboardLink = '',
   RingtonesLink = 'ringtones',
-  RingTimeLink = 'ringTime',
+  RingtimeLink = 'ringtime',
   LiveLink = 'live',
   NoSchoolLink = 'noSchool',
   CalendarLink = 'calendar',
@@ -21,7 +22,7 @@ export enum RoutingLinks {
 export enum MenuNames {
   Dashboard = 'Dashboard',
   Ringtones = 'Klingeltöne',
-  RingTime = 'Klingelzeit',
+  Ringtime = 'Klingelzeit',
   Live = 'Live',
   NoSchool = 'Schulfrei',
   Calendar = 'Kalender',
@@ -48,7 +49,7 @@ export enum TitleNames {
 export enum MenuIcons {
   DashboardIcon = '../../../assets/images/sidebar/dashboard.svg',
   RingtonesIcon = '../../../assets/images/sidebar/music_note.svg',
-  RingTimeIcon = '../../../assets/images/sidebar/access_time.svg',
+  RingtimeIcon = '../../../assets/images/sidebar/access_time.svg',
   LiveIcon = '../../../assets/images/sidebar/live.svg',
   NoSchoolIcon = '../../../assets/images/sidebar/no_school.svg',
   CalendarIcon = '../../../assets/images/sidebar/kalendar.svg',
@@ -60,6 +61,7 @@ export enum MenuIcons {
  */
 export enum HeroImages {
   RingtonesHeroImage = '../../../assets/images/pages/music_note.svg',
+  RingtimeHeroImage = '../../../assets/images/pages/access_time.svg',
   DeleteHeroImage = '../../../assets/images/pages/delete_shield.svg',
 }
 
@@ -68,7 +70,7 @@ export enum HeroImages {
  */
 export enum DashboardIcons {
   RingtonesIcon = '../../../assets/images/dashboard/music_note.svg',
-  RingTimeIcon = '../../../assets/images/dashboard/access_time.svg',
+  RingtimeIcon = '../../../assets/images/dashboard/access_time.svg',
   LiveIcon = '../../../assets/images/dashboard/live.svg',
   NoSchoolIcon = '../../../assets/images/dashboard/no_school.svg',
   CalendarIcon = '../../../assets/images/dashboard/kalendar.svg',
@@ -90,4 +92,22 @@ export class StoreService {
     this._ringtoneList$.next(newList);
   }
 
+
+  /**
+   * private BehaviorSubject for ringtimeList
+   */
+  private _ringtimeList$ = new BehaviorSubject<Ringtime[]>([]);
+
+  /**
+   * public Observable instance for ringtimeList
+   */
+  public ringtimeList$ = this._ringtimeList$.asObservable();
+
+  /**
+   * Method to update ringtimeList
+   * @param newList ringtime list
+   */
+  updateRingtimeList(newList: Ringtime[]) {
+    this._ringtimeList$.next(newList);
+  }
 }

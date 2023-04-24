@@ -4,7 +4,9 @@
   [disabled]="disabled"
   [matTooltip]="tooltipText ?? ''"
   class="btn"
+  aria-label="ariaLabelText"
 >
+
   <div *ngIf="icon || playIcon" class="icon-container">
     <mat-icon *ngIf="!playIcon; else playIconTemplate" class="icon-color">
       {{ icon }}

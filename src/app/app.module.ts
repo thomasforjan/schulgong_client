@@ -20,11 +20,6 @@ import {SidebarComponent} from './layout/sidebar/sidebar.component';
 import {InfoBarComponent} from './components/info-bar/info-bar.component';
 import {ButtonComponent} from './components/button/button.component';
 import {HeroImageComponent} from './components/hero-image/hero-image.component';
-
-/**
- * Test Components
- */
-import {TestComponent} from './test/test.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {RingtonesComponent} from './pages/ringtones/ringtones.component';
 import {RingtimeComponent} from './pages/ringtime/ringtime.component';
@@ -34,6 +29,15 @@ import {CalendarComponent} from './pages/calendar/calendar.component';
 import {UserComponent} from './pages/user/user.component';
 import {AddEditRingtonesComponent} from "./pages/ringtones/add-edit-ringtones/add-edit-ringtones.component";
 import {DeleteDialogComponent} from "./components/delete-dialog/delete-dialog.component";
+import { AddEditRingtimeComponent } from './pages/ringtime/add-edit-ringtime/add-edit-ringtime.component';
+
+
+/**
+ * Test Components
+ */
+import {TestComponent} from './test/test.component';
+import {DatePipe} from "@angular/common";
+
 
 @NgModule({
   declarations: [
@@ -55,6 +59,7 @@ import {DeleteDialogComponent} from "./components/delete-dialog/delete-dialog.co
     AddEditRingtonesComponent,
     DeleteDialogComponent,
     TestComponent,  // Test Component
+    AddEditRingtimeComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +68,7 @@ import {DeleteDialogComponent} from "./components/delete-dialog/delete-dialog.co
     MaterialModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {
