@@ -116,7 +116,7 @@ form {
 .uploadBtn-wrapper {
   position: absolute;
   right: 30px;
-  transform: translateX(-50%);
+  transform: translateY(-50%);
   min-width: 85px;
   height: 45px;
   margin-right: 20px;
@@ -126,18 +126,14 @@ form {
   * Style for the upload button wrapper add
 */
 .uploadBtn-wrapper.add-mode {
-  display: inline;
-  float: right;
-  padding-top: 5px;
+  top: 63.5%;
 }
 
 /**
   * Style for the upload button wrapper edit
 */
 .uploadBtn-wrapper.edit-mode {
-  display: inline;
-  float: right;
-  padding-top: 5px;
+  top: 76%;
 }
 
 /**
@@ -168,7 +164,7 @@ form {
   * Style for the dialog content
 */
 .mat-mdc-dialog-content {
-  max-height: 50vh;
+  max-height: 610px;
 }
 
 /**
