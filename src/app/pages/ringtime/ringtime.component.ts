@@ -214,7 +214,7 @@ export class RingtimeComponent {
     let ringtimeDialog = this.createDialogResultFromRingtime(ringtime)
     const dialogRef = this.dialog.open(AddEditRingtimeComponent, {
       width: '500px',
-      height: '950px',
+      height: '65vh',
       data: { isAddRingtone: false, ringtimeDialog: ringtimeDialog, index },
     });
     dialogRef.afterClosed().subscribe((result: RingtimeDialog) => {
@@ -257,7 +257,7 @@ export class RingtimeComponent {
     let ringtime: RingtimePayload;
     const dialogRef = this.dialog.open(AddEditRingtimeComponent, {
       width: '500px',
-      height: '880px',
+      height: '65vh',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
