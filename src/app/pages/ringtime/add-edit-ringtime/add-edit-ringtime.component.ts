@@ -56,7 +56,6 @@ export class AddEditRingtimeComponent {
     this.loadRingtones();
 
     if (this.data) {
-      console.log(this.data)
       this.isEditRingtime = true;
       this.ringtimeForm = this._formBuilder.group({
         id: [this.data.ringtimeDialog.id],
@@ -164,7 +163,6 @@ export class AddEditRingtimeComponent {
       month: '2-digit',
       year: 'numeric'
     });
-    console.log(dateString)
     return dateString;
   }
 

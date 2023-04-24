@@ -219,8 +219,6 @@ export class RingtimeComponent {
     });
     dialogRef.afterClosed().subscribe((result: RingtimeDialog) => {
       if (result) {
-        console.log("AFTER CLOSED")
-        console.log(result)
         this.convertDialogResultIntoRingtime(result, ringtime)
 
         ringtime.ringtoneDTO = this.getRingtoneDTOById(result.ringtoneId);
@@ -264,12 +262,8 @@ export class RingtimeComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log("SAVE ADD")
-        console.log(result)
         let ringtone = this.getRingtoneDTOById(result.ringtoneId);
         ringtime = this.createRingtimePayloadFromDialogResult(result, ringtone);
-        console.log("RINGTIME")
-        console.log(ringtime)
         this.backendService.postRingtimeRequest(ringtime).subscribe((response)=>{
           const newRingtone = response.body;
           if (newRingtone){
