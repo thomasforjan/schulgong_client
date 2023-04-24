@@ -10,19 +10,22 @@ import {Ringtone, RingtonePayload, RingtoneResponse} from "../models/Ringtone";
   providedIn: 'root',
 })
 export class BackendService {
+
   /**
    * @description URL to backend
    */
-  private readonly BACKEND_URL = 'http://localhost:8080/';
+  private readonly BACKEND_URL = 'http://localhost:8080';
   private readonly RINGTONE_URL = '/ringtones';
+
 
   constructor(private storeService: StoreService, private http: HttpClient) {
   }
 
-/ Read Method */
+
+  /** Read Method */
   getRingtoneResponse(): Observable<Ringtone[] | null> {
     return this.http
-      .get<RingtoneResponse>(${this.BACKEND_URL}${this.RINGTONE_URL}, {
+      .get<RingtoneResponse>(`${this.BACKEND_URL}${this.RINGTONE_URL}`, {
         observe: 'response',
       })
       .pipe(
@@ -47,12 +50,12 @@ export class BackendService {
       );
   }
 
-  / Post Method */
+  /** Post Method */
   postRingtoneRequest(
     data: RingtonePayload
   ): Observable<HttpResponse<Ringtone>> {
     return this.http.post<Ringtone>(
-      ${this.BACKEND_URL}${this.RINGTONE_URL},
+      `${this.BACKEND_URL}${this.RINGTONE_URL}`,
       data,
       {
         observe: 'response',
@@ -60,7 +63,7 @@ export class BackendService {
     );
   }
 
-  /
+  /**
    * Update Ringtone Resource
    */
   updateRingtoneResource(
@@ -68,7 +71,7 @@ export class BackendService {
     ringtoneId: number
   ): Observable<HttpResponse<Ringtone>> {
     return this.http.put<Ringtone>(
-      ${this.BACKEND_URL}${this.RINGTONE_URL}/${ringtoneId},
+      `${this.BACKEND_URL}${this.RINGTONE_URL}/${ringtoneId}`,
       data,
       {
         observe: 'response',
@@ -76,26 +79,28 @@ export class BackendService {
     );
   }
 
-  / Delete Method */
+  /** Delete Method */
   deleteRingtoneResource(id: number): Observable<void> {
     return this.http.delete<void>(
-      ${this.BACKEND_URL}${this.RINGTONE_URL}/${id}
+      `${this.BACKEND_URL}${this.RINGTONE_URL}/${id}`
     );
   }
-  
-  
-   /** Read Method */
+
+
+  /** Read Method */
   getRingtimeResponse(): Observable<HttpResponse<RingtimeResponse>> {
     return this.http.get<RingtimeResponse>(`${this.BACKEND_URL}/ringtimes`, {
       observe: 'response',
     });
   }
+
   /** Post Method */
   postRingtimeRequest(data: RingtimePayload): Observable<HttpResponse<Ringtime>> {
     return this.http.post<Ringtime>(`${this.BACKEND_URL}/ringtimes`, data, {
       observe: 'response',
     });
   }
+
   /** Update Method */
   updateRingtimeResource(ringtime: Ringtime): Observable<HttpResponse<Ringtime>> {
     console.log('BACKEND updateRingtimeResource')
@@ -104,6 +109,7 @@ export class BackendService {
       observe: 'response',
     });
   }
+
   /** Delete Method */
   deleteRingtimeResource(id: number): Observable<void> {
     return this.http.delete<void>(`${this.BACKEND_URL}/ringtimes/${id}`);

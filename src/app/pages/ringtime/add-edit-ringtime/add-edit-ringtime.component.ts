@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BackendService} from "../../../services/backend.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
@@ -17,7 +17,7 @@ import {map, tap} from "rxjs";
   templateUrl: './add-edit-ringtime.component.html',
   styleUrls: ['./add-edit-ringtime.component.scss']
 })
-export class AddEditRingtimeComponent {
+export class AddEditRingtimeComponent implements OnInit{
   /**
    * Formgroup of ringtimeForm
    */
@@ -95,22 +95,7 @@ export class AddEditRingtimeComponent {
    * Load ringtones from the database
    */
   loadRingtones() {
-    this._backendService
-      .getRingtoneResponse()
-      .pipe(
-        tap((response) => {
-          if (
-            response.body &&
-            response.body._embedded &&
-            response.body._embedded.ringtoneDTOList
-
-          ) {
-            const ringtoneList = response.body._embedded.ringtoneDTOList;
-            this.storeService.updateRingtoneList(ringtoneList);
-          }
-        })
-      )
-      .subscribe();
+    this._backendService.getRingtoneResponse()
   }
 
   /**
