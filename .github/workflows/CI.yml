@@ -1,0 +1,132 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - 'feature/**'
+
+jobs:
+
+  install:
+    runs-on: ubuntu-22.04
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Cypress install
+        uses: cypress-io/github-action@v5
+        with:
+          # Disable running of tests within install job
+          runTests: false
+          build: npm run build
+
+  cypress-run:
+    runs-on: ubuntu-22.04
+    needs: install
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          start: npm start
+          browser: chrome
+
+  ci:
+    runs-on: ubuntu-latest
+    needs: cypress-run
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+          token: ${{ secrets.TOKEN_SCHULGONG_CLIENT }}
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache node modules
+        id: cache-nodemodules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # caching node_modules
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install Dependencies
+        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
+        run: |
+          npm ci
+      - name: Build
+        run: |
+          npm run build -- --configuration production
+#      - name: Test
+#        run: |
+#          npm run test -- --configuration production
+      - name: Conventional Changelog Action
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v3
+        with:
+          github-token: ${{ secrets.TOKEN_SCHULGONG_CLIENT }}
+          output-file: "false"
+
+
+  create-release:
+    runs-on: ubuntu-latest
+    needs: ci
+    if: github.ref == 'refs/heads/stable'
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+
+      - name: Increase version number
+        id: set-tag
+        run: echo "::set-output name=tag_name::$(sh get-version.sh)"
+
+      - name: Create Release Notes File
+        env:
+          COMMITTEXT: "${{ github.event.head_commit.message }}"
+        run: |
+          php create-release-notes-file.php
+
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.set-tag.outputs.tag_name }}
+          bodyFile: './release_notes.txt'
+          token: ${{ secrets.TOKEN_SCHULGONG_CLIENT }}
+
+      - name: commit stable
+        uses: devops-infra/action-commit-push@master
+        with:
+          github_token: ${{ secrets.TOKEN_SCHULGONG_CLIENT }}
+          commit_prefix: "[AUTO] increment version number to "
+          commit_message: ${{ steps.set-versionnumber.outputs.version_number }}
+          force: true
+      - name: merge stable into main
+        if: github.ref == 'refs/heads/stable'
+        uses: everlytic/branch-merge@1.1.2
+        with:
+          github_token: ${{ secrets.TOKEN_SCHULGONG_CLIENT }}
+          source_ref: ${{ github.ref }}
+          target_branch: 'main'
+          commit_message_template: '[AUTO] Merged {source_ref} into target {target_branch}'
