@@ -11,7 +11,7 @@ describe('Klingelzeit Test', () => {
       .click();
 
     //  Check if all elements exists
-    cy.contains('Klingelzeit - Hinzufügen');
+    cy.contains('Klingelzeit hinzufügen');
     cy.get(`[aria-label="ringtimeName"]`);
     cy.get(`[aria-label="ringtimeStartdate"]`);
     cy.get(`[aria-label="ringtimeEnddate"]`);
