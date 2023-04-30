@@ -1,0 +1,30 @@
+<app-hero-image [imageUrl]="holidayHeroImage"></app-hero-image>
+
+<div class="container">
+  <div class="button">
+    <app-button
+      [height]="40"
+      [hoverActive]="true"
+      [width]="117"
+      bgColor="#F29D38"
+      class="uploadBtn"
+      hoverColor="#FFA24A"
+      icon="add"
+      matTooltip="Hinzufügen"
+    ></app-button>
+  </div>
+  <div class="content-container">
+    <app-grid-cards
+      [cards]="cardLength$ | async"
+      [cards_height]="220"
+      [cards_width]="330"
+      [columns]="4"
+      [index]="true"
+      [matCardContentParagraph]="holidayDate$ | async"
+      [matCardTitle]="holidayName$ | async"
+      [showButtonContainer]="true"
+      [showDeleteButton]="true"
+      [showEditButton]="true"
+    ></app-grid-cards>
+  </div>
+</div>

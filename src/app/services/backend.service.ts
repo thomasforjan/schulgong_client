@@ -4,6 +4,7 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 import {Ringtime, RingtimePayload, RingtimeResponse} from "../models/Ringtime";
 import {Ringtone, RingtonePayload, RingtoneResponse} from "../models/Ringtone";
+import {Holiday, HolidayResponse} from "../models/Holiday";
 
 
 @Injectable({
@@ -16,6 +17,7 @@ export class BackendService {
    */
   private readonly BACKEND_URL = 'http://localhost:8080';
   private readonly RINGTONE_URL = '/ringtones';
+  private readonly HOLIDAY_URL = '/holidays';
 
 
   constructor(private storeService: StoreService, private http: HttpClient) {
@@ -115,4 +117,29 @@ export class BackendService {
     return this.http.delete<void>(`${this.BACKEND_URL}/ringtimes/${id}`);
   }
 
+  /** Read Method */
+  getHolidayResponse(): Observable<Holiday[] | null> {
+    return this.http
+      .get<HolidayResponse>(`${this.BACKEND_URL}${this.HOLIDAY_URL}`, {
+        observe: 'response',
+      })
+      .pipe(
+        map((response) => {
+          if (
+            response.body &&
+            response.body._embedded &&
+            response.body._embedded.holidayDTOList
+          ) {
+            const holidayList = response.body._embedded.holidayDTOList;
+            return holidayList.map((holidayDTO) => ({
+              id: holidayDTO.id,
+              startDate: holidayDTO.startDate,
+              endDate: holidayDTO.endDate,
+              name: holidayDTO.name,
+            }));
+          }
+          return null;
+        })
+      );
+  }
 }

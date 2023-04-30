@@ -24,12 +24,12 @@ import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {RingtonesComponent} from './pages/ringtones/ringtones.component';
 import {RingtimeComponent} from './pages/ringtime/ringtime.component';
 import {LiveComponent} from './pages/live/live.component';
-import {NoSchoolComponent} from './pages/no-school/no-school.component';
+import {HolidayComponent} from './pages/holiday/holiday.component';
 import {CalendarComponent} from './pages/calendar/calendar.component';
 import {UserComponent} from './pages/user/user.component';
 import {AddEditRingtonesComponent} from "./pages/ringtones/add-edit-ringtones/add-edit-ringtones.component";
 import {DeleteDialogComponent} from "./components/delete-dialog/delete-dialog.component";
-import { AddEditRingtimeComponent } from './pages/ringtime/add-edit-ringtime/add-edit-ringtime.component';
+import {AddEditRingtimeComponent} from './pages/ringtime/add-edit-ringtime/add-edit-ringtime.component';
 
 
 /**
@@ -53,7 +53,7 @@ import {DatePipe} from "@angular/common";
     RingtonesComponent,
     RingtimeComponent,
     LiveComponent,
-    NoSchoolComponent,
+    HolidayComponent,
     CalendarComponent,
     UserComponent,
     AddEditRingtonesComponent,
