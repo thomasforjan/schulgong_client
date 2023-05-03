@@ -142,4 +142,11 @@ export class BackendService {
         })
       );
   }
+
+  /** Delete Method */
+  deleteHolidayResource(id: number): Observable<void> {
+    return this.http.delete<void>(
+      `${this.BACKEND_URL}${this.HOLIDAY_URL}/${id}`
+    );
+  }
 }

@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {HeroImages, StoreService} from "../../services/store.service";
-import {map} from "rxjs/operators";
+import {map, take} from "rxjs/operators";
 import {BackendService} from "../../services/backend.service";
 import {MatDialog} from "@angular/material/dialog";
 import {Holiday} from "../../models/Holiday";
+import {DeleteDialogComponent} from "../../components/delete-dialog/delete-dialog.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-holiday', templateUrl: './holiday.component.html', styleUrls: ['./holiday.component.scss']
@@ -40,7 +42,9 @@ export class HolidayComponent implements OnInit {
     return `${formattedStartDate} - ${formattedEndDate}`;
   })));
 
-  constructor(public storeService: StoreService, private backendService: BackendService, private dialog: MatDialog) {}
+  constructor(public storeService: StoreService, private backendService: BackendService, private dialog: MatDialog,
+              private _snackBar: MatSnackBar) {
+  }
 
   ngOnInit(): void {
     this.getHolidays();
@@ -57,5 +61,52 @@ export class HolidayComponent implements OnInit {
           this.storeService.updateHolidayList(holidayList);
         }
       });
+  }
+
+  /**
+   * Method which is called when the delete button is clicked
+   * @param index index of the holiday entry
+   */
+  onDeleteHoliday(index: any): void {
+    index = this.getRealId(index);
+
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '720px',
+      height: '500px',
+      data: {index: index},
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.backendService.deleteHolidayResource(index).subscribe(
+          () => {
+            this.storeService.holidayList$
+              .pipe(take(1))
+              .subscribe((holidayList) => {
+                const updateHolidayList = holidayList.filter(
+                  (holiday) => holiday.id !== index
+                );
+                this.storeService.updateHolidayList(updateHolidayList);
+              });
+            this._snackBar.open('Schulfrei erfolgreich gelöscht!', 'Ok', {
+              horizontalPosition: 'end',
+              verticalPosition: 'bottom',
+              duration: 2000,
+            });
+          },
+        );
+      }
+    });
+  }
+
+  /**
+   * Transform shown number into real id of object
+   * @param index of object
+   * @returns real id of object
+   */
+  getRealId(index: number) {
+    this.storeService.holidayList$.pipe(take(1)).subscribe((holidayList) => {
+      index = holidayList[index].id;
+    });
+    return index;
   }
 }
