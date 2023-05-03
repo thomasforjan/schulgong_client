@@ -37,6 +37,7 @@ $originalColumn: 3;
   * Styles for the card content paragraph
 */
 :host ::ng-deep .mat-card-content-paragraph {
+  color: #000000 !important;
   margin-top: 15px;
   font-size: 24px;
   text-align: center;

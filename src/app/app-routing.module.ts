@@ -8,7 +8,7 @@ import {RingtonesComponent} from './pages/ringtones/ringtones.component';
 import {LiveComponent} from './pages/live/live.component';
 import {CalendarComponent} from './pages/calendar/calendar.component';
 import {UserComponent} from './pages/user/user.component';
-import {NoSchoolComponent} from './pages/no-school/no-school.component';
+import {HolidayComponent} from './pages/holiday/holiday.component';
 import {RingtimeComponent} from './pages/ringtime/ringtime.component';
 
 const routes: Routes = [
@@ -31,11 +31,8 @@ const routes: Routes = [
     path: RoutingLinks.LiveLink,
     component: LiveComponent,
     data: {title: MenuNames.Live},
-  },
-  {
-    path: RoutingLinks.NoSchoolLink,
-    component: NoSchoolComponent,
-    data: {title: MenuNames.NoSchool},
+  }, {
+    path: RoutingLinks.HolidayLink, component: HolidayComponent, data: {title: MenuNames.Holiday},
   },
   {
     path: RoutingLinks.CalendarLink,

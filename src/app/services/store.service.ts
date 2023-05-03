@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { Ringtime } from '../models/Ringtime';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {Ringtime} from '../models/Ringtime';
 import {Ringtone} from "../models/Ringtone";
+import {Holiday} from "../models/Holiday";
 
 /**
  * Enum for routing links
@@ -11,7 +12,7 @@ export enum RoutingLinks {
   RingtonesLink = 'ringtones',
   RingtimeLink = 'ringtime',
   LiveLink = 'live',
-  NoSchoolLink = 'noSchool',
+  HolidayLink = 'holiday',
   CalendarLink = 'calendar',
   UserLink = 'user'
 }
@@ -24,7 +25,7 @@ export enum MenuNames {
   Ringtones = 'Klingeltöne',
   Ringtime = 'Klingelzeit',
   Live = 'Live',
-  NoSchool = 'Schulfrei',
+  Holiday = 'Schulfrei',
   Calendar = 'Kalender',
   User = 'Benutzer',
 }
@@ -38,7 +39,7 @@ export enum TitleNames {
   Ringtones = 'Klingeltöne',
   RingTime = 'Klingelzeit',
   Live = 'Live',
-  NoSchool = 'Schulfrei',
+  Holiday = 'Schulfrei',
   Calendar = 'Kalender',
   User = 'Benutzer',
 }
@@ -51,8 +52,8 @@ export enum MenuIcons {
   RingtonesIcon = '../../../assets/images/sidebar/music_note.svg',
   RingtimeIcon = '../../../assets/images/sidebar/access_time.svg',
   LiveIcon = '../../../assets/images/sidebar/live.svg',
-  NoSchoolIcon = '../../../assets/images/sidebar/no_school.svg',
-  CalendarIcon = '../../../assets/images/sidebar/kalendar.svg',
+  HolidayIcon = '../../../assets/images/sidebar/holiday.svg',
+  CalendarIcon = '../../../assets/images/sidebar/calendar.svg',
   UserIcon = '../../../assets/images/sidebar/user.svg',
 }
 
@@ -62,6 +63,7 @@ export enum MenuIcons {
 export enum HeroImages {
   RingtonesHeroImage = '../../../assets/images/pages/music_note.svg',
   RingtimeHeroImage = '../../../assets/images/pages/access_time.svg',
+  HolidayHeroImage = '../../../assets/images/pages/holiday.svg',
   DeleteHeroImage = '../../../assets/images/pages/delete_shield.svg',
 }
 
@@ -72,8 +74,8 @@ export enum DashboardIcons {
   RingtonesIcon = '../../../assets/images/dashboard/music_note.svg',
   RingtimeIcon = '../../../assets/images/dashboard/access_time.svg',
   LiveIcon = '../../../assets/images/dashboard/live.svg',
-  NoSchoolIcon = '../../../assets/images/dashboard/no_school.svg',
-  CalendarIcon = '../../../assets/images/dashboard/kalendar.svg',
+  HolidayIcon = '../../../assets/images/dashboard/holiday.svg',
+  CalendarIcon = '../../../assets/images/dashboard/calendar.svg',
   UserIcon = '../../../assets/images/dashboard/user.svg',
 }
 
@@ -109,5 +111,23 @@ export class StoreService {
    */
   updateRingtimeList(newList: Ringtime[]) {
     this._ringtimeList$.next(newList);
+  }
+
+  /**
+   * private BehaviorSubject for holidayList
+   */
+  private _holidayList$ = new BehaviorSubject<Holiday[]>([]);
+
+  /**
+   * public Observable instance for holidayList
+   */
+  public holidayList$ = this._holidayList$.asObservable();
+
+  /**
+   * Method to update holidayList
+   * @param newList holiday list
+   */
+  updateHolidayList(newList: Holiday[]) {
+    this._holidayList$.next(newList);
   }
 }

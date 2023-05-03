@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NoSchoolComponent } from './no-school.component';
+import { HolidayComponent } from './holiday.component';
 
-describe('NoSchoolComponent', () => {
-  let component: NoSchoolComponent;
-  let fixture: ComponentFixture<NoSchoolComponent>;
+describe('HolidayComponent', () => {
+  let component: HolidayComponent;
+  let fixture: ComponentFixture<HolidayComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NoSchoolComponent ]
+      declarations: [ HolidayComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(NoSchoolComponent);
+    fixture = TestBed.createComponent(HolidayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

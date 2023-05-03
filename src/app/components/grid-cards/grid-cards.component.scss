@@ -156,10 +156,18 @@ $originalColumn: 6;
 */
 .mat-card-title {
   font-weight: bold;
-  font-size: 24px;
+  font-size: 22px;
   word-wrap: anywhere;
   padding-left: 0px !important;
   padding-right: 0px !important;
+}
+
+
+/**
+  * Styles for global (default) font-color of title, subtitle and paragraphs
+*/
+.mat-card-title, .mat-card-subtitle, .mat-card-content-paragraph, .mat-card-content-paragraph2, .mat-card-content-paragraph3{
+  color: #0000008a;
 }
 
 /**
