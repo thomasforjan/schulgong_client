@@ -19,7 +19,7 @@
   * Style for the first content paragraph
 */
 :host ::ng-deep .mat-card-content-paragraph {
-  font-size: 24px;
+  font-size: 22px;
   text-align: center;
 }
 
@@ -29,15 +29,6 @@
 .button {
   margin-bottom: 1rem;
   width: fit-content;
-}
-
-/**
-  * Media queries for devices between 940 and 1089 px width
-*/
-@media screen and (min-width: 940px) and (max-width: 1089px) {
-  :host ::ng-deep .mat-card-content-paragraph {
-    font-size: 22px;
-  }
 }
 
 /**
