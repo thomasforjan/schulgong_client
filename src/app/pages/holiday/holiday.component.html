@@ -15,6 +15,7 @@
   </div>
   <div class="content-container">
     <app-grid-cards
+      (delete)="onDeleteHoliday($event)"
       [cards]="cardLength$ | async"
       [cards_height]="220"
       [cards_width]="330"
