@@ -31,6 +31,20 @@ export enum MenuNames {
 }
 
 /**
+ * Enum for Tab-Title names
+ */
+export enum TabTitleNames {
+  Schulgong = 'Schulgong - ',
+  Dashboard = 'Dashboard',
+  Ringtones = 'Klingeltöne',
+  Ringtime = 'Klingelzeit',
+  Live = 'Live',
+  Holiday = 'Schulfrei',
+  Calendar = 'Kalender',
+  User = 'Benutzer',
+}
+
+/**
  * Enum for title names
  */
 export enum TitleNames {
