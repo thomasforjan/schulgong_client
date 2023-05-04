@@ -45,20 +45,6 @@ export enum TabTitleNames {
 }
 
 /**
- * Enum for title names
- */
-export enum TitleNames {
-  Schulgong = 'Schulgong - ',
-  Dashboard = 'Dashboard',
-  Ringtones = 'Klingeltöne',
-  RingTime = 'Klingelzeit',
-  Live = 'Live',
-  Holiday = 'Schulfrei',
-  Calendar = 'Kalender',
-  User = 'Benutzer',
-}
-
-/**
  * Icons for sidebar
  */
 export enum MenuIcons {
