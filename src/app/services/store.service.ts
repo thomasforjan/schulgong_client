@@ -31,13 +31,13 @@ export enum MenuNames {
 }
 
 /**
- * Enum for title names
+ * Enum for Tab-Title names
  */
-export enum TitleNames {
+export enum TabTitleNames {
   Schulgong = 'Schulgong - ',
   Dashboard = 'Dashboard',
   Ringtones = 'Klingeltöne',
-  RingTime = 'Klingelzeit',
+  Ringtime = 'Klingelzeit',
   Live = 'Live',
   Holiday = 'Schulfrei',
   Calendar = 'Kalender',
