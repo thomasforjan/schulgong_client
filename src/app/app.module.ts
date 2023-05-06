@@ -37,6 +37,7 @@ import {AddEditRingtimeComponent} from './pages/ringtime/add-edit-ringtime/add-e
  */
 import {TestComponent} from './test/test.component';
 import {DatePipe} from "@angular/common";
+import {MAT_DATE_LOCALE} from "@angular/material/core";
 
 
 @NgModule({
@@ -68,7 +69,7 @@ import {DatePipe} from "@angular/common";
     MaterialModule,
     HttpClientModule,
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, {provide: MAT_DATE_LOCALE, useValue: 'de-DE'}],
   bootstrap: [AppComponent],
 })
 export class AppModule {
