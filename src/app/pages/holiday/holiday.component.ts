@@ -6,6 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {Holiday} from "../../models/Holiday";
 import {DeleteDialogComponent} from "../../components/delete-dialog/delete-dialog.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {AddEditHolidaysComponent} from "./add-edit-holidays/add-edit-holidays.component";
 
 @Component({
   selector: 'app-holiday', templateUrl: './holiday.component.html', styleUrls: ['./holiday.component.scss']
@@ -25,26 +26,34 @@ export class HolidayComponent implements OnInit {
   /**
    * Get the holiday name from the holiday list
    */
-  holidayName$ = this.storeService.holidayList$.pipe(map((holidayList) => holidayList.map((holiday) => holiday.name)));
+  holidayName$ = this.storeService.holidayList$.pipe(
+    map((holidayList) => holidayList.map((holiday) => holiday.name)));
+
+
+  constructor(
+    public storeService: StoreService,
+    private backendService: BackendService,
+    private dialog: MatDialog,
+    private _snackBar: MatSnackBar
+  ) {
+  }
 
   /**
    * Get the start and end date in one string from the holiday list
    */
-  holidayDate$ = this.storeService.holidayList$.pipe(map((holidayList) => holidayList.map((holiday) => {
-    const startDate = new Date(holiday.startDate);
-    const endDate = new Date(holiday.endDate);
-    const formattedStartDate = startDate.toLocaleDateString('de-DE', {
-      day: '2-digit', month: '2-digit', year: 'numeric'
-    });
-    const formattedEndDate = endDate.toLocaleDateString('de-DE', {
-      day: '2-digit', month: '2-digit', year: 'numeric'
-    });
-    return `${formattedStartDate} - ${formattedEndDate}`;
-  })));
-
-  constructor(public storeService: StoreService, private backendService: BackendService, private dialog: MatDialog,
-              private _snackBar: MatSnackBar) {
-  }
+  holidayDate$ = this.storeService.holidayList$.pipe(
+    map((holidayList) =>
+      holidayList.map((holiday) => {
+        const startDate = new Date(holiday.startDate);
+        const endDate = new Date(holiday.endDate);
+        const formattedStartDate = startDate.toLocaleDateString('de-DE', {
+          day: '2-digit', month: '2-digit', year: 'numeric'
+        });
+        const formattedEndDate = endDate.toLocaleDateString('de-DE', {
+          day: '2-digit', month: '2-digit', year: 'numeric'
+        });
+        return `${formattedStartDate} - ${formattedEndDate}`;
+      })));
 
   ngOnInit(): void {
     this.getHolidays();
@@ -61,6 +70,38 @@ export class HolidayComponent implements OnInit {
           this.storeService.updateHolidayList(holidayList);
         }
       });
+  }
+
+  /**
+   * Method which is called when the add button is clicked
+   */
+  holidayAddDialog() {
+    const dialogRef = this.dialog.open(AddEditHolidaysComponent, {
+      width: '720px',
+      height: '650px',
+      data: { isAddHoliday: true },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.backendService.postHolidayRequest(result).subscribe((response) => {
+          const newHoliday = response.body;
+          if (newHoliday) {
+            this.storeService.holidayList$
+              .pipe(take(1))
+              .subscribe((currentHolidayList) => {
+                const updatedList = [...currentHolidayList, newHoliday];
+                this.storeService.updateHolidayList(updatedList);
+              });
+
+            this._snackBar.open('Schulfrei wird hinzugefügt', 'Ok', {
+              horizontalPosition: 'end',
+              verticalPosition: 'bottom',
+              duration: 2000,
+            });
+          }
+        });
+      }
+    });
   }
 
   /**

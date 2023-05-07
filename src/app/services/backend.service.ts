@@ -4,7 +4,7 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 import {Ringtime, RingtimePayload, RingtimeResponse} from "../models/Ringtime";
 import {Ringtone, RingtonePayload, RingtoneResponse} from "../models/Ringtone";
-import {Holiday, HolidayResponse} from "../models/Holiday";
+import {Holiday, HolidayPayload, HolidayResponse} from "../models/Holiday";
 
 
 @Injectable({
@@ -141,6 +141,22 @@ export class BackendService {
           return null;
         })
       );
+  }
+
+  /**
+   * POST Holiday Request
+   * @description POST HTTP-Method to create Holiday on server
+   * @param data HolidayPayload
+   * @returns Observable<HttpResponse<Holiday>>
+   */
+  postHolidayRequest(data: HolidayPayload): Observable<HttpResponse<Holiday>> {
+    return this.http.post<Holiday>(
+      `${this.BACKEND_URL}${this.HOLIDAY_URL}`,
+      data,
+      {
+        observe: 'response',
+      }
+    );
   }
 
   /** Delete Method */
