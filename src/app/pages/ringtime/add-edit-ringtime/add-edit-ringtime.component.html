@@ -50,7 +50,7 @@
         <input
           [matDatepicker]="pickerStartDate"
           matInput
-          placeholder="04/09/2023"
+          placeholder="04.09.2023"
           required
           formControlName="startDate"
           (change)="startDateChange($event)"
@@ -62,7 +62,7 @@
         >
           <p>Startdatum wird benötigt!</p>
         </mat-error>
-        <mat-hint align="end">MM/DD/YYYY</mat-hint>
+        <mat-hint align="end">DD.MM.YYYY</mat-hint>
       </mat-form-field>
     </div>
 
@@ -72,13 +72,13 @@
         <input
           [matDatepicker]="pickerEndDate"
           matInput
-          placeholder="09/02/2024"
+          placeholder="09.02.2024"
           formControlName="endDate"
           (change)="endDateChange($event)"
         />
         <mat-datepicker-toggle matIconSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
         <mat-datepicker #pickerEndDate></mat-datepicker>
-        <mat-hint align="end">MM/DD/YYYY</mat-hint>
+        <mat-hint align="end">DD.MM.YYYY</mat-hint>
       </mat-form-field>
     </div>
 
