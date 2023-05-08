@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Holiday, HolidayPayload } from 'src/app/models/Holiday';
@@ -10,7 +10,7 @@ import { HeroImages } from 'src/app/services/store.service';
   templateUrl: './add-edit-holidays.component.html',
   styleUrls: ['./add-edit-holidays.component.scss'],
 })
-export class AddEditHolidaysComponent {
+export class AddEditHolidaysComponent implements OnInit{
   /**
    * Ringtones Hero Image, enum is in store service
    */
@@ -42,13 +42,16 @@ export class AddEditHolidaysComponent {
   ngOnInit(): void {
     this.holidayForm = new FormGroup(
       {
-        holidayDescriptionFormControl: new FormControl('',
+        holidayDescriptionFormControl: new FormControl(
+          this.data.holiday?.name || '',
           Validators.required
         ),
-        startDate: new FormControl('',
+        startDate: new FormControl(
+          this.data.holiday?.startDate || '',
           Validators.required
         ),
-        endDate: new FormControl('',
+        endDate: new FormControl(
+          this.data.holiday?.endDate || '',
           Validators.required
         ),
       },

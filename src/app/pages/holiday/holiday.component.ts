@@ -73,6 +73,24 @@ export class HolidayComponent implements OnInit {
   }
 
   /**
+   * Method which is called when the edit button is clicked
+   * @param index index of the holiday entry
+   */
+  onEditHoliday(index: number) {
+    const realId = this.getRealId(index);
+    if (realId !== undefined) {
+      this.storeService.holidayList$.pipe(take(1)).subscribe((holidayList) => {
+        const holidayToEdit = holidayList.find(
+          (holiday) => holiday.id === realId
+        );
+        if (holidayToEdit) {
+          this.holidayEditDialog(holidayToEdit, index + 1);
+        }
+      });
+    }
+  }
+
+  /**
    * Method which is called when the add button is clicked
    */
   holidayAddDialog() {
@@ -94,6 +112,44 @@ export class HolidayComponent implements OnInit {
               });
 
             this._snackBar.open('Schulfrei wird hinzugefügt', 'Ok', {
+              horizontalPosition: 'end',
+              verticalPosition: 'bottom',
+              duration: 2000,
+            });
+          }
+        });
+      }
+    });
+  }
+
+  /**
+   * Method which is called when the edit button is clicked
+   * @param holiday holiday entry to edit
+   */
+  holidayEditDialog(holiday: Holiday, index: number) {
+    const dialogRef = this.dialog.open(AddEditHolidaysComponent, {
+      width: '720px',
+      height: '650px',
+      data: { isAddHoliday: false, holiday, index },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const updateRequest = this.backendService.updateHolidayResource(
+          result,
+          holiday.id
+        );
+
+        updateRequest.subscribe((response) => {
+          const updatedHoliday = response.body;
+          if (updatedHoliday) {
+            this.storeService.holidayList$.pipe(take(1)).subscribe((result) => {
+              const updatedList = result.map((holiday) =>
+                holiday.id === updatedHoliday.id ? updatedHoliday : holiday
+              );
+              this.storeService.updateHolidayList(updatedList);
+            });
+
+            this._snackBar.open('Schulfrei wurde aktualisiert', 'Ok', {
               horizontalPosition: 'end',
               verticalPosition: 'bottom',
               duration: 2000,

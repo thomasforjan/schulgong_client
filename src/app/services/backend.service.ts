@@ -159,6 +159,27 @@ export class BackendService {
     );
   }
 
+  /**
+   * PUT Holiday Resource
+   * @description PUT HTTP-Method to update Holiday entry on server
+   * @param data FormData
+   * @param ringtoneId number
+   * @returns Observable<HttpResponse<Holiday>>
+   */
+  updateHolidayResource(
+    data: FormData,
+    holidayId: number
+  ): Observable<HttpResponse<Holiday>> {
+    return this.http.put<Holiday>(
+      `${this.BACKEND_URL}${this.HOLIDAY_URL}/${holidayId}`,
+      data,
+      {
+        observe: 'response',
+      }
+    );
+  }
+
+
   /** Delete Method */
   deleteHolidayResource(id: number): Observable<void> {
     return this.http.delete<void>(
