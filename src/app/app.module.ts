@@ -37,6 +37,7 @@ import {AddEditRingtimeComponent} from './pages/ringtime/add-edit-ringtime/add-e
  */
 import {TestComponent} from './test/test.component';
 import {DatePipe} from "@angular/common";
+import {AddEditHolidaysComponent} from "./pages/holiday/add-edit-holidays/add-edit-holidays.component";
 import {MAT_DATE_LOCALE} from "@angular/material/core";
 
 
@@ -60,7 +61,8 @@ import {MAT_DATE_LOCALE} from "@angular/material/core";
     AddEditRingtonesComponent,
     DeleteDialogComponent,
     TestComponent,  // Test Component
-    AddEditRingtimeComponent
+    AddEditRingtimeComponent,
+    AddEditHolidaysComponent
   ],
   imports: [
     BrowserModule,
