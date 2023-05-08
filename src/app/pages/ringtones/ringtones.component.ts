@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HeroImages, StoreService } from '../../services/store.service';
 import { BackendService } from '../../services/backend.service';
 import { map, take } from 'rxjs/operators';
@@ -11,8 +11,8 @@ import { DeleteDialogComponent } from '../../components/delete-dialog/delete-dia
 
 /**
  - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
- - version: 0.0.1
- - date: 12.04.2023
+ - version: 0.0.2
+ - date: 06.05.2023
  - description: Ringtone component
  */
 @Component({
@@ -20,37 +20,48 @@ import { DeleteDialogComponent } from '../../components/delete-dialog/delete-dia
   templateUrl: './ringtones.component.html',
   styleUrls: ['./ringtones.component.scss'],
 })
-export class RingtonesComponent implements OnInit {
+export class RingtonesComponent implements OnInit, OnDestroy {
   /**
    * Boolean to check if the user is playing a ringtone
    */
   playing: boolean[] = [];
+
+  /**
+   * Index of the currently playing ringtone
+   */
+  currentlyPlayingIndex: number | null = null;
+
   /**
    * Boolean to check if the user is adding a ringtone
    */
   isAddRingtone: boolean = true;
+
   /**
    * Ringtone Hero Image from enum in store service
    */
   ringtoneHeroImage: string = HeroImages.RingtonesHeroImage;
+
   /**
    * Get the length of the ringtone list
    */
   cardLength$ = this.storeService.ringtoneList$.pipe(
     map((list) => list.length)
   );
+
   /**
    * Get the ringtone name from the ringtone list
    */
   ringToneName$ = this.storeService.ringtoneList$.pipe(
     map((ringtoneList) => ringtoneList.map((ringtone) => ringtone.name))
   );
+
   /**
    * Get the ringtone filename from the ringtone list
    */
   ringToneFilename$ = this.storeService.ringtoneList$.pipe(
     map((ringtoneList) => ringtoneList.map((ringtone) => ringtone.filename))
   );
+
   /**
    * Get the ringtone date from the ringtone list
    */
@@ -66,20 +77,24 @@ export class RingtonesComponent implements OnInit {
       })
     )
   );
+
   /**
    * Get the ringtone size from the ringtone list
    */
   ringToneSize$ = this.storeService.ringtoneList$.pipe(
     map((ringtoneList) => ringtoneList.map((ringtone) => ringtone.size + ' MB'))
   );
+
   /**
    * path of fileserver
    */
-  private readonly RINGTONEPATH_URL = 'http://192.168.1.239:8887';
+  private readonly RINGTONEPATH_URL = 'http://192.168.171.1:8887';
+
   /**
    * Map to store the sound files
    */
   private soundMap: Map<number, Howl> = new Map();
+
   /**
    * Set to store the updated ringtones
    */
@@ -92,8 +107,18 @@ export class RingtonesComponent implements OnInit {
     private _snackBar: MatSnackBar
   ) {}
 
+  /**
+   * Lifecycle Hook which is called when the component is initialized
+   */
   ngOnInit(): void {
     this.getRingtones();
+  }
+
+  /**
+   * Lifecycle Hook which is called when the component is destroyed
+   */
+  ngOnDestroy(): void {
+    this.stopAllSounds();
   }
 
   /**
@@ -153,6 +178,10 @@ export class RingtonesComponent implements OnInit {
                 );
                 this.storeService.updateRingtoneList(updateRingtoneList);
               });
+
+            // Reset the playing state and stop and remove the sound of the deleted ringtone
+            this.stopAndResetRingtone(index);
+
             this._snackBar.open('Klingelton erfolgreich gelöscht!', 'Ok', {
               horizontalPosition: 'end',
               verticalPosition: 'bottom',
@@ -262,6 +291,9 @@ export class RingtonesComponent implements OnInit {
             // Add the updated ringtone ID to the updatedRingtones set
             this.updatedRingtones.add(updatedRingtone.id);
 
+            // Reset the playing state and stop and remove the sound of the deleted ringtone
+            this.stopAndResetRingtone(updatedRingtone.id);
+
             this._snackBar.open('Klingelton wurde aktualisiert', 'Ok', {
               horizontalPosition: 'end',
               verticalPosition: 'bottom',
@@ -274,13 +306,23 @@ export class RingtonesComponent implements OnInit {
   }
 
   /**
-   * Tool to toggle the play/pause state of a ringtone
+   * Toggle the play/stop state of a ringtone
    * @param index index of the ringtone
    */
-  togglePlayPause(index: number): void {
+  togglePlayStop(index: number): void {
+    // If another ringtone is playing, stop it
+    if (
+      this.currentlyPlayingIndex !== null &&
+      this.currentlyPlayingIndex !== index
+    ) {
+      // Reset the playing state and stop and remove the sound of the deleted ringtone
+      this.stopAndResetRingtone(this.getRealId(this.currentlyPlayingIndex));
+    }
+
     this.playing[index] = !this.playing[index];
 
     if (this.playing[index]) {
+      this.currentlyPlayingIndex = index; // Set the currently playing index
       this.storeService.ringtoneList$
         .pipe(take(1))
         .subscribe((ringtoneList) => {
@@ -317,10 +359,47 @@ export class RingtonesComponent implements OnInit {
           });
         });
     } else {
+      this.currentlyPlayingIndex = null; // Set the index to null, if the ringtone will be stopped
       const sound = this.soundMap.get(this.getRealId(index));
       if (sound) {
         sound.stop();
       }
     }
+  }
+
+  /**
+   * Stops, unloads, and resets the playing state of a given ringtone.
+   * @param ringtoneId The ID of the ringtone to stop and reset.
+   */
+  stopAndResetRingtone(ringtoneId: number): void {
+    // If the provided ringtoneId is currently playing, reset its playing state and set the currentlyPlayingIndex to null.
+    if (
+      this.currentlyPlayingIndex !== null &&
+      this.getRealId(this.currentlyPlayingIndex) === ringtoneId
+    ) {
+      this.playing[this.currentlyPlayingIndex] = false;
+      this.currentlyPlayingIndex = null;
+    }
+
+    // Retrieve the Howl sound object from the soundMap using the ringtoneId.
+    const sound = this.soundMap.get(ringtoneId);
+
+    // If a sound object exists for the given ringtoneId, stop it, unload it, and remove it from the soundMap.
+    if (sound) {
+      sound.stop();
+      sound.unload();
+      this.soundMap.delete(ringtoneId);
+    }
+  }
+
+  /**
+   * Stops and unloads all sounds stored in the soundMap.
+   */
+  stopAllSounds(): void {
+    this.soundMap.forEach((sound) => {
+      sound.stop();
+      sound.unload();
+    });
+    this.soundMap.clear();
   }
 }
