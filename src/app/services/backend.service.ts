@@ -1,28 +1,34 @@
-import {Injectable} from '@angular/core';
-import {StoreService} from './store.service';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {map, Observable} from 'rxjs';
-import {Ringtime, RingtimePayload, RingtimeResponse} from "../models/Ringtime";
-import {Ringtone, RingtonePayload, RingtoneResponse} from "../models/Ringtone";
-import {Holiday, HolidayPayload, HolidayResponse} from "../models/Holiday";
-
+import { Injectable } from '@angular/core';
+import { StoreService } from './store.service';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
+import {
+  Ringtime,
+  RingtimePayload,
+  RingtimeResponse,
+} from '../models/Ringtime';
+import {
+  Ringtone,
+  RingtonePayload,
+  RingtoneResponse,
+} from '../models/Ringtone';
+import { Holiday, HolidayPayload, HolidayResponse } from '../models/Holiday';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BackendService {
-
   /**
    * @description URL to backend
    */
   private readonly BACKEND_URL = 'http://localhost:8080';
   private readonly RINGTONE_URL = '/ringtones';
   private readonly HOLIDAY_URL = '/holidays';
+  private readonly RINGTIME_URL = '/ringtimes';
+  private readonly RINGTIME_SERVER_TIME_URL = '/server-time';
+  private readonly HOLIDAY_TODAY_URL = '/today';
 
-
-  constructor(private storeService: StoreService, private http: HttpClient) {
-  }
-
+  constructor(private storeService: StoreService, private http: HttpClient) {}
 
   /** Read Method */
   getRingtoneResponse(): Observable<Ringtone[] | null> {
@@ -88,7 +94,6 @@ export class BackendService {
     );
   }
 
-
   /** Read Method */
   getRingtimeResponse(): Observable<HttpResponse<RingtimeResponse>> {
     return this.http.get<RingtimeResponse>(`${this.BACKEND_URL}/ringtimes`, {
@@ -97,19 +102,27 @@ export class BackendService {
   }
 
   /** Post Method */
-  postRingtimeRequest(data: RingtimePayload): Observable<HttpResponse<Ringtime>> {
+  postRingtimeRequest(
+    data: RingtimePayload
+  ): Observable<HttpResponse<Ringtime>> {
     return this.http.post<Ringtime>(`${this.BACKEND_URL}/ringtimes`, data, {
       observe: 'response',
     });
   }
 
   /** Update Method */
-  updateRingtimeResource(ringtime: Ringtime): Observable<HttpResponse<Ringtime>> {
-    console.log('BACKEND updateRingtimeResource')
-    console.log(ringtime)
-    return this.http.put<Ringtime>(`${this.BACKEND_URL}/ringtimes/${ringtime.id}`, ringtime, {
-      observe: 'response',
-    });
+  updateRingtimeResource(
+    ringtime: Ringtime
+  ): Observable<HttpResponse<Ringtime>> {
+    console.log('BACKEND updateRingtimeResource');
+    console.log(ringtime);
+    return this.http.put<Ringtime>(
+      `${this.BACKEND_URL}/ringtimes/${ringtime.id}`,
+      ringtime,
+      {
+        observe: 'response',
+      }
+    );
   }
 
   /** Delete Method */
@@ -179,11 +192,31 @@ export class BackendService {
     );
   }
 
-
   /** Delete Method */
   deleteHolidayResource(id: number): Observable<void> {
     return this.http.delete<void>(
       `${this.BACKEND_URL}${this.HOLIDAY_URL}/${id}`
+    );
+  }
+
+  /**
+   * GET Server Time from server
+   * @description GET HTTP-Method to retrive Server Time from server
+   * @returns Observable<{ time: string }>
+   */
+  getServerTime(): Observable<{ time: string }> {
+    return this.http.get<{ time: string }>(
+      `${this.BACKEND_URL}${this.RINGTIME_URL}${this.RINGTIME_SERVER_TIME_URL}`
+    );
+  }
+
+  /**
+   * @description Fetch the holiday object for the current day from the backend API.
+   * @returns An observable that emits the Holiday object for today or throws an error if no holiday is found.
+   */
+  getHolidayToday(): Observable<number> {
+    return this.http.get<number>(
+      `${this.BACKEND_URL}${this.HOLIDAY_URL}${this.HOLIDAY_TODAY_URL}`
     );
   }
 }
