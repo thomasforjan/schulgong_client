@@ -2,7 +2,8 @@
   <div class="datetime">
     <div class="date">{{ currentDate$ | async }}</div>
     <div class="time" *ngIf="currentTime$ | async as currentTime">
-      {{ currentTime }} Uhr
+      <span class="currentTime">{{ currentTime }}</span>
+      <span class="currentTimeText">Uhr</span>
     </div>
   </div>
   <app-button class="btn" bgColor="#f29d38" icon="schedule"></app-button>

@@ -45,6 +45,21 @@
   }
 
   /*
+    * Styles for the time span
+  */
+  .currentTime {
+    display: inline-block;
+    width: 57.5px;
+  }
+
+  /*
+    * Styles for the time span text
+  */
+  .currentTimeText {
+    padding-left: 5px;
+  }
+
+  /*
     * Styles for the app button
   */
   app-button {
