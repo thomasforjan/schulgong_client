@@ -1,19 +1,15 @@
 import {Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges,} from '@angular/core';
 
 /**
- - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
- - version: 0.0.1
- - date: April 2023
- - description: Grid cards component
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Reusable grid-cards component
  */
 @Component({
   selector: 'app-grid-cards', templateUrl: './grid-cards.component.html', styleUrls: ['./grid-cards.component.scss'],
 })
 export class GridCardsComponent implements OnChanges {
-  /**
-   * Defines the number of columns of the grid.
-   */
-  @Input() columns!: number;
 
   /**
    * Defines the number of cards of the grid.
@@ -119,9 +115,8 @@ export class GridCardsComponent implements OnChanges {
 
   /**
    * Constructor of the GridCardsComponent.
-   * @param elRef element reference
    */
-  constructor(private elRef: ElementRef) {
+  constructor() {
   }
 
   /**
@@ -129,12 +124,6 @@ export class GridCardsComponent implements OnChanges {
    * @param changes changes of the grid cards component
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['columns']) {
-      const gridContainerEl: HTMLElement | null = this.elRef.nativeElement.querySelector('.grid-container');
-      if (gridContainerEl) {
-        gridContainerEl.style.setProperty('--columns', this.columns.toString());
-      }
-    }
     if (changes['cards_width']) {
       this.cardWidth = `${this.cards_width}px`;
     }
@@ -155,7 +144,7 @@ export class GridCardsComponent implements OnChanges {
    * Toggles the play state of the card.
    * @param index of the object
    */
-  togglePlayPause(index: number): void {
+  togglePlayStop(index: number): void {
     this.play.emit(index);
   }
 
