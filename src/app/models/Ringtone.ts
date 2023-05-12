@@ -1,10 +1,9 @@
 /**
- - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
- - version: 0.0.1
- - date: April 2023
- - description: Models for ringtones
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Models for the ringtone component
  */
-
 export interface Ringtone {
   id: number;
   name: string;

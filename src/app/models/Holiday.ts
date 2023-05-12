@@ -1,8 +1,8 @@
 /**
- - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
- - version: 0.0.1
- - date: April 2023
- - description: Models for holidays
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: May 2023
+ * @description: Models for the holidays component
  */
 export interface Holiday {
   id: number;
