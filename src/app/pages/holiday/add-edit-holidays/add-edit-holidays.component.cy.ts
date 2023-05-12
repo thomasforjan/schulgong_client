@@ -1,4 +1,4 @@
-import { AddEditHolidaysComponent } from './add-edit-holidays.component'
+import {AddEditHolidaysComponent} from './add-edit-holidays.component'
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral

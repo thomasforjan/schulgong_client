@@ -113,7 +113,7 @@ describe('HolidayComponent', () => {
       expect(dialog.length).toBe(1);
     }));
 
-    it('check card-title',  () => {
+    it('check card-title', () => {
       const ourDomCardsUnderTest = Array.from(
         document.getElementsByTagName('mat-card')
       );
@@ -126,7 +126,7 @@ describe('HolidayComponent', () => {
       });
     });
 
-    it('check card-content',  async () => {
+    it('check card-content', async () => {
       const ourDomCardsUnderTest = Array.from(
         document.getElementsByTagName('mat-card')
       );
@@ -134,7 +134,7 @@ describe('HolidayComponent', () => {
       ourDomCardsUnderTest.forEach(card => {
         const cardContent = card.getElementsByTagName('mat-card-content')[0]
           .textContent;
-        if(cardContent != null) {
+        if (cardContent != null) {
           expect(cardContent.trim()).toBe(testHoliday[i].startDate.toLocaleDateString('de-DE', {
             day: '2-digit',
             month: '2-digit',

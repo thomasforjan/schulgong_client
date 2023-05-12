@@ -28,16 +28,6 @@ export class HolidayComponent implements OnInit {
    */
   holidayName$ = this.storeService.holidayList$.pipe(
     map((holidayList) => holidayList.map((holiday) => holiday.name)));
-
-
-  constructor(
-    public storeService: StoreService,
-    private _holidayBackendService: HolidayBackendService,
-    private _dialog: MatDialog,
-    private _snackBar: MatSnackBar
-  ) {
-  }
-
   /**
    * Get the start and end date in one string from the holiday list
    */
@@ -54,6 +44,14 @@ export class HolidayComponent implements OnInit {
         });
         return `${formattedStartDate} - ${formattedEndDate}`;
       })));
+
+  constructor(
+    public storeService: StoreService,
+    private _holidayBackendService: HolidayBackendService,
+    private _dialog: MatDialog,
+    private _snackBar: MatSnackBar
+  ) {
+  }
 
   ngOnInit(): void {
     this.getHolidays();
@@ -97,7 +95,7 @@ export class HolidayComponent implements OnInit {
     const dialogRef = this._dialog.open(AddEditHolidaysComponent, {
       width: '720px',
       height: '650px',
-      data: { isAddHoliday: true },
+      data: {isAddHoliday: true},
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -130,7 +128,7 @@ export class HolidayComponent implements OnInit {
     const dialogRef = this._dialog.open(AddEditHolidaysComponent, {
       width: '720px',
       height: '650px',
-      data: { isAddHoliday: false, holiday, index },
+      data: {isAddHoliday: false, holiday, index},
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {

@@ -1,22 +1,21 @@
-import { Time } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {Time} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
 import {
-  Observable,
   catchError,
   combineLatest,
   distinctUntilChanged,
   map,
+  Observable,
   of,
   shareReplay,
   startWith,
   switchMap,
-  tap,
   timer,
 } from 'rxjs';
-import { Ringtime } from 'src/app/models/Ringtime';
-import { StoreService } from 'src/app/services/store.service';
-import { DateUtilsService } from 'src/app/services/date-utils.service';
-import { Holiday } from 'src/app/models/Holiday';
+import {Ringtime} from 'src/app/models/Ringtime';
+import {StoreService} from 'src/app/services/store.service';
+import {DateUtilsService} from 'src/app/services/date-utils.service';
+import {Holiday} from 'src/app/models/Holiday';
 import {HolidayBackendService} from "../../services/holiday.backend.service";
 import {RingtimeBackendService} from "../../services/ringtime.backend.service";
 
@@ -46,6 +45,39 @@ export class InfoBarComponent implements OnInit {
    * @description Observable for holidays
    */
   holiday$!: Observable<Holiday | null>;
+  /**
+   *  @description An Observable that calculates the time offset between the client's current time and the server time
+   *  @returns time offset in milliseconds
+   */
+  serverTimeOffset$: Observable<number> = this._ringtimeBackendService
+    .getServerTime()
+    .pipe(
+      map(
+        (serverTimeObj) => new Date(serverTimeObj.time).getTime() - Date.now()
+      ),
+      // The shareReplay(1) operator is used to share the emitted value with all subscribers, replaying the most recent value to any new subscribers.
+      shareReplay(1)
+    );
+  /**
+   *  @description An Observable that emits the server time every second, considering the time offset between the client and the server
+   *  @note This does not cause unnecessary network traffic, as the server time is fetched only once and the updates are based on the client's clock.
+   */
+  serverTime$: Observable<Date> = combineLatest([
+    this.serverTimeOffset$,
+    timer(0, 1000),
+  ]).pipe(map(([offset]) => new Date(Date.now() + offset)));
+  /**
+   *  @description An observable that emits the formatted server date as a string, updating with the server time
+   */
+  currentDate$: Observable<string> = this.serverTime$.pipe(
+    map((serverTime) => this.getDateString(serverTime))
+  );
+  /**
+   * @description An observable for the current time as a localized string
+   */
+  currentTime$: Observable<string> = this.serverTime$.pipe(
+    map((serverTime) => new Date(serverTime).toLocaleTimeString())
+  );
 
   /**
    * @description Constructor
@@ -59,7 +91,8 @@ export class InfoBarComponent implements OnInit {
     private _holidayBackendService: HolidayBackendService,
     private _ringtimeBackendService: RingtimeBackendService,
     private _dateUtilsService: DateUtilsService
-  ) {}
+  ) {
+  }
 
   /**
    * @description Lifecycle Hook - ngOnInit
@@ -135,7 +168,8 @@ export class InfoBarComponent implements OnInit {
    * @description Fetches ringtimes from the backend and subscribes to the response.
    */
   fetchRingtimes() {
-    this._ringtimeBackendService.getRingtimeResponse().subscribe();;
+    this._ringtimeBackendService.getRingtimeResponse().subscribe();
+
   }
 
   /**
@@ -196,7 +230,7 @@ export class InfoBarComponent implements OnInit {
         };
       }),
       // Update the next gong in the store
-      switchMap(({ displayTime, nextGong }) =>
+      switchMap(({displayTime, nextGong}) =>
         this.updateNextGong(displayTime, nextGong)
       ),
       // Only emit values when the next gong changes
@@ -213,9 +247,9 @@ export class InfoBarComponent implements OnInit {
     // If nextGong exists, format its playTime as a localized time string, otherwise return null
     return nextGong
       ? this.timeToDate(nextGong.playTime).toLocaleTimeString('de-DE', {
-          hour: '2-digit',
-          minute: '2-digit',
-        })
+        hour: '2-digit',
+        minute: '2-digit',
+      })
       : null;
   }
 
@@ -251,43 +285,6 @@ export class InfoBarComponent implements OnInit {
       return of(null);
     }
   }
-
-  /**
-   *  @description An Observable that calculates the time offset between the client's current time and the server time
-   *  @returns time offset in milliseconds
-   */
-  serverTimeOffset$: Observable<number> = this._ringtimeBackendService
-    .getServerTime()
-    .pipe(
-      map(
-        (serverTimeObj) => new Date(serverTimeObj.time).getTime() - Date.now()
-      ),
-      // The shareReplay(1) operator is used to share the emitted value with all subscribers, replaying the most recent value to any new subscribers.
-      shareReplay(1)
-    );
-
-  /**
-   *  @description An Observable that emits the server time every second, considering the time offset between the client and the server
-   *  @note This does not cause unnecessary network traffic, as the server time is fetched only once and the updates are based on the client's clock.
-   */
-  serverTime$: Observable<Date> = combineLatest([
-    this.serverTimeOffset$,
-    timer(0, 1000),
-  ]).pipe(map(([offset]) => new Date(Date.now() + offset)));
-
-  /**
-   *  @description An observable that emits the formatted server date as a string, updating with the server time
-   */
-  currentDate$: Observable<string> = this.serverTime$.pipe(
-    map((serverTime) => this.getDateString(serverTime))
-  );
-
-  /**
-   * @description An observable for the current time as a localized string
-   */
-  currentTime$: Observable<string> = this.serverTime$.pipe(
-    map((serverTime) => new Date(serverTime).toLocaleTimeString())
-  );
 
   /**
    * @description Converts a Date object to a formatted string in German locale, including day, month and year.
