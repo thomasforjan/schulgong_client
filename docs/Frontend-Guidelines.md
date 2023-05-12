@@ -42,12 +42,12 @@ The present document provides an outline of the guidelines for the Frontend.
 - All classes must have at the beginning implementation notes e.g.:
 
 ```ts
-/** 
-- author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
-- version: 0.0.1
-- date: 31.03.2023
-- description: sidebar component
-*/
+/**
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.1
+ * @since: April 2023
+ * @description: Reusable delete dialog component
+ */
 ```
 
 ### :file_folder: Project structure
