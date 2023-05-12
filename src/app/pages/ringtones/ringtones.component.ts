@@ -147,8 +147,8 @@ export class RingtonesComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this._ringtoneBackendService.deleteRingtoneResource(index).subscribe(
-          () => {
+        this._ringtoneBackendService.deleteRingtoneResource(index).subscribe({
+          next: () => {
             this.storeService.ringtoneList$
               .pipe(take(1))
               .subscribe((ringtoneList) => {
@@ -166,7 +166,7 @@ export class RingtonesComponent implements OnInit, OnDestroy {
               duration: 2000,
             });
           },
-          (error) => {
+          error: (error) => {
             this._snackBar.open(
               'Klingelton konnte nicht gelöscht werden (Info: möglicherweise wird der Klingelton für eine Klingelzeit verwendet).',
               'Ok',
@@ -177,7 +177,7 @@ export class RingtonesComponent implements OnInit, OnDestroy {
               }
             );
           }
-        );
+        });
       }
     });
   }
