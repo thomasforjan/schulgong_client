@@ -1,10 +1,3 @@
-/**
- * author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
- * version: 0.0.2
- * date: 03/05/2023
- * description: info bar component
- */
-
 import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -22,10 +15,17 @@ import {
 } from 'rxjs';
 import { Ringtime } from 'src/app/models/Ringtime';
 import { StoreService } from 'src/app/services/store.service';
-import { BackendService } from '../../services/backend.service';
 import { DateUtilsService } from 'src/app/services/date-utils.service';
 import { Holiday } from 'src/app/models/Holiday';
+import {HolidayBackendService} from "../../services/holiday.backend.service";
+import {RingtimeBackendService} from "../../services/ringtime.backend.service";
 
+/**
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Info-bar component
+ */
 @Component({
   selector: 'app-info-bar',
   templateUrl: './info-bar.component.html',
@@ -49,13 +49,16 @@ export class InfoBarComponent implements OnInit {
 
   /**
    * @description Constructor
-   * @param storeService Injected StoreService
-   * @param backendService Injected BackendService
+   * @param _storeService Injected StoreService
+   * @param _holidayBackendService Injected Holiday-BackendService
+   * @param _ringtimeBackendService Injected Ringtime-BackendService
+   * @param _dateUtilsService Injected DateService
    */
   constructor(
-    private storeService: StoreService,
-    private backendService: BackendService,
-    private dateUtilsService: DateUtilsService
+    private _storeService: StoreService,
+    private _holidayBackendService: HolidayBackendService,
+    private _ringtimeBackendService: RingtimeBackendService,
+    private _dateUtilsService: DateUtilsService
   ) {}
 
   /**
@@ -91,9 +94,9 @@ export class InfoBarComponent implements OnInit {
    * @returns An observable that emits the holiday ID or null if no holiday is found
    */
   getHolidayIdObservable(): Observable<number | null> {
-    return this.storeService.holidayList$.pipe(
+    return this._storeService.holidayList$.pipe(
       switchMap(() =>
-        this.backendService.getHolidayToday().pipe(
+        this._holidayBackendService.getHolidayToday().pipe(
           map((holidayId: number) => holidayId),
           catchError(() => of(null))
         )
@@ -110,7 +113,7 @@ export class InfoBarComponent implements OnInit {
   combineHolidayIdWithHolidayList(
     holidayId$: Observable<number | null>
   ): Observable<Holiday | null> {
-    return combineLatest([holidayId$, this.storeService.holidayList$]).pipe(
+    return combineLatest([holidayId$, this._storeService.holidayList$]).pipe(
       map(([holidayId, holidayList]) => {
         const holiday = holidayList.find((h) => h.id === holidayId);
         return holiday || null;
@@ -132,40 +135,15 @@ export class InfoBarComponent implements OnInit {
    * @description Fetches ringtimes from the backend and subscribes to the response.
    */
   fetchRingtimes() {
-    this.backendService
-      .getRingtimeResponse()
-      .pipe(
-        tap((response) => {
-          if (
-            response.body &&
-            response.body._embedded &&
-            response.body._embedded.ringtimeDTOList
-          ) {
-            const ringtimeList = response.body._embedded.ringtimeDTOList;
-            this.storeService.updateRingtimeList(ringtimeList);
-          }
-        })
-      )
-      .subscribe();
-
-    // TODO: Use this line after backend.service.ts refactoring is done!
-    //this.backendService.getRingtimeResponse().subscribe();
+    this._ringtimeBackendService.getRingtimeResponse().subscribe();;
   }
 
   /**
    * @description Fetches holidays from the backend and subscribes to the response.
    */
   fetchHolidays() {
-    this.backendService
-      .getHolidayResponse()
-      .subscribe((holidayList: Holiday[] | null) => {
-        if (holidayList && holidayList.length > 0) {
-          this.storeService.updateHolidayList(holidayList);
-        }
-      });
-
-    // TODO: Use this line after backend.service.ts refactoring is done!
-    //this.backendService.getHolidayResponse().subscribe();
+    this._holidayBackendService
+      .getHolidayResponse().subscribe();
   }
 
   /**
@@ -195,7 +173,7 @@ export class InfoBarComponent implements OnInit {
    */
   calculateNextGong$(currentTime: Date): Observable<string | null> {
     return combineLatest([
-      this.storeService.ringtimeList$,
+      this._storeService.ringtimeList$,
       of(currentTime),
     ]).pipe(
       map(([ringtimes, currentTime]) => {
@@ -278,7 +256,7 @@ export class InfoBarComponent implements OnInit {
    *  @description An Observable that calculates the time offset between the client's current time and the server time
    *  @returns time offset in milliseconds
    */
-  serverTimeOffset$: Observable<number> = this.backendService
+  serverTimeOffset$: Observable<number> = this._ringtimeBackendService
     .getServerTime()
     .pipe(
       map(
@@ -317,7 +295,7 @@ export class InfoBarComponent implements OnInit {
    * @returns The formatted string.
    */
   getDateString(serverTime: Date): string {
-    return this.dateUtilsService.convertDateTimeToString(serverTime, 'de-DE');
+    return this._dateUtilsService.convertDateTimeToString(serverTime, 'de-DE');
   }
 
   /**
