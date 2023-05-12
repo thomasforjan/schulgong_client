@@ -1,84 +1,132 @@
-
-<div mat-dialog-content >
+<div mat-dialog-content>
   <div class="header">
-    <h1 mat-dialog-title class="title">
-      <ng-container *ngIf="isEditRingtime">
+    <h1 class="title" mat-dialog-title>
+      <ng-container *ngIf="!data.isAddRingtime">
         <span class="title-word">Klingelzeit </span>
         <span class="title-action">editieren</span>
       </ng-container>
-      <ng-container *ngIf="isAddRingtime">
+      <ng-container *ngIf="data.isAddRingtime">
         <span class="title-word">Klingelzeit </span>
         <span class="title-action">hinzufügen</span>
-      </ng-container
-      >
+      </ng-container>
     </h1>
     <div class="hero-image-container">
-      <app-hero-image [imageUrl]="ringtimeIcon[1]"></app-hero-image>
+      <app-hero-image [imageUrl]="ringtimeHeroImage"></app-hero-image>
     </div>
 
     <hr class="divider"/>
   </div>
 
-  <div class="form-field-container" *ngIf="isEditRingtime">
+  <div *ngIf="isEditRingtime" class="form-field-container">
     <mat-form-field appearance="fill" class="form-field index-form-field">
       <mat-label>Index</mat-label>
       <input
-        value="{{ data.index + 1 }}"
-        type="text"
-        matInput
         [disabled]="true"
+        matInput
+        type="text"
+        value="{{ data.index + 1 }}"
       />
     </mat-form-field>
   </div>
 
-  <form [formGroup]="ringtimeForm">
+  <form *ngIf="ringtimeForm" [formGroup]="ringtimeForm">
     <div class="form-field-container">
-      <mat-form-field aria-label="ringtimeName" appearance="fill" class="form-field index-form-field">
+      <mat-form-field
+        appearance="fill"
+        aria-label="ringtimeName"
+        class="form-field index-form-field"
+      >
         <mat-label>Bezeichnung</mat-label>
         <input
-          type="text"
+          formControlName="name"
           matInput
           placeholder="Beginn 1. Stunde"
-          formControlName="name"
+          type="text"
         />
+
+        <ng-container
+          *ngIf="
+            ringtimeForm.get('name')?.hasError('required') &&
+            ringtimeForm.get('name')?.touched
+          "
+        >
+          <mat-error>Bezeichnung wird benötigt!</mat-error>
+        </ng-container>
       </mat-form-field>
     </div>
 
     <div class="form-field-container">
-      <mat-form-field aria-label="ringtimeStartdate" appearance="fill" class="form-field index-form-field">
+      <mat-form-field
+        appearance="fill"
+        aria-label="ringtimeStartdate"
+        class="form-field index-form-field"
+      >
         <mat-label>Startdatum</mat-label>
         <input
           [matDatepicker]="pickerStartDate"
-          matInput
-          placeholder="04.09.2023"
-          required
           formControlName="startDate"
-          (change)="startDateChange($event)"
+          matInput
+          placeholder="04/09/2023"
+          required
         />
-        <mat-datepicker-toggle matIconSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+        <mat-datepicker-toggle
+          [for]="pickerStartDate"
+          matIconSuffix
+        ></mat-datepicker-toggle>
         <mat-datepicker #pickerStartDate></mat-datepicker>
-        <mat-error
-          *ngIf="ringtimeForm.get('startDate')?.hasError('required')"
+
+        <ng-container
+          *ngIf="
+            ringtimeForm.get('startDate')?.hasError('required') &&
+            ringtimeForm.get('startDate')?.touched
+          "
         >
-          <p>Startdatum wird benötigt!</p>
-        </mat-error>
+          <mat-error>Startdatum wird benötigt!</mat-error>
+        </ng-container>
+        <ng-container
+          *ngIf="dateUtilsService.hasInvalidDateRangeError(ringtimeForm)"
+        >
+          <mat-error> Startdatum muss kleiner als Enddatum sein!</mat-error>
+        </ng-container>
+
         <mat-hint align="end">DD.MM.YYYY</mat-hint>
       </mat-form-field>
     </div>
 
     <div class="form-field-container">
-      <mat-form-field aria-label="ringtimeEnddate" appearance="fill" class="form-field index-form-field">
+      <mat-form-field
+        appearance="fill"
+        aria-label="ringtimeEnddate"
+        class="form-field index-form-field"
+      >
         <mat-label>Enddatum</mat-label>
         <input
           [matDatepicker]="pickerEndDate"
-          matInput
-          placeholder="09.02.2024"
           formControlName="endDate"
-          (change)="endDateChange($event)"
+          matInput
+          placeholder="09/02/2024"
         />
-        <mat-datepicker-toggle matIconSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
+        <mat-datepicker-toggle
+          [for]="pickerEndDate"
+          matIconSuffix
+        ></mat-datepicker-toggle>
         <mat-datepicker #pickerEndDate></mat-datepicker>
         <mat-hint align="end">DD.MM.YYYY</mat-hint>
+
+        <ng-container
+          *ngIf="
+            ringtimeForm.get('endDate')?.hasError('required') &&
+            ringtimeForm.get('endDate')?.touched
+          "
+        >
+          <mat-error>Enddatum wird benötigt!</mat-error>
+        </ng-container>
+
+        <ng-container
+          *ngIf="dateUtilsService.hasInvalidDateRangeError(ringtimeForm)"
+        >
+          <mat-error> Enddatum muss größer als Startdatum sein!</mat-error>
+        </ng-container>
       </mat-form-field>
     </div>
 
@@ -88,39 +136,63 @@
         <div class="klingeldays">
           <p style="float: left; text-align: center; margin-bottom: 0px">
             MO
-            <br>
-            <mat-checkbox aria-label="ringtimeCheckboxMonday" formControlName="monday"></mat-checkbox>
+            <br/>
+            <mat-checkbox
+              aria-label="ringtimeCheckboxMonday"
+              formControlName="monday"
+            ></mat-checkbox>
           </p>
-          <p class="checkboxPartOne" style="float: left; text-align: center; margin-bottom: 0px">
+          <p
+            class="checkboxPartOne"
+            style="float: left; text-align: center; margin-bottom: 0px"
+          >
             DI
-            <br>
-            <mat-checkbox aria-label="ringtimeCheckboxTuesday" formControlName="tuesday"></mat-checkbox>
+            <br/>
+            <mat-checkbox
+              aria-label="ringtimeCheckboxTuesday"
+              formControlName="tuesday"
+            ></mat-checkbox>
           </p>
           <p style="float: left; text-align: center; margin-bottom: 0px">
             MI
             <br/>
-            <mat-checkbox aria-label="ringtimeCheckboxWednesday" formControlName="wednesday"></mat-checkbox>
+            <mat-checkbox
+              aria-label="ringtimeCheckboxWednesday"
+              formControlName="wednesday"
+            ></mat-checkbox>
           </p>
           <p style="float: left; text-align: center; margin-bottom: 0px">
             DO
             <br/>
-            <mat-checkbox aria-label="ringtimeCheckboxThursday" formControlName="thursday"></mat-checkbox>
+            <mat-checkbox
+              aria-label="ringtimeCheckboxThursday"
+              formControlName="thursday"
+            ></mat-checkbox>
           </p>
-          <div style="float: left;">
+          <div style="float: left">
             <p style="float: left; text-align: center">
               FR
               <br/>
-              <mat-checkbox aria-label="ringtimeCheckboxFriday" formControlName="friday"></mat-checkbox>
+              <mat-checkbox
+                aria-label="ringtimeCheckboxFriday"
+                formControlName="friday"
+              ></mat-checkbox>
             </p>
             <p style="float: left; text-align: center">
               SA
               <br/>
-              <mat-checkbox aria-label="ringtimeCheckboxSaturday" formControlName="saturday"></mat-checkbox>
+              <mat-checkbox
+                aria-label="ringtimeCheckboxSaturday"
+                formControlName="saturday"
+              ></mat-checkbox>
             </p>
             <p style="float: left; text-align: center">
               SO
               <br/>
-              <mat-checkbox aria-label="ringtimeCheckboxSunday" formControlName="sunday"></mat-checkbox>
+              <mat-checkbox
+                aria-label="ringtimeCheckboxSunday"
+                formControlName="sunday"
+              ></mat-checkbox>
             </p>
           </div>
         </div>
@@ -129,64 +201,88 @@
     </div>
 
     <div class="form-field-container">
-      <mat-form-field aria-label="ringtimePlaytime" appearance="fill" class="form-field index-form-field">
+      <mat-form-field
+        appearance="fill"
+        aria-label="ringtimePlaytime"
+        class="form-field index-form-field"
+      >
         <mat-label>Uhrzeit</mat-label>
         <input
-          type="time"
+          formControlName="playTime"
           matInput
           placeholder="08:00"
-          formControlName="playTime"
-          (change)="playTimeChange($event)"
+          type="time"
         />
         <mat-hint align="end">HH/MM</mat-hint>
+
+        <ng-container
+          *ngIf="
+            ringtimeForm.get('playTime')?.hasError('required') &&
+            ringtimeForm.get('playTime')?.touched
+          "
+        >
+          <mat-error>Uhrzeit wird benötigt!</mat-error>
+        </ng-container>
       </mat-form-field>
     </div>
 
     <div class="form-field-container">
-      <mat-form-field aria-label="ringtimeRingtone" appearance="fill" class="form-field index-form-field">
+      <mat-form-field
+        appearance="fill"
+        aria-label="ringtimeRingtone"
+        class="form-field index-form-field"
+      >
         <mat-label>Klingelton auswählen</mat-label>
         <mat-select formControlName="ringtoneId">
-          <mat-option *ngFor="let item of storeService.ringtoneList$ | async" [value]="item.id">{{
-            item?.name
-            }}
+          <mat-option
+            *ngFor="let item of storeService.ringtoneList$ | async"
+            [value]="item.id"
+          >{{ item?.name }}
           </mat-option>
         </mat-select>
+        <ng-container
+          *ngIf="
+            ringtimeForm.get('ringtoneId')?.hasError('required') &&
+            ringtimeForm.get('ringtoneId')?.touched
+          "
+        >
+          <mat-error>Klingelton wird benötigt!</mat-error>
+        </ng-container>
       </mat-form-field>
     </div>
 
-    <div mat-dialog-actions class="actions-container">
+    <div class="actions-container" mat-dialog-actions>
       <div class="button-container">
         <app-button
-          class="submitBtn"
-          bgColor="#F29D38"
-          icon="check_circle"
-          [hoverActive]="true"
-          hoverColor="#FFA24A"
-          [width]="100"
-          [height]="45"
           (click)="onSubmitClick()"
-          aria-label="ringtimeSaveButton"
           [disabled]="ringtimeForm.invalid"
+          [height]="45"
+          [hoverActive]="true"
+          [width]="100"
+          aria-label="ringtimeSaveButton"
+          bgColor="#F29D38"
+          class="submitBtn"
+          hoverColor="#FFA24A"
+          icon="check_circle"
         ></app-button>
       </div>
 
       <div class="button-container">
         <app-button
-          class="cancelBtn"
-          bgColor="#B9B9B9"
-          icon="cancel"
-          [hoverActive]="true"
-          hoverColor="#C9C9C9"
-          [width]="100"
-          [height]="45"
-          aria-label="ringtimeCancelButton"
           (click)="onCancelClick()"
           [boxShadow]="
             '0 4px 4px rgba(185, 185, 185, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
           "
+          [height]="45"
+          [hoverActive]="true"
+          [width]="100"
+          aria-label="ringtimeCancelButton"
+          bgColor="#B9B9B9"
+          class="cancelBtn"
+          hoverColor="#C9C9C9"
+          icon="cancel"
         ></app-button>
       </div>
     </div>
   </form>
 </div>
-

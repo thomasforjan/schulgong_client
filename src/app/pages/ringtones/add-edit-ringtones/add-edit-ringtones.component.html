@@ -14,7 +14,7 @@
     <div class="hero-image-container">
       <app-hero-image [imageUrl]="ringtonesHeroImage"></app-hero-image>
     </div>
-    <hr class="divider" />
+    <hr class="divider"/>
     <div *ngIf="isEditRingtone" class="form-field-container form-fields">
       <mat-form-field appearance="fill" class="form-field index-form-field">
         <mat-label>Index</mat-label>
@@ -38,15 +38,17 @@
           required
           type="text"
         />
-        <mat-error
+
+        <ng-container
           *ngIf="
             ringtoneForm
               .get('ringtoneDescriptionFormControl')
-              ?.hasError('required')
+              ?.hasError('required') &&
+            ringtoneForm.get('ringtoneDescriptionFormControl')?.touched
           "
         >
-          Bezeichnung wird benötigt!
-        </mat-error>
+          <mat-error>Bezeichnung wird benötigt!</mat-error>
+        </ng-container>
       </mat-form-field>
     </div>
     <div class="form-field-container form-fields">
@@ -58,15 +60,17 @@
           readonly
           type="text"
         />
-        <mat-error
+
+        <ng-container
           *ngIf="
             ringtoneForm
-              .get('ringtoneDescriptionFormControl')
-              ?.hasError('required') && isAddRingtone
+              .get('uploadedRingtoneFormControl')
+              ?.hasError('required') &&
+            ringtoneForm.get('uploadedRingtoneFormControl')?.touched
           "
         >
-          Klingeltonname wird benötigt!
-        </mat-error>
+          <mat-error>Klingeltonname wird benötigt!</mat-error>
+        </ng-container>
       </mat-form-field>
     </div>
     <div
@@ -106,13 +110,13 @@
       <div class="button-container">
         <app-button
           (click)="onCancelClick()"
+          [boxShadow]="
+            '0 4px 4px rgba(185, 185, 185, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
+          "
           [height]="45"
           [hoverActive]="true"
           [width]="100"
           bgColor="#B9B9B9"
-          [boxShadow]="
-            '0 4px 4px rgba(185, 185, 185, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
-          "
           class="cancelBtn"
           hoverColor="#C9C9C9"
           icon="cancel"

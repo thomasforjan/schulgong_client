@@ -14,7 +14,7 @@
     <div class="hero-image-container">
       <app-hero-image [imageUrl]="holidaysHeroImage"></app-hero-image>
     </div>
-    <hr class="divider" />
+    <hr class="divider"/>
     <div *ngIf="isEditHoliday" class="form-field-container form-fields">
       <mat-form-field appearance="fill" class="form-field index-form-field">
         <mat-label>Index</mat-label>
@@ -33,15 +33,15 @@
       <mat-form-field appearance="fill">
         <mat-label>Startdatum</mat-label>
         <input
-          matInput
           [matDatepicker]="pickerStartDate"
           formControlName="startDate"
+          matInput
           placeholder="04.09.2023"
         />
         <mat-hint align="end">DD.MM.YYYY</mat-hint>
         <mat-datepicker-toggle
-          matIconSuffix
           [for]="pickerStartDate"
+          matIconSuffix
         ></mat-datepicker-toggle>
         <mat-datepicker #pickerStartDate></mat-datepicker>
 
@@ -57,22 +57,22 @@
         <ng-container
           *ngIf="dateUtilsService.hasInvalidDateRangeError(holidayForm)"
         >
-          <mat-error> Startdatum muss kleiner als Enddatum sein! </mat-error>
+          <mat-error> Startdatum muss kleiner als Enddatum sein!</mat-error>
         </ng-container>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Enddatum</mat-label>
         <input
-          matInput
           [matDatepicker]="pickerEndDate"
           formControlName="endDate"
+          matInput
           placeholder="04.09.2023"
         />
         <mat-hint align="end">DD.MM.YYYY</mat-hint>
         <mat-datepicker-toggle
-          matIconSuffix
           [for]="pickerEndDate"
+          matIconSuffix
         ></mat-datepicker-toggle>
         <mat-datepicker #pickerEndDate></mat-datepicker>
 
@@ -88,7 +88,7 @@
         <ng-container
           *ngIf="dateUtilsService.hasInvalidDateRangeError(holidayForm)"
         >
-          <mat-error> Enddatum muss größer als Startdatum sein! </mat-error>
+          <mat-error> Enddatum muss größer als Startdatum sein!</mat-error>
         </ng-container>
       </mat-form-field>
 
@@ -132,13 +132,13 @@
       <div class="button-container">
         <app-button
           (click)="onCancelClick()"
+          [boxShadow]="
+            '0 4px 4px rgba(185, 185, 185, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
+          "
           [height]="45"
           [hoverActive]="true"
           [width]="100"
           bgColor="#B9B9B9"
-          [boxShadow]="
-            '0 4px 4px rgba(185, 185, 185, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
-          "
           class="cancelBtn"
           hoverColor="#C9C9C9"
           icon="cancel"
