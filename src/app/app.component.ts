@@ -1,13 +1,12 @@
+import {Component, ViewChild} from '@angular/core';
+import {SidebarComponent} from './layout/sidebar/sidebar.component';
+
 /**
-- author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
-- version: 0.0.1
-- date: 31.03.2023
-- description: App component
-*/
-
-import { Component, ViewChild } from '@angular/core';
-import { SidebarComponent } from './layout/sidebar/sidebar.component';
-
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: App component
+ */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -26,7 +25,7 @@ export class AppComponent {
 
   /**
    * Toggles the sidebar by calling the toggle method of the SidebarComponent and updating the value of sidebarOpened.
-     @returns void
+   @returns void
    */
   toggleSidebar(): void {
     this.sidebar.toggle();
