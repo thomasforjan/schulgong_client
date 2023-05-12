@@ -5,6 +5,12 @@ import { Holiday, HolidayPayload } from 'src/app/models/Holiday';
 import { DateUtilsService } from 'src/app/services/date-utils.service';
 import { HeroImages } from 'src/app/services/store.service';
 
+/**
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: May 2023
+ * @description: Add-edit-holiday component
+ */
 @Component({
   selector: 'app-add-edit-holidays',
   templateUrl: './add-edit-holidays.component.html',
