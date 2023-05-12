@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {HeroImages, StoreService} from "../../services/store.service";
 import {map, take} from "rxjs/operators";
-import {BackendService} from "../../services/backend.service";
 import {MatDialog} from "@angular/material/dialog";
 import {Holiday} from "../../models/Holiday";
 import {DeleteDialogComponent} from "../../components/delete-dialog/delete-dialog.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AddEditHolidaysComponent} from "./add-edit-holidays/add-edit-holidays.component";
+import {HolidayBackendService} from "../../services/holiday.backend.service";
 
 @Component({
   selector: 'app-holiday', templateUrl: './holiday.component.html', styleUrls: ['./holiday.component.scss']
@@ -32,8 +32,8 @@ export class HolidayComponent implements OnInit {
 
   constructor(
     public storeService: StoreService,
-    private backendService: BackendService,
-    private dialog: MatDialog,
+    private _holidayBackendService: HolidayBackendService,
+    private _dialog: MatDialog,
     private _snackBar: MatSnackBar
   ) {
   }
@@ -41,7 +41,7 @@ export class HolidayComponent implements OnInit {
   /**
    * Get the start and end date in one string from the holiday list
    */
-  holidayDate$ = this.storeService.holidayList$.pipe(
+  holidayPeriod$ = this.storeService.holidayList$.pipe(
     map((holidayList) =>
       holidayList.map((holiday) => {
         const startDate = new Date(holiday.startDate);
@@ -63,7 +63,7 @@ export class HolidayComponent implements OnInit {
    * Get the holidays from the backend
    */
   getHolidays() {
-    this.backendService
+    this._holidayBackendService
       .getHolidayResponse()
       .subscribe((holidayList: Holiday[] | null) => {
         if (holidayList && holidayList.length > 0) {
@@ -94,14 +94,14 @@ export class HolidayComponent implements OnInit {
    * Method which is called when the add button is clicked
    */
   holidayAddDialog() {
-    const dialogRef = this.dialog.open(AddEditHolidaysComponent, {
+    const dialogRef = this._dialog.open(AddEditHolidaysComponent, {
       width: '720px',
       height: '650px',
       data: { isAddHoliday: true },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.backendService.postHolidayRequest(result).subscribe((response) => {
+        this._holidayBackendService.postHolidayRequest(result).subscribe((response) => {
           const newHoliday = response.body;
           if (newHoliday) {
             this.storeService.holidayList$
@@ -127,14 +127,14 @@ export class HolidayComponent implements OnInit {
    * @param holiday holiday entry to edit
    */
   holidayEditDialog(holiday: Holiday, index: number) {
-    const dialogRef = this.dialog.open(AddEditHolidaysComponent, {
+    const dialogRef = this._dialog.open(AddEditHolidaysComponent, {
       width: '720px',
       height: '650px',
       data: { isAddHoliday: false, holiday, index },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const updateRequest = this.backendService.updateHolidayResource(
+        const updateRequest = this._holidayBackendService.updateHolidayResource(
           result,
           holiday.id
         );
@@ -167,14 +167,14 @@ export class HolidayComponent implements OnInit {
   onDeleteHoliday(index: any): void {
     index = this.getRealId(index);
 
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+    const dialogRef = this._dialog.open(DeleteDialogComponent, {
       width: '720px',
       height: '500px',
       data: {index: index},
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.backendService.deleteHolidayResource(index).subscribe(
+        this._holidayBackendService.deleteHolidayResource(index).subscribe(
           () => {
             this.storeService.holidayList$
               .pipe(take(1))
