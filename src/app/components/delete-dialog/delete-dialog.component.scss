@@ -1,5 +1,12 @@
-/**
-  * Style for the dialog container
+/*
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Styles for reusable delete-dialog
+ */
+
+/*
+ * Style for the dialog container
 */
 .dialog-container {
   display: flex;
@@ -7,8 +14,8 @@
   height: 100%;
 }
 
-/**
-  * Style for the content container
+/*
+ * Style for the content container
 */
 .content-container {
   display: flex;
@@ -16,15 +23,15 @@
   flex: 1;
 }
 
-/**
-  * Style for the mat-dialog content
+/*
+ * Style for the mat-dialog content
 */
 mat-dialog-content {
   flex: 1;
 }
 
-/**
-  * Style for the title
+/*
+ * Style for the title
 */
 .title {
   margin-top: 0;
@@ -36,8 +43,8 @@ mat-dialog-content {
   font-family: "Montserrat", sans-serif;
 }
 
-/**
-  * Style for the title text
+/*
+ * Style for the title text
 */
 .title-word {
   margin-top: 0;
@@ -45,8 +52,8 @@ mat-dialog-content {
   line-height: normal;
 }
 
-/**
-  * Style for the hero-image
+/*
+ * Style for the hero-image
 */
 .hero-image-container {
   display: flex;
@@ -55,8 +62,8 @@ mat-dialog-content {
   height: 100%;
 }
 
-/**
-  * Style for the hero-image
+/*
+ * Style for the hero-image
 */
 :host ::ng-deep app-hero-image {
   padding: 20px;
@@ -64,8 +71,8 @@ mat-dialog-content {
   height: 96px !important;
 }
 
-/**
-  * Style for the divider
+/*
+ * Style for the divider
 */
 .divider {
   height: 4px;
@@ -76,8 +83,8 @@ mat-dialog-content {
   margin: 10px 50px 0px 50px;
 }
 
-/**
-  * style for the buttons container
+/*
+ * style for the buttons container
 */
 .actions-container {
   display: flex;
@@ -94,15 +101,15 @@ mat-dialog-content {
   }
 }
 
-/**
-  * Style for the button
+/*
+ * Style for the button
 */
 :host ::ng-deep app-button .btn {
   border-radius: 24px !important;
 }
 
-/**
-  * Media Query for mobile devices
+/*
+ * Media Query for mobile devices
 */
 @media screen and (max-width: 768px) {
   .title {

@@ -1,21 +1,21 @@
-/**
-- author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
-- version: 0.0.1
-- date: April 2023
-- description: Dashboard styles
-*/
+/*
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Styles for the dashboard component
+ */
 $originalCardWidth: 330px;
 $originalColumn: 3;
 
-/**
-  * Style for grid-card-header
+/*
+ * Style for grid-card-header
 */
 :host ::ng-deep .mat-mdc-card-header {
   display: none !important;
 }
 
-/**
-  * Style to for grid-cards
+/*
+ * Style to for grid-cards
 */
 :host ::ng-deep .mat-card-center {
   padding-top: 16px;
@@ -25,16 +25,16 @@ $originalColumn: 3;
   align-items: center;
 }
 
-/**
-  * Styles for the card icon
+/*
+ * Styles for the card icon
 */
 .card-icon {
   height: 96px;
   width: 96px;
 }
 
-/**
-  * Styles for the card content paragraph
+/*
+ * Styles for the card content paragraph
 */
 :host ::ng-deep .mat-card-content-paragraph {
   color: #000000 !important;
@@ -44,8 +44,8 @@ $originalColumn: 3;
   font-weight: normal !important;
 }
 
-/**
-  * Styles for the card
+/*
+ * Styles for the card
 */
 :host ::ng-deep .card {
   display: flex;
@@ -54,12 +54,12 @@ $originalColumn: 3;
 }
 
 
-/**
-  * Media queries for devices from a certain width of 1445 px
+/*
+ * Media queries for devices from a certain width of 1445 px
 */
 @media screen and (min-width: 1445px) {
   :host ::ng-deep .grid-container {
-    $column: var(--columns);
+    $column: $originalColumn;
     align-items: center;
     grid-template-columns: repeat(#{$column}, minmax(0, 1fr)) !important;
     grid-column-gap: 100px !important;
@@ -68,8 +68,8 @@ $originalColumn: 3;
 
 }
 
-/**
-  * Media queries for devices between 1090 and 1444 px width
+/*
+ * Media queries for devices between 1090 and 1444 px width
 */
 @media screen and (min-width: 1090px) and (max-width: 1444px) {
   :host ::ng-deep .grid-container {
@@ -85,8 +85,8 @@ $originalColumn: 3;
 
 }
 
-/**
-  * Media queries for devices between 760 and 939 px width
+/*
+ * Media queries for devices between 760 and 939 px width
 */
 @media screen and (min-width: 760px) and (max-width: 939px) {
   :host ::ng-deep .mat-card-content-paragraph {
@@ -94,8 +94,8 @@ $originalColumn: 3;
   }
 }
 
-/**
-  * Media queries for devices between 515 and 678 px width
+/*
+ * Media queries for devices between 515 and 678 px width
 */
 @media screen and (min-width: 515px) and (max-width: 678px) {
   $cardHeight: 220px;
@@ -125,8 +125,8 @@ $originalColumn: 3;
   }
 }
 
-/**
-  * Media queries for devices between 435 and 514 px width
+/*
+ * Media queries for devices between 435 and 514 px width
 */
 @media screen and (min-width: 435px) and (max-width: 514px) {
   $cardHeight: 220px;
@@ -156,8 +156,8 @@ $originalColumn: 3;
   }
 }
 
-/**
-  * Media queries for devices til max width of 434 px
+/*
+ * Media queries for devices til max width of 434 px
 */
 @media screen and (max-width: 434px) {
   $cardHeight: 120px;
@@ -193,8 +193,8 @@ $originalColumn: 3;
   }
 }
 
-/**
-  * Media queries for devices til max width of 370 px
+/*
+ * Media queries for devices til max width of 370 px
 */
 @media screen and (max-width: 370px) {
   :host ::ng-deep .card-icon {

@@ -1,13 +1,20 @@
-/**
-  * Style for the button
+/*
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Styles for the ringtime component
+ */
+
+/*
+ * Style for the button
 */
-.button{
+.button {
   margin-bottom: 1rem;
   width: fit-content;
 }
 
-/**
-  * Style for the first content paragraph
+/*
+ * Style for the first content paragraph
 */
 :host ::ng-deep .mat-card-content-paragraph {
   margin-top: 5px;
@@ -15,16 +22,16 @@
   font-weight: bold;
 }
 
-/**
-  * Style for the second content paragraph
+/*
+ * Style for the second content paragraph
 */
 :host ::ng-deep .mat-card-content-paragraph2 {
   margin-top: 5px;
   margin-bottom: 0px;
 }
 
-/**
-  * Style for the third content paragraph
+/*
+ * Style for the third content paragraph
 */
 :host ::ng-deep .mat-card-content-paragraph3 {
   margin-top: 5px;
@@ -47,8 +54,8 @@
   }
 }
 
-/**
-  * Media queries for devices between 515 and 678 px width
+/*
+ * Media queries for devices between 515 and 678 px width
 */
 @media screen and (min-width: 515px) and (max-width: 678px) {
   :host ::ng-deep .mat-card-content-paragraph {
@@ -64,8 +71,8 @@
   }
 }
 
-/**
-  * Media queries for devices between 435 and 514 px width
+/*
+ * Media queries for devices between 435 and 514 px width
 */
 @media screen and (min-width: 435px) and (max-width: 514px) {
   :host ::ng-deep .mat-card-content-paragraph {
@@ -82,8 +89,8 @@
 
 }
 
-/**
-  * Media queries for devices til max width of 325 px
+/*
+ * Media queries for devices til max width of 325 px
 */
 @media screen and (max-width: 325px) {
   :host ::ng-deep .mat-card-content-paragraph {

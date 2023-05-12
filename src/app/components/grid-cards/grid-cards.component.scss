@@ -1,21 +1,21 @@
-/**
-- author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
-- version: 0.0.1
-- date: 06.04.2023
-- description: Grid cards styles
-*/
+/*
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Styles for reusable grid-cards component
+ */
 $originalCardWidth: 330px;
 $originalColumn: 6;
 
-/**
-  * Grid item style properties
+/*
+ * Grid item style properties
 */
 .grid-item {
   box-sizing: border-box;
 }
 
-/**
-  * Card style properties
+/*
+ * Card style properties
 */
 .card {
   display: flex;
@@ -25,9 +25,9 @@ $originalColumn: 6;
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
-  /**
-    * This is the hover and active effect for the card.
-  */
+  /*
+   * This is the hover and active effect for the card.
+ */
   &.hover-active {
     cursor: pointer;
 
@@ -45,8 +45,8 @@ $originalColumn: 6;
   }
 }
 
-/**
-  * Grid container style properties
+/*
+ * Grid container style properties
 */
 .grid-container {
   $cardWidth: $originalCardWidth;
@@ -58,8 +58,8 @@ $originalColumn: 6;
 }
 
 
-/**
-  * Card content style properties
+/*
+ * Card content style properties
 */
 .mat-card-content {
   display: flex;
@@ -67,8 +67,8 @@ $originalColumn: 6;
   flex-direction: column;
 }
 
-/**
-  * Image container style properties
+/*
+ * Image container style properties
 */
 .image-container {
   display: flex;
@@ -77,8 +77,8 @@ $originalColumn: 6;
   width: 100%;
 }
 
-/**
-  * Index circle style properties
+/*
+ * Index circle style properties
 */
 .index-circle {
   display: flex;
@@ -94,8 +94,8 @@ $originalColumn: 6;
   margin-right: 15px;
 }
 
-/**
-  * Index circle text style properties
+/*
+ * Index circle text style properties
 */
 .index-circle p {
   font-size: 24px;
@@ -103,16 +103,16 @@ $originalColumn: 6;
   margin: 0;
 }
 
-/**
-  * Wrapper properties for the card actions
+/*
+ * Wrapper properties for the card actions
 */
 .card-actions-wrapper {
   display: flex;
   justify-content: center;
 }
 
-/**
-  * Card buttons container style properties
+/*
+ * Card buttons container style properties
 */
 .card-buttons-container {
   display: flex;
@@ -129,30 +129,30 @@ $originalColumn: 6;
   --btn-height: 40px;
 }
 
-/**
-  * Styles for the edit button
+/*
+ * Styles for the edit button
 */
 .editBtn {
   margin-right: auto;
 }
 
-/**
-  * Styles for the delete button
+/*
+ * Styles for the delete button
 */
 .deleteBtn {
   margin-left: auto;
 }
 
-/**
-  * Styles for the play button
+/*
+ * Styles for the play button
 */
 .playBtn {
   margin-left: auto;
   margin-right: auto;
 }
 
-/**
-  * Styles for the title
+/*
+ * Styles for the title
 */
 .mat-card-title {
   font-weight: bold;
@@ -163,15 +163,15 @@ $originalColumn: 6;
 }
 
 
-/**
-  * Styles for global (default) font-color of title, subtitle and paragraphs
+/*
+ * Styles for global (default) font-color of title, subtitle and paragraphs
 */
-.mat-card-title, .mat-card-subtitle, .mat-card-content-paragraph, .mat-card-content-paragraph2, .mat-card-content-paragraph3{
+.mat-card-title, .mat-card-subtitle, .mat-card-content-paragraph, .mat-card-content-paragraph2, .mat-card-content-paragraph3 {
   color: #0000008a;
 }
 
-/**
-  * Styles for the subtitle
+/*
+ * Styles for the subtitle
 */
 .mat-card-subtitle {
   word-wrap: anywhere;
@@ -180,8 +180,8 @@ $originalColumn: 6;
 
 }
 
-/**
-  * Media queries for devices between 1800 and 2155 px width
+/*
+ * Media queries for devices between 1800 and 2155 px width
 */
 @media screen and (min-width: 1800px) and (max-width: 2155px) {
 
@@ -198,8 +198,8 @@ $originalColumn: 6;
   }
 }
 
-/**
-  * Media queries for devices between 1445 and 1799 px width
+/*
+ * Media queries for devices between 1445 and 1799 px width
 */
 @media screen and (min-width: 1445px) and (max-width: 1799px) {
 
@@ -215,8 +215,8 @@ $originalColumn: 6;
   }
 }
 
-/**
-  * Media queries for devices between 1090 and 1444 px width
+/*
+ * Media queries for devices between 1090 and 1444 px width
 */
 @media screen and (min-width: 1090px) and (max-width: 1444px) {
 
@@ -233,8 +233,8 @@ $originalColumn: 6;
 
 }
 
-/**
-  * Media queries for devices between 940 and 1089 px width
+/*
+ * Media queries for devices between 940 and 1089 px width
 */
 @media screen and (min-width: 940px) and (max-width: 1089px) {
   $cardWidth: 280px;
@@ -259,8 +259,8 @@ $originalColumn: 6;
 
 }
 
-/**
-  * Media queries for devices between 760 and 939 px width
+/*
+ * Media queries for devices between 760 and 939 px width
 */
 @media screen and (min-width: 760px) and (max-width: 939px) {
   //$cardWidth: 220px;
@@ -315,8 +315,8 @@ $originalColumn: 6;
   }
 }
 
-/**
-  * Media queries for devices between 679 and 759 px width
+/*
+ * Media queries for devices between 679 and 759 px width
 */
 @media screen and (min-width: 679px) and (max-width: 759px) {
   //$cardWidth: 220px;
@@ -341,8 +341,8 @@ $originalColumn: 6;
   }
 }
 
-/**
-  * Media queries for devices between 515 and 678 px width
+/*
+ * Media queries for devices between 515 and 678 px width
 */
 @media screen and (min-width: 515px) and (max-width: 678px) {
   //$cardWidth: 220px;
@@ -398,8 +398,8 @@ $originalColumn: 6;
   }
 }
 
-/**
-  * Media queries for devices between 435 and 514 px width
+/*
+ * Media queries for devices between 435 and 514 px width
 */
 @media screen and (min-width: 435px) and (max-width: 514px) {
   //$cardWidth: 180px;
@@ -453,8 +453,8 @@ $originalColumn: 6;
   }
 }
 
-/**
-  * Media queries for devices til max width of 434 px
+/*
+ * Media queries for devices til max width of 434 px
 */
 @media screen and (max-width: 434px) {
   //$cardWidth: 220px;
@@ -479,8 +479,8 @@ $originalColumn: 6;
   }
 }
 
-/**
-  * Media queries for devices til max width of 325 px
+/*
+ * Media queries for devices til max width of 325 px
 */
 @media screen and (max-width: 325px) {
   //$cardWidth: 220px;

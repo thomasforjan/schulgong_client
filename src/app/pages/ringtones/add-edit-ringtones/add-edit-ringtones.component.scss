@@ -1,5 +1,17 @@
-/**
-  * Style for the title
+/*
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Styles for the add-edit-ringtone component
+ */
+
+/*
+ * Mobile screen size
+*/
+$mobile-screen-size: 870px;
+
+/*
+ * Style for the title
 */
 .title {
   text-align: center;
@@ -16,8 +28,8 @@
   }
 }
 
-/**
-  * Style for the hero-image
+/*
+ * Style for the hero-image
 */
 .hero-image-container {
   display: flex;
@@ -26,8 +38,8 @@
   height: 100%;
 }
 
-/**
-  * Style for the hero-image
+/*
+ * Style for the hero-image
 */
 :host ::ng-deep app-hero-image {
   padding: 20px;
@@ -35,8 +47,8 @@
   height: 96px !important;
 }
 
-/**
-  * Style for the divider
+/*
+ * Style for the divider
 */
 .divider {
   height: 4px;
@@ -47,8 +59,8 @@
   margin: 10px 50px 40px 50px;
 }
 
-/**
-  * Style for the index
+/*
+ * Style for the index
 */
 .index {
   display: flex;
@@ -56,8 +68,8 @@
   width: 100%;
 }
 
-/**
-  * Style for the index container
+/*
+ * Style for the index container
 */
 .index-container {
   display: flex;
@@ -66,22 +78,22 @@
   max-width: 450px;
 }
 
-/**
-  * Style for the form
+/*
+ * Style for the form
 */
 form {
   margin-bottom: 20px;
 }
 
-/**
-  * Style for the form-field
+/*
+ * Style for the form-field
 */
 .form-field {
   width: 50%;
 }
 
-/**
-  * Style for the form fields
+/*
+ * Style for the form fields
 */
 .form-fields {
   display: flex;
@@ -110,8 +122,8 @@ form {
   }
 }
 
-/**
-  * Style for the upload button wrapper
+/*
+ * Style for the upload button wrapper
 */
 .uploadBtn-wrapper {
   position: absolute;
@@ -122,22 +134,22 @@ form {
   margin-right: 20px;
 }
 
-/**
-  * Style for the upload button wrapper add
+/*
+ * Style for the upload button wrapper add
 */
 .uploadBtn-wrapper.add-mode {
   top: 63.5%;
 }
 
-/**
-  * Style for the upload button wrapper edit
+/*
+ * Style for the upload button wrapper edit
 */
 .uploadBtn-wrapper.edit-mode {
   top: 76%;
 }
 
-/**
-  * Style for the actions container
+/*
+ * Style for the actions container
 */
 .actions-container {
   display: flex;
@@ -153,24 +165,25 @@ form {
   }
 }
 
-/**
-  * Style for the app-button
+/*
+ * Style for the app-button
 */
 :host ::ng-deep app-button .btn {
   border-radius: 24px !important;
 }
 
-/**
-  * Style for the dialog content
+/*
+ * Style for the dialog content
 */
 .mat-mdc-dialog-content {
   max-height: 610px;
+  max-height: 100%;
 }
 
-/**
-  * Media Query for mobile devices
+/*
+ * Media Query for mobile devices
 */
-@media screen and (max-width: 870px) {
+@media screen and (max-width: $mobile-screen-size) {
   .form-field {
     width: 70%;
   }

@@ -1,13 +1,20 @@
-/**
-  * Styles for title-div
+/*
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: May 2023
+ * @description: Styles for the holidays component
+ */
+
+/*
+ * Styles for title-div
  */
 :host ::ng-deep .mat-mdc-card-header-text {
   display: flex;
   margin-bottom: 16px;
 }
 
-/**
-  * Styles for the title
+/*
+ * Styles for the title
 */
 :host ::ng-deep .mat-card-title {
   margin: auto;
@@ -15,24 +22,24 @@
   align-items: center;
 }
 
-/**
-  * Style for the first content paragraph
+/*
+ * Style for the first content paragraph
 */
 :host ::ng-deep .mat-card-content-paragraph {
   font-size: 22px;
   text-align: center;
 }
 
-/**
-  * Style for the button
+/*
+ * Style for the button
 */
 .button {
   margin-bottom: 1rem;
   width: fit-content;
 }
 
-/**
-  * Media queries for devices between 760 and 939 px width
+/*
+ * Media queries for devices between 760 and 939 px width
 */
 @media screen and (min-width: 760px) and (max-width: 939px) {
   :host ::ng-deep .mat-card-content-paragraph {
@@ -40,8 +47,8 @@
   }
 }
 
-/**
-  * Media queries for devices between 515 and 678 px width
+/*
+ * Media queries for devices between 515 and 678 px width
 */
 @media screen and (min-width: 515px) and (max-width: 678px) {
   :host ::ng-deep .mat-card-content-paragraph {
@@ -49,8 +56,8 @@
   }
 }
 
-/**
-  * Media queries for devices between 435 and 514 px width
+/*
+ * Media queries for devices between 435 and 514 px width
 */
 @media screen and (min-width: 435px) and (max-width: 514px) {
   :host ::ng-deep .mat-card-content-paragraph {
@@ -58,8 +65,8 @@
   }
 }
 
-/**
-  * Media queries for devices til max width of 434 px
+/*
+ * Media queries for devices til max width of 434 px
 */
 @media screen and (max-width: 434px) {
   :host ::ng-deep .mat-card-content-paragraph {
@@ -67,8 +74,8 @@
   }
 }
 
-/**
-  * Media queries for devices til max width of 325 px
+/*
+ * Media queries for devices til max width of 325 px
 */
 @media screen and (max-width: 325px) {
   :host ::ng-deep .mat-card-content-paragraph {

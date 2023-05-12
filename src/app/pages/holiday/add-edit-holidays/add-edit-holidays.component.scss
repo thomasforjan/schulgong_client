@@ -1,4 +1,11 @@
-/**
+/*
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: May 2023
+ * @description: Styles for add-edit-component
+ */
+
+/*
   * Style for the title
 */
 .title {
@@ -14,7 +21,7 @@
   }
 }
 
-/**
+/*
   * Style for the hero-image
 */
 .hero-image-container {
@@ -24,7 +31,7 @@
   height: 100%;
 }
 
-/**
+/*
   * Style for the hero-image
 */
 :host ::ng-deep app-hero-image {
@@ -33,7 +40,7 @@
   height: 96px !important;
 }
 
-/**
+/*
   * Style for the divider
 */
 .divider {
@@ -46,7 +53,7 @@
   width: 95%;
 }
 
-/**
+/*
   * Style for the index
 */
 .index {
@@ -55,7 +62,7 @@
   width: 100%;
 }
 
-/**
+/*
   * Style for the index container
 */
 .index-container {
@@ -65,7 +72,7 @@
   max-width: 450px;
 }
 
-/**
+/*
   * Style for the form-field
 */
 .form-fields {
@@ -97,7 +104,7 @@ mat-form-field {
   width: 50%;
 }
 
-/**
+/*
   * Style for the actions container
 */
 .actions-container {
@@ -125,7 +132,7 @@ mat-form-field {
   max-height: 100%;
 }
 
-/**
+/*
   * Media Query for mobile devices
 */
 @media screen and (max-width: 768px) {

@@ -1,12 +1,12 @@
-/**
-- author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
-- version: 0.0.1
-- date: 31.03.2023
-- description: Header styles
-*/
+/*
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Styles for the header component
+ */
 
-/**
-  * Styles for the header
+/*
+ * Styles for the header
 */
 .header {
   min-height: 64px;
@@ -17,8 +17,8 @@
   color: #000000;
 }
 
-/**
-  * Styles for the title
+/*
+ * Styles for the title
 */
 .title {
   font-size: 32px;
@@ -26,8 +26,8 @@
   cursor: pointer;
 }
 
-/**
-  * Styles for the dash, routing link
+/*
+ * Styles for the dash, routing link
 */
 .dash,
 .routing-link {
@@ -36,31 +36,31 @@
   color: rgba(0, 0, 0, 0.5);
 }
 
-/**
-  * Styles for the icon
+/*
+ * Styles for the icon
 */
 .icon {
   color: #f29d38;
   font-size: 28px;
 }
 
-/**
-  * Styles for the spacer
+/*
+ * Styles for the spacer
 */
 .spacer {
   flex: 1 1 auto;
 }
 
-/**
-  * Styles for the username
+/*
+ * Styles for the username
 */
 .username {
   font-size: 16px;
   margin-right: 16px;
 }
 
-/**
-  * Styles for the clickable icon
+/*
+ * Styles for the clickable icon
 */
 .clickable-icon {
   cursor: pointer;
@@ -70,8 +70,8 @@
   justify-content: center;
 }
 
-/**
-  * This media query applies specificly to Galaxy Fold.
+/*
+ * This media query applies specificly to Galaxy Fold.
 */
 @media screen and (max-width: 280px), screen and (max-height: 653px) {
   .title {
@@ -92,9 +92,9 @@
   }
 }
 
-/**
-  * This media query applies to all devices with a screen width of 600px or less,
-  * including the iPhone SE, iPhone XR, Pixel 5, Samsung Galaxy S8+, and Samsung Galaxy A51/71.
+/*
+ * This media query applies to all devices with a screen width of 600px or less,
+ * including the iPhone SE, iPhone XR, Pixel 5, Samsung Galaxy S8+, and Samsung Galaxy A51/71.
 */
 @media screen and (max-width: 600px) {
   .title {
@@ -122,8 +122,8 @@
   }
 }
 
-/**
-  * Nest Hub support
+/*
+ * Nest Hub support
 */
 @media screen and (max-width: 1024px) and (max-height: 600px) {
   .title {
@@ -143,8 +143,8 @@
   }
 }
 
-/**
-  * Media query for Surface Pro 7 (912x1368)
+/*
+ * Media query for Surface Pro 7 (912x1368)
 */
 @media screen and (min-width: 912px) and (max-width: 1368px) {
   /* Styles for the title element */
