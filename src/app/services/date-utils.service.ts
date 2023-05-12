@@ -1,18 +1,18 @@
+import {Injectable} from '@angular/core';
+import {AbstractControl, FormGroup, ValidationErrors} from '@angular/forms';
+
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
- * @version: 0.0.1
- * @since: 05/05/2023
+ * @version: 0.0.2
+ * @since: May 2023
  * @description: Service for converting Date objects into formatted strings and vice versa. Also contains a validator for validating whether the end date is greater than or equal to the start date.
  */
-
-import { Injectable } from '@angular/core';
-import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
-
 @Injectable({
   providedIn: 'root',
 })
 export class DateUtilsService {
-  constructor() {}
+  constructor() {
+  }
 
   /**
    * @description Converts a Date object into a formatted string.
@@ -57,13 +57,10 @@ export class DateUtilsService {
       const minEndDate = new Date(startDate);
       minEndDate.setDate(minEndDate.getDate());
       if (endDate < minEndDate) {
-        control.get('endDate')?.setErrors({ invalidDateRange: true });
-        return { invalidDateRange: true };
-      } else {
-        control.get('endDate')?.setErrors(null);
+        control.get('endDate')?.setErrors({invalidDateRange: true});
+        return {invalidDateRange: true};
       }
     }
-
     return null;
   }
 
@@ -75,5 +72,9 @@ export class DateUtilsService {
   hasInvalidDateRangeError(form: FormGroup): boolean {
     const errorExists = form?.hasError('invalidDateRange') || false;
     return errorExists;
+  }
+
+  createDatesToStringPeriod(startDate: Date, enddate: Date, locales: string){
+    return `${this.convertDateTimeToString(startDate, locales)} - ${this.convertDateTimeToString(enddate, locales)}`;
   }
 }
