@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {MenuNames, RoutingLinks, TabTitleNames} from './services/store.service';
 
-import {TestComponent} from './test/test.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {RingtonesComponent} from './pages/ringtones/ringtones.component';
 import {LiveComponent} from './pages/live/live.component';
@@ -11,6 +10,12 @@ import {UserComponent} from './pages/user/user.component';
 import {HolidayComponent} from './pages/holiday/holiday.component';
 import {RingtimeComponent} from './pages/ringtime/ringtime.component';
 
+/**
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Routing module for all routes
+ */
 const routes: Routes = [
   {
     path: RoutingLinks.DashboardLink,
@@ -27,7 +32,7 @@ const routes: Routes = [
   {
     path: RoutingLinks.RingtimeLink,
     component: RingtimeComponent,
-    data: { title: MenuNames.Ringtime },
+    data: {title: MenuNames.Ringtime},
     title: TabTitleNames.Schulgong + TabTitleNames.Ringtime,
   },
   {
@@ -54,9 +59,6 @@ const routes: Routes = [
     data: {title: MenuNames.User},
     title: TabTitleNames.Schulgong + TabTitleNames.User,
   },
-
-  // test route
-  {path: 'test', component: TestComponent},
 
   // otherwise redirect to dashboard ('/')
   {path: '**', redirectTo: ''},
