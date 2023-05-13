@@ -1,16 +1,22 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Holiday, HolidayPayload } from 'src/app/models/Holiday';
-import { DateUtilsService } from 'src/app/services/date-utils.service';
-import { HeroImages } from 'src/app/services/store.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {Holiday, HolidayPayload} from 'src/app/models/Holiday';
+import {DateUtilsService} from 'src/app/services/date-utils.service';
+import {HeroImages} from 'src/app/services/store.service';
 
+/**
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: May 2023
+ * @description: Add-edit-holiday component
+ */
 @Component({
   selector: 'app-add-edit-holidays',
   templateUrl: './add-edit-holidays.component.html',
   styleUrls: ['./add-edit-holidays.component.scss'],
 })
-export class AddEditHolidaysComponent implements OnInit{
+export class AddEditHolidaysComponent implements OnInit {
   /**
    * Ringtones Hero Image, enum is in store service
    */
@@ -55,7 +61,7 @@ export class AddEditHolidaysComponent implements OnInit{
           Validators.required
         ),
       },
-      { validators: this.dateUtilsService.dateRangeValidator }
+      {validators: this.dateUtilsService.dateRangeValidator}
     );
   }
 

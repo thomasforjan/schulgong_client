@@ -7,7 +7,7 @@ import {ButtonComponent} from "../../components/button/button.component";
 import {GridCardsComponent} from "../../components/grid-cards/grid-cards.component";
 import {Holiday} from "../../models/Holiday";
 
-import {BackendService} from "../../services/backend.service";
+
 import {of} from "rxjs";
 import {RouterTestingModule} from "@angular/router/testing";
 import {MaterialModule} from "../../material.module";
@@ -19,8 +19,15 @@ import {MatDialogHarness} from "@angular/material/dialog/testing";
 import {AddEditHolidaysComponent} from "./add-edit-holidays/add-edit-holidays.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {By} from "@angular/platform-browser";
+import {HolidayBackendService} from "../../services/holiday.backend.service";
 
 
+/**
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: May 2023
+ * @description: Tests for the holidays component
+ */
 describe('HolidayComponent', () => {
   let component: HolidayComponent;
   let fixture: ComponentFixture<HolidayComponent>;
@@ -47,15 +54,15 @@ describe('HolidayComponent', () => {
     ];
 
     // Create a fake TwainService object with a `getQuote()` spy
-    const backendService = jasmine.createSpyObj('BackendService', ['getHolidayResponse']);
+    const holidayBackendService = jasmine.createSpyObj('HolidayBackendService', ['getHolidayResponse']);
     // Make the spy return a synchronous Observable with the test data
-    getHolidaySpy = backendService.getHolidayResponse.and.returnValue(of(testHoliday));
+    getHolidaySpy = holidayBackendService.getHolidayResponse.and.returnValue(of(testHoliday));
 
     await TestBed.configureTestingModule({
       declarations: [HolidayComponent, HeroImageComponent, ButtonComponent, GridCardsComponent, AddEditHolidaysComponent],
       // imports: [HttpClientTestingModule, MatDialogModule, MatSnackBarModule, MatTooltipModule, MatIconModule, MatCardModule, RouterTestingModule],
       imports: [HttpClientTestingModule, MaterialModule, RouterTestingModule, BrowserAnimationsModule],
-      providers: [{provide: BackendService, useValue: backendService}]
+      providers: [{provide: HolidayBackendService, useValue: holidayBackendService}]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HolidayComponent);
@@ -106,7 +113,7 @@ describe('HolidayComponent', () => {
       expect(dialog.length).toBe(1);
     }));
 
-    it('check card-title',  () => {
+    it('check card-title', () => {
       const ourDomCardsUnderTest = Array.from(
         document.getElementsByTagName('mat-card')
       );
@@ -119,7 +126,7 @@ describe('HolidayComponent', () => {
       });
     });
 
-    it('check card-content',  async () => {
+    it('check card-content', async () => {
       const ourDomCardsUnderTest = Array.from(
         document.getElementsByTagName('mat-card')
       );
@@ -127,7 +134,7 @@ describe('HolidayComponent', () => {
       ourDomCardsUnderTest.forEach(card => {
         const cardContent = card.getElementsByTagName('mat-card-content')[0]
           .textContent;
-        if(cardContent != null) {
+        if (cardContent != null) {
           expect(cardContent.trim()).toBe(testHoliday[i].startDate.toLocaleDateString('de-DE', {
             day: '2-digit',
             month: '2-digit',

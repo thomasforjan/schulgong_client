@@ -5,10 +5,10 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Ringtone} from 'src/app/models/Ringtone';
 
 /**
- - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
- - version: 0.0.1
- - date: April 2023
- - description: Add-edit-ringtones component
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Add-edit-ringtone component
  */
 @Component({
   selector: 'app-add-edit-ringtones',
@@ -32,33 +32,40 @@ export class AddEditRingtonesComponent implements OnInit {
   isEditRingtone: boolean;
 
   /**
-   * Boolean to check if the user wants to add a new ringtone
-   */
-  isAddRingtone: boolean;
-
-  /**
    * Save the uploaded File
    */
   ringtoneFile: File | null = null;
 
-  constructor(public dialogRef: MatDialogRef<AddEditRingtonesComponent>, @Inject(MAT_DIALOG_DATA) public data: {
-    isAddRingtone: boolean;
-    ringtone?: Ringtone;
-    index?: number
-  }) {
-    this.isAddRingtone = data.isAddRingtone;
+  constructor(
+    public dialogRef: MatDialogRef<AddEditRingtonesComponent>,
+    @Inject(MAT_DIALOG_DATA)
+    public data: {
+      isAddRingtone: boolean;
+      ringtone?: Ringtone;
+      index?: number;
+    }
+  ) {
     this.isEditRingtone = !data.isAddRingtone;
   }
 
   ngOnInit(): void {
     if (this.data) {
       this.ringtoneForm = new FormGroup({
-        ringtoneDescriptionFormControl: new FormControl(this.data.ringtone?.name || '', this.isAddRingtone ? Validators.required : null),
-        uploadedRingtoneFormControl: new FormControl(this.data.ringtone?.filename || '', this.isAddRingtone ? Validators.required : null),
+        ringtoneDescriptionFormControl: new FormControl(
+          this.data.ringtone?.name || '',
+          this.data.isAddRingtone ? Validators.required : null
+        ),
+        uploadedRingtoneFormControl: new FormControl(
+          this.data.ringtone?.filename || '',
+          this.data.isAddRingtone ? Validators.required : null
+        ),
       });
     } else {
       this.ringtoneForm = new FormGroup({
-        ringtoneDescriptionFormControl: new FormControl('', Validators.required),
+        ringtoneDescriptionFormControl: new FormControl(
+          '',
+          Validators.required
+        ),
         uploadedRingtoneFormControl: new FormControl('', Validators.required),
       });
     }
@@ -73,7 +80,10 @@ export class AddEditRingtonesComponent implements OnInit {
       if (this.ringtoneFile) {
         formData.append('song', this.ringtoneFile, this.ringtoneFile.name);
       }
-      formData.append('name', this.ringtoneForm.value.ringtoneDescriptionFormControl);
+      formData.append(
+        'name',
+        this.ringtoneForm.value.ringtoneDescriptionFormControl
+      );
       formData.append('date', new Date().toISOString());
       if (this.ringtoneFile) {
         formData.append('size', this.ringtoneFile.size.toString());

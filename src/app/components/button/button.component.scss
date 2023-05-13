@@ -1,12 +1,12 @@
-/**
-- author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
-- version: 0.0.1
-- date: 06.04.2023
-- description: Button styles
-*/
+/*
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Styles for reusable button
+ */
 
-/**
-  * Button style
+/*
+ * Button style
 */
 .btn {
   display: flex;
@@ -21,7 +21,6 @@
   cursor: default;
   box-shadow: var(--box-shadow, none);
 
-
   &.hover-active {
     cursor: pointer;
 
@@ -30,13 +29,13 @@
     }
 
     &:active {
-      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
   }
 }
 
-/**
-  * Button style for disabled state
+/*
+ * Button style for disabled state
 */
 .btn:disabled {
   background-color: grey; // Oder eine andere gewünschte Grautönung
@@ -44,8 +43,8 @@
   opacity: 0.7; // Optional: Sie können die Opazität ändern, um den deaktivierten Zustand anzuzeigen
 }
 
-/**
-  * Icon container style
+/*
+ * Icon container style
 */
 .icon-container {
   display: flex;
@@ -55,15 +54,15 @@
   width: 100%;
 }
 
-/**
-  * Icon color style
+/*
+ * Icon color style
 */
 .icon-color {
   color: #ffffff;
 }
 
-/**
-  * Text container style
+/*
+ * Text container style
 */
 .text-container {
   display: flex;
@@ -71,8 +70,8 @@
   align-items: center;
 }
 
-/**
-  * Text style
+/*
+ * Text style
 */
 .text {
   color: #ffffff;
@@ -80,31 +79,31 @@
   font-weight: bold;
 }
 
-/**
-  * This media query applies to all devices with a screen width of 600px or less,
-  * including the iPhone SE, iPhone XR, Pixel 5, Samsung Galaxy S8+, and Samsung Galaxy A51/71.
+/*
+ * This media query applies to all devices with a screen width of 600px or less,
+ * including the iPhone SE, iPhone XR, Pixel 5, Samsung Galaxy S8+, and Samsung Galaxy A51/71.
 */
 @media screen and (max-width: 600px) {
-  /**
-    * Button style
-  */
+  /*
+   * Button style
+ */
   .btn {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  /**
-    * Icon container style
-  */
+  /*
+   * Icon container style
+ */
   .icon-container {
     width: 24px;
     height: 24px;
   }
 
-  /**
-    * Icon color style
-  */
+  /*
+   * Icon color style
+ */
   .icon-color {
     display: flex;
     justify-content: center;

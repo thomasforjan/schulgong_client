@@ -2,6 +2,12 @@ import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {HeroImages} from 'src/app/services/store.service';
 
+/**
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Reusable delete dialog component
+ */
 @Component({
   selector: 'app-delete-dialog',
   templateUrl: './delete-dialog.component.html',
@@ -18,9 +24,6 @@ export class DeleteDialogComponent {
     @Inject(MAT_DIALOG_DATA)
     public data: { deleteItem?: Object; index?: number }
   ) {
-  }
-
-  ngOnInit(): void {
   }
 
   /**

@@ -37,7 +37,7 @@ Remove timeouts which were used to mitigate the racing issue but are obsolete no
 
 Reviewed-by: Z
 
-Issue: #123
+Issue: Closes #123
 <hr>
 
 ### :warning: Issues
@@ -71,6 +71,8 @@ When a POST-Request is submitted with an empty Body, an exception will be thrown
 - feature/feature-name
 
 - main (versions)
+
+- refactor/feature-name
 
 Please create for each feature implementation an own branch.
 

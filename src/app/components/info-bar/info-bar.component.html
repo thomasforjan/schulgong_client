@@ -1,12 +1,12 @@
 <div class="app-info-bar">
   <div class="datetime">
     <div class="date">{{ currentDate$ | async }}</div>
-    <div class="time" *ngIf="currentTime$ | async as currentTime">
+    <div *ngIf="currentTime$ | async as currentTime" class="time">
       <span class="currentTime">{{ currentTime }}</span>
       <span class="currentTimeText">Uhr</span>
     </div>
   </div>
-  <app-button class="btn" bgColor="#f29d38" icon="schedule"></app-button>
+  <app-button bgColor="#f29d38" class="btn" icon="schedule"></app-button>
   <div class="next-gong">
     <div class="next-gong-label">
       {{ (holiday$ | async) ? "Schulfrei" : "Nächster Gong" }}

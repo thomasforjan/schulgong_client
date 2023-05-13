@@ -1,31 +1,30 @@
-/**
- * author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
- * version: 0.0.2
- * date: 03/05/2023
- * description: info bar component
- */
-
-import { Time } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {Time} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
 import {
-  Observable,
   catchError,
   combineLatest,
   distinctUntilChanged,
   map,
+  Observable,
   of,
   shareReplay,
   startWith,
   switchMap,
-  tap,
   timer,
 } from 'rxjs';
-import { Ringtime } from 'src/app/models/Ringtime';
-import { StoreService } from 'src/app/services/store.service';
-import { BackendService } from '../../services/backend.service';
-import { DateUtilsService } from 'src/app/services/date-utils.service';
-import { Holiday } from 'src/app/models/Holiday';
+import {Ringtime} from 'src/app/models/Ringtime';
+import {StoreService} from 'src/app/services/store.service';
+import {DateUtilsService} from 'src/app/services/date-utils.service';
+import {Holiday} from 'src/app/models/Holiday';
+import {HolidayBackendService} from "../../services/holiday.backend.service";
+import {RingtimeBackendService} from "../../services/ringtime.backend.service";
 
+/**
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Info-bar component
+ */
 @Component({
   selector: 'app-info-bar',
   templateUrl: './info-bar.component.html',
@@ -46,17 +45,54 @@ export class InfoBarComponent implements OnInit {
    * @description Observable for holidays
    */
   holiday$!: Observable<Holiday | null>;
+  /**
+   *  @description An Observable that calculates the time offset between the client's current time and the server time
+   *  @returns time offset in milliseconds
+   */
+  serverTimeOffset$: Observable<number> = this._ringtimeBackendService
+    .getServerTime()
+    .pipe(
+      map(
+        (serverTimeObj) => new Date(serverTimeObj.time).getTime() - Date.now()
+      ),
+      // The shareReplay(1) operator is used to share the emitted value with all subscribers, replaying the most recent value to any new subscribers.
+      shareReplay(1)
+    );
+  /**
+   *  @description An Observable that emits the server time every second, considering the time offset between the client and the server
+   *  @note This does not cause unnecessary network traffic, as the server time is fetched only once and the updates are based on the client's clock.
+   */
+  serverTime$: Observable<Date> = combineLatest([
+    this.serverTimeOffset$,
+    timer(0, 1000),
+  ]).pipe(map(([offset]) => new Date(Date.now() + offset)));
+  /**
+   *  @description An observable that emits the formatted server date as a string, updating with the server time
+   */
+  currentDate$: Observable<string> = this.serverTime$.pipe(
+    map((serverTime) => this.getDateString(serverTime))
+  );
+  /**
+   * @description An observable for the current time as a localized string
+   */
+  currentTime$: Observable<string> = this.serverTime$.pipe(
+    map((serverTime) => new Date(serverTime).toLocaleTimeString())
+  );
 
   /**
    * @description Constructor
-   * @param storeService Injected StoreService
-   * @param backendService Injected BackendService
+   * @param _storeService Injected StoreService
+   * @param _holidayBackendService Injected Holiday-BackendService
+   * @param _ringtimeBackendService Injected Ringtime-BackendService
+   * @param _dateUtilsService Injected DateService
    */
   constructor(
-    private storeService: StoreService,
-    private backendService: BackendService,
-    private dateUtilsService: DateUtilsService
-  ) {}
+    private _storeService: StoreService,
+    private _holidayBackendService: HolidayBackendService,
+    private _ringtimeBackendService: RingtimeBackendService,
+    private _dateUtilsService: DateUtilsService
+  ) {
+  }
 
   /**
    * @description Lifecycle Hook - ngOnInit
@@ -91,9 +127,9 @@ export class InfoBarComponent implements OnInit {
    * @returns An observable that emits the holiday ID or null if no holiday is found
    */
   getHolidayIdObservable(): Observable<number | null> {
-    return this.storeService.holidayList$.pipe(
+    return this._storeService.holidayList$.pipe(
       switchMap(() =>
-        this.backendService.getHolidayToday().pipe(
+        this._holidayBackendService.getHolidayToday().pipe(
           map((holidayId: number) => holidayId),
           catchError(() => of(null))
         )
@@ -110,7 +146,7 @@ export class InfoBarComponent implements OnInit {
   combineHolidayIdWithHolidayList(
     holidayId$: Observable<number | null>
   ): Observable<Holiday | null> {
-    return combineLatest([holidayId$, this.storeService.holidayList$]).pipe(
+    return combineLatest([holidayId$, this._storeService.holidayList$]).pipe(
       map(([holidayId, holidayList]) => {
         const holiday = holidayList.find((h) => h.id === holidayId);
         return holiday || null;
@@ -132,40 +168,15 @@ export class InfoBarComponent implements OnInit {
    * @description Fetches ringtimes from the backend and subscribes to the response.
    */
   fetchRingtimes() {
-    this.backendService
-      .getRingtimeResponse()
-      .pipe(
-        tap((response) => {
-          if (
-            response.body &&
-            response.body._embedded &&
-            response.body._embedded.ringtimeDTOList
-          ) {
-            const ringtimeList = response.body._embedded.ringtimeDTOList;
-            this.storeService.updateRingtimeList(ringtimeList);
-          }
-        })
-      )
-      .subscribe();
-
-    // TODO: Use this line after backend.service.ts refactoring is done!
-    //this.backendService.getRingtimeResponse().subscribe();
+    this._ringtimeBackendService.getRingtimeResponse().subscribe();
   }
 
   /**
    * @description Fetches holidays from the backend and subscribes to the response.
    */
   fetchHolidays() {
-    this.backendService
-      .getHolidayResponse()
-      .subscribe((holidayList: Holiday[] | null) => {
-        if (holidayList && holidayList.length > 0) {
-          this.storeService.updateHolidayList(holidayList);
-        }
-      });
-
-    // TODO: Use this line after backend.service.ts refactoring is done!
-    //this.backendService.getHolidayResponse().subscribe();
+    this._holidayBackendService
+      .getHolidayResponse().subscribe();
   }
 
   /**
@@ -195,7 +206,7 @@ export class InfoBarComponent implements OnInit {
    */
   calculateNextGong$(currentTime: Date): Observable<string | null> {
     return combineLatest([
-      this.storeService.ringtimeList$,
+      this._storeService.ringtimeList$,
       of(currentTime),
     ]).pipe(
       map(([ringtimes, currentTime]) => {
@@ -218,7 +229,7 @@ export class InfoBarComponent implements OnInit {
         };
       }),
       // Update the next gong in the store
-      switchMap(({ displayTime, nextGong }) =>
+      switchMap(({displayTime, nextGong}) =>
         this.updateNextGong(displayTime, nextGong)
       ),
       // Only emit values when the next gong changes
@@ -235,9 +246,9 @@ export class InfoBarComponent implements OnInit {
     // If nextGong exists, format its playTime as a localized time string, otherwise return null
     return nextGong
       ? this.timeToDate(nextGong.playTime).toLocaleTimeString('de-DE', {
-          hour: '2-digit',
-          minute: '2-digit',
-        })
+        hour: '2-digit',
+        minute: '2-digit',
+      })
       : null;
   }
 
@@ -275,49 +286,12 @@ export class InfoBarComponent implements OnInit {
   }
 
   /**
-   *  @description An Observable that calculates the time offset between the client's current time and the server time
-   *  @returns time offset in milliseconds
-   */
-  serverTimeOffset$: Observable<number> = this.backendService
-    .getServerTime()
-    .pipe(
-      map(
-        (serverTimeObj) => new Date(serverTimeObj.time).getTime() - Date.now()
-      ),
-      // The shareReplay(1) operator is used to share the emitted value with all subscribers, replaying the most recent value to any new subscribers.
-      shareReplay(1)
-    );
-
-  /**
-   *  @description An Observable that emits the server time every second, considering the time offset between the client and the server
-   *  @note This does not cause unnecessary network traffic, as the server time is fetched only once and the updates are based on the client's clock.
-   */
-  serverTime$: Observable<Date> = combineLatest([
-    this.serverTimeOffset$,
-    timer(0, 1000),
-  ]).pipe(map(([offset]) => new Date(Date.now() + offset)));
-
-  /**
-   *  @description An observable that emits the formatted server date as a string, updating with the server time
-   */
-  currentDate$: Observable<string> = this.serverTime$.pipe(
-    map((serverTime) => this.getDateString(serverTime))
-  );
-
-  /**
-   * @description An observable for the current time as a localized string
-   */
-  currentTime$: Observable<string> = this.serverTime$.pipe(
-    map((serverTime) => new Date(serverTime).toLocaleTimeString())
-  );
-
-  /**
    * @description Converts a Date object to a formatted string in German locale, including day, month and year.
    * @param serverTime The Date object to be formatted.
    * @returns The formatted string.
    */
   getDateString(serverTime: Date): string {
-    return this.dateUtilsService.convertDateTimeToString(serverTime, 'de-DE');
+    return this._dateUtilsService.convertDateTimeToString(serverTime, 'de-DE');
   }
 
   /**
@@ -367,6 +341,11 @@ export class InfoBarComponent implements OnInit {
     currentTime: Date,
     currentDayOfWeek: string
   ): Ringtime[] {
+    let currentDate: Date = new Date();
+    this.currentDate$.subscribe(date => {
+        currentDate = new Date(date);
+      }
+    )
     // Filtering of the ring times according to the current day of the week
     const filteredRingtimes = ringtimes.filter(
       (rt) => (rt as any)[currentDayOfWeek]
@@ -375,18 +354,16 @@ export class InfoBarComponent implements OnInit {
     // Filtering of the ring times that have already taken place
     const upcomingRingtimes = filteredRingtimes.filter((rt) => {
       const playTime = this.timeToDate(rt.playTime);
-      return playTime >= currentTime;
+      return playTime >= currentTime && currentDate.getDate() <= new Date(rt.endDate).getDate() && currentDate.getDate() >= new Date(rt.startDate).getDate() && currentDate.getMonth() <= new Date(rt.endDate).getMonth() && currentDate.getMonth() >= new Date(rt.startDate).getMonth() && currentDate.getFullYear() <= new Date(rt.endDate).getFullYear() && currentDate.getFullYear() >= new Date(rt.startDate).getFullYear();
     });
 
     // Sorting of the ring times according to the time of the start
-    const sortedRingtimes = upcomingRingtimes.sort(
+    // Return of the sorted ring times
+    return upcomingRingtimes.sort(
       (a, b) =>
         this.timeToDate(a.playTime).getTime() -
         this.timeToDate(b.playTime).getTime()
     );
-
-    // Return of the sorted ring times
-    return sortedRingtimes;
   }
 
   /**

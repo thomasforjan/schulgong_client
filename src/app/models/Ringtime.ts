@@ -1,6 +1,12 @@
-import { Ringtone } from './Ringtone';
+import {Ringtone} from './Ringtone';
 import {Time} from "@angular/common";
 
+/**
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Models for the ringtime component
+ */
 export interface Ringtime {
   id: number;
   name: string;
@@ -15,7 +21,6 @@ export interface Ringtime {
   friday: boolean;
   saturday: boolean;
   sunday: boolean;
-  // addInfo: string;
 }
 
 export interface RingtimePayload {
@@ -31,7 +36,6 @@ export interface RingtimePayload {
   friday: boolean;
   saturday: boolean;
   sunday: boolean;
-  // addInfo: string;
 }
 
 export interface RingtimeResponse {
@@ -54,7 +58,6 @@ export interface RingtimeDialog {
   friday: boolean;
   saturday: boolean;
   sunday: boolean;
-  // addInfo: string;
 }
 
 export interface RingtoneOnlyId {

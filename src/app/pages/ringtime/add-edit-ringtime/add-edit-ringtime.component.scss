@@ -1,21 +1,35 @@
-/**
-  * Style for the title
+/*
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Styles for the add-edit-ringtime component
+ */
+
+/*
+ * Mobile screen size
+*/
+$mobile-screen-size: 870px;
+
+/*
+ * Style for the title
 */
 .title {
   text-align: center;
   margin-top: 20px;
   font-size: 32px;
   font-family: "Montserrat", sans-serif;
+
   .title-word {
     display: inline;
   }
+
   .title-action {
     display: inline;
   }
 }
 
-/**
-  * Style for the hero-image
+/*
+ * Style for the hero-image
 */
 .hero-image-container {
   display: flex;
@@ -24,8 +38,8 @@
   height: 100%;
 }
 
-/**
-  * Style for the hero-image
+/*
+ * Style for the hero-image
 */
 :host ::ng-deep app-hero-image {
   padding: 20px;
@@ -33,8 +47,8 @@
   height: 96px !important;
 }
 
-/**
-  * Style for the divider
+/*
+ * Style for the divider
 */
 .divider {
   height: 4px;
@@ -42,35 +56,27 @@
   background-color: #f29d38;
   border: none;
   border-radius: 20px;
-  margin: 10px 2.5% 40px 2.5%;
-  width: 95%;
+  margin: 10px 50px 40px 50px;
 }
 
-/**
-  * Style for the index
+/*
+ * Style for the form
 */
-.index {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+form {
+  margin-bottom: 20px;
 }
 
-/**
-  * Style for the index container
+/*
+ * Style for the form-field
 */
-.index-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  max-width: 450px;
+.form-field {
+  width: 50%;
 }
 
-/**
-  * Style for the form-field
+/*
+ * Style for the form fields
 */
 .form-fields {
-  margin-top: 20px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,7 +85,7 @@
   .form-field-container {
     position: relative;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     width: 100%;
     max-width: 450px;
@@ -89,7 +95,6 @@
       flex-grow: 1;
       margin-bottom: 20px;
       width: 100%;
-      max-width: 450px;
     }
 
     .full-width {
@@ -98,8 +103,34 @@
   }
 }
 
-/**
-  * Style for the actions container
+.klingeldays {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: fit-content;
+}
+
+/*
+ * Style for klingeldays
+*/
+.klingeldays-section {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+}
+
+/*
+ * Style for klingeldays header
+*/
+.klingeldays-header {
+  margin-bottom: 0;
+}
+
+/*
+ * Style for the actions container
 */
 .actions-container {
   display: flex;
@@ -115,17 +146,28 @@
   }
 }
 
-/**
-  * Style for the app-button
+/*
+ * Style for the app-button
 */
 :host ::ng-deep app-button .btn {
   border-radius: 24px !important;
 }
 
-/**
-  * Media Query for mobile devices
+/*
+ * Style for the dialog content
+*/
+.mat-mdc-dialog-content {
+  max-height: 85vh;
+}
+
+/*
+ * Media Query for mobile devices
 */
 @media screen and (max-width: 768px) {
+  .form-field {
+    width: 50vw;
+  }
+
   .title {
     font-size: 24px;
     margin-top: 10px;
@@ -133,6 +175,7 @@
     .title-word {
       display: block;
     }
+
     .title-action {
       display: block;
       margin-top: 20px;
@@ -144,34 +187,4 @@
       margin-bottom: 10px;
     }
   }
-
-  .input-with-upload-container {
-    flex-direction: column;
-  }
-
-
 }
-
-/**
-  * Style for index form field
-*/
-.index-form-field {
-  width: 100%;
-}
-
-/**
-  * Style for klingeldays
-*/
-.klingeldays-section {
-  display: grid;
-  justify-content: center;
-  align-items: center;
-}
-
-/**
-  * Style for klingeldays header
-*/
-.klingeldays-header {
-  margin-bottom: 0px;
-}
-

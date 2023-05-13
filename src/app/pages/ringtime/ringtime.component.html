@@ -3,42 +3,35 @@
 <div class="container">
   <div class="button">
     <app-button
-      class="uploadBtn"
-      bgColor="#F29D38"
-      icon="add"
-      [hoverActive]="true"
-      hoverColor="#FFA24A"
       (btnClick)="openDialogAddRingtime()"
-      [width]="117"
       [height]="40"
+      [hoverActive]="true"
+      [width]="117"
       aria-label="addRingtime"
+      bgColor="#F29D38"
+      class="uploadBtn"
+      hoverColor="#FFA24A"
+      icon="add"
       matTooltip="Hinzufügen"
     ></app-button>
-
 
   </div>
   <div class="content-container">
     <app-grid-cards
-      [index]="true"
-
-      [matCardTitle]="ringtoneName$ | async"
-      [matCardSubtitle]="ringtimeName$ | async"
-      [matCardContentParagraph]="ringtimeStartAndEndDateAsString$ | async"
-      [matCardContentParagraph2]="weekDaysAsString$ | async"
-      [matCardContentParagraph3]="ringtimePlayTimeAsString$ | async"
-
-      [cards_width]="330"
-      [cards_height]="220"
-      [columns]="6"
-      [cards]="cardLength$ | async"
-
-
-      [showButtonContainer]="true"
-      [showEditButton]="true"
-      [showDeleteButton]="true"
-      (edit)="onEditRingtime($event)"
       (delete)="onDeleteRingtime($event)"
-
+      (edit)="onEditRingtime($event)"
+      [cards]="cardLength$ | async"
+      [cards_height]="220"
+      [cards_width]="330"
+      [index]="true"
+      [matCardContentParagraph2]="weekDaysAsString$ | async"
+      [matCardContentParagraph3]="ringingPlaytime$ | async"
+      [matCardContentParagraph]="ringtimePeriod$ | async"
+      [matCardSubtitle]="ringtimeName$ | async"
+      [matCardTitle]="ringtoneName$ | async"
+      [showButtonContainer]="true"
+      [showDeleteButton]="true"
+      [showEditButton]="true"
     ></app-grid-cards>
   </div>
 

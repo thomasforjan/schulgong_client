@@ -5,6 +5,13 @@ import {Ringtone} from "../models/Ringtone";
 import {Holiday} from "../models/Holiday";
 
 /**
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Service to store data from backend and global information
+ */
+
+/**
  * Enum for routing links
  */
 export enum RoutingLinks {
@@ -83,27 +90,37 @@ export enum DashboardIcons {
   providedIn: 'root',
 })
 export class StoreService {
+  /**
+   * @description URL to backend endpoint
+   */
+  public readonly BACKEND_URL = 'http://localhost:8080';
+
   // private BehaviorSubject for ringtoneList
   private _ringtoneList$ = new BehaviorSubject<Ringtone[]>([])
 
   // public Observable instance for ringtoneList
   public ringtoneList$ = this._ringtoneList$.asObservable();
+  /**
+   * private BehaviorSubject for ringtimeList
+   */
+  private _ringtimeList$ = new BehaviorSubject<Ringtime[]>([]);
+  /**
+   * public Observable instance for ringtimeList
+   */
+  public ringtimeList$ = this._ringtimeList$.asObservable();
+  /**
+   * private BehaviorSubject for holidayList
+   */
+  private _holidayList$ = new BehaviorSubject<Holiday[]>([]);
+  /**
+   * public Observable instance for holidayList
+   */
+  public holidayList$ = this._holidayList$.asObservable();
 
   // Method to update ringtoneList
   updateRingtoneList(newList: Ringtone[]) {
     this._ringtoneList$.next(newList);
   }
-
-
-  /**
-   * private BehaviorSubject for ringtimeList
-   */
-  private _ringtimeList$ = new BehaviorSubject<Ringtime[]>([]);
-
-  /**
-   * public Observable instance for ringtimeList
-   */
-  public ringtimeList$ = this._ringtimeList$.asObservable();
 
   /**
    * Method to update ringtimeList
@@ -112,16 +129,6 @@ export class StoreService {
   updateRingtimeList(newList: Ringtime[]) {
     this._ringtimeList$.next(newList);
   }
-
-  /**
-   * private BehaviorSubject for holidayList
-   */
-  private _holidayList$ = new BehaviorSubject<Holiday[]>([]);
-
-  /**
-   * public Observable instance for holidayList
-   */
-  public holidayList$ = this._holidayList$.asObservable();
 
   /**
    * Method to update holidayList

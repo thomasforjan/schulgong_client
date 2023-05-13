@@ -1,10 +1,10 @@
 /**
-- author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
-- version: 0.0.1
-- date: 05.04.2023
-- description: Hero component
-*/
-import { Component, Input } from '@angular/core';
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Reusable hero-images component
+ */
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-hero-image',

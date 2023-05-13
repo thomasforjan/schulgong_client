@@ -42,19 +42,19 @@ The present document provides an outline of the guidelines for the Frontend.
 - All classes must have at the beginning implementation notes e.g.:
 
 ```ts
-/** 
-- author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
-- version: 0.0.1
-- date: 31.03.2023
-- description: sidebar component
-*/
+/**
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.1
+ * @since: April 2023
+ * @description: Reusable delete dialog component
+ */
 ```
 
 ### :file_folder: Project structure
 
 - We decided to use the following folder structure (as an example). For example, all reused components should be created in the 'components' folder.
 - In addition, pages should be created in the 'page' folder.
-Services that are necessary for calling the REST API should be created in the services folder.
+Services that are necessary for calling the REST API should be created in the services' folder.
 
 - All Angular Material components must be imported in material.module.ts.
 

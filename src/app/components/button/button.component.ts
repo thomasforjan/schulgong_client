@@ -1,10 +1,10 @@
 import {Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges,} from '@angular/core';
 
 /**
- - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
- - version: 0.0.1
- - date: April 2023
- - description: Button component
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Reusable button component
  */
 @Component({
   selector: 'app-button',
@@ -95,9 +95,9 @@ export class ButtonComponent implements OnChanges {
 
   /**
    * Constructor of the button component.
-   * @param elRef element reference
+   * @param _elRef element reference
    */
-  constructor(private elRef: ElementRef) {
+  constructor(private _elRef: ElementRef) {
   }
 
   /**
@@ -105,7 +105,7 @@ export class ButtonComponent implements OnChanges {
    * @param changes changes of the button component
    */
   ngOnChanges(changes: SimpleChanges): void {
-    const btnEl = this.elRef.nativeElement.querySelector('.btn');
+    const btnEl = this._elRef.nativeElement.querySelector('.btn');
     if (btnEl) {
       btnEl.style.setProperty(
         'width',

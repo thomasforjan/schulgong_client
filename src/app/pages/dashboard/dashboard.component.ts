@@ -1,13 +1,12 @@
-/**
- - author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
- - version: 0.0.1
- - date: 12.04.2023
- - description: Dashboard component
- */
-
 import {Component} from '@angular/core';
 import {DashboardIcons, MenuNames, RoutingLinks} from '../../services/store.service';
 
+/**
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Dashboard component
+ */
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',

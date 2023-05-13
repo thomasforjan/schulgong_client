@@ -30,17 +30,16 @@ import {UserComponent} from './pages/user/user.component';
 import {AddEditRingtonesComponent} from "./pages/ringtones/add-edit-ringtones/add-edit-ringtones.component";
 import {DeleteDialogComponent} from "./components/delete-dialog/delete-dialog.component";
 import {AddEditRingtimeComponent} from './pages/ringtime/add-edit-ringtime/add-edit-ringtime.component';
+import {MAT_DATE_LOCALE} from '@angular/material/core';
+import {AddEditHolidaysComponent} from "./pages/holiday/add-edit-holidays/add-edit-holidays.component";
 
 
 /**
- * Test Components
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Module for all global declarations and imports
  */
-import {TestComponent} from './test/test.component';
-import {DatePipe} from "@angular/common";
-import {AddEditHolidaysComponent} from "./pages/holiday/add-edit-holidays/add-edit-holidays.component";
-import {MAT_DATE_LOCALE} from "@angular/material/core";
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +59,6 @@ import {MAT_DATE_LOCALE} from "@angular/material/core";
     UserComponent,
     AddEditRingtonesComponent,
     DeleteDialogComponent,
-    TestComponent,  // Test Component
     AddEditRingtimeComponent,
     AddEditHolidaysComponent
   ],
@@ -71,7 +69,7 @@ import {MAT_DATE_LOCALE} from "@angular/material/core";
     MaterialModule,
     HttpClientModule,
   ],
-  providers: [DatePipe, {provide: MAT_DATE_LOCALE, useValue: 'de-DE'}],
+  providers: [{provide: MAT_DATE_LOCALE, useValue: 'de-DE'}],
   bootstrap: [AppComponent],
 })
 export class AppModule {

@@ -1,5 +1,12 @@
-/**
-  * Selector ".container" - defines the style properties for the container element that holds the header and the main content area.
+/*
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Styles for the whole project
+ */
+
+/*
+ * Selector ".container" - defines the style properties for the container element that holds the header and the main content area.
 */
 .container {
   display: flex;
@@ -7,8 +14,8 @@
   min-height: 100vh;
 }
 
-/**
-  * Selector ".header" - defines the style properties for the header element.
+/*
+ * Selector ".header" - defines the style properties for the header element.
 */
 header {
   position: relative;
@@ -16,8 +23,8 @@ header {
   z-index: 100;
 }
 
-/**
-  * Selector ".header app-header" - defines the style properties for the custom "app-header" component within the header element.
+/*
+ * Selector ".header app-header" - defines the style properties for the custom "app-header" component within the header element.
 */
 .header app-header {
   position: fixed;
@@ -26,8 +33,8 @@ header {
   right: 0;
 }
 
-/**
-  * Selector ".info-bar-container" - defines the style properties for the info bar container element.
+/*
+ * Selector ".info-bar-container" - defines the style properties for the info bar container element.
 */
 .info-bar-container {
   position: absolute;
@@ -37,8 +44,8 @@ header {
   z-index: 10;
 }
 
-/**
-  * Selector ".content" - defines the style properties for the content element that holds the main content area.
+/*
+ * Selector ".content" - defines the style properties for the content element that holds the main content area.
 */
 .content {
   display: flex;
@@ -48,8 +55,8 @@ header {
   width: 100%;
 }
 
-/**
-  * Selector ".main" - defines the style properties for the main element that holds the main content area.
+/*
+ * Selector ".main" - defines the style properties for the main element that holds the main content area.
 */
 main {
   display: flex;
@@ -64,8 +71,8 @@ main {
   width: 100%;
 }
 
-/**
-  * Selector ".main-content" - defines the style properties for the content within the main content area.
+/*
+ * Selector ".main-content" - defines the style properties for the content within the main content area.
 */
 .main-content {
   display: flex;
@@ -79,8 +86,8 @@ main {
   margin-top: 80px;
 }
 
-/**
-  * Media query for small screens which styles the app-info-bar component
+/*
+ * Media query for small screens which styles the app-info-bar component
 */
 @media screen and (max-width: 600px) {
   .app-info-bar {
@@ -88,8 +95,8 @@ main {
   }
 }
 
-/**
-  * Galaxy Fold specific media query
+/*
+ * Galaxy Fold specific media query
 */
 @media screen and (max-width: 280px), screen and (max-height: 653px) {
   .info-bar-container {
@@ -98,12 +105,12 @@ main {
   }
 
   .main-content {
-    margin-top: 0px;
+    margin-top: 0;
   }
 }
 
-/**
-  * IPad Air specific media query
+/*
+ * IPad Air specific media query
 */
 @media screen and (width: 820px) and (height: 1180px) {
   .main-content {

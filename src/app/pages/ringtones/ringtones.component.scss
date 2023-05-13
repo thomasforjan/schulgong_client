@@ -1,39 +1,46 @@
-/**
-  * Style for the first content paragraph
+/*
+ * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
+ * @version: 0.0.2
+ * @since: April 2023
+ * @description: Styles for the ringtone component
+ */
+
+/*
+ * Style for the first content paragraph
 */
 :host ::ng-deep .mat-card-content-paragraph {
-  margin-top: 0px !important;
+  margin-top: 0 !important;
   display: inline;
   margin-left: 63px;
 }
 
-/**
-  * Style for the second content paragraph
+/*
+ * Style for the second content paragraph
 */
 :host ::ng-deep .mat-card-content-paragraph2 {
   display: inline;
   float: right;
-  margin-top: 0px !important;
-  margin-bottom: 0px !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 
-/**
-  * Style for the subtitle
+/*
+ * Style for the subtitle
 */
 :host ::ng-deep .mat-card-subtitle {
   margin-bottom: 1rem;
 }
 
-/**
-  * Style for the button
+/*
+ * Style for the button
 */
 .button {
   margin-bottom: 1rem;
   width: fit-content;
 }
 
-/**
-  * Media queries for devices between 940 and 1089 px width
+/*
+ * Media queries for devices between 940 and 1089 px width
 */
 @media screen and (min-width: 940px) and (max-width: 1089px) {
   :host ::ng-deep .mat-card-content-paragraph2 {
@@ -41,8 +48,8 @@
   }
 }
 
-/**
-  * Media queries for devices between 760 and 939 px width
+/*
+ * Media queries for devices between 760 and 939 px width
 */
 @media screen and (min-width: 760px) and (max-width: 939px) {
   :host ::ng-deep .mat-card-content-paragraph {
@@ -50,8 +57,8 @@
   }
 }
 
-/**
-  * Media queries for devices between 515 and 678 px width
+/*
+ * Media queries for devices between 515 and 678 px width
 */
 @media screen and (min-width: 515px) and (max-width: 678px) {
   :host ::ng-deep .mat-card-content-paragraph {
@@ -59,8 +66,8 @@
   }
 }
 
-/**
-  * Media queries for devices between 435 and 514 px width
+/*
+ * Media queries for devices between 435 and 514 px width
 */
 @media screen and (min-width: 435px) and (max-width: 514px) {
   :host ::ng-deep .mat-card-content-paragraph {
@@ -73,8 +80,8 @@
   }
 }
 
-/**
-  * Media queries for devices til max width of 325 px
+/*
+ * Media queries for devices til max width of 325 px
 */
 @media screen and (max-width: 325px) {
   :host ::ng-deep .mat-card-content-paragraph {

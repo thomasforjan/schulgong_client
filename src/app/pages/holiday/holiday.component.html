@@ -3,7 +3,6 @@
 <div class="container">
   <div class="button">
     <app-button
-      title="uploadBtn"
       (click)="holidayAddDialog()"
       [height]="40"
       [hoverActive]="true"
@@ -13,18 +12,18 @@
       hoverColor="#FFA24A"
       icon="add"
       matTooltip="Hinzufügen"
+      title="uploadBtn"
     ></app-button>
   </div>
   <div class="content-container">
     <app-grid-cards
-      (edit)="onEditHoliday($event)"
       (delete)="onDeleteHoliday($event)"
+      (edit)="onEditHoliday($event)"
       [cards]="cardLength$ | async"
       [cards_height]="220"
       [cards_width]="330"
-      [columns]="4"
       [index]="true"
-      [matCardContentParagraph]="holidayDate$ | async"
+      [matCardContentParagraph]="holidayPeriod$ | async"
       [matCardTitle]="holidayName$ | async"
       [showButtonContainer]="true"
       [showDeleteButton]="true"
