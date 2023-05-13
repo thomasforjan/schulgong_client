@@ -169,7 +169,6 @@ export class InfoBarComponent implements OnInit {
    */
   fetchRingtimes() {
     this._ringtimeBackendService.getRingtimeResponse().subscribe();
-
   }
 
   /**
@@ -342,6 +341,11 @@ export class InfoBarComponent implements OnInit {
     currentTime: Date,
     currentDayOfWeek: string
   ): Ringtime[] {
+    let currentDate: Date = new Date();
+    this.currentDate$.subscribe(date => {
+        currentDate = new Date(date);
+      }
+    )
     // Filtering of the ring times according to the current day of the week
     const filteredRingtimes = ringtimes.filter(
       (rt) => (rt as any)[currentDayOfWeek]
@@ -350,18 +354,16 @@ export class InfoBarComponent implements OnInit {
     // Filtering of the ring times that have already taken place
     const upcomingRingtimes = filteredRingtimes.filter((rt) => {
       const playTime = this.timeToDate(rt.playTime);
-      return playTime >= currentTime;
+      return playTime >= currentTime && currentDate.getDate() <= new Date(rt.endDate).getDate() && currentDate.getDate() >= new Date(rt.startDate).getDate() && currentDate.getMonth() <= new Date(rt.endDate).getMonth() && currentDate.getMonth() >= new Date(rt.startDate).getMonth() && currentDate.getFullYear() <= new Date(rt.endDate).getFullYear() && currentDate.getFullYear() >= new Date(rt.startDate).getFullYear();
     });
 
     // Sorting of the ring times according to the time of the start
-    const sortedRingtimes = upcomingRingtimes.sort(
+    // Return of the sorted ring times
+    return upcomingRingtimes.sort(
       (a, b) =>
         this.timeToDate(a.playTime).getTime() -
         this.timeToDate(b.playTime).getTime()
     );
-
-    // Return of the sorted ring times
-    return sortedRingtimes;
   }
 
   /**
