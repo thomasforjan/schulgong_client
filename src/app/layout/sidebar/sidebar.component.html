@@ -3,6 +3,7 @@
     <span class="content-wrapper">
       <span class="icon-wrapper">
         <img
+          alt="Sidebar icons"
           *ngIf="icons && icons.length > 0"
           [src]="icons[0]"
           class="sidebar-icon"
@@ -19,7 +20,7 @@
   >
     <span class="content-wrapper">
       <span class="icon-wrapper">
-        <img *ngIf="icon" [src]="icon" class="sidebar-icon"/>
+        <img alt="Sidebar icons" *ngIf="icon" [src]="icon" class="sidebar-icon"/>
       </span>
       <span>{{ titles[i + 1] }}</span>
     </span>

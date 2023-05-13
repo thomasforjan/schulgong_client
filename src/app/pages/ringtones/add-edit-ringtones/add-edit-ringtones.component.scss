@@ -60,25 +60,6 @@ $mobile-screen-size: 870px;
 }
 
 /*
- * Style for the index
-*/
-.index {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-/*
- * Style for the index container
-*/
-.index-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  max-width: 450px;
-}
-
-/*
  * Style for the form
 */
 form {
@@ -103,7 +84,6 @@ form {
   .form-field-container {
     position: relative;
     display: flex;
-    align-items: flex-start;
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -176,7 +156,6 @@ form {
  * Style for the dialog content
 */
 .mat-mdc-dialog-content {
-  max-height: 610px;
   max-height: 100%;
 }
 
@@ -185,7 +164,7 @@ form {
 */
 @media screen and (max-width: $mobile-screen-size) {
   .form-field {
-    width: 70%;
+    width: 100%;
   }
   .title {
     font-size: 24px;

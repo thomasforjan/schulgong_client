@@ -15,26 +15,27 @@
     </div>
 
     <hr class="divider"/>
+
+
+    <div *ngIf="isEditRingtime" class="form-field-container form-fields">
+      <mat-form-field appearance="fill" class="form-field index-form-field">
+        <mat-label>Index</mat-label>
+        <input
+          [disabled]="true"
+          matInput
+          type="text"
+          value="{{ data.index + 1 }}"
+        />
+      </mat-form-field>
+    </div>
   </div>
 
-  <div *ngIf="isEditRingtime" class="form-field-container">
-    <mat-form-field appearance="fill" class="form-field index-form-field">
-      <mat-label>Index</mat-label>
-      <input
-        [disabled]="true"
-        matInput
-        type="text"
-        value="{{ data.index + 1 }}"
-      />
-    </mat-form-field>
-  </div>
-
-  <form *ngIf="ringtimeForm" [formGroup]="ringtimeForm">
-    <div class="form-field-container">
+  <form [formGroup]="ringtimeForm">
+    <div class="form-field-container form-fields">
       <mat-form-field
         appearance="fill"
-        aria-label="ringtimeName"
-        class="form-field index-form-field"
+        aria-label="Klingelzeitbezeichnung"
+        class="form-field"
       >
         <mat-label>Bezeichnung</mat-label>
         <input
@@ -53,13 +54,11 @@
           <mat-error>Bezeichnung wird benötigt!</mat-error>
         </ng-container>
       </mat-form-field>
-    </div>
 
-    <div class="form-field-container">
       <mat-form-field
         appearance="fill"
         aria-label="ringtimeStartdate"
-        class="form-field index-form-field"
+        class="form-field full-width"
       >
         <mat-label>Startdatum</mat-label>
         <input
@@ -91,13 +90,11 @@
 
         <mat-hint align="end">DD.MM.YYYY</mat-hint>
       </mat-form-field>
-    </div>
 
-    <div class="form-field-container">
       <mat-form-field
         appearance="fill"
         aria-label="ringtimeEnddate"
-        class="form-field index-form-field"
+        class="form-field full-width"
       >
         <mat-label>Enddatum</mat-label>
         <input
@@ -128,13 +125,11 @@
           <mat-error> Enddatum muss größer als Startdatum sein!</mat-error>
         </ng-container>
       </mat-form-field>
-    </div>
 
-    <div class="form-field-container">
       <section class="klingeldays-section">
         <h3 class="klingeldays-header">Klingeltage</h3>
         <div class="klingeldays">
-          <p style="float: left; text-align: center; margin-bottom: 0px">
+          <p>
             MO
             <br/>
             <mat-checkbox
@@ -142,10 +137,7 @@
               formControlName="monday"
             ></mat-checkbox>
           </p>
-          <p
-            class="checkboxPartOne"
-            style="float: left; text-align: center; margin-bottom: 0px"
-          >
+          <p>
             DI
             <br/>
             <mat-checkbox
@@ -153,7 +145,7 @@
               formControlName="tuesday"
             ></mat-checkbox>
           </p>
-          <p style="float: left; text-align: center; margin-bottom: 0px">
+          <p>
             MI
             <br/>
             <mat-checkbox
@@ -161,7 +153,7 @@
               formControlName="wednesday"
             ></mat-checkbox>
           </p>
-          <p style="float: left; text-align: center; margin-bottom: 0px">
+          <p>
             DO
             <br/>
             <mat-checkbox
@@ -169,42 +161,37 @@
               formControlName="thursday"
             ></mat-checkbox>
           </p>
-          <div style="float: left">
-            <p style="float: left; text-align: center">
-              FR
-              <br/>
-              <mat-checkbox
-                aria-label="ringtimeCheckboxFriday"
-                formControlName="friday"
-              ></mat-checkbox>
-            </p>
-            <p style="float: left; text-align: center">
-              SA
-              <br/>
-              <mat-checkbox
-                aria-label="ringtimeCheckboxSaturday"
-                formControlName="saturday"
-              ></mat-checkbox>
-            </p>
-            <p style="float: left; text-align: center">
-              SO
-              <br/>
-              <mat-checkbox
-                aria-label="ringtimeCheckboxSunday"
-                formControlName="sunday"
-              ></mat-checkbox>
-            </p>
-          </div>
+          <p style="text-align: center">
+            FR
+            <br/>
+            <mat-checkbox
+              aria-label="ringtimeCheckboxFriday"
+              formControlName="friday"
+            ></mat-checkbox>
+          </p>
+          <p style="text-align: center">
+            SA
+            <br/>
+            <mat-checkbox
+              aria-label="ringtimeCheckboxSaturday"
+              formControlName="saturday"
+            ></mat-checkbox>
+          </p>
+          <p style="text-align: center">
+            SO
+            <br/>
+            <mat-checkbox
+              aria-label="ringtimeCheckboxSunday"
+              formControlName="sunday"
+            ></mat-checkbox>
+          </p>
         </div>
       </section>
-      <div style="clear: both"></div>
-    </div>
 
-    <div class="form-field-container">
       <mat-form-field
         appearance="fill"
         aria-label="ringtimePlaytime"
-        class="form-field index-form-field"
+        class="form-field full-width"
       >
         <mat-label>Uhrzeit</mat-label>
         <input
@@ -224,13 +211,11 @@
           <mat-error>Uhrzeit wird benötigt!</mat-error>
         </ng-container>
       </mat-form-field>
-    </div>
 
-    <div class="form-field-container">
       <mat-form-field
         appearance="fill"
         aria-label="ringtimeRingtone"
-        class="form-field index-form-field"
+        class="form-field full-width"
       >
         <mat-label>Klingelton auswählen</mat-label>
         <mat-select formControlName="ringtoneId">

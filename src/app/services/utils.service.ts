@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {take} from "rxjs/operators";
-import {StoreService} from "./store.service";
 import {Observable} from "rxjs";
 
 /**
@@ -13,9 +12,6 @@ import {Observable} from "rxjs";
   providedIn: 'root',
 })
 export class UtilsService {
-
-  constructor() {
-  }
 
   /**
    * Transform shown number into real id of object

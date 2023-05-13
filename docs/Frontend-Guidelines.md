@@ -54,7 +54,7 @@ The present document provides an outline of the guidelines for the Frontend.
 
 - We decided to use the following folder structure (as an example). For example, all reused components should be created in the 'components' folder.
 - In addition, pages should be created in the 'page' folder.
-Services that are necessary for calling the REST API should be created in the services folder.
+Services that are necessary for calling the REST API should be created in the services' folder.
 
 - All Angular Material components must be imported in material.module.ts.
 

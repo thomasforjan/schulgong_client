@@ -166,7 +166,7 @@ export class RingtonesComponent implements OnInit, OnDestroy {
               duration: 2000,
             });
           },
-          error: (error) => {
+          error: () => {
             this._snackBar.open(
               'Klingelton konnte nicht gelöscht werden (Info: möglicherweise wird der Klingelton für eine Klingelzeit verwendet).',
               'Ok',
@@ -219,6 +219,7 @@ export class RingtonesComponent implements OnInit, OnDestroy {
   /**
    * Method which is called when the edit button is clicked
    * @param ringtone ringtone to edit
+   * @param index of ringtone object
    */
   ringtoneEditDialog(ringtone: Ringtone, index: number) {
     const dialogRef = this._dialog.open(AddEditRingtonesComponent, {

@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges,} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges,} from '@angular/core';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -112,12 +112,6 @@ export class GridCardsComponent implements OnChanges {
    * Defines the playing state of the cards.
    */
   @Input() playing: boolean[] = [];
-
-  /**
-   * Constructor of the GridCardsComponent.
-   */
-  constructor() {
-  }
 
   /**
    * Defines the onChanges method of the GridCardsComponent.

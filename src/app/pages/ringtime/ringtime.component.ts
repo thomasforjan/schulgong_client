@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {map, take} from 'rxjs';
-import {HeroImages, MenuNames, RoutingLinks, StoreService,} from 'src/app/services/store.service';
+import {HeroImages, StoreService,} from 'src/app/services/store.service';
 import {Ringtime, RingtimeDialog, RingtimePayload,} from '../../models/Ringtime';
 import {AddEditRingtimeComponent} from './add-edit-ringtime/add-edit-ringtime.component';
 import {MatDialog} from '@angular/material/dialog';
@@ -28,21 +28,6 @@ export class RingtimeComponent implements OnInit{
    * Ringtime Hero Image from enum in store service
    */
   ringtimeHeroImage: string = HeroImages.RingtimeHeroImage;
-
-  /**
-   * Menu titles from enum in store service
-   */
-  titles: string[] = Object.values(MenuNames);
-
-  /**
-   * Router links from enum in store service
-   */
-  routerLinks: string[] = Object.values(RoutingLinks);
-
-  /**
-   * Dashboard icons from enum in store service
-   */
-  ringtimeIcon: string[] = Object.values(HeroImages);
 
   /**
    * Get the length of the ringtime list
@@ -164,8 +149,8 @@ export class RingtimeComponent implements OnInit{
   openDialogEditRingtime(ringtime: Ringtime, index: number) {
     let ringtimeDialog = this.createDialogResultFromRingtime(ringtime);
     const dialogRef = this._dialog.open(AddEditRingtimeComponent, {
-      width: '500px',
-      height: '65vh',
+      width: '720px',
+      height: '',
       data: {isAddRingtone: false, ringtimeDialog: ringtimeDialog, index},
     });
     dialogRef.afterClosed().subscribe((result: RingtimeDialog) => {
@@ -211,15 +196,14 @@ export class RingtimeComponent implements OnInit{
   openDialogAddRingtime() {
     let ringtime: RingtimePayload;
     const dialogRef = this._dialog.open(AddEditRingtimeComponent, {
-      width: '500px',
-      height: '65vh',
+      width: '720px',
+      height: '',
       data: {isAddRingtime: true},
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        let ringtone = this.getRingtoneDTOById(result.ringtoneId);
-        ringtime = this.createRingtimePayloadFromDialogResult(result, ringtone);
+        ringtime = this.createRingtimePayloadFromDialogResult(result);
         this._ringtimeBackendService
           .postRingtimeRequest(ringtime)
           .subscribe((response) => {
@@ -318,16 +302,10 @@ export class RingtimeComponent implements OnInit{
   /**
    * Create ringtimePayload from ringtimeDialog
    */
-  createRingtimePayloadFromDialogResult(
-    ringtimeDialog: RingtimeDialog,
-    ringtone: Ringtone
-  ) {
-    let ringtoneOnlyId = {
-      id: ringtimeDialog.ringtoneId,
-    };
+  createRingtimePayloadFromDialogResult(ringtimeDialog: RingtimeDialog) {
     return {
       name: ringtimeDialog.name,
-      ringtoneDTO: ringtoneOnlyId,
+      ringtoneDTO: {id: ringtimeDialog.ringtoneId},
       startDate: ringtimeDialog.startDate,
       endDate: ringtimeDialog.endDate,
       playTime: ringtimeDialog.playTime,
@@ -347,9 +325,9 @@ export class RingtimeComponent implements OnInit{
   getRingtoneDTOById(ringtoneId: number) {
     let ringtone!: Ringtone;
     this.storeService.ringtoneList$.pipe(take(1)).subscribe((ringtoneList) => {
-      for (let i = 0; i < ringtoneList.length; i++) {
-        if (ringtoneList[i].id === ringtoneId) {
-          ringtone = ringtoneList[i];
+      for (const element of ringtoneList) {
+        if (element.id === ringtoneId) {
+          ringtone = element;
         }
       }
     });

@@ -18,7 +18,7 @@
 */
 :host ::ng-deep .mat-card-content-paragraph {
   margin-top: 5px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   font-weight: bold;
 }
 
@@ -27,7 +27,7 @@
 */
 :host ::ng-deep .mat-card-content-paragraph2 {
   margin-top: 5px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 /*
@@ -35,7 +35,7 @@
 */
 :host ::ng-deep .mat-card-content-paragraph3 {
   margin-top: 5px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   font-weight: bold;
 }
 

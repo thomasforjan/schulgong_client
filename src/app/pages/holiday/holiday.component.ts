@@ -123,6 +123,7 @@ export class HolidayComponent implements OnInit {
   /**
    * Method which is called when the edit button is clicked
    * @param holiday holiday entry to edit
+   * @param index index of holiday object
    */
   holidayEditDialog(holiday: Holiday, index: number) {
     const dialogRef = this._dialog.open(AddEditHolidaysComponent, {

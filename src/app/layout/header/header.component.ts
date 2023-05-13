@@ -30,7 +30,7 @@ export class HeaderComponent {
   /**
    * Constructor for the header component.
    * @param _router router
-   * @param activatedRoute activated route
+   * @param _route activated route
    */
   constructor(private _router: Router, private _route: ActivatedRoute) {
     this._router.events
@@ -48,12 +48,5 @@ export class HeaderComponent {
       .subscribe((route) => {
         this.currentRouteName = route.snapshot.data['title'];
       });
-  }
-
-  /**
-   * Emits an event to toggle the sidebar.
-   */
-  onToggleSidenav() {
-    this.toggleSidenav.emit();
   }
 }

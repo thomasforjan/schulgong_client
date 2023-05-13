@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {MenuIcons, MenuNames, RoutingLinks, StoreService} from '../../services/store.service';
+import {MenuIcons, MenuNames, RoutingLinks} from '../../services/store.service';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral

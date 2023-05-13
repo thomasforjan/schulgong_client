@@ -8,7 +8,7 @@ import {Holiday} from "../models/Holiday";
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
  * @version: 0.0.2
  * @since: April 2023
- * @description: Service to store data from backend and global informations
+ * @description: Service to store data from backend and global information
  */
 
 /**

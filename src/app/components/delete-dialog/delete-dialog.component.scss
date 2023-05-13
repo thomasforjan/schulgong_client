@@ -80,7 +80,7 @@ mat-dialog-content {
   background-color: #f29d38;
   border: none;
   border-radius: 20px;
-  margin: 10px 50px 0px 50px;
+  margin: 10px 50px 0 50px;
 }
 
 /*
@@ -91,8 +91,7 @@ mat-dialog-content {
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  margin: 0 auto;
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
 
   .button-container {
     display: flex;

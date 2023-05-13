@@ -9,7 +9,7 @@
  * Style for the first content paragraph
 */
 :host ::ng-deep .mat-card-content-paragraph {
-  margin-top: 0px !important;
+  margin-top: 0 !important;
   display: inline;
   margin-left: 63px;
 }
@@ -20,8 +20,8 @@
 :host ::ng-deep .mat-card-content-paragraph2 {
   display: inline;
   float: right;
-  margin-top: 0px !important;
-  margin-bottom: 0px !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 /*

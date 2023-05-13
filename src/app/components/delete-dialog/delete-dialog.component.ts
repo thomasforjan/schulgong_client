@@ -26,9 +26,6 @@ export class DeleteDialogComponent {
   ) {
   }
 
-  ngOnInit(): void {
-  }
-
   /**
    * Method which is called when the submit button is clicked
    */

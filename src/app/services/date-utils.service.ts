@@ -11,8 +11,6 @@ import {AbstractControl, FormGroup, ValidationErrors} from '@angular/forms';
   providedIn: 'root',
 })
 export class DateUtilsService {
-  constructor() {
-  }
 
   /**
    * @description Converts a Date object into a formatted string.
@@ -21,12 +19,11 @@ export class DateUtilsService {
    * @returns A formatted string of the Date object
    */
   convertDateTimeToString(date: Date, locales: string): string {
-    const dateString = new Date(date).toLocaleDateString(locales, {
+    return new Date(date).toLocaleDateString(locales, {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',
     });
-    return dateString;
   }
 
   /**
@@ -57,8 +54,10 @@ export class DateUtilsService {
       const minEndDate = new Date(startDate);
       minEndDate.setDate(minEndDate.getDate());
       if (endDate < minEndDate) {
-        control.get('endDate')?.setErrors({invalidDateRange: true});
-        return {invalidDateRange: true};
+        control.get('endDate')?.setErrors({ invalidDateRange: true });
+        return { invalidDateRange: true };
+      } else {
+        control.get('endDate')?.setErrors(null);
       }
     }
     return null;
@@ -70,11 +69,10 @@ export class DateUtilsService {
    * @returns A boolean indicating whether the form has an invalid date range error.
    */
   hasInvalidDateRangeError(form: FormGroup): boolean {
-    const errorExists = form?.hasError('invalidDateRange') || false;
-    return errorExists;
+    return form?.hasError('invalidDateRange') || false;
   }
 
-  createDatesToStringPeriod(startDate: Date, enddate: Date, locales: string){
-    return `${this.convertDateTimeToString(startDate, locales)} - ${this.convertDateTimeToString(enddate, locales)}`;
+  createDatesToStringPeriod(startDate: Date, endDate: Date, locales: string){
+    return `${this.convertDateTimeToString(startDate, locales)} - ${this.convertDateTimeToString(endDate, locales)}`;
   }
 }
