@@ -5,14 +5,12 @@ on:
     branches:
       - main
       - stable
-      - 'feature/**'
+      - "feature/**"
 
 jobs:
-
   install:
     runs-on: ubuntu-22.04
     steps:
-
       - name: Checkout
         uses: actions/checkout@v3
       - name: Cypress install
@@ -29,10 +27,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
           start: npm start
+          wait-on: "http://127.0.0.1:5000"
           browser: chrome
 
   ci:
@@ -71,19 +76,21 @@ jobs:
         if: steps.cache-nodemodules.outputs.cache-hit != 'true'
         run: |
           npm ci
+
       - name: Build
         run: |
           npm run build -- --configuration production
-#      - name: Test
-#        run: |
-#          npm run test -- --configuration production
+
+      - name: Test
+        run: |
+          npm run test -- --configuration production
+
       - name: Conventional Changelog Action
         id: changelog
         uses: TriPSs/conventional-changelog-action@v3
         with:
           github-token: ${{ secrets.TOKEN_SCHULGONG_CLIENT }}
           output-file: "false"
-
 
   create-release:
     runs-on: ubuntu-latest
@@ -96,7 +103,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: "7.4"
 
       - name: Increase version number
         id: set-tag
@@ -112,7 +119,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ steps.set-tag.outputs.tag_name }}
-          bodyFile: './release_notes.txt'
+          bodyFile: "./release_notes.txt"
           token: ${{ secrets.TOKEN_SCHULGONG_CLIENT }}
 
       - name: commit stable
@@ -128,5 +135,5 @@ jobs:
         with:
           github_token: ${{ secrets.TOKEN_SCHULGONG_CLIENT }}
           source_ref: ${{ github.ref }}
-          target_branch: 'main'
-          commit_message_template: '[AUTO] Merged {source_ref} into target {target_branch}'
+          target_branch: "main"
+          commit_message_template: "[AUTO] Merged {source_ref} into target {target_branch}"

@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
-import {Ringtime} from '../models/Ringtime';
-import {Ringtone} from "../models/Ringtone";
-import {Holiday} from "../models/Holiday";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Ringtime } from '../models/Ringtime';
+import { Ringtone } from '../models/Ringtone';
+import { Holiday } from '../models/Holiday';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -21,7 +21,7 @@ export enum RoutingLinks {
   LiveLink = 'live',
   HolidayLink = 'holiday',
   CalendarLink = 'calendar',
-  UserLink = 'user'
+  UserLink = 'user',
 }
 
 /**
@@ -93,10 +93,10 @@ export class StoreService {
   /**
    * @description URL to backend endpoint
    */
-  public readonly BACKEND_URL = 'http://localhost:8080';
+  public readonly BACKEND_URL = 'https://schulgong-server-dev.herokuapp.com/';
 
   // private BehaviorSubject for ringtoneList
-  private _ringtoneList$ = new BehaviorSubject<Ringtone[]>([])
+  private _ringtoneList$ = new BehaviorSubject<Ringtone[]>([]);
 
   // public Observable instance for ringtoneList
   public ringtoneList$ = this._ringtoneList$.asObservable();
