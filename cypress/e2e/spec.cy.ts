@@ -1,6 +1,6 @@
 describe('Klingelzeit Test', () => {
   it('Visit the ringtime page', () => {
-    cy.visit('http://localhost:4200/ringtime');
+    cy.visit('/ringtime');
 
     // Testing titles of the dashboard
     cy.contains('Schulgong');

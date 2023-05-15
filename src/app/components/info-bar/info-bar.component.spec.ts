@@ -1,9 +1,10 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {InfoBarComponent} from './info-bar.component';
-import {ButtonComponent} from "../button/button.component";
-import {MatTooltipModule} from "@angular/material/tooltip";
-import {MatIconModule} from "@angular/material/icon";
+import { InfoBarComponent } from './info-bar.component';
+import { ButtonComponent } from '../button/button.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -18,9 +19,8 @@ describe('InfoBarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [InfoBarComponent, ButtonComponent],
-      imports: [MatTooltipModule, MatIconModule]
-    })
-      .compileComponents();
+      imports: [HttpClientTestingModule, MatTooltipModule, MatIconModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(InfoBarComponent);
     component = fixture.componentInstance;
