@@ -1,1 +1,5 @@
-* A new version has been set in material.module.ts
+* This version includes:
+* - ringtones
+* - ring times
+* - holiday
+* - info bar
