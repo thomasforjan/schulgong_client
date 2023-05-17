@@ -17,9 +17,10 @@ import {map} from "rxjs/operators";
 export class RingtoneBackendService {
 
   /**
-   * @description URL to ringtone endpoint
+   * @description URLs to ringtone endpoint
    */
   private readonly _RINGTONE_URL = '/ringtones';
+  private readonly _RINGTONE_FILE_URL = '/file';
 
   /**
    * @description Constructor
@@ -52,6 +53,23 @@ export class RingtoneBackendService {
           }
         })
       );
+  }
+
+  /**
+   * @description Fetch ringtone (music file) from backend.
+   * @param id The unique ID of the ringtone file.
+   * @returns An observable that emits the file as a Blob or null if no file was found.
+   */
+  getMusicFile(id: number): Observable<Blob | null> {
+    return this._http
+      .get(
+        `${this._storeService.BACKEND_URL}${this._RINGTONE_URL}${this._RINGTONE_FILE_URL}/${id}`,
+        {
+          responseType: 'blob',
+          observe: 'response',
+        }
+      )
+      .pipe(map((response) => response.body));
   }
 
   /**
