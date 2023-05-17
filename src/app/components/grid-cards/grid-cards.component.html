@@ -9,52 +9,51 @@
       >
         <mat-card-header>
           <div *ngIf="index" class="index-circle" mat-card-avatar>
-            <p>{{i + 1}}</p>
+            <p>{{ i + 1 }}</p>
           </div>
           <mat-card-title *ngIf="matCardTitle" class="mat-card-title">{{
             matCardTitle[i]
-            }}</mat-card-title>
+          }}</mat-card-title>
           <mat-card-subtitle
             *ngIf="matCardSubtitle"
             class="mat-card-subtitle"
-          >{{ matCardSubtitle[i] }}</mat-card-subtitle
+            >{{ matCardSubtitle[i] }}</mat-card-subtitle
           >
         </mat-card-header>
 
         <mat-card-content class="mat-card-center">
           <div class="image-container">
             <img
-              *ngIf="icon && icon[i]"
-              [src]="icon[i]"
+              *ngIf="icons && icons[i]"
+              [src]="icons[i]"
               alt="card-icon"
               class="card-icon"
-              data-cy="icon"
+              data-cy="icons"
               mat-card-image
             />
           </div>
 
           <div class="paragraph-container">
             <p
-              *ngIf="matCardContentParagraph"
+              *ngIf="matCardContentParagraphs"
               class="mat-card-content-paragraph"
-              data-cy="matCardContentParagraph"
+              data-cy="matCardContentParagraphs"
             >
-              {{ matCardContentParagraph[i] }}
+              {{ matCardContentParagraphs[i] }}
             </p>
             <p
-              *ngIf="matCardContentParagraph2"
+              *ngIf="matCardContentParagraphs2"
               class="mat-card-content-paragraph2"
             >
-              {{ matCardContentParagraph2[i] }}
+              {{ matCardContentParagraphs2[i] }}
             </p>
             <p
-              *ngIf="matCardContentParagraph3"
+              *ngIf="matCardContentParagraphs3"
               class="mat-card-content-paragraph3"
             >
-              {{ matCardContentParagraph3[i] }}
+              {{ matCardContentParagraphs3[i] }}
             </p>
           </div>
-
         </mat-card-content>
         <div *ngIf="showButtonContainer" class="card-actions-wrapper">
           <mat-card-actions class="card-buttons-container">

@@ -1,4 +1,11 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges,} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -7,10 +14,11 @@ import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges,} from 
  * @description: Reusable grid-cards component
  */
 @Component({
-  selector: 'app-grid-cards', templateUrl: './grid-cards.component.html', styleUrls: ['./grid-cards.component.scss'],
+  selector: 'app-grid-cards',
+  templateUrl: './grid-cards.component.html',
+  styleUrls: ['./grid-cards.component.scss'],
 })
 export class GridCardsComponent implements OnChanges {
-
   /**
    * Defines the number of cards of the grid.
    */
@@ -54,14 +62,14 @@ export class GridCardsComponent implements OnChanges {
   /**
    * Defines the paragraphs of the cards.
    */
-  @Input() matCardContentParagraph?: string[] | null = [];
-  @Input() matCardContentParagraph2?: string[] | null = [];
-  @Input() matCardContentParagraph3?: string[] | null = [];
+  @Input() matCardContentParagraphs?: string[] | null = [];
+  @Input() matCardContentParagraphs2?: string[] | null = [];
+  @Input() matCardContentParagraphs3?: string[] | null = [];
 
   /**
-   * Defines the icon of the cards.
+   * Defines the icons of the cards.
    */
-  @Input() icon?: string[] = [];
+  @Input() icons?: string[] = [];
 
   /**
    * Defines if the button container should be enabled on cards.
