@@ -72,6 +72,16 @@ export class GridCardsComponent implements OnChanges {
   @Input() icons?: string[] = [];
 
   /**
+   * Defines if the recording label should be enabled on cards.
+   */
+  @Input() showRecodingLabel?: boolean = false;
+
+  /**
+   * Defines if the buttons after recording should be enabled on cards.
+   */
+  @Input() showRecordingButtons?: boolean = false;
+
+  /**
    * Defines if the button container should be enabled on cards.
    */
   @Input() showButtonContainer?: boolean = false;
@@ -107,6 +117,12 @@ export class GridCardsComponent implements OnChanges {
   @Output() delete = new EventEmitter<number>();
 
   /**
+   * Defines the record EventEmitter of the cards.
+   */
+
+  @Output() recordToggle = new EventEmitter<number>();
+
+  /**
    * Local property to hold the width of the cards.
    */
   cardWidth: string | null = null;
@@ -120,6 +136,11 @@ export class GridCardsComponent implements OnChanges {
    * Defines the playing state of the cards.
    */
   @Input() playing: boolean[] = [];
+
+  /**
+   * Defines the recording state of the cards.
+   */
+  @Input() recording: boolean = false;
 
   /**
    * Defines the onChanges method of the GridCardsComponent.
@@ -156,5 +177,13 @@ export class GridCardsComponent implements OnChanges {
    */
   onDelete(index: number): void {
     this.delete.emit(index);
+  }
+
+  /**
+   * Emits the record event.
+   * @param index of the object
+   */
+  toggleRecording(index: number) {
+    this.recordToggle.emit(index);
   }
 }

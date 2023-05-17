@@ -53,10 +53,11 @@ $originalColumn: 6;
   display: grid;
   align-items: center;
   grid-template-columns: repeat(#{$originalColumn}, minmax(0, 1fr));
-  grid-column-gap: calc((100vw - (#{$cardWidth} * #{$originalColumn})) / (#{$originalColumn} + 1));
+  grid-column-gap: calc(
+    (100vw - (#{$cardWidth} * #{$originalColumn})) / (#{$originalColumn} + 1)
+  );
   grid-row-gap: 25px;
 }
-
 
 /*
  * Card content style properties
@@ -151,6 +152,11 @@ $originalColumn: 6;
   margin-right: auto;
 }
 
+.recording {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    inset 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
 /*
  * Styles for the title
 */
@@ -162,11 +168,14 @@ $originalColumn: 6;
   padding-right: 0 !important;
 }
 
-
 /*
  * Styles for global (default) font-color of title, subtitle and paragraphs
 */
-.mat-card-title, .mat-card-subtitle, .mat-card-content-paragraph, .mat-card-content-paragraph2, .mat-card-content-paragraph3 {
+.mat-card-title,
+.mat-card-subtitle,
+.mat-card-content-paragraph,
+.mat-card-content-paragraph2,
+.mat-card-content-paragraph3 {
   color: #0000008a;
 }
 
@@ -177,21 +186,21 @@ $originalColumn: 6;
   word-wrap: anywhere;
   padding-left: 0 !important;
   padding-right: 0 !important;
-
 }
 
 /*
  * Media queries for devices between 1800 and 2155 px width
 */
 @media screen and (min-width: 1800px) and (max-width: 2155px) {
-
   .grid-container {
     $cardWidth: $originalCardWidth;
     $column: $originalColumn;
     @if $column > 5 {
       $column: 5;
     }
-    grid-column-gap: calc((100vw - (#{$cardWidth} * #{$column})) / (#{$column} + 1));
+    grid-column-gap: calc(
+      (100vw - (#{$cardWidth} * #{$column})) / (#{$column} + 1)
+    );
     grid-template-columns: repeat(#{$column}, minmax(0, 1fr));
     grid-row-gap: 25px;
     align-items: center;
@@ -202,14 +211,15 @@ $originalColumn: 6;
  * Media queries for devices between 1445 and 1799 px width
 */
 @media screen and (min-width: 1445px) and (max-width: 1799px) {
-
   .grid-container {
     $cardWidth: $originalCardWidth;
     $column: $originalColumn;
     @if $column > 4 {
       $column: 4;
     }
-    grid-column-gap: calc((100vw - (#{$cardWidth} * #{$column})) / (#{$column} + 1));
+    grid-column-gap: calc(
+      (100vw - (#{$cardWidth} * #{$column})) / (#{$column} + 1)
+    );
     grid-template-columns: repeat(#{$column}, minmax(0, 1fr));
     align-items: center;
   }
@@ -219,18 +229,18 @@ $originalColumn: 6;
  * Media queries for devices between 1090 and 1444 px width
 */
 @media screen and (min-width: 1090px) and (max-width: 1444px) {
-
   .grid-container {
     $cardWidth: $originalCardWidth;
     $column: $originalColumn;
     @if $column > 3 {
       $column: 3;
     }
-    grid-column-gap: calc((100vw - (#{$cardWidth} * #{$column})) / (#{$column} + 1));
+    grid-column-gap: calc(
+      (100vw - (#{$cardWidth} * #{$column})) / (#{$column} + 1)
+    );
     grid-template-columns: repeat(#{$column}, minmax(0, 1fr));
     align-items: center;
   }
-
 }
 
 /*
@@ -241,7 +251,6 @@ $originalColumn: 6;
   $cardHeight: 220px;
   $column: $originalColumn;
   .grid-container {
-
     @if $column > 3 {
       $column: 3;
     }
@@ -251,12 +260,11 @@ $originalColumn: 6;
   }
 
   .card {
-    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $dynamicCardWidth: calc((100vw - (25px * (#{$column} + 1))) / #{$column});
     $cardWidth: min(#{$originalCardWidth}, #{$dynamicCardWidth});
     width: $cardWidth;
     height: $cardHeight;
   }
-
 }
 
 /*
@@ -267,7 +275,6 @@ $originalColumn: 6;
   $cardHeight: 220px;
   $column: $originalColumn;
   .grid-container {
-
     @if $column > 3 {
       $column: 3;
     }
@@ -277,7 +284,7 @@ $originalColumn: 6;
   }
 
   .card {
-    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $dynamicCardWidth: calc((100vw - (25px * (#{$column} + 1))) / #{$column});
     $cardWidth: min(#{$originalCardWidth}, #{$dynamicCardWidth});
     width: $cardWidth;
     height: $cardHeight;
@@ -305,7 +312,6 @@ $originalColumn: 6;
     word-wrap: anywhere;
     padding-left: 0;
     padding-right: 0;
-
   }
 
   .card-buttons-container {
@@ -324,7 +330,6 @@ $originalColumn: 6;
   $cardHeight: 220px;
   $column: $originalColumn;
   .grid-container {
-
     @if $column > 2 {
       $column: 2;
     }
@@ -334,7 +339,7 @@ $originalColumn: 6;
   }
 
   .card {
-    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $dynamicCardWidth: calc((100vw - (25px * (#{$column} + 1))) / #{$column});
     $cardWidth: min($originalCardWidth, $dynamicCardWidth);
     width: $cardWidth;
     height: $cardHeight;
@@ -350,7 +355,6 @@ $originalColumn: 6;
   $cardHeight: 220px;
   $column: $originalColumn;
   .grid-container {
-
     @if $column > 2 {
       $column: 2;
     }
@@ -360,7 +364,7 @@ $originalColumn: 6;
   }
 
   .card {
-    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $dynamicCardWidth: calc((100vw - (25px * (#{$column} + 1))) / #{$column});
     $cardWidth: min($originalCardWidth, $dynamicCardWidth);
     width: $cardWidth;
     height: $cardHeight;
@@ -388,7 +392,6 @@ $originalColumn: 6;
     word-wrap: anywhere;
     padding-left: 0 !important;
     padding-right: 0 !important;
-
   }
 
   .card-buttons-container {
@@ -415,7 +418,7 @@ $originalColumn: 6;
   }
 
   .card {
-    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $dynamicCardWidth: calc((100vw - (25px * (#{$column} + 1))) / #{$column});
     $cardWidth: min($originalCardWidth, $dynamicCardWidth);
     width: $cardWidth;
     height: $cardHeight;
@@ -443,7 +446,6 @@ $originalColumn: 6;
     word-wrap: anywhere;
     padding-left: 0 !important;
     padding-right: 0 !important;
-
   }
 
   .card-buttons-container {
@@ -464,7 +466,7 @@ $originalColumn: 6;
     @if $column > 1 {
       $column: 1;
     }
-    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $dynamicCardWidth: calc((100vw - (25px * (#{$column} + 1))) / #{$column});
     $cardWidth: min($originalCardWidth, $dynamicCardWidth);
     width: $cardWidth;
     grid-template-columns: repeat(#{$column}, minmax(0, 1fr));
@@ -472,7 +474,7 @@ $originalColumn: 6;
   }
 
   .card {
-    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $dynamicCardWidth: calc((100vw - (25px * (#{$column} + 1))) / #{$column});
     $cardWidth: min($originalCardWidth, $dynamicCardWidth);
     width: $cardWidth;
     height: $cardHeight;
@@ -490,7 +492,7 @@ $originalColumn: 6;
     @if $column > 1 {
       $column: 1;
     }
-    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $dynamicCardWidth: calc((100vw - (25px * (#{$column} + 1))) / #{$column});
     $cardWidth: min($originalCardWidth, $dynamicCardWidth);
     width: $cardWidth;
     grid-template-columns: repeat(#{$column}, minmax(0, 1fr));
@@ -498,7 +500,7 @@ $originalColumn: 6;
   }
 
   .card {
-    $dynamicCardWidth: calc((100VW - (25px * (#{$column} + 1))) / #{$column});
+    $dynamicCardWidth: calc((100vw - (25px * (#{$column} + 1))) / #{$column});
     $cardWidth: min($originalCardWidth, $dynamicCardWidth);
     width: $cardWidth;
     height: $cardHeight;
@@ -526,7 +528,6 @@ $originalColumn: 6;
     word-wrap: anywhere;
     padding-left: 0 !important;
     padding-right: 0 !important;
-
   }
 
   .card-buttons-container {

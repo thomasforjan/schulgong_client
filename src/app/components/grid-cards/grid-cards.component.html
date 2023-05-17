@@ -1,11 +1,18 @@
 <div class="grid-container">
-  <ng-container *ngFor="let f of [].constructor(cards); let i = index">
+  <ng-container
+    *ngFor="let f of [].constructor(cards); let i = index"
+    [class.active]="recording"
+  >
     <div class="grid-item">
       <mat-card
-        [ngClass]="{ 'hover-active': hoverActive }"
+        [ngClass]="{
+          'hover-active': hoverActive,
+          recording: recording && i === 0
+        }"
         [routerLink]="linkArray ? linkArray[i] : null"
         class="card"
         data-cy="card"
+        (click)="toggleRecording(i)"
       >
         <mat-card-header>
           <div *ngIf="index" class="index-circle" mat-card-avatar>
