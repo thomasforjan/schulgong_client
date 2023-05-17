@@ -294,7 +294,6 @@ export class RingtonesComponent implements OnInit, OnDestroy {
         .pipe(take(1))
         .subscribe((ringtoneList) => {
           const ringtone = ringtoneList[index];
-          const ringtonePath = `${this._RINGTONEPATH_URL}/${ringtone.filename}`;
 
           let sound = this._soundMap.get(ringtone.id);
 
@@ -305,25 +304,41 @@ export class RingtonesComponent implements OnInit, OnDestroy {
               this._soundMap.delete(ringtone.id);
             }
 
-            // Create a new sound for the ringtone
-            sound = new Howl({
-              src: [ringtonePath],
-              onloaderror: (soundId, error) => {
-                console.error('Howler Load Error:', error);
-              },
+            // Fetch the ringtone Blob from the backend
+            this._ringtoneBackendService.getMusicFile(ringtone.id).subscribe((blob) => {
+              if (blob) {
+                // Create a new sound for the ringtone
+                const blobUrl = URL.createObjectURL(blob);
+                sound = new Howl({
+                  src: [blobUrl],
+                  format: ['mp3'],
+                  onloaderror: (soundId, error) => {
+                    console.error('Howler Load Error:', error);
+                  },
+                });
+
+                this._soundMap.set(ringtone.id, sound);
+
+                // Remove the ringtone ID from the updatedRingtones set
+                this._updatedRingtones.delete(ringtone.id);
+
+                // Play the sound
+                sound.play();
+
+                // Handle the end event
+                sound.once('end', () => {
+                  this.playing[index] = false;
+                });
+              }
             });
+          } else {
+            // If sound exists, just play it
+            sound.play();
 
-            this._soundMap.set(ringtone.id, sound);
-
-            // Remove the ringtone ID from the updatedRingtones set
-            this._updatedRingtones.delete(ringtone.id);
+            sound.once('end', () => {
+              this.playing[index] = false;
+            });
           }
-
-          sound.play();
-
-          sound.once('end', () => {
-            this.playing[index] = false;
-          });
         });
     } else {
       this.currentlyPlayingIndex = null; // Set the index to null, if the ringtone will be stopped
