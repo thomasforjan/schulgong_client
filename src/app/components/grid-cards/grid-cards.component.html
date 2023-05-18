@@ -6,8 +6,12 @@
     <div class="grid-item">
       <mat-card
         [ngClass]="{
-          'hover-active': hoverActive,
-          recording: recording && i === 0
+          'hover-active': !(
+            showButtonContainer ||
+            (showRecordingControls && i === 0)
+          ),
+          recording: recording && i === 0,
+          recordingComplete: recordingComplete && i === 0
         }"
         [routerLink]="linkArray ? linkArray[i] : null"
         class="card"
@@ -41,6 +45,12 @@
           </div>
 
           <div class="paragraph-container">
+            <img
+              *ngIf="recording && i === 0"
+              src="../../../assets/images/pages/live/record.svg"
+              alt="recording-icon"
+              class="recording-icon"
+            />
             <p
               *ngIf="matCardContentParagraphs"
               class="mat-card-content-paragraph"
@@ -62,10 +72,13 @@
             </p>
           </div>
         </mat-card-content>
-        <div *ngIf="showButtonContainer" class="card-actions-wrapper">
+        <div
+          *ngIf="showButtonContainer || (showRecordingControls && i === 0)"
+          class="card-actions-wrapper"
+        >
           <mat-card-actions class="card-buttons-container">
             <app-button
-              (btnClick)="onEdit(i)"
+              (btnClick)="onEdit(i, $event)"
               *ngIf="showEditButton"
               [hoverActive]="true"
               bgColor="#f29d38"
@@ -75,12 +88,10 @@
               matTooltip="Bearbeiten"
             ></app-button>
             <app-button
-              (btnClick)="togglePlayStop(i)"
-              *ngIf="showPlayButton"
+              (btnClick)="togglePlayStop(i, $event)"
+              *ngIf="showPlayButton || recordingComplete"
               [hoverActive]="true"
-              [matTooltip]="
-                playing[i] ? 'Klingelton anhalten' : 'Klingelton abspielen'
-              "
+              [matTooltip]="getTooltipText(i)"
               [playIcon]="playing[i] ? 'stop' : 'play_arrow'"
               [playing]="playing[i]"
               [stopIcon]="'stop'"
@@ -89,8 +100,18 @@
               hoverColor="#FFA24A"
             ></app-button>
             <app-button
-              (btnClick)="onDelete(i)"
-              *ngIf="showDeleteButton"
+              (btnClick)="onSend(i, $event)"
+              *ngIf="showSendButton || recordingComplete"
+              [hoverActive]="true"
+              bgColor="#f29d38"
+              class="sendBtn"
+              hoverColor="#FFA24A"
+              icon="send"
+              matTooltip="Senden"
+            ></app-button>
+            <app-button
+              (btnClick)="onDelete(i, $event)"
+              *ngIf="showDeleteButton || recordingComplete"
               [boxShadow]="
                 '0 4px 4px rgba(235, 50, 35, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
               "
