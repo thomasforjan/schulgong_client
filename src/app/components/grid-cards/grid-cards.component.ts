@@ -72,16 +72,6 @@ export class GridCardsComponent implements OnChanges {
   @Input() icons?: string[] = [];
 
   /**
-   * Defines if the recording label should be enabled on cards.
-   */
-  @Input() showRecodingLabel?: boolean = false;
-
-  /**
-   * Defines if the buttons after recording should be enabled on cards.
-   */
-  @Input() showRecordingButtons?: boolean = false;
-
-  /**
    * Defines if the button container should be enabled on cards.
    */
   @Input() showButtonContainer?: boolean = false;
@@ -102,6 +92,11 @@ export class GridCardsComponent implements OnChanges {
   @Input() showDeleteButton?: boolean = false;
 
   /**
+   * Defines if the send button should be enabled on cards.
+   */
+  @Input() showSendButton?: boolean = false;
+
+  /**
    * Defines the edit EventEmitter of the cards.
    */
   @Output() edit = new EventEmitter<number>();
@@ -119,8 +114,12 @@ export class GridCardsComponent implements OnChanges {
   /**
    * Defines the record EventEmitter of the cards.
    */
-
   @Output() recordToggle = new EventEmitter<number>();
+
+  /**
+   * Defines the send EventEmitter of the cards.
+   */
+  @Output() send = new EventEmitter<number>();
 
   /**
    * Local property to hold the width of the cards.
@@ -143,6 +142,16 @@ export class GridCardsComponent implements OnChanges {
   @Input() recording: boolean = false;
 
   /**
+   * Defines the recording complete state of the cards.
+   */
+  @Input() recordingComplete: boolean = false;
+
+  /**
+   * Defines the recording controls state of the cards.
+   */
+  @Input() showRecordingControls: boolean = false;
+
+  /**
    * Defines the onChanges method of the GridCardsComponent.
    * @param changes changes of the grid cards component
    */
@@ -153,29 +162,38 @@ export class GridCardsComponent implements OnChanges {
     if (changes['cards_height']) {
       this.cardHeight = `${this.cards_height}px`;
     }
+    if (changes['recording'] && !this.recording) {
+      this.showRecordingControls = true;
+    }
   }
 
   /**
    * Emits the edit event.
    * @param index of the object
+   * @param event of the object
    */
-  onEdit(index: number): void {
+  onEdit(index: number, event: Event): void {
+    event.stopPropagation();
     this.edit.emit(index);
   }
 
   /**
    * Toggles the play state of the card.
    * @param index of the object
+   * @param event of the object
    */
-  togglePlayStop(index: number): void {
+  togglePlayStop(index: number, event: Event): void {
+    event.stopPropagation();
     this.play.emit(index);
   }
 
   /**
    * Emits the delete event.
    * @param index of the object
+   * @param event of the object
    */
-  onDelete(index: number): void {
+  onDelete(index: number, event: Event): void {
+    event.stopPropagation();
     this.delete.emit(index);
   }
 
@@ -185,5 +203,30 @@ export class GridCardsComponent implements OnChanges {
    */
   toggleRecording(index: number) {
     this.recordToggle.emit(index);
+  }
+
+  /**
+   * Emits the send event.
+   * @param index of the object
+   * @param event of the object
+   */
+  onSend(index: number, event: Event): void {
+    event.stopPropagation();
+    this.send.emit(index);
+  }
+
+  /**
+   * Gets the tooltip text of the card.
+   * @param index of the object
+   * @returns the tooltip text
+   */
+  getTooltipText(index: number): string {
+    if (this.showRecordingControls && index === 0) {
+      return 'Aufnahme abspielen';
+    } else {
+      return this.playing[index]
+        ? 'Klingelton anhalten'
+        : 'Klingelton abspielen';
+    }
   }
 }
