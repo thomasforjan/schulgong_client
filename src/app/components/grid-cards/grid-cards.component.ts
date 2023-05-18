@@ -9,7 +9,7 @@ import {
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
- * @version: 0.0.2
+ * @version: 0.0.3
  * @since: April 2023
  * @description: Reusable grid-cards component
  */
@@ -122,6 +122,11 @@ export class GridCardsComponent implements OnChanges {
   @Output() send = new EventEmitter<number>();
 
   /**
+   * Defines the alarm EventEmitter of the cards.
+   */
+  @Output() alarmToggle = new EventEmitter<number>();
+
+  /**
    * Local property to hold the width of the cards.
    */
   cardWidth: string | null = null;
@@ -150,6 +155,16 @@ export class GridCardsComponent implements OnChanges {
    * Defines the recording controls state of the cards.
    */
   @Input() showRecordingControls: boolean = false;
+
+  /**
+   * Defines the alarm control toggle of the cards.
+   */
+  @Input() showAlarmToggle: boolean = false;
+
+  /**
+   * Defines the alarm state of the cards.
+   */
+  @Input() isAlarmEnabled: boolean = false;
 
   /**
    * Defines the onChanges method of the GridCardsComponent.
@@ -195,11 +210,17 @@ export class GridCardsComponent implements OnChanges {
   }
 
   /**
-   * Emits the record event.
+   * Emits the toogle Card event.
    * @param index of the object
    */
-  toggleRecording(index: number) {
-    this.recordToggle.emit(index);
+  toggleCard(index: number) {
+    if (index === 0) {
+      this.recordToggle.emit(index);
+    }
+
+    if (index === 2) {
+      this.alarmToggle.emit(index);
+    }
   }
 
   /**

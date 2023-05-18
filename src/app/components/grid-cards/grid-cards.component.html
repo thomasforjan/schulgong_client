@@ -10,13 +10,12 @@
             showButtonContainer ||
             (showRecordingControls && i === 0)
           ),
-          recording: recording && i === 0,
-          recordingComplete: recordingComplete && i === 0
+          pressedCardState: recording && i === 0 || isAlarmEnabled && i === 2,
         }"
         [routerLink]="linkArray ? linkArray[i] : null"
         class="card"
         data-cy="card"
-        (click)="toggleRecording(i)"
+        (click)="toggleCard(i)"
       >
         <mat-card-header>
           <div *ngIf="index" class="index-circle" mat-card-avatar>
@@ -51,6 +50,14 @@
               alt="recording-icon"
               class="recording-icon"
             />
+
+            <mat-slide-toggle
+              color="warn"
+              class="alarm-toggle"
+              *ngIf="i === 2 && showAlarmToggle"
+              [checked]="isAlarmEnabled"
+            ></mat-slide-toggle>
+
             <p
               *ngIf="
                 matCardContentParagraphs && !(showRecordingControls && i === 0)
