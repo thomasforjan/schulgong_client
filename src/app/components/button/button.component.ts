@@ -1,4 +1,12 @@
-import {Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges,} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -91,14 +99,13 @@ export class ButtonComponent implements OnChanges {
   /**
    * Defines a button click event.
    */
-  @Output() btnClick = new EventEmitter<void>();
+  @Output() btnClick = new EventEmitter<Event>();
 
   /**
    * Constructor of the button component.
    * @param _elRef element reference
    */
-  constructor(private _elRef: ElementRef) {
-  }
+  constructor(private _elRef: ElementRef) {}
 
   /**
    * Defines the onChanges method of the button component.
@@ -125,7 +132,8 @@ export class ButtonComponent implements OnChanges {
   /**
    * Defines the click event of the button.
    */
-  onClick(): void {
-    this.btnClick.emit();
+  onClick(event: Event) {
+    event.stopPropagation();
+    this.btnClick.emit(event);
   }
 }

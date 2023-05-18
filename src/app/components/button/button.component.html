@@ -1,12 +1,11 @@
 <button
-  (click)="onClick()"
+  (click)="onClick($event)"
   [class.hover-active]="hoverActive"
   [disabled]="disabled"
   [matTooltip]="tooltipText ?? ''"
   aria-label="ariaLabelText"
   class="btn"
 >
-
   <div *ngIf="icon || playIcon" class="icon-container">
     <mat-icon *ngIf="!playIcon; else playIconTemplate" class="icon-color">
       {{ icon }}
@@ -14,7 +13,7 @@
     <ng-template #playIconTemplate>
       <mat-icon class="icon-color">{{
         playing ? stopIcon : playIcon
-        }}</mat-icon>
+      }}</mat-icon>
     </ng-template>
   </div>
 </button>
