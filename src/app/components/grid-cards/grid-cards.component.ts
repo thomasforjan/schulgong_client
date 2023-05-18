@@ -162,9 +162,6 @@ export class GridCardsComponent implements OnChanges {
     if (changes['cards_height']) {
       this.cardHeight = `${this.cards_height}px`;
     }
-    if (changes['recording'] && !this.recording) {
-      this.showRecordingControls = true;
-    }
   }
 
   /**

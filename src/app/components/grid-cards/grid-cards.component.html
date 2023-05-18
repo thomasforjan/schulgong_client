@@ -52,7 +52,9 @@
               class="recording-icon"
             />
             <p
-              *ngIf="matCardContentParagraphs"
+              *ngIf="
+                matCardContentParagraphs && !(showRecordingControls && i === 0)
+              "
               class="mat-card-content-paragraph"
               data-cy="matCardContentParagraphs"
             >
@@ -107,7 +109,8 @@
               class="sendBtn"
               hoverColor="#FFA24A"
               icon="send"
-              matTooltip="Senden"
+              matTooltip="Aufnahme senden"
+              width="75px"
             ></app-button>
             <app-button
               (btnClick)="onDelete(i, $event)"
