@@ -6,6 +6,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { RoutingLinks } from 'src/app/services/store.service';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -167,6 +168,11 @@ export class GridCardsComponent implements OnChanges {
   @Input() isAlarmEnabled: boolean = false;
 
   /**
+   * Defines the music routing state of the cards.
+   */
+  @Input() isMusicRoutingEnabled: boolean = false;
+
+  /**
    * Defines the onChanges method of the GridCardsComponent.
    * @param changes changes of the grid cards component
    */
@@ -245,6 +251,21 @@ export class GridCardsComponent implements OnChanges {
       return this.playing[index]
         ? 'Klingelton anhalten'
         : 'Klingelton abspielen';
+    }
+  }
+
+  /**
+   * Gets the routing link of the card.
+   * @param i index of the card
+   * @returns the routing link
+   */
+  getRoutingLink(i: number): string | null {
+    if (this.isMusicRoutingEnabled && i === 1) {
+      return '/' + RoutingLinks.MusicLink;
+    } else if (this.linkArray) {
+      return this.linkArray[i];
+    } else {
+      return null;
     }
   }
 }

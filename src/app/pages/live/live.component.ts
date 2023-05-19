@@ -24,11 +24,6 @@ export class LiveComponent {
   liveHeroImage: string = HeroImages.LiveHeroImage;
 
   /**
-   * Router links from enum in store service
-   */
-  routerLinks: string[] = Object.values(RoutingLinks);
-
-  /**
    * Live icons from enum in store service
    */
   liveIcons: string[] = Object.values(LiveIcons);

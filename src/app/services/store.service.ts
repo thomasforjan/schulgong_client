@@ -22,6 +22,7 @@ export enum RoutingLinks {
   HolidayLink = 'holiday',
   CalendarLink = 'calendar',
   UserLink = 'user',
+  MusicLink = 'music',
 }
 
 /**
@@ -35,6 +36,7 @@ export enum MenuNames {
   Holiday = 'Schulfrei',
   Calendar = 'Kalender',
   User = 'Benutzer',
+  Music = 'Musik spielen',
 }
 
 /**
@@ -49,6 +51,7 @@ export enum TabTitleNames {
   Holiday = 'Schulfrei',
   Calendar = 'Kalender',
   User = 'Benutzer',
+  Music = 'Musik',
 }
 
 /**

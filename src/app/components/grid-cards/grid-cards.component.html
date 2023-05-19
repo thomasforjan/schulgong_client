@@ -12,7 +12,7 @@
           ),
           pressedCardState: recording && i === 0 || isAlarmEnabled && i === 2,
         }"
-        [routerLink]="linkArray ? linkArray[i] : null"
+        [routerLink]="getRoutingLink(i)"
         class="card"
         data-cy="card"
         (click)="toggleCard(i)"
