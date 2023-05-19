@@ -52,6 +52,15 @@ export enum TabTitleNames {
 }
 
 /**
+ * Enum for Live names
+ */
+export enum LiveNames {
+  Microphone = 'Live',
+  Music = 'Musik',
+  Alarm = 'Alarm',
+}
+
+/**
  * Icons for sidebar
  */
 export enum MenuIcons {
@@ -72,6 +81,7 @@ export enum HeroImages {
   RingtimeHeroImage = '../../../assets/images/pages/access_time.svg',
   HolidayHeroImage = '../../../assets/images/pages/holiday.svg',
   DeleteHeroImage = '../../../assets/images/pages/delete_shield.svg',
+  LiveHeroImage = '../../../assets/images/pages/live.svg',
 }
 
 /**
@@ -84,6 +94,16 @@ export enum DashboardIcons {
   HolidayIcon = '../../../assets/images/dashboard/holiday.svg',
   CalendarIcon = '../../../assets/images/dashboard/calendar.svg',
   UserIcon = '../../../assets/images/dashboard/user.svg',
+}
+
+/**
+ * Icons for live component
+ */
+export enum LiveIcons {
+  MicrophoneIcon = '../../assets/images/pages/live/microphone.svg',
+  MusicIcon = '../../../assets/images/pages/live/music.svg',
+  AlarmIcon = '../../../assets/images/pages/live/alarm.svg',
+  RecordIcon = '../../../assets/images/pages/live/record.svg',
 }
 
 @Injectable({
