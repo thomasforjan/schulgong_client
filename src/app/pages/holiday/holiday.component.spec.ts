@@ -130,10 +130,26 @@ describe('HolidayComponent', () => {
     });
 
     it('click upload button and check if dialog exist', fakeAsync(async () => {
-      holidayUploadBtn.click();
-      // sync spy result shows testQuote immediately after init
-      fixture.detectChanges(); // onInit()
-      const dialog = await loader.getAllHarnesses(MatDialogHarness); // fails here
+      // Create a debug element reference for the button
+      const buttonDebugElement = fixture.debugElement.query(
+        By.directive(ButtonComponent)
+      );
+      // Create a instance reference for the button
+      const buttonComponent =
+        buttonDebugElement.componentInstance as ButtonComponent;
+
+      // Create a spy for the btnClick event
+      spyOn(buttonComponent.btnClick, 'emit').and.callThrough();
+
+      // Simulate the click event
+      buttonComponent.onClick(new Event('click'));
+      fixture.detectChanges();
+
+      // Expect the btnClick event to have been emitted
+      expect(buttonComponent.btnClick.emit).toHaveBeenCalled();
+
+      // Check if the dialog was opened
+      const dialog = await loader.getAllHarnesses(MatDialogHarness);
       expect(dialog.length).toBe(1);
     }));
 
