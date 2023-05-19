@@ -6,7 +6,7 @@
           <app-hero-image [imageUrl]="deleteHeroImage"></app-hero-image>
         </div>
 
-        <hr class="divider"/>
+        <hr class="divider" />
 
         <div class="title" mat-dialog-title>
           <span class="title-word">Möchten Sie den Eintrag</span>
@@ -18,7 +18,7 @@
 
     <div class="actions-container" mat-dialog-actions>
       <app-button
-        (click)="onSubmitClick()"
+        (btnClick)="onSubmitClick()"
         [height]="45"
         [hoverActive]="true"
         [width]="100"
@@ -29,7 +29,7 @@
       ></app-button>
 
       <app-button
-        (click)="onCancelClick()"
+        (btnClick)="onCancelClick()"
         [boxShadow]="
           '0 4px 4px rgba(185, 185, 185, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
         "

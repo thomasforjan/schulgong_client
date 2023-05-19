@@ -14,7 +14,7 @@
     <div class="hero-image-container">
       <app-hero-image [imageUrl]="ringtonesHeroImage"></app-hero-image>
     </div>
-    <hr class="divider"/>
+    <hr class="divider" />
     <div *ngIf="isEditRingtone" class="form-field-container form-fields">
       <mat-form-field appearance="fill" class="form-field">
         <mat-label>Index</mat-label>
@@ -81,7 +81,7 @@
       class="uploadBtn-wrapper"
     >
       <app-button
-        (click)="onUploadRingtone()"
+        (btnClick)="onUploadRingtone()"
         [height]="45"
         [hoverActive]="true"
         [width]="85"
@@ -95,7 +95,7 @@
     <div class="actions-container" mat-dialog-actions>
       <div class="button-container">
         <app-button
-          (click)="onSubmitClick()"
+          (btnClick)="onSubmitClick()"
           [disabled]="ringtoneForm.invalid"
           [height]="45"
           [hoverActive]="true"
@@ -109,7 +109,7 @@
 
       <div class="button-container">
         <app-button
-          (click)="onCancelClick()"
+          (btnClick)="onCancelClick()"
           [boxShadow]="
             '0 4px 4px rgba(185, 185, 185, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
           "
