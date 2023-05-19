@@ -49,12 +49,11 @@ $originalColumn: 3;
 }
 
 /*
-   * Styles for the card
+    * Styles for the card play Button
   */
-:host ::ng-deep .card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+:host ::ng-deep .playBtn {
+  margin-left: 0 !important;
+  margin-right: auto;
 }
 
 /*
