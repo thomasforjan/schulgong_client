@@ -163,6 +163,11 @@ export class GridCardsComponent implements OnChanges {
   @Input() showAlarmToggle: boolean = false;
 
   /**
+   * Defines the alarm icon of the cards.
+   */
+  @Input() showAlarmIcon: boolean = false;
+
+  /**
    * Defines the alarm state of the cards.
    */
   @Input() isAlarmEnabled: boolean = false;

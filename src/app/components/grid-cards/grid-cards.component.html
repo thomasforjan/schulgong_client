@@ -36,6 +36,9 @@
             <img
               *ngIf="icons && icons[i]"
               [src]="icons[i]"
+              [class.disabled-alarm]="
+                i === 2 && showAlarmIcon && !isAlarmEnabled
+              "
               alt="card-icon"
               class="card-icon"
               data-cy="icons"

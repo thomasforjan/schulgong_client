@@ -200,6 +200,14 @@ $originalColumn: 6;
 }
 
 /*
+ * Styles for the disabled alarm icon
+*/
+.disabled-alarm {
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+
+/*
  * Styles for the title
 */
 .mat-card-title {
