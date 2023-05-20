@@ -92,6 +92,12 @@ $originalColumn: 3;
   :host ::ng-deep .mat-card-content-paragraph {
     font-size: 24px !important;
   }
+
+  :host ::ng-deep .card-buttons-container {
+    bottom: 0;
+    --btn-width: 40px !important;
+    --btn-height: 40px !important;
+  }
 }
 
 /*
@@ -121,5 +127,11 @@ $originalColumn: 3;
 
   :host ::ng-deep .mat-card-content-paragraph {
     font-size: 24px !important;
+  }
+
+  :host ::ng-deep .card-buttons-container {
+    bottom: 0;
+    --btn-width: 40px !important;
+    --btn-height: 40px !important;
   }
 }
