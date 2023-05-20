@@ -167,7 +167,7 @@ export class RingtimeComponent implements OnInit{
               this.storeService.ringtimeList$
                 .pipe(take(1))
                 .subscribe((currentRingtimeList) => {
-                  const updatedList = currentRingtimeList.map((ringtime) =>
+                  const updatedList = this._utilsService.sortRingtimes(currentRingtimeList).map((ringtime) =>
                     ringtime.id === updatedRingtime.id
                       ? updatedRingtime
                       : ringtime
@@ -212,7 +212,7 @@ export class RingtimeComponent implements OnInit{
               this.storeService.ringtimeList$
                 .pipe(take(1))
                 .subscribe((currentRingtoneList) => {
-                  const updatedList = [...currentRingtoneList, newRingtone];
+                  const updatedList = this._utilsService.sortRingtimes([...currentRingtoneList, newRingtone]);
                   this.storeService.updateRingtimeList(updatedList);
                 });
             }

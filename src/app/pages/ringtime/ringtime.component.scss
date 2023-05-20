@@ -20,6 +20,7 @@
   margin-top: 5px;
   margin-bottom: 0;
   font-weight: bold;
+  font-size: 18px;
 }
 
 /*
@@ -41,10 +42,6 @@
 
 
 @media screen and (min-width: 760px) and (max-width: 939px) {
-  :host ::ng-deep .mat-card-content-paragraph {
-    font-size: 14px
-  }
-
   :host ::ng-deep .mat-card-content-paragraph2 {
     font-size: 14px
   }
@@ -59,7 +56,7 @@
 */
 @media screen and (min-width: 515px) and (max-width: 678px) {
   :host ::ng-deep .mat-card-content-paragraph {
-    font-size: 14px
+    font-size: 16px
   }
 
   :host ::ng-deep .mat-card-content-paragraph2 {
@@ -76,7 +73,7 @@
 */
 @media screen and (min-width: 435px) and (max-width: 514px) {
   :host ::ng-deep .mat-card-content-paragraph {
-    font-size: 12px
+    font-size: 16px
   }
 
   :host ::ng-deep .mat-card-content-paragraph2 {
@@ -94,7 +91,7 @@
 */
 @media screen and (max-width: 325px) {
   :host ::ng-deep .mat-card-content-paragraph {
-    font-size: 14px
+    font-size: 16px
   }
 
   :host ::ng-deep .mat-card-content-paragraph2 {
