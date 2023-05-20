@@ -22,6 +22,7 @@ export enum RoutingLinks {
   HolidayLink = 'holiday',
   CalendarLink = 'calendar',
   UserLink = 'user',
+  MusicLink = 'music',
 }
 
 /**
@@ -35,6 +36,7 @@ export enum MenuNames {
   Holiday = 'Schulfrei',
   Calendar = 'Kalender',
   User = 'Benutzer',
+  Music = 'Musik spielen',
 }
 
 /**
@@ -49,6 +51,16 @@ export enum TabTitleNames {
   Holiday = 'Schulfrei',
   Calendar = 'Kalender',
   User = 'Benutzer',
+  Music = 'Musik',
+}
+
+/**
+ * Enum for Live names
+ */
+export enum LiveNames {
+  Microphone = 'Live',
+  Music = 'Musik',
+  Alarm = 'Alarm',
 }
 
 /**
@@ -72,6 +84,7 @@ export enum HeroImages {
   RingtimeHeroImage = '../../../assets/images/pages/access_time.svg',
   HolidayHeroImage = '../../../assets/images/pages/holiday.svg',
   DeleteHeroImage = '../../../assets/images/pages/delete_shield.svg',
+  LiveHeroImage = '../../../assets/images/pages/live.svg',
 }
 
 /**
@@ -84,6 +97,16 @@ export enum DashboardIcons {
   HolidayIcon = '../../../assets/images/dashboard/holiday.svg',
   CalendarIcon = '../../../assets/images/dashboard/calendar.svg',
   UserIcon = '../../../assets/images/dashboard/user.svg',
+}
+
+/**
+ * Icons for live component
+ */
+export enum LiveIcons {
+  MicrophoneIcon = '../../assets/images/pages/live/microphone.svg',
+  MusicIcon = '../../../assets/images/pages/live/music.svg',
+  AlarmIcon = '../../../assets/images/pages/live/alarm.svg',
+  RecordIcon = '../../../assets/images/pages/live/record.svg',
 }
 
 @Injectable({

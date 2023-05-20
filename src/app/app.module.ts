@@ -32,6 +32,7 @@ import {DeleteDialogComponent} from "./components/delete-dialog/delete-dialog.co
 import {AddEditRingtimeComponent} from './pages/ringtime/add-edit-ringtime/add-edit-ringtime.component';
 import {MAT_DATE_LOCALE} from '@angular/material/core';
 import {AddEditHolidaysComponent} from "./pages/holiday/add-edit-holidays/add-edit-holidays.component";
+import { MusicComponent } from './pages/live/music/music.component';
 
 
 /**
@@ -60,7 +61,8 @@ import {AddEditHolidaysComponent} from "./pages/holiday/add-edit-holidays/add-ed
     AddEditRingtonesComponent,
     DeleteDialogComponent,
     AddEditRingtimeComponent,
-    AddEditHolidaysComponent
+    AddEditHolidaysComponent,
+    MusicComponent
   ],
   imports: [
     BrowserModule,

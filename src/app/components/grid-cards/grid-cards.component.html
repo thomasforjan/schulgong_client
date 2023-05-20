@@ -1,65 +1,96 @@
 <div class="grid-container">
-  <ng-container *ngFor="let f of [].constructor(cards); let i = index">
+  <ng-container
+    *ngFor="let f of [].constructor(cards); let i = index"
+    [class.active]="recording"
+  >
     <div class="grid-item">
       <mat-card
-        [ngClass]="{ 'hover-active': hoverActive }"
-        [routerLink]="linkArray ? linkArray[i] : null"
+        [ngClass]="{
+          'hover-active': !(
+            showButtonContainer ||
+            (showRecordingControls && i === 0)
+          ),
+          pressedCardState: recording && i === 0 || isAlarmEnabled && i === 2,
+        }"
+        [routerLink]="getRoutingLink(i)"
         class="card"
         data-cy="card"
+        (click)="toggleCard(i)"
       >
         <mat-card-header>
           <div *ngIf="index" class="index-circle" mat-card-avatar>
-            <p>{{i + 1}}</p>
+            <p>{{ i + 1 }}</p>
           </div>
           <mat-card-title *ngIf="matCardTitle" class="mat-card-title">{{
             matCardTitle[i]
-            }}</mat-card-title>
+          }}</mat-card-title>
           <mat-card-subtitle
             *ngIf="matCardSubtitle"
             class="mat-card-subtitle"
-          >{{ matCardSubtitle[i] }}</mat-card-subtitle
+            >{{ matCardSubtitle[i] }}</mat-card-subtitle
           >
         </mat-card-header>
 
         <mat-card-content class="mat-card-center">
           <div class="image-container">
             <img
-              *ngIf="icon && icon[i]"
-              [src]="icon[i]"
+              *ngIf="icons && icons[i]"
+              [src]="icons[i]"
+              [class.disabled-alarm]="
+                i === 2 && showAlarmIcon && !isAlarmEnabled
+              "
               alt="card-icon"
               class="card-icon"
-              data-cy="icon"
+              data-cy="icons"
               mat-card-image
             />
           </div>
 
           <div class="paragraph-container">
+            <img
+              *ngIf="recording && i === 0"
+              src="../../../assets/images/pages/live/record.svg"
+              alt="recording-icon"
+              class="recording-icon"
+            />
+
+            <mat-slide-toggle
+              color="warn"
+              class="alarm-toggle"
+              *ngIf="i === 2 && showAlarmToggle"
+              [checked]="isAlarmEnabled"
+            ></mat-slide-toggle>
+
             <p
-              *ngIf="matCardContentParagraph"
+              *ngIf="
+                matCardContentParagraphs && !(showRecordingControls && i === 0)
+              "
               class="mat-card-content-paragraph"
-              data-cy="matCardContentParagraph"
+              data-cy="matCardContentParagraphs"
             >
-              {{ matCardContentParagraph[i] }}
+              {{ matCardContentParagraphs[i] }}
             </p>
             <p
-              *ngIf="matCardContentParagraph2"
+              *ngIf="matCardContentParagraphs2"
               class="mat-card-content-paragraph2"
             >
-              {{ matCardContentParagraph2[i] }}
+              {{ matCardContentParagraphs2[i] }}
             </p>
             <p
-              *ngIf="matCardContentParagraph3"
+              *ngIf="matCardContentParagraphs3"
               class="mat-card-content-paragraph3"
             >
-              {{ matCardContentParagraph3[i] }}
+              {{ matCardContentParagraphs3[i] }}
             </p>
           </div>
-
         </mat-card-content>
-        <div *ngIf="showButtonContainer" class="card-actions-wrapper">
+        <div
+          *ngIf="showButtonContainer || (showRecordingControls && i === 0)"
+          class="card-actions-wrapper"
+        >
           <mat-card-actions class="card-buttons-container">
             <app-button
-              (btnClick)="onEdit(i)"
+              (btnClick)="onEdit(i, $event)"
               *ngIf="showEditButton"
               [hoverActive]="true"
               bgColor="#f29d38"
@@ -69,12 +100,10 @@
               matTooltip="Bearbeiten"
             ></app-button>
             <app-button
-              (btnClick)="togglePlayStop(i)"
-              *ngIf="showPlayButton"
+              (btnClick)="togglePlayStop(i, $event)"
+              *ngIf="showPlayButton || recordingComplete"
               [hoverActive]="true"
-              [matTooltip]="
-                playing[i] ? 'Klingelton anhalten' : 'Klingelton abspielen'
-              "
+              [matTooltip]="getTooltipText(i)"
               [playIcon]="playing[i] ? 'stop' : 'play_arrow'"
               [playing]="playing[i]"
               [stopIcon]="'stop'"
@@ -83,8 +112,18 @@
               hoverColor="#FFA24A"
             ></app-button>
             <app-button
-              (btnClick)="onDelete(i)"
-              *ngIf="showDeleteButton"
+              (btnClick)="onSend(i, $event)"
+              *ngIf="showSendButton || recordingComplete"
+              [hoverActive]="true"
+              bgColor="#f29d38"
+              class="sendBtn"
+              hoverColor="#FFA24A"
+              icon="send"
+              matTooltip="Aufnahme senden"
+            ></app-button>
+            <app-button
+              (btnClick)="onDelete(i, $event)"
+              *ngIf="showDeleteButton || recordingComplete"
               [boxShadow]="
                 '0 4px 4px rgba(235, 50, 35, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
               "

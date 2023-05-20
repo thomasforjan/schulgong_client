@@ -1,6 +1,13 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LiveComponent} from './live.component';
+import { LiveComponent } from './live.component';
+import { HeroImageComponent } from 'src/app/components/hero-image/hero-image.component';
+import { ButtonComponent } from 'src/app/components/button/button.component';
+import { GridCardsComponent } from 'src/app/components/grid-cards/grid-cards.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MaterialModule } from 'src/app/material.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -14,9 +21,19 @@ describe('LiveComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LiveComponent]
-    })
-      .compileComponents();
+      declarations: [
+        LiveComponent,
+        HeroImageComponent,
+        ButtonComponent,
+        GridCardsComponent,
+      ],
+      imports: [
+        HttpClientTestingModule,
+        MaterialModule,
+        RouterTestingModule,
+        BrowserAnimationsModule,
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LiveComponent);
     component = fixture.componentInstance;

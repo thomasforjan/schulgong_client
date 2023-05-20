@@ -1,16 +1,25 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges,} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { RoutingLinks } from 'src/app/services/store.service';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
- * @version: 0.0.2
+ * @version: 0.0.3
  * @since: April 2023
  * @description: Reusable grid-cards component
  */
 @Component({
-  selector: 'app-grid-cards', templateUrl: './grid-cards.component.html', styleUrls: ['./grid-cards.component.scss'],
+  selector: 'app-grid-cards',
+  templateUrl: './grid-cards.component.html',
+  styleUrls: ['./grid-cards.component.scss'],
 })
 export class GridCardsComponent implements OnChanges {
-
   /**
    * Defines the number of cards of the grid.
    */
@@ -54,14 +63,14 @@ export class GridCardsComponent implements OnChanges {
   /**
    * Defines the paragraphs of the cards.
    */
-  @Input() matCardContentParagraph?: string[] | null = [];
-  @Input() matCardContentParagraph2?: string[] | null = [];
-  @Input() matCardContentParagraph3?: string[] | null = [];
+  @Input() matCardContentParagraphs?: string[] | null = [];
+  @Input() matCardContentParagraphs2?: string[] | null = [];
+  @Input() matCardContentParagraphs3?: string[] | null = [];
 
   /**
-   * Defines the icon of the cards.
+   * Defines the icons of the cards.
    */
-  @Input() icon?: string[] = [];
+  @Input() icons?: string[] = [];
 
   /**
    * Defines if the button container should be enabled on cards.
@@ -84,6 +93,11 @@ export class GridCardsComponent implements OnChanges {
   @Input() showDeleteButton?: boolean = false;
 
   /**
+   * Defines if the send button should be enabled on cards.
+   */
+  @Input() showSendButton?: boolean = false;
+
+  /**
    * Defines the edit EventEmitter of the cards.
    */
   @Output() edit = new EventEmitter<number>();
@@ -97,6 +111,21 @@ export class GridCardsComponent implements OnChanges {
    * Defines delete EventEmitter of the cards.
    */
   @Output() delete = new EventEmitter<number>();
+
+  /**
+   * Defines the record EventEmitter of the cards.
+   */
+  @Output() recordToggle = new EventEmitter<number>();
+
+  /**
+   * Defines the send EventEmitter of the cards.
+   */
+  @Output() send = new EventEmitter<number>();
+
+  /**
+   * Defines the alarm EventEmitter of the cards.
+   */
+  @Output() alarmToggle = new EventEmitter<number>();
 
   /**
    * Local property to hold the width of the cards.
@@ -114,6 +143,41 @@ export class GridCardsComponent implements OnChanges {
   @Input() playing: boolean[] = [];
 
   /**
+   * Defines the recording state of the cards.
+   */
+  @Input() recording: boolean = false;
+
+  /**
+   * Defines the recording complete state of the cards.
+   */
+  @Input() recordingComplete: boolean = false;
+
+  /**
+   * Defines the recording controls state of the cards.
+   */
+  @Input() showRecordingControls: boolean = false;
+
+  /**
+   * Defines the alarm control toggle of the cards.
+   */
+  @Input() showAlarmToggle: boolean = false;
+
+  /**
+   * Defines the alarm icon of the cards.
+   */
+  @Input() showAlarmIcon: boolean = false;
+
+  /**
+   * Defines the alarm state of the cards.
+   */
+  @Input() isAlarmEnabled: boolean = false;
+
+  /**
+   * Defines the music routing state of the cards.
+   */
+  @Input() isMusicRoutingEnabled: boolean = false;
+
+  /**
    * Defines the onChanges method of the GridCardsComponent.
    * @param changes changes of the grid cards component
    */
@@ -129,24 +193,84 @@ export class GridCardsComponent implements OnChanges {
   /**
    * Emits the edit event.
    * @param index of the object
+   * @param event of the object
    */
-  onEdit(index: number): void {
+  onEdit(index: number, event: Event): void {
+    event.stopPropagation();
     this.edit.emit(index);
   }
 
   /**
    * Toggles the play state of the card.
    * @param index of the object
+   * @param event of the object
    */
-  togglePlayStop(index: number): void {
+  togglePlayStop(index: number, event: Event): void {
+    event.stopPropagation();
     this.play.emit(index);
   }
 
   /**
    * Emits the delete event.
    * @param index of the object
+   * @param event of the object
    */
-  onDelete(index: number): void {
+  onDelete(index: number, event: Event): void {
+    event.stopPropagation();
     this.delete.emit(index);
+  }
+
+  /**
+   * Emits the toogle Card event.
+   * @param index of the object
+   */
+  toggleCard(index: number) {
+    if (index === 0) {
+      this.recordToggle.emit(index);
+    }
+
+    if (index === 2) {
+      this.alarmToggle.emit(index);
+    }
+  }
+
+  /**
+   * Emits the send event.
+   * @param index of the object
+   * @param event of the object
+   */
+  onSend(index: number, event: Event): void {
+    event.stopPropagation();
+    this.send.emit(index);
+  }
+
+  /**
+   * Gets the tooltip text of the card.
+   * @param index of the object
+   * @returns the tooltip text
+   */
+  getTooltipText(index: number): string {
+    if (this.showRecordingControls && index === 0) {
+      return 'Aufnahme abspielen';
+    } else {
+      return this.playing[index]
+        ? 'Klingelton anhalten'
+        : 'Klingelton abspielen';
+    }
+  }
+
+  /**
+   * Gets the routing link of the card.
+   * @param i index of the card
+   * @returns the routing link
+   */
+  getRoutingLink(i: number): string | null {
+    if (this.isMusicRoutingEnabled && i === 1) {
+      return '/' + RoutingLinks.MusicLink;
+    } else if (this.linkArray) {
+      return this.linkArray[i];
+    } else {
+      return null;
+    }
   }
 }

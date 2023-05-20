@@ -14,8 +14,7 @@
       <app-hero-image [imageUrl]="ringtimeHeroImage"></app-hero-image>
     </div>
 
-    <hr class="divider"/>
-
+    <hr class="divider" />
 
     <div *ngIf="isEditRingtime" class="form-field-container form-fields">
       <mat-form-field appearance="fill" class="form-field index-form-field">
@@ -131,7 +130,7 @@
         <div class="klingeldays">
           <p>
             MO
-            <br/>
+            <br />
             <mat-checkbox
               aria-label="ringtimeCheckboxMonday"
               formControlName="monday"
@@ -139,7 +138,7 @@
           </p>
           <p>
             DI
-            <br/>
+            <br />
             <mat-checkbox
               aria-label="ringtimeCheckboxTuesday"
               formControlName="tuesday"
@@ -147,7 +146,7 @@
           </p>
           <p>
             MI
-            <br/>
+            <br />
             <mat-checkbox
               aria-label="ringtimeCheckboxWednesday"
               formControlName="wednesday"
@@ -155,7 +154,7 @@
           </p>
           <p>
             DO
-            <br/>
+            <br />
             <mat-checkbox
               aria-label="ringtimeCheckboxThursday"
               formControlName="thursday"
@@ -163,7 +162,7 @@
           </p>
           <p style="text-align: center">
             FR
-            <br/>
+            <br />
             <mat-checkbox
               aria-label="ringtimeCheckboxFriday"
               formControlName="friday"
@@ -171,7 +170,7 @@
           </p>
           <p style="text-align: center">
             SA
-            <br/>
+            <br />
             <mat-checkbox
               aria-label="ringtimeCheckboxSaturday"
               formControlName="saturday"
@@ -179,7 +178,7 @@
           </p>
           <p style="text-align: center">
             SO
-            <br/>
+            <br />
             <mat-checkbox
               aria-label="ringtimeCheckboxSunday"
               formControlName="sunday"
@@ -222,7 +221,7 @@
           <mat-option
             *ngFor="let item of storeService.ringtoneList$ | async"
             [value]="item.id"
-          >{{ item?.name }}
+            >{{ item?.name }}
           </mat-option>
         </mat-select>
         <ng-container
@@ -239,7 +238,7 @@
     <div class="actions-container" mat-dialog-actions>
       <div class="button-container">
         <app-button
-          (click)="onSubmitClick()"
+          (btnClick)="onSubmitClick()"
           [disabled]="ringtimeForm.invalid"
           [height]="45"
           [hoverActive]="true"
@@ -254,7 +253,7 @@
 
       <div class="button-container">
         <app-button
-          (click)="onCancelClick()"
+          (btnClick)="onCancelClick()"
           [boxShadow]="
             '0 4px 4px rgba(185, 185, 185, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
           "

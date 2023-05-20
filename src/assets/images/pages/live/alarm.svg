@@ -1,0 +1,29 @@
+<svg width="104" height="104" viewBox="0 0 104 104" fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g filter="url(#filter0_di_25_958)">
+        <rect x="4" width="96" height="96" fill="url(#pattern0)" shape-rendering="crispEdges"/>
+    </g>
+    <defs>
+        <filter id="filter0_di_25_958" x="0" y="0" width="104" height="104" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feOffset dy="4"/>
+            <feGaussianBlur stdDeviation="2"/>
+            <feComposite in2="hardAlpha" operator="out"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0.921569 0 0 0 0 0.196078 0 0 0 0 0.137255 0 0 0 0.25 0"/>
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_25_958"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_25_958" result="shape"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feOffset dx="2" dy="1"/>
+            <feGaussianBlur stdDeviation="2"/>
+            <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.25 0"/>
+            <feBlend mode="normal" in2="shape" result="effect2_innerShadow_25_958"/>
+        </filter>
+        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+            <use xlink:href="#image0_25_958" transform="scale(0.0104167)"/>
+        </pattern>
+        <image id="image0_25_958" width="96" height="96" xlink:href="data:image/png;base64,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"/>
+    </defs>
+</svg>

@@ -14,7 +14,6 @@
       icon="add"
       matTooltip="Hinzufügen"
     ></app-button>
-
   </div>
   <div class="content-container">
     <app-grid-cards
@@ -24,9 +23,9 @@
       [cards_height]="220"
       [cards_width]="330"
       [index]="true"
-      [matCardContentParagraph2]="weekDaysAsString$ | async"
-      [matCardContentParagraph3]="ringtimePeriod$ | async"
-      [matCardContentParagraph]="ringingPlaytime$ | async"
+      [matCardContentParagraphs2]="weekDaysAsString$ | async"
+      [matCardContentParagraphs3]="ringtimePeriod$ | async"
+      [matCardContentParagraphs]="ringingPlaytime$ | async"
       [matCardSubtitle]="ringtoneName$ | async"
       [matCardTitle]="ringtimeName$ | async"
       [showButtonContainer]="true"
@@ -34,8 +33,4 @@
       [showEditButton]="true"
     ></app-grid-cards>
   </div>
-
 </div>
-
-
-
