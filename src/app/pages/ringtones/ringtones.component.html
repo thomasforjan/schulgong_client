@@ -32,6 +32,7 @@
       [showDeleteButton]="true"
       [showEditButton]="true"
       [showPlayButton]="true"
+      [isDeleteBtnDisabled]="checkIfAlarm$ | async"
     ></app-grid-cards>
   </div>
 </div>

@@ -10,6 +10,7 @@ import {DeleteDialogComponent} from '../../components/delete-dialog/delete-dialo
 import {DateUtilsService} from 'src/app/services/date-utils.service';
 import {UtilsService} from "../../services/utils.service";
 import {RingtoneBackendService} from "../../services/ringtone.backend.service";
+import {Observable} from "rxjs";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -85,6 +86,12 @@ export class RingtonesComponent implements OnInit, OnDestroy {
    * Set to store the updated ringtones
    */
   private _updatedRingtones = new Set<number>();
+
+  checkIfAlarm$ = this.storeService.ringtoneList$.pipe(
+    map((ringtonelist) => {
+      return ringtonelist.map((ringtone) => ringtone.name.toLowerCase() === "alarm")
+    })
+  )
 
   constructor(
     public storeService: StoreService,
