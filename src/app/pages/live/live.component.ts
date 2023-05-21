@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
   HeroImages,
   LiveIcons,
   LiveNames,
-  RoutingLinks,
+  RoutingLinks, StoreService,
 } from 'src/app/services/store.service';
+import {LiveBackendService} from "../../services/live.backend.service";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -17,7 +18,8 @@ import {
   templateUrl: './live.component.html',
   styleUrls: ['./live.component.scss'],
 })
-export class LiveComponent {
+export class LiveComponent implements OnInit{
+
   /**
    * Live Hero Image from enum in store service
    */
@@ -57,6 +59,21 @@ export class LiveComponent {
    * Boolean to check if alarm is enabled
    */
   isAlarmEnabled: boolean = false;
+
+  constructor(
+    public storeService: StoreService,
+    private _liveBackendService: LiveBackendService,
+  ) {
+  }
+
+  /**
+   * Lifecycle Hook which is called when the component is initialized
+   */
+  ngOnInit(): void {
+    this._liveBackendService.getIsPlayingAlarm().subscribe((isPlayingAlarm: boolean) => {
+      this.isAlarmEnabled = isPlayingAlarm;
+    });
+  }
 
   /**
    * @description This method toggles the recording status. If the passed index is 0 and
@@ -133,18 +150,13 @@ export class LiveComponent {
   }
 
   /**
-   *
+   * @description If the passed index is 2 this method starts and stop the alarm
    * @param index - The index of the card
    */
   onAlarmToggle(index: number) {
     if (index === 2) {
       this.isAlarmEnabled = !this.isAlarmEnabled;
-
-      if (this.isAlarmEnabled) {
-        // Your code to trigger the alarm on backend...
-        //
-        console.log('Alarm triggered!');
-      }
+      this._liveBackendService.postIsPlayingAlarmRequest(this.isAlarmEnabled);
     }
   }
 }

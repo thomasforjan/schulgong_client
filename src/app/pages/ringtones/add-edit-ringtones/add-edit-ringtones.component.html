@@ -33,6 +33,7 @@
       <mat-form-field appearance="fill" class="form-field">
         <mat-label>Bezeichnung</mat-label>
         <input
+          [readonly]="this.name == 'Alarm' ? true : false"
           formControlName="ringtoneDescriptionFormControl"
           matInput
           required
@@ -49,6 +50,16 @@
         >
           <mat-error>Bezeichnung wird benötigt!</mat-error>
         </ng-container>
+        <ng-container
+          *ngIf="
+            ringtoneForm
+              .get('ringtoneDescriptionFormControl')
+              ?.hasError('alarmName')
+          "
+        >
+          <mat-error>Bezeichnung "Alarm" ist nicht erlaubt!</mat-error>
+        </ng-container>
+
       </mat-form-field>
     </div>
     <div class="form-field-container form-fields">

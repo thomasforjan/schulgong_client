@@ -1,8 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {HeroImages} from '../../../services/store.service';
+import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {HeroImages, StoreService} from '../../../services/store.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Ringtone} from 'src/app/models/Ringtone';
+import {map} from "rxjs";
+import {take} from "rxjs/operators";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -36,6 +38,8 @@ export class AddEditRingtonesComponent implements OnInit {
    */
   ringtoneFile: File | null = null;
 
+  name: string | undefined;
+
   constructor(
     public dialogRef: MatDialogRef<AddEditRingtonesComponent>,
     @Inject(MAT_DIALOG_DATA)
@@ -43,9 +47,11 @@ export class AddEditRingtonesComponent implements OnInit {
       isAddRingtone: boolean;
       ringtone?: Ringtone;
       index?: number;
-    }
+    },
+    public storeService: StoreService,
   ) {
     this.isEditRingtone = !data.isAddRingtone;
+    this.name = data.ringtone?.name;
   }
 
   ngOnInit(): void {
@@ -53,7 +59,7 @@ export class AddEditRingtonesComponent implements OnInit {
       this.ringtoneForm = new FormGroup({
         ringtoneDescriptionFormControl: new FormControl(
           this.data.ringtone?.name || '',
-          this.data.isAddRingtone ? Validators.required : null
+          [Validators.required, this.alarmNameValidator()]
         ),
         uploadedRingtoneFormControl: new FormControl(
           this.data.ringtone?.filename || '',
@@ -64,7 +70,7 @@ export class AddEditRingtonesComponent implements OnInit {
       this.ringtoneForm = new FormGroup({
         ringtoneDescriptionFormControl: new FormControl(
           '',
-          Validators.required
+          [Validators.required, this.alarmNameValidator()]
         ),
         uploadedRingtoneFormControl: new FormControl('', Validators.required),
       });
@@ -119,4 +125,19 @@ export class AddEditRingtonesComponent implements OnInit {
   onCancelClick() {
     this.dialogRef.close();
   }
+
+  /**
+   * @description Validates whether the name of the ringtone is alarm.
+   * @returns An object with an alarmName property if the name is alarm; otherwise, null.
+   */
+  alarmNameValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const forbidden = control.value.toLowerCase() === 'alarm';
+      if(forbidden && this.name != control.value) {
+        return  { alarmName: { value: control.value } };
+      }
+      return null;
+    };
+  }
+
 }
