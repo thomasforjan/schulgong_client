@@ -178,7 +178,7 @@ export class GridCardsComponent implements OnChanges {
   @Input() isMusicRoutingEnabled: boolean = false;
 
   /**
-   * Defines if the delete button should be disabled on the first card.
+   * Defines if the delete button should be disabled.
    */
   @Input() isDeleteBtnDisabled?: boolean[] | any = [];
 
