@@ -116,7 +116,7 @@ export class StoreService {
   /**
    * @description URL to backend endpoint
    */
-  public readonly BACKEND_URL = 'http://localhost:8080';
+  public readonly BACKEND_URL = 'https://schulgong-server-dev.herokuapp.com';
 
   // private BehaviorSubject for ringtoneList
   private _ringtoneList$ = new BehaviorSubject<Ringtone[]>([]);
