@@ -240,11 +240,15 @@ export class CalendarComponent implements OnInit, OnDestroy {
    */
   addHolidayEvents(holidays: Holiday[]) {
     const events = holidays.map((holiday: Holiday) => {
+      const endDate = new Date(holiday.endDate);
+      endDate.setDate(endDate.getDate() + 1); // add one day to include the end date
+
       return {
         title: holiday.name,
         start: holiday.startDate,
-        end: holiday.endDate,
+        end: endDate,
         backgroundColor: '#67B602',
+        allDay: true, // all day event must be set on holidays otherwise the end date is one day before
       };
     });
 
