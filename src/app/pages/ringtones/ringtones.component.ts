@@ -285,10 +285,7 @@ export class RingtonesComponent implements OnInit, OnDestroy {
    */
   togglePlayStop(index: number): void {
     // If another ringtone is playing, stop it
-    if (
-      this.currentlyPlayingIndex !== null &&
-      this.currentlyPlayingIndex !== index
-    ) {
+    if ( this.currentlyPlayingIndex !== null && this.currentlyPlayingIndex !== index) {
       // Reset the playing state and stop and remove the sound of the deleted ringtone
       this.stopAndResetRingtone(this._utilsService.getRealObjectId(this.currentlyPlayingIndex, this.storeService.ringtoneList$));
     }

@@ -48,4 +48,18 @@ export class LiveBackendService {
       `${this._storeService.BACKEND_URL}${this._LIVE_URL}/alarm`, data).subscribe();
   }
 
+  /**
+   * POST Announcement Request
+   * @description POST HTTP-Method to play the announcement on speakers
+   * @param data Blob
+   */
+  postLiveAnnouncement(
+    data: Blob
+  ) {
+    return this._http.post<Blob>(
+      `http://localhost:8080/live`,
+      data
+    ).subscribe();
+  }
+
 }
