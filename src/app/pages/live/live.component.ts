@@ -220,7 +220,6 @@ export class LiveComponent implements OnInit{
    */
   startRecording() {
     if (this.recorder == undefined) {
-      console.log("AAAAAAAAAAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV")
       navigator.mediaDevices.getUserMedia({
         audio: true
       }).then(async (stream) => {
