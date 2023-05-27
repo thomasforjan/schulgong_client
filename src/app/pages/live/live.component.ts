@@ -205,7 +205,7 @@ export class LiveComponent implements OnInit{
   }
 
   /**
-   * @description If the passed inde is 2 this method starts and stop the alarm
+   * @description If the passed index is 2 this method starts and stop the alarm
    * @param index - The index of the card
    */
   onAlarmToggle(index: number) {
