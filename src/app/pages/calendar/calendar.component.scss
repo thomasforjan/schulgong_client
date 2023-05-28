@@ -35,6 +35,7 @@
   & .fc-scroller {
     -webkit-overflow-scrolling: none !important;
     position: relative; // for abs-positioned elements within
+    overflow: hidden !important; // disable calendar scrollbar
   }
 }
 
