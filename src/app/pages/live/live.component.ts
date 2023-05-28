@@ -6,6 +6,9 @@ import {
   RoutingLinks, StoreService,
 } from 'src/app/services/store.service';
 import {LiveBackendService} from "../../services/live.backend.service";
+import * as RecordRTC from 'recordrtc';
+import {Howl} from "howler";
+
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -60,6 +63,28 @@ export class LiveComponent implements OnInit{
    */
   isAlarmEnabled: boolean = false;
 
+  /**
+   * Object for recording an announcement
+   */
+  recorder: RecordRTC | undefined;
+
+  /**
+   * Recording of the announcement
+   */
+  blob: Blob | undefined;
+
+  /**
+   * Url for howl to play the announcement
+   */
+  url: string | undefined;
+
+  /**
+   * Boolean to check if the user is playing a ringtone
+   */
+  playing: boolean[] = [];
+
+  sound!: Howl;
+
   constructor(
     public storeService: StoreService,
     private _liveBackendService: LiveBackendService,
@@ -73,6 +98,17 @@ export class LiveComponent implements OnInit{
     this._liveBackendService.getIsPlayingAlarm().subscribe((isPlayingAlarm: boolean) => {
       this.isAlarmEnabled = isPlayingAlarm;
     });
+  }
+
+  /**
+   * Lifecycle Hook which is called when the component is destroyed
+   */
+  ngOnDestroy(): void {
+    this.playing[0] = false;
+    if (this.sound) {
+      this.sound.stop();
+      this.sound.unload();
+    }
   }
 
   /**
@@ -94,11 +130,13 @@ export class LiveComponent implements OnInit{
         this.originalTitle = this.liveTitles[0];
         this.liveTitles[0] = 'Recording...';
         this.isRecordingControlsVisible = false; // set it to false when recording starts
+        this.startRecording();
       } else {
         this.liveTitles[0] = this.originalTitle;
         this.isRecording = false; // set it to false when recording ends
         this.isNewRecordingAllowed = true;
         this.isRecordingControlsVisible = true; // set it to true when recording ends
+        this.stopRecording();
       }
     }
   }
@@ -109,9 +147,27 @@ export class LiveComponent implements OnInit{
    */
   onPlay(index: number) {
     if (index === 0) {
-      // Your code to play the recording...
-      //
-      console.log('Recording playing!');
+      if(!this.playing[index]) {
+        if(this.blob !== undefined) {
+          this.url = URL.createObjectURL(this.blob);
+          this.sound = new Howl({
+            src: this.url,
+            html5: true,
+            format: "webm",
+            onloaderror: (soundId, error) => {
+              console.error('Howler Load Error:', error);
+            },
+          });
+          this.sound.play()
+          this.playing[index] = true;
+          this.sound.once('end', () => {
+            this.playing[index] = false;
+          });
+        }
+      }else {
+        this.sound.stop();
+        this.playing[index] = false;
+      }
     }
   }
 
@@ -121,9 +177,9 @@ export class LiveComponent implements OnInit{
    */
   onSend(index: number) {
     if (index === 0) {
-      // Your code to send the recording...
-      //
-      console.log('Recording sent!');
+      if(this.blob != undefined){
+        this._liveBackendService.postLiveAnnouncement(this.blob);
+      }
       this.resetRecordingState();
     }
   }
@@ -134,9 +190,6 @@ export class LiveComponent implements OnInit{
    */
   onDelete(index: number) {
     if (index === 0) {
-      // Your code to delete the recording...
-      //
-      console.log('Recording deleted!');
       this.resetRecordingState();
     }
   }
@@ -147,6 +200,8 @@ export class LiveComponent implements OnInit{
   resetRecordingState() {
     this.isNewRecordingAllowed = false;
     this.isRecordingControlsVisible = false;
+    this.blob = undefined;
+    this.url = undefined;
   }
 
   /**
@@ -159,4 +214,35 @@ export class LiveComponent implements OnInit{
       this._liveBackendService.postIsPlayingAlarmRequest(this.isAlarmEnabled);
     }
   }
+
+  /**
+   * @description Start recording the announcement
+   */
+  startRecording() {
+    if (this.recorder == undefined) {
+      navigator.mediaDevices.getUserMedia({
+        audio: true
+      }).then(async (stream) => {
+        this.recorder = new RecordRTC(stream, {
+          type: 'audio'
+        });
+        this.recorder.startRecording();
+      });
+    }
+  }
+
+  /**
+   * @description Stop recording the announcement
+   */
+  stopRecording() {
+    if(this.recorder !== undefined) {
+      this.recorder.stopRecording(() => {
+        if (this.recorder != null && this.recorder != undefined) {
+          this.blob = this.recorder.getBlob();
+          this.recorder = undefined;
+        }
+      });
+    }
+  }
+
 }

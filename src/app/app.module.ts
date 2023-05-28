@@ -14,10 +14,16 @@ import {
   MAT_DATE_LOCALE,
 } from '@angular/material/core';
 
+
 /**
  * Material Module
  */
 import { MaterialModule } from './material.module';
+
+/**
+ * Full Calendar Module
+ */
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 /**
  * Components
@@ -93,6 +99,7 @@ export const EUROPEAN_DATE_FORMAT = {
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    FullCalendarModule,
   ],
   providers: [
     {
@@ -102,6 +109,7 @@ export const EUROPEAN_DATE_FORMAT = {
     },
     { provide: MAT_DATE_FORMATS, useValue: EUROPEAN_DATE_FORMAT },
   ],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}
