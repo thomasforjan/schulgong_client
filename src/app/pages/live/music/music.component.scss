@@ -162,17 +162,29 @@ $originalColumn: 2;
   justify-content: space-between;
 }
 
+/*
+ * Styles for the mat-slider
+*/
 :host ::ng-deep .mat-mdc-slider.mat-primary {
   --mdc-slider-handle-color: #f29d38;
   --mdc-slider-focus-handle-color: #f29d38;
   --mdc-slider-hover-handle-color: #f29d38;
   --mdc-slider-active-track-color: #f29d38;
-  --mdc-slider-inactive-track-color: #f29d38;
-  --mdc-slider-with-tick-marks-active-container-color: #fff;
-  --mdc-slider-with-tick-marks-inactive-container-color: #f29d38;
+  --mdc-slider-inactive-track-color: rgba(105, 105, 105, 0.5);
+
+  --mdc-slider-with-tick-marks-active-container-color: #f29d38;
+  --mdc-slider-with-tick-marks-inactive-container-color: rgba(
+      255,
+      255,
+      255,
+      0.002
+  );
+
   --mat-mdc-slider-ripple-color: #f29d38;
   --mat-mdc-slider-hover-ripple-color: rgba(242, 157, 56, 0.05);
   --mat-mdc-slider-focus-ripple-color: rgba(242, 157, 56, 0.2);
+  --mdc-slider-inactive-track-height: 12px;
+  --mdc-slider-active-track-height: 12px;
 }
 
 /*
