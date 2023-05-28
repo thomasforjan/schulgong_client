@@ -1,1 +1,54 @@
-<p>music works!</p>
+<app-hero-image [imageUrl]="playlistHeroImage"></app-hero-image>
+
+<div class="grid-container-music">
+  <app-grid-cards
+    [cards]="1"
+    [cards_height]="50"
+    [cards_width]="100"
+    [hoverActive]="true"
+    [icons]="musicIcons"
+    [matCardContentParagraphs]="titles"
+    (clickMusicEvent)="onClickMusicCard($event)"
+  ></app-grid-cards>
+
+  <div class="playlistControlColumn" >
+    <span class="actualSongTextField">{{acualSongName}}</span>
+    <mat-card class="centerElements playlistCard">
+      <mat-card-content>
+        <button (click)="playPreviousSong()" mat-icon-button aria-label="previousSong" class="iconBtn" [disabled]="storeService.isAlarmEnabled">
+          <mat-icon class="icon-display">skip_previous</mat-icon>
+        </button>
+        <button (click)="playPlaylist()" mat-icon-button *ngIf="checkIfPlaying" aria-label="playlistPlayButton"
+                class="playPauseBtn" [disabled]="storeService.isAlarmEnabled">
+          <mat-icon>play_arrow</mat-icon>
+        </button>
+        <button (click)="stopPlaylist()" mat-icon-button *ngIf="checkIfStopped" aria-label="playlistStopButton"
+                class="playPauseBtn" [disabled]="storeService.isAlarmEnabled">
+          <mat-icon>pause</mat-icon>
+        </button>
+        <button (click)="playNextSong()" mat-icon-button aria-label="nextSong" class="iconBtn" [disabled]="storeService.isAlarmEnabled">
+          <mat-icon class="icon-display">skip_next</mat-icon>
+        </button>
+      </mat-card-content>
+    </mat-card>
+    <div class="centerElements">
+      <button (click)="setMute()" mat-icon-button aria-label="unmuted" class="iconBtn" [disabled]="storeService.isAlarmEnabled">
+        <mat-icon *ngIf="unmuted" class="icon-color icon-display">
+          volume_up
+        </mat-icon>
+        <mat-icon *ngIf="muted" class="icon-color icon-display">
+          volume_off
+        </mat-icon>
+      </button>
+      <mat-slider class="mat-slider-style"
+                  [max]="100"
+                  [min]="0"
+                  [step]="1"
+                  [disabled]="storeService.isAlarmEnabled"
+                  showTickMarks discrete
+      >
+        <input (dragEnd)="onVolumeChange($event)" [value]="volume$ | async" matSliderThumb>
+      </mat-slider>
+    </div>
+  </div>
+</div>

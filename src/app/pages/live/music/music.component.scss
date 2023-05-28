@@ -1,0 +1,267 @@
+$originalCardWidth: 250px;
+$originalColumn: 2;
+
+/*
+ * Style for play and pause button
+*/
+.playPauseBtn {
+  color: #FFFFFF;
+  background: #f29d38;
+  margin-right: 20px;
+  margin-left: 20px;
+
+  &.hover-active {
+    cursor: pointer;
+
+    &:hover {
+      background-color: #FFA24A !important;
+    }
+
+    &:active {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+/*
+ * Style for icon buttons
+*/
+.iconBtn {
+  color: #f29d38;
+
+  &.hover-active {
+    cursor: pointer;
+
+    &:hover {
+      background-color: #FFA24A !important;
+    }
+
+    &:active {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+/*
+ * Style for center elements
+*/
+.centerElements {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*
+ * Style for playlist card
+*/
+.playlistCard {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 250px;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/*
+ * Style for playlist control columnr
+*/
+.playlistControlColumn {
+  justify-content: center;
+  display: grid;
+  text-align: center;
+}
+
+/*
+ * Style for actual song text field
+*/
+.actualSongTextField {
+  font-weight: bold;
+}
+
+/*
+ * Style for icons
+*/
+.icon-display {
+  transform: scale(2);
+}
+
+/*
+ * Style for the volume slider
+*/
+.mat-slider-style {
+  margin-left: 20px;
+  width: 130px;
+}
+
+/*
+ * Style for grid-container-music
+*/
+.grid-container-music {
+  $cardWidth: $originalCardWidth;
+  display: grid !important;
+  align-items: center !important;
+  grid-template-columns: repeat(#{$originalColumn}, minmax(0, 1fr)) !important;
+  grid-column-gap: 200px !important;
+}
+
+/*
+ * Style for grid-container
+*/
+:host ::ng-deep .grid-container {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  grid-column-gap: 25px;
+}
+
+/*
+ * Style for grid-card-header
+*/
+:host ::ng-deep .mat-mdc-card-header {
+  display: none !important;
+}
+
+/*
+ * Style to for grid-cards
+*/
+:host ::ng-deep .mat-card-center {
+  padding-top: 16px;
+  height: 100%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+/*
+ * Styles for the card icon
+*/
+.card-icon {
+  height: 96px;
+  width: 96px;
+}
+
+/*
+ * Styles for the card content paragraph
+*/
+:host ::ng-deep .mat-card-content-paragraph {
+  color: #000000 !important;
+  margin-top: 15px;
+  font-size: 24px;
+  text-align: center;
+  font-weight: normal !important;
+}
+
+/*
+ * Styles for the card
+*/
+:host ::ng-deep .card {
+  width: 250px !important;
+  height: 180px !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+:host ::ng-deep .mat-mdc-slider.mat-primary {
+  --mdc-slider-handle-color: #f29d38;
+  --mdc-slider-focus-handle-color: #f29d38;
+  --mdc-slider-hover-handle-color: #f29d38;
+  --mdc-slider-active-track-color: #f29d38;
+  --mdc-slider-inactive-track-color: #f29d38;
+  --mdc-slider-with-tick-marks-active-container-color: #fff;
+  --mdc-slider-with-tick-marks-inactive-container-color: #f29d38;
+  --mat-mdc-slider-ripple-color: #f29d38;
+  --mat-mdc-slider-hover-ripple-color: rgba(242, 157, 56, 0.05);
+  --mat-mdc-slider-focus-ripple-color: rgba(242, 157, 56, 0.2);
+}
+
+/*
+ * Media queries for devices til max width of 768 px
+*/
+@media screen and (max-width: 768px) {
+
+  :host ::ng-deep .grid-container-music {
+    $column: 1;
+    display: grid !important;
+    align-items: center !important;
+    $dynamicCardWidth: calc((100vw - (25px * (#{$column} + 1))) / #{$column});
+    $cardWidth: min($originalCardWidth, $dynamicCardWidth);
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    grid-column-gap: 0px !important;
+    grid-row-gap: 75px;
+  }
+
+}
+
+/*
+ * Media queries for devices til max width of 768 px
+*/
+@media screen and (max-width: 434px) {
+
+  :host ::ng-deep .grid-container-music {
+    $column: 1;
+    display: grid !important;
+    align-items: center !important;
+    $dynamicCardWidth: calc((100vw - (25px * (#{$column} + 1))) / #{$column});
+    $cardWidth: min($originalCardWidth, $dynamicCardWidth);
+    width: $cardWidth !important;
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    grid-column-gap: 0px !important;
+    grid-row-gap: 75px;
+  }
+
+  :host ::ng-deep .grid-container {
+    $column: 1;
+    $dynamicCardWidth: calc((100vw - (25px * (#{$column} + 1))) / #{$column});
+    $cardWidth: min($originalCardWidth, $dynamicCardWidth);
+    width: $cardWidth !important;
+    grid-template-columns: repeat(#{$column}, minmax(0, 1fr));
+    align-items: center;
+  }
+
+  :host ::ng-deep .card {
+    $column: 1;
+    $dynamicCardWidth: calc((100vw - (25px * (#{$column} + 1))) / #{$column});
+    $cardWidth: min($originalCardWidth, $dynamicCardWidth);
+    width: $cardWidth !important;
+  }
+
+}
+/*
+ * Media queries for devices til max width of 768 px
+*/
+@media screen and (max-width: 300px) {
+
+  :host ::ng-deep .card-icon {
+    height: 75px !important;
+    width: 75px !important;
+  }
+
+  :host ::ng-deep .mat-card-content-paragraph {
+    font-size: 20px;
+  }
+
+  .playlistCard {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .icon-display {
+    transform: scale(1.5);
+  }
+
+  .playPauseBtn {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  .mat-slider-style {
+    width: 100px;
+  }
+}
+
+
+
+

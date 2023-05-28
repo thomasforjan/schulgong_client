@@ -16,6 +16,7 @@ import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatSliderModule} from "@angular/material/slider";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -46,6 +47,7 @@ const material = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatSlideToggleModule,
+  MatSliderModule,
 ];
 
 @NgModule({
