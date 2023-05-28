@@ -85,6 +85,7 @@ export enum HeroImages {
   HolidayHeroImage = '../../../assets/images/pages/holiday.svg',
   DeleteHeroImage = '../../../assets/images/pages/delete_shield.svg',
   LiveHeroImage = '../../../assets/images/pages/live.svg',
+  CalendarHeroImage = '../../../assets/images/pages/calendar.svg',
 }
 
 /**

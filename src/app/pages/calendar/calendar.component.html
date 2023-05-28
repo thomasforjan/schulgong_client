@@ -1,1 +1,13 @@
-<p>calendar works!</p>
+<app-hero-image [imageUrl]="calendarHeroImage"></app-hero-image>
+
+<div class="calendar-container">
+  <full-calendar
+    #fullcalendar
+    [options]="calendarOptions"
+    class="full-calendar"
+  >
+    <ng-template #eventContent let-arg>
+      <div class="fc-list-item-title">{{ arg.event.title }}</div>
+    </ng-template>
+  </full-calendar>
+</div>
