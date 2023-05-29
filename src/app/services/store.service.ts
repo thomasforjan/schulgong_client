@@ -119,6 +119,11 @@ export class StoreService {
    */
   public readonly BACKEND_URL = 'https://schulgong-server-dev.herokuapp.com';
 
+  /**
+   * public flag if alarm is running
+   */
+  public isAlarmEnabled = false;
+
   // private BehaviorSubject for ringtoneList
   private _ringtoneList$ = new BehaviorSubject<Ringtone[]>([]);
 

@@ -59,11 +59,6 @@ export class LiveComponent implements OnInit{
   isRecordingControlsVisible: boolean = false;
 
   /**
-   * Boolean to check if alarm is enabled
-   */
-  isAlarmEnabled: boolean = false;
-
-  /**
    * Object for recording an announcement
    */
   recorder: RecordRTC | undefined;
@@ -96,7 +91,7 @@ export class LiveComponent implements OnInit{
    */
   ngOnInit(): void {
     this._liveBackendService.getIsPlayingAlarm().subscribe((isPlayingAlarm: boolean) => {
-      this.isAlarmEnabled = isPlayingAlarm;
+      this.storeService.isAlarmEnabled = isPlayingAlarm;
     });
   }
 
@@ -210,8 +205,8 @@ export class LiveComponent implements OnInit{
    */
   onAlarmToggle(index: number) {
     if (index === 2) {
-      this.isAlarmEnabled = !this.isAlarmEnabled;
-      this._liveBackendService.postIsPlayingAlarmRequest(this.isAlarmEnabled);
+      this.storeService.isAlarmEnabled = !this.storeService.isAlarmEnabled;
+      this._liveBackendService.postIsPlayingAlarmRequest(this.storeService.isAlarmEnabled);
     }
   }
 

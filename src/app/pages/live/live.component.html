@@ -20,7 +20,7 @@
     (send)="onSend($event)"
     (delete)="onDelete($event)"
     [isMusicRoutingEnabled]="true"
-    [isAlarmEnabled]="isAlarmEnabled"
+    [isAlarmEnabled]="storeService.isAlarmEnabled"
     (alarmToggle)="onAlarmToggle($event)"
     [playing]="playing"
   ></app-grid-cards>

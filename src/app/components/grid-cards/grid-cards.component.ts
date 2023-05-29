@@ -183,6 +183,11 @@ export class GridCardsComponent implements OnChanges {
   @Input() isDeleteBtnDisabled?: boolean[] | any = [];
 
   /**
+   * Defines the music EventEmitter of the cards.
+   */
+  @Output() clickMusicEvent = new EventEmitter<number>();
+
+  /**
    * Defines the onChanges method of the GridCardsComponent.
    * @param changes changes of the grid cards component
    */
@@ -277,6 +282,15 @@ export class GridCardsComponent implements OnChanges {
     } else {
       return null;
     }
+  }
+
+  /**
+   * Click Event for the music card.
+   * @param index of the object
+   * @param event of the event
+   */
+  onClickMusicCard(index: number, event: Event): void {
+    this.clickMusicEvent.emit(index);
   }
 
 }

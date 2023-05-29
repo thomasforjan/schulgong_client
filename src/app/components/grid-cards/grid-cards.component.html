@@ -15,7 +15,7 @@
         [routerLink]="getRoutingLink(i)"
         class="card"
         data-cy="card"
-        (click)="toggleCard(i)"
+        (click)="toggleCard(i); onClickMusicCard(i, $event)"
       >
         <mat-card-header>
           <div *ngIf="index" class="index-circle" mat-card-avatar>
