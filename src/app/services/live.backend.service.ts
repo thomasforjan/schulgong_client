@@ -6,6 +6,7 @@ import {SavePlaylist} from "../models/SavePlaylist";
 import {Song, SongResponse} from "../models/Song";
 import {map} from "rxjs/operators";
 import {Playlist} from "../models/Playlist";
+import {SpeakerCommand} from "../models/SpeakerCommand";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -24,6 +25,7 @@ export class LiveBackendService {
   private readonly _LIVE_URL = '/live';
   private readonly _LIVE_ALARM_ISPLAYING_URL = '/alarm/isplaying';
   private readonly _LIVE_MUSIC_STATE = '/music/state';
+  private readonly _LIVE_PLAYLIST_COMMAND = '/music/control';
   private readonly _LIVE_SONG_LIST = '/music/songs/available';
   private readonly _LIVE_SAVE0_PLAYLIST = '/music/songs/save';
 
@@ -115,6 +117,20 @@ export class LiveBackendService {
     return this._http.get<Playlist>(
       `${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_MUSIC_STATE}`
     );
+  }
+
+  /**
+   * Post Command to control the playlist
+   *
+   * @param data command for control the network speaker
+   */
+  postPlaylistCommands(
+    data: SpeakerCommand
+  ) {
+    return this._http.post<SpeakerCommand>(
+      `${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_PLAYLIST_COMMAND}`,
+      data
+    ).subscribe();
   }
 
 }
