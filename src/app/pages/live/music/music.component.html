@@ -2,37 +2,43 @@
 
 <div class="grid-container-music">
   <app-grid-cards
+    (clickMusicEvent)="onClickMusicCard($event)"
     [cards]="1"
     [cards_height]="50"
     [cards_width]="100"
     [hoverActive]="true"
     [icons]="musicIcons"
     [matCardContentParagraphs]="titles"
-    (clickMusicEvent)="onClickMusicCard($event)"
   ></app-grid-cards>
 
-  <div class="playlistControlColumn" >
+  <div class="playlistControlColumn">
     <span class="actualSongTextField">{{acualSongName}}</span>
     <mat-card class="centerElements playlistCard">
       <mat-card-content>
-        <button (click)="playPreviousSong()" mat-icon-button aria-label="previousSong" class="iconBtn" [disabled]="storeService.isAlarmEnabled">
+        <button (click)="playPreviousSong()" [disabled]="storeService.isAlarmEnabled" aria-label="previousSong"
+                class="iconBtn"
+                mat-icon-button>
           <mat-icon class="icon-display">skip_previous</mat-icon>
         </button>
-        <button (click)="playPlaylist()" mat-icon-button *ngIf="checkIfPlaying" aria-label="playlistPlayButton"
-                class="playPauseBtn" [disabled]="storeService.isAlarmEnabled">
+        <button (click)="playPlaylist()" *ngIf="checkIfPlaying" [disabled]="storeService.isAlarmEnabled"
+                aria-label="playlistPlayButton"
+                class="playPauseBtn" mat-icon-button>
           <mat-icon>play_arrow</mat-icon>
         </button>
-        <button (click)="stopPlaylist()" mat-icon-button *ngIf="checkIfStopped" aria-label="playlistStopButton"
-                class="playPauseBtn" [disabled]="storeService.isAlarmEnabled">
+        <button (click)="stopPlaylist()" *ngIf="checkIfStopped" [disabled]="storeService.isAlarmEnabled"
+                aria-label="playlistStopButton"
+                class="playPauseBtn" mat-icon-button>
           <mat-icon>pause</mat-icon>
         </button>
-        <button (click)="playNextSong()" mat-icon-button aria-label="nextSong" class="iconBtn" [disabled]="storeService.isAlarmEnabled">
+        <button (click)="playNextSong()" [disabled]="storeService.isAlarmEnabled" aria-label="nextSong" class="iconBtn"
+                mat-icon-button>
           <mat-icon class="icon-display">skip_next</mat-icon>
         </button>
       </mat-card-content>
     </mat-card>
     <div class="centerElements">
-      <button (click)="setMute()" mat-icon-button aria-label="unmuted" class="iconBtn" [disabled]="storeService.isAlarmEnabled">
+      <button (click)="setMute()" [disabled]="storeService.isAlarmEnabled" aria-label="unmuted" class="iconBtn"
+              mat-icon-button>
         <mat-icon *ngIf="unmuted" class="icon-color icon-display">
           volume_up
         </mat-icon>
@@ -40,12 +46,12 @@
           volume_off
         </mat-icon>
       </button>
-      <mat-slider class="mat-slider-style"
+      <mat-slider [disabled]="storeService.isAlarmEnabled"
                   [max]="100"
                   [min]="0"
                   [step]="1"
-                  [disabled]="storeService.isAlarmEnabled"
-                  showTickMarks discrete
+                  class="mat-slider-style"
+                  discrete showTickMarks
       >
         <input (dragEnd)="onVolumeChange($event)" [value]="volume$ | async" matSliderThumb>
       </mat-slider>

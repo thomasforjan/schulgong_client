@@ -1,7 +1,11 @@
 import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
+import {Observable, tap} from "rxjs";
 import {StoreService} from "./store.service";
-import {HttpClient, HttpResponse} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
+import {SavePlaylist} from "../models/SavePlaylist";
+import {Song, SongResponse} from "../models/Song";
+import {map} from "rxjs/operators";
+import {Playlist} from "../models/Playlist";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -15,10 +19,13 @@ import {HttpClient, HttpResponse} from "@angular/common/http";
 export class LiveBackendService {
 
   /**
-   * @description URL to live endpoint
+   * @description URLs to live endpoint
    */
   private readonly _LIVE_URL = '/live';
   private readonly _LIVE_ALARM_ISPLAYING_URL = '/alarm/isplaying';
+  private readonly _LIVE_MUSIC_STATE = '/music/state';
+  private readonly _LIVE_SONG_LIST = '/music/songs/available';
+  private readonly _LIVE_SAVE0_PLAYLIST = '/music/songs/save';
 
   /**
    * @description Constructor
@@ -60,6 +67,54 @@ export class LiveBackendService {
       `http://localhost:8080/live`,
       data
     ).subscribe();
+  }
+
+  /**
+   * GET Songs from server
+   * @description GET HTTP-Method to retrive Songs from server
+   * @returns Observable<Song[]>
+   */
+  getSongResponse(): Observable<Song[]> {
+    console.log(`${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_SONG_LIST}`)
+    return this._http
+      .get<SongResponse>(`${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_SONG_LIST}`, {
+        observe: 'response',
+      })
+      .pipe(
+        map((response) => {
+          if (response.body && response.body._embedded) {
+            return response.body._embedded.songDTOList
+          }
+          return [];
+        }),
+        tap((songList) => {
+          this._storeService.updateSongList(songList);
+        })
+      );
+  }
+
+  /**
+   * POST SavePlayList Request
+   * @description POST HTTP-Method to update songs and playlist on server
+   * @param data SavePlaylist
+   * @returns SavePlaylist
+   */
+  postSavePlaylist(
+    data: SavePlaylist
+  ) {
+    return this._http.post<SavePlaylist>(
+      `${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_SAVE0_PLAYLIST}`,
+      data
+    ).subscribe();
+  }
+
+  /**
+   * Get the Playlist from the backend
+   */
+  getPlaylist(): Observable<Playlist> {
+    return this._http.get<Playlist>(
+      `${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_MUSIC_STATE}`
+    );
   }
 
 }

@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { Ringtime } from '../models/Ringtime';
-import { Ringtone } from '../models/Ringtone';
-import { Holiday } from '../models/Holiday';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {Ringtime} from '../models/Ringtime';
+import {Ringtone} from '../models/Ringtone';
+import {Holiday} from '../models/Holiday';
+import {Playlist} from "../models/Playlist";
+import {Song} from "../models/Song";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -146,6 +148,37 @@ export class StoreService {
    */
   public holidayList$ = this._holidayList$.asObservable();
 
+  /**
+   * private BehaviorSubject for playlist
+   */
+  private _playlist$ = new BehaviorSubject<Playlist>({
+    speakerState: "STOPPED",
+    volume: 0,
+    mute: false,
+    actualSong: {
+      id: 0,
+      index: 0,
+      name: "",
+      filePath: "",
+      song: "",
+    }, songDTOList: []
+
+  });
+  /**
+   * public Observable instance for playlist
+   */
+  public playlist$ = this._playlist$.asObservable();
+
+  /**
+   * private BehaviorSubject for songList
+   */
+  private _songList$ = new BehaviorSubject<Song[]>([]);
+  /**
+   * public Observable instance for songList
+   */
+  public songList$ = this._songList$.asObservable();
+
+
   // Method to update ringtoneList
   updateRingtoneList(newList: Ringtone[]) {
     this._ringtoneList$.next(newList);
@@ -165,5 +198,21 @@ export class StoreService {
    */
   updateHolidayList(newList: Holiday[]) {
     this._holidayList$.next(newList);
+  }
+
+  /**
+   * Method to update playList
+   * @param newPlaylist new playList
+   */
+  updatePlaylist(newPlaylist: Playlist) {
+    this._playlist$.next(newPlaylist);
+  }
+
+  /**
+   * Method to update songList
+   * @param newList song list
+   */
+  updateSongList(newList: Song[]) {
+    this._songList$.next(newList);
   }
 }

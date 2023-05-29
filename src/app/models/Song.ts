@@ -1,5 +1,3 @@
-import {Ringtime} from "./Ringtime";
-
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
  * @version: 0.0.2
@@ -10,6 +8,7 @@ export interface Song {
   id: number;
   name: string;
   filePath: string;
+  song: string | ArrayBuffer | null;
 }
 
 export interface SongResponse {
