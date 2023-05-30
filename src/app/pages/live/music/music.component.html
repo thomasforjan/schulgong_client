@@ -12,7 +12,7 @@
   ></app-grid-cards>
 
   <div class="playlistControlColumn">
-    <span class="actualSongTextField">{{acualSongName}}</span>
+    <span class="actualSongTextField">{{acualSongName$ | async}}</span>
     <mat-card class="centerElements playlistCard">
       <mat-card-content>
         <button (click)="playPreviousSong()" [disabled]="storeService.isAlarmEnabled" aria-label="previousSong"
@@ -20,12 +20,12 @@
                 mat-icon-button>
           <mat-icon class="icon-display">skip_previous</mat-icon>
         </button>
-        <button (click)="playPlaylist()" *ngIf="checkIfPlaying" [disabled]="storeService.isAlarmEnabled"
+        <button (click)="playPlaylist()" *ngIf="checkIfPlaying$ | async" [disabled]="storeService.isAlarmEnabled"
                 aria-label="playlistPlayButton"
                 class="playPauseBtn" mat-icon-button>
           <mat-icon>play_arrow</mat-icon>
         </button>
-        <button (click)="stopPlaylist()" *ngIf="checkIfStopped" [disabled]="storeService.isAlarmEnabled"
+        <button (click)="stopPlaylist()" *ngIf="checkIfStopped$ | async" [disabled]="storeService.isAlarmEnabled"
                 aria-label="playlistStopButton"
                 class="playPauseBtn" mat-icon-button>
           <mat-icon>pause</mat-icon>
@@ -39,10 +39,10 @@
     <div class="centerElements">
       <button (click)="setMute()" [disabled]="storeService.isAlarmEnabled" aria-label="unmuted" class="iconBtn"
               mat-icon-button>
-        <mat-icon *ngIf="unmuted" class="icon-color icon-display">
+        <mat-icon *ngIf="unmuted$ | async" class="icon-color icon-display">
           volume_up
         </mat-icon>
-        <mat-icon *ngIf="muted" class="icon-color icon-display">
+        <mat-icon *ngIf="muted$ | async" class="icon-color icon-display">
           volume_off
         </mat-icon>
       </button>
