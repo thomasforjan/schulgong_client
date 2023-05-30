@@ -77,7 +77,6 @@ export class MusicComponent implements OnInit, OnDestroy {
     this.timeInterval = timer(0, 2000).pipe(
       switchMap(() => this._liveBackendService.getPlaylist()),
       takeUntil(this.closeTimer$)).subscribe((playlist) => {
-        console.log("TIMER")
         if (!this.interaction) {
           this.storeService.updatePlaylist(playlist);
         }
@@ -164,15 +163,9 @@ export class MusicComponent implements OnInit, OnDestroy {
   async playPreviousSong() {
     this.stopPoll();
     this.storeService.playlist$.pipe(take(1)).subscribe((playlist) => {
-      console.log(playlist.actualSong.index)
-      console.log(playlist.songDTOList.length)
-      console.log(playlist.actualSong.name)
       if (playlist.actualSong.index === 1) {
-        console.log("IN IF")
         playlist.actualSong = playlist.songDTOList[playlist.songDTOList.length - 1]
       } else {
-        console.log("IN ELSE")
-        console.log(playlist.actualSong.index)
         playlist.actualSong = playlist.songDTOList[playlist.actualSong.index - 2]
       }
     });
