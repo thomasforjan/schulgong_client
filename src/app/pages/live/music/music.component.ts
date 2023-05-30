@@ -29,10 +29,35 @@ export class MusicComponent implements OnInit, OnDestroy {
 
   timeInterval!: Subscription;
 
-  speakerState$ = this.storeService.playlist$.pipe(map((playlist) => playlist.speakerState));
-  muted$ = this.storeService.playlist$.pipe(map((playlist) => playlist.mute));
-  unmuted$ = this.storeService.playlist$.pipe(map((playlist) => !playlist.mute));
-  volume$ = this.storeService.playlist$.pipe(map((playlist) => playlist.volume));
+  speakerState$ = this.storeService.playlist$.pipe(map((playlist) => {
+    if(playlist) {
+      return playlist.speakerState
+    }else {
+      return SpeakerState.STOPPED;
+    }
+
+  }));
+  muted$ = this.storeService.playlist$.pipe(map((playlist) => {
+    if(playlist) {
+      return playlist.mute
+    }else {
+      return false;
+    }
+  }));
+  unmuted$ = this.storeService.playlist$.pipe(map((playlist) => {
+    if(playlist){
+      return !playlist.mute;
+    }else {
+      return true;
+    }
+  }));
+  volume$ = this.storeService.playlist$.pipe(map((playlist) => {
+    if(playlist) {
+      return playlist.volume;
+    }else {
+      return 1;
+    }
+  }));
   checkIfPlaying$ = this.speakerState$.pipe(map((speakerState) => {
     return speakerState !== SpeakerState.PLAYING
   }));
@@ -46,7 +71,13 @@ export class MusicComponent implements OnInit, OnDestroy {
       return [];
     }
   }))
-  acualSongName$ = this.storeService.playlist$.pipe(map((playlist) => playlist.actualSong.name));
+  acualSongName$ = this.storeService.playlist$.pipe(map((playlist) => {
+    if(playlist) {
+      return playlist.actualSong.name
+    }else {
+      return "";
+    }
+  }));
 
   closeTimer$ = new Subject<any>();
   interaction = false;
