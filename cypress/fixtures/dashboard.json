@@ -1,0 +1,28 @@
+{
+  "icons": [
+    "../../../assets/images/dashboard/music_note.svg",
+    "../../../assets/images/dashboard/access_time.svg",
+    "../../../assets/images/dashboard/live.svg",
+    "../../../assets/images/dashboard/holiday.svg",
+    "../../../assets/images/dashboard/calendar.svg",
+    "../../../assets/images/dashboard/user.svg"
+  ],
+
+  "titles": [
+    "Dashboard",
+    " Klingeltöne ",
+    " Klingelzeit ",
+    " Live ",
+    " Schulfrei ",
+    " Kalender ",
+    " Benutzer "
+  ],
+  "routerLinks": [
+    "/ringtones",
+    "/ringtime",
+    "/live",
+    "/holiday",
+    "/calendar",
+    "/user"
+  ]
+}
