@@ -58,6 +58,7 @@ export class MusicComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this._liveBackendService.postSetPlaylist(false);
     if(!this.storeService.isAlarmEnabled) {
       this.startPoll();
     }

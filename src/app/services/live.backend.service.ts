@@ -28,6 +28,7 @@ export class LiveBackendService {
   private readonly _LIVE_PLAYLIST_COMMAND = '/music/control';
   private readonly _LIVE_SONG_LIST = '/music/songs/available';
   private readonly _LIVE_SAVE0_PLAYLIST = '/music/songs/save';
+  private readonly _LIVE_SET_PLAYLIST = '/music/songs/set/playlist';
 
   /**
    * @description Constructor
@@ -131,6 +132,18 @@ export class LiveBackendService {
       `${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_PLAYLIST_COMMAND}`,
       data
     ).subscribe();
+  }
+
+  /**
+   * Post Command to set the playlist
+   *
+   * @param force flag to force setting the playlist
+   */
+  postSetPlaylist(
+    force: boolean
+  ) {
+    return this._http.post(
+      `${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_SET_PLAYLIST}/${force}`, undefined).subscribe();
   }
 
 }
