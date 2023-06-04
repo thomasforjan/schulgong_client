@@ -29,10 +29,6 @@ export class SettingsComponent implements OnInit {
     ringtimeDirectory: "C:/Desktop/ringtimes",
     playlistDirectory: "C:/Desktop/playlist",
   };
-  /**
-   * Form group for the music configuration
-   */
-  musicForm!: FormGroup;
 
   volumeRingtime$ = this.storeService.configuration$.pipe(map((configuration) => {
     if(configuration) {
@@ -58,6 +54,22 @@ export class SettingsComponent implements OnInit {
     }
   }));
 
+  ringtonesDirectory$ = this.storeService.configuration$.pipe(map((configuration) => {
+    if(configuration) {
+      return configuration.ringtimeDirectory;
+    }else {
+      return "";
+    }
+  }));
+
+  playlistDirectory$ = this.storeService.configuration$.pipe(map((configuration) => {
+    if(configuration) {
+      return configuration.playlistDirectory;
+    }else {
+      return "";
+    }
+  }));
+
 
   constructor(
     public storeService: StoreService,
@@ -75,12 +87,6 @@ export class SettingsComponent implements OnInit {
         currentPassword: new FormControl('', Validators.required),
         newPassword: new FormControl('', Validators.required),
         confirmPassword: new FormControl('', Validators.required),
-      },
-    );
-    this.musicForm = new FormGroup(
-      {
-        ringtimeDirectory: new FormControl(this.configuration.ringtimeDirectory, Validators.required),
-        playlistDirectory: new FormControl(this.configuration.playlistDirectory, Validators.required),
       },
     );
   }
