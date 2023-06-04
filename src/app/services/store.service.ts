@@ -5,6 +5,7 @@ import {Ringtone} from '../models/Ringtone';
 import {Holiday} from '../models/Holiday';
 import {Playlist} from "../models/Playlist";
 import {Song} from "../models/Song";
+import {Configuration} from "../models/Configuration";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -179,6 +180,18 @@ export class StoreService {
    */
   public songList$ = this._songList$.asObservable();
 
+  /**
+   * private BehaviorSubject for configuration
+   */
+  private _configuration$ = new BehaviorSubject<Configuration>({
+    alarmVolume: 0, announcementVolume: 0, password: "", playlistDirectory: "", ringtimeDirectory: "", ringtimeVolume: 0
+  });
+
+  /**
+   * public Observable instance for configuration
+   */
+  public configuration$ = this._configuration$.asObservable();
+
 
   // Method to update ringtoneList
   updateRingtoneList(newList: Ringtone[]) {
@@ -215,5 +228,13 @@ export class StoreService {
    */
   updateSongList(newList: Song[]) {
     this._songList$.next(newList);
+  }
+
+  /**
+   * Method to update configuration
+   * @param newConfiguration new configuration
+   */
+  updateConfiguration(newConfiguration: Configuration) {
+    this._configuration$.next(newConfiguration);
   }
 }

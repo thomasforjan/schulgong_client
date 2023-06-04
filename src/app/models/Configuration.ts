@@ -6,9 +6,9 @@
  */
 export interface Configuration {
   password: string;
-  ringtimeVolume: number;
-  alarmVolume: number;
-  announcementVolume: number;
+  ringtimeVolume: number | any;
+  alarmVolume: number | any;
+  announcementVolume: number | any;
   ringtimeDirectory: string;
   playlistDirectory: string;
 }

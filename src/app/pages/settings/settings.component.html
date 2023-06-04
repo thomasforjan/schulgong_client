@@ -74,7 +74,7 @@
             class="mat-slider-style"
             discrete showTickMarks
           >
-            <input (dragEnd)="onRingtimeVolumeChange($event)" [value]="configuration.ringtimeVolume" matSliderThumb>
+            <input (dragEnd)="onRingtimeVolumeChange($event)" [value]="volumeRingtime$ | async" matSliderThumb>
           </mat-slider>
         </div>
       </div>
@@ -91,7 +91,7 @@
             class="mat-slider-style"
             discrete showTickMarks
           >
-            <input (dragEnd)="onAlarmVolumeChange($event)" [value]="configuration.alarmVolume" matSliderThumb>
+            <input (dragEnd)="onAlarmVolumeChange($event)" [value]="volumeAlarm$ | async" matSliderThumb>
           </mat-slider>
         </div>
       </div>
@@ -108,7 +108,7 @@
             class="mat-slider-style"
             discrete showTickMarks
           >
-            <input (dragEnd)="onAnnouncementVolumeChange($event)" [value]="configuration.announcementVolume"
+            <input (dragEnd)="onAnnouncementVolumeChange($event)" [value]="volumeAnnouncement$ | async"
                    matSliderThumb>
           </mat-slider>
         </div>
