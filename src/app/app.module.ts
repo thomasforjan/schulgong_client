@@ -38,13 +38,13 @@ import {RingtimeComponent} from './pages/ringtime/ringtime.component';
 import {LiveComponent} from './pages/live/live.component';
 import {HolidayComponent} from './pages/holiday/holiday.component';
 import {CalendarComponent} from './pages/calendar/calendar.component';
-import {UserComponent} from './pages/user/user.component';
 import {AddEditRingtonesComponent} from './pages/ringtones/add-edit-ringtones/add-edit-ringtones.component';
 import {DeleteDialogComponent} from './components/delete-dialog/delete-dialog.component';
 import {AddEditRingtimeComponent} from './pages/ringtime/add-edit-ringtime/add-edit-ringtime.component';
 import {AddEditHolidaysComponent} from './pages/holiday/add-edit-holidays/add-edit-holidays.component';
 import {MusicComponent} from './pages/live/music/music.component';
 import {ChooseMusicComponent} from "./pages/live/music/choose-music/choose-music.component";
+import { SettingsComponent } from './pages/settings/settings.component';
 
 /**
  * European Date Format DD.MM.YYYY
@@ -83,13 +83,13 @@ export const EUROPEAN_DATE_FORMAT = {
     LiveComponent,
     HolidayComponent,
     CalendarComponent,
-    UserComponent,
     AddEditRingtonesComponent,
     DeleteDialogComponent,
     AddEditRingtimeComponent,
     AddEditHolidaysComponent,
     MusicComponent,
-    ChooseMusicComponent
+    ChooseMusicComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
