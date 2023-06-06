@@ -3,7 +3,7 @@
 <div class="container">
   <div class="button">
     <app-button
-      (click)="ringtoneAddDialog()"
+      (btnClick)="ringtoneAddDialog()"
       [height]="40"
       [hoverActive]="true"
       [width]="117"
@@ -23,8 +23,8 @@
       [cards_height]="220"
       [cards_width]="330"
       [index]="true"
-      [matCardContentParagraph2]="ringtoneSize$ | async"
-      [matCardContentParagraph]="ringtoneDate$ | async"
+      [matCardContentParagraphs2]="ringtoneSize$ | async"
+      [matCardContentParagraphs]="ringtoneDate$ | async"
       [matCardSubtitle]="ringtoneFilename$ | async"
       [matCardTitle]="ringtoneName$ | async"
       [playing]="playing"
@@ -32,6 +32,7 @@
       [showDeleteButton]="true"
       [showEditButton]="true"
       [showPlayButton]="true"
+      [isDeleteBtnDisabled]="checkIfAlarm$ | async"
     ></app-grid-cards>
   </div>
 </div>

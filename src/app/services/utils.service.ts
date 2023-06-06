@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {take} from "rxjs/operators";
 import {Observable} from "rxjs";
+import {Ringtime} from "../models/Ringtime";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -26,4 +27,11 @@ export class UtilsService {
     return index;
   }
 
+  /**
+   * Sort ringtimes by time
+   * @param ringtimes List of ringtime-objects
+   */
+  sortRingtimes(ringtimes: Ringtime[]) {
+    return ringtimes.sort((a: Ringtime, b: Ringtime) => a.playTime > b.playTime ? 1 : -1)
+  }
 }

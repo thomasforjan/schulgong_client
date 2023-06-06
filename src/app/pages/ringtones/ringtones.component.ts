@@ -10,6 +10,7 @@ import {DeleteDialogComponent} from '../../components/delete-dialog/delete-dialo
 import {DateUtilsService} from 'src/app/services/date-utils.service';
 import {UtilsService} from "../../services/utils.service";
 import {RingtoneBackendService} from "../../services/ringtone.backend.service";
+import {Observable} from "rxjs";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -85,6 +86,12 @@ export class RingtonesComponent implements OnInit, OnDestroy {
    * Set to store the updated ringtones
    */
   private _updatedRingtones = new Set<number>();
+
+  checkIfAlarm$ = this.storeService.ringtoneList$.pipe(
+    map((ringtonelist) => {
+      return ringtonelist.map((ringtone) => ringtone.name.toLowerCase() === "alarm")
+    })
+  )
 
   constructor(
     public storeService: StoreService,
@@ -278,10 +285,7 @@ export class RingtonesComponent implements OnInit, OnDestroy {
    */
   togglePlayStop(index: number): void {
     // If another ringtone is playing, stop it
-    if (
-      this.currentlyPlayingIndex !== null &&
-      this.currentlyPlayingIndex !== index
-    ) {
+    if ( this.currentlyPlayingIndex !== null && this.currentlyPlayingIndex !== index) {
       // Reset the playing state and stop and remove the sound of the deleted ringtone
       this.stopAndResetRingtone(this._utilsService.getRealObjectId(this.currentlyPlayingIndex, this.storeService.ringtoneList$));
     }
@@ -294,7 +298,6 @@ export class RingtonesComponent implements OnInit, OnDestroy {
         .pipe(take(1))
         .subscribe((ringtoneList) => {
           const ringtone = ringtoneList[index];
-          const ringtonePath = `${this._RINGTONEPATH_URL}/${ringtone.filename}`;
 
           let sound = this._soundMap.get(ringtone.id);
 
@@ -305,25 +308,41 @@ export class RingtonesComponent implements OnInit, OnDestroy {
               this._soundMap.delete(ringtone.id);
             }
 
-            // Create a new sound for the ringtone
-            sound = new Howl({
-              src: [ringtonePath],
-              onloaderror: (soundId, error) => {
-                console.error('Howler Load Error:', error);
-              },
+            // Fetch the ringtone Blob from the backend
+            this._ringtoneBackendService.getMusicFile(ringtone.id).subscribe((blob) => {
+              if (blob) {
+                // Create a new sound for the ringtone
+                const blobUrl = URL.createObjectURL(blob);
+                sound = new Howl({
+                  src: [blobUrl],
+                  format: ['mp3'],
+                  onloaderror: (soundId, error) => {
+                    console.error('Howler Load Error:', error);
+                  },
+                });
+
+                this._soundMap.set(ringtone.id, sound);
+
+                // Remove the ringtone ID from the updatedRingtones set
+                this._updatedRingtones.delete(ringtone.id);
+
+                // Play the sound
+                sound.play();
+
+                // Handle the end event
+                sound.once('end', () => {
+                  this.playing[index] = false;
+                });
+              }
             });
+          } else {
+            // If sound exists, just play it
+            sound.play();
 
-            this._soundMap.set(ringtone.id, sound);
-
-            // Remove the ringtone ID from the updatedRingtones set
-            this._updatedRingtones.delete(ringtone.id);
+            sound.once('end', () => {
+              this.playing[index] = false;
+            });
           }
-
-          sound.play();
-
-          sound.once('end', () => {
-            this.playing[index] = false;
-          });
         });
     } else {
       this.currentlyPlayingIndex = null; // Set the index to null, if the ringtone will be stopped

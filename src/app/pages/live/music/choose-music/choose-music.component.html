@@ -1,0 +1,194 @@
+<div mat-dialog-content>
+  <div class="header">
+    <h1 class="title" mat-dialog-title>
+      <span class="title-word">Musik </span>
+      <span class="title-action">auswählen</span>
+    </h1>
+    <div class="hero-image-container">
+      <app-hero-image [imageUrl]="chooseMusicHeroImage"></app-hero-image>
+    </div>
+    <hr class="divider"/>
+  </div>
+
+  <div class="main-grid-content">
+    <div class="example-container">
+      <h2>Alle Lieder</h2>
+      <div class="example-listbox-container">
+        <ul (cdkListboxValueChange)="onSelectSongListItems($event)"
+            [cdkListboxValue]="songListSelected"
+            aria-labelledby="example-spatula-label"
+            cdkListbox
+            cdkListboxMultiple
+            cdkListboxUseActiveDescendant
+            class="example-listbox">
+          <li *ngFor="let song of songList"
+              [cdkOption]="song"
+              class="example-option">
+            {{song.name}}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="control-button-container">
+      <div class="button">
+        <app-button
+          (btnClick)="moveSelectedSongsItemsToPlaylist()"
+          [disabled]="isSlctSongsToPlaylistBtnDisabled"
+          [hoverActive]="true"
+          bgColor="#F29D38"
+          class="controlBtn"
+          hoverColor="#FFA24A"
+          icon="keyboard_arrow_right"
+          matTooltip="Selektierte Lieder zur Playlist hinzufügen"
+          title="slctSongsToPlaylist"
+        ></app-button>
+      </div>
+      <div class="button">
+        <app-button
+          (btnClick)="moveAllSongsItemsToPlaylist()"
+          [hoverActive]="true"
+          bgColor="#F29D38"
+          class="controlBtn"
+          hoverColor="#FFA24A"
+          icon="keyboard_double_arrow_right"
+          matTooltip="Alle Lieder zur Playlist hinzufügen"
+          title="slctSongsToPlaylist"
+        ></app-button>
+      </div>
+      <div class="button">
+        <app-button
+          (btnClick)="moveSelectedPlaylistSongsItemsToSongList()"
+          [disabled]="isRemoveSlctSongsFromPlaylistBtnDisabled"
+          [hoverActive]="true"
+          bgColor="#F29D38"
+          class="controlBtn"
+          hoverColor="#FFA24A"
+          icon="keyboard_arrow_left"
+          matTooltip="Selektierte Lieder von Playlist entfernen"
+          title="removeSlctSongsFromPlaylist"
+        ></app-button>
+      </div>
+      <div class="button">
+        <app-button
+          (btnClick)="moveAllPlaylistSongsItemsToSongList()"
+          [hoverActive]="true"
+          bgColor="#F29D38"
+          class="controlBtn"
+          hoverColor="#FFA24A"
+          icon="keyboard_double_arrow_left"
+          matTooltip="Alle Lieder von Playlist entfernen"
+          title="removeAllSongsFromPlaylist"
+        ></app-button>
+      </div>
+      <div class="button">
+        <app-button
+          (btnClick)="moveSelectedSongsUp()"
+          [disabled]="isMoveSelectedSongsUpDownBtnDisabled"
+          [hoverActive]="true"
+          bgColor="#F29D38"
+          class="controlBtn"
+          hoverColor="#FFA24A"
+          icon="keyboard_arrow_up"
+          matTooltip="Selektierte Lieder nach oben schieben"
+          title="removeAllSongsFromPlaylist"
+        ></app-button>
+      </div>
+      <div class="button">
+        <app-button
+          (btnClick)="moveSelectedSongsDown()"
+          [disabled]="isMoveSelectedSongsUpDownBtnDisabled"
+          [hoverActive]="true"
+          bgColor="#F29D38"
+          class="controlBtn"
+          hoverColor="#FFA24A"
+          icon="keyboard_arrow_down"
+          matTooltip="Selektierte Lieder nach unten schieben"
+          title="sortPlaylistUp"
+        ></app-button>
+      </div>
+      <div class="button">
+        <app-button
+          (btnClick)="deleteSlctItemsFromSongList()"
+          [boxShadow]="
+                '0 4px 4px rgba(235, 50, 35, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
+              "
+          [disabled]="isDeleteBtnDisabled"
+          [hoverActive]="true"
+          bgColor="#EB3223"
+          class="controlBtn"
+          hoverColor="#FF3626"
+          icon="delete"
+          matTooltip="Löschen"
+        ></app-button>
+      </div>
+    </div>
+
+    <div class="example-container">
+      <h2>Playlist</h2>
+      <div class="example-listbox-container">
+        <ul (cdkListboxValueChange)="onSelectPlaylistItems($event)"
+            [cdkListboxValue]="playlistSelected"
+            aria-labelledby="example-spatula-label"
+            cdkListbox
+            cdkListboxMultiple
+            cdkListboxUseActiveDescendant
+            cdkScrollable
+            class="example-listbox">
+          <li *ngFor="let song of playlist"
+              [cdkOption]="song"
+              class="example-option">
+            {{song.name}}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="uploadBtn-container">
+    <app-button
+      (btnClick)="onUploadSongs()"
+      [height]="45"
+      [hoverActive]="true"
+      [width]="85"
+      bgColor="#F29D38"
+      class="uploadBtn"
+      hoverColor="#FFA24A"
+      icon="upload"
+    ></app-button>
+  </div>
+
+  <div class="actions-container" mat-dialog-actions>
+    <div class="button-container">
+      <app-button
+        (btnClick)="onSubmitClick()"
+        [height]="45"
+        [hoverActive]="true"
+        [width]="100"
+        aria-label="playlistSaveButton"
+        bgColor="#F29D38"
+        class="submitBtn"
+        hoverColor="#FFA24A"
+        icon="check_circle"
+      ></app-button>
+    </div>
+
+    <div class="button-container">
+      <app-button
+        (btnClick)="onCancelClick()"
+        [boxShadow]="
+            '0 4px 4px rgba(185, 185, 185, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
+          "
+        [height]="45"
+        [hoverActive]="true"
+        [width]="100"
+        aria-label="playlistCancelButton"
+        bgColor="#B9B9B9"
+        class="cancelBtn"
+        hoverColor="#C9C9C9"
+        icon="cancel"
+      ></app-button>
+    </div>
+  </div>
+
+</div>

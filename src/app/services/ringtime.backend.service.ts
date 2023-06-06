@@ -4,6 +4,7 @@ import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable, tap} from "rxjs";
 import {Ringtime, RingtimePayload, RingtimeResponse} from "../models/Ringtime";
 import {map} from "rxjs/operators";
+import {UtilsService} from "./utils.service";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -26,8 +27,9 @@ export class RingtimeBackendService {
    * @description Constructor
    * @param _storeService Injected StoreService
    * @param _http Injected HttpClient
+   * @param _utilsService General services
    */
-  constructor(private _storeService: StoreService, private _http: HttpClient) {
+  constructor(private _storeService: StoreService, private _http: HttpClient, private _utilsService: UtilsService) {
   }
 
 
@@ -44,7 +46,7 @@ export class RingtimeBackendService {
       .pipe(
         map((response) => {
           if (response.body && response.body._embedded) {
-            return response.body._embedded.ringtimeDTOList;
+            return this._utilsService.sortRingtimes(response.body._embedded.ringtimeDTOList)
           }
           return null;
         }),

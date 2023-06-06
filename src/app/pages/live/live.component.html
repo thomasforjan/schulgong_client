@@ -1,1 +1,27 @@
-<p>live works!</p>
+<app-hero-image [imageUrl]="liveHeroImage"></app-hero-image>
+
+<div class="live-container">
+  <app-grid-cards
+    [recording]="isRecording"
+    [showRecordingControls]="isNewRecordingAllowed"
+    [cards]="3"
+    [cards_height]="220"
+    [cards_width]="330"
+    [hoverActive]="true"
+    [icons]="liveIcons"
+    [matCardContentParagraphs]="liveTitles"
+    [showPlayButton]="isRecordingControlsVisible"
+    [showSendButton]="isRecordingControlsVisible"
+    [showDeleteButton]="isRecordingControlsVisible"
+    [showAlarmIcon]="true"
+    [showAlarmToggle]="true"
+    (recordToggle)="onRecordToggle($event)"
+    (play)="onPlay($event)"
+    (send)="onSend($event)"
+    (delete)="onDelete($event)"
+    [isMusicRoutingEnabled]="true"
+    [isAlarmEnabled]="storeService.isAlarmEnabled"
+    (alarmToggle)="onAlarmToggle($event)"
+    [playing]="playing"
+  ></app-grid-cards>
+</div>

@@ -1,0 +1,78 @@
+/*
+  * Calendar styles
+*/
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/*
+  * Calendar styles
+*/
+.full-calendar {
+  width: 100%;
+  height: 100%;
+}
+
+/*
+  * Calendar styles
+*/
+:host ::ng-deep {
+  --fc-button-bg-color: #f29d38;
+  --fc-button-border-color: none;
+  --fc-button-hover-bg-color: #ffa24a;
+  --fc-button-hover-border-color: none;
+  --fc-event-border-color: none;
+  --fc-button-active-bg-color: #ffbb00;
+  --fc-button-active-border-color: none;
+}
+
+/*
+  * Disable calendar scrollbar
+*/
+:host ::ng-deep .fc {
+  & .fc-scroller {
+    -webkit-overflow-scrolling: none !important;
+    position: relative; // for abs-positioned elements within
+    overflow: hidden !important; // disable calendar scrollbar
+  }
+}
+
+/*
+  * Styles for the yellow calendar bar
+*/
+:host ::ng-deep .fc-direction-ltr .fc-daygrid-event.fc-event-end,
+.fc-direction-rtl .fc-daygrid-event.fc-event-start {
+  margin-right: 2px;
+  background-color: #f5d259;
+  height: 18px;
+}
+
+:host ::ng-deep .fc-col-header-cell {
+  background-color: #f29d38;
+  color: #ffffff;
+}
+
+/*
+  * Month title style (top header)
+*/
+:host ::ng-deep .fc-toolbar-title {
+  font-weight: bold;
+}
+
+/*
+  * Styles for the calendar bar title
+*/
+:host ::ng-deep .fc-list-item-title {
+  font-weight: bold;
+  text-align: center;
+}
+
+/*
+  * Styles for the icon in the calendar bar
+*/
+:host ::ng-deep .fc-event {
+  color: transparent;
+  text-shadow: 0 0 0 #f39d38;
+}
