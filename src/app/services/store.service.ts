@@ -119,7 +119,7 @@ export class StoreService {
   /**
    * @description URL to backend endpoint
    */
-  public readonly BACKEND_URL = 'https://schulgong-server-dev.herokuapp.com';
+  public readonly BACKEND_URL = 'https://schulgong-server-prod.herokuapp.com';
 
   /**
    * public flag if alarm is running
