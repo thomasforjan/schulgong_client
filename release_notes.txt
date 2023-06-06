@@ -1,5 +1,7 @@
 * This version includes:
-* - ringtones
-* - ring times
-* - holiday
-* - info bar
+* - calendar
+* - live
+* - live announcement
+* - play alarm
+* - play playlist
+* - date format with leading zeros main branch into stable branch
