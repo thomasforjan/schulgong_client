@@ -1,0 +1,208 @@
+.settingsCard {
+  width: 100%;
+}
+
+.inputLabels {
+  font-weight: bold;
+  display: block;
+  //min-width: 300px;
+}
+
+.inputFields {
+  width: 100%;
+  height: 30px;
+  margin-top: 5px;
+}
+
+.main-grid-content-password {
+  display: grid;
+  align-items: flex-start;
+  grid-template-columns: repeat(1, 1fr 1fr 1fr 200px);
+  grid-column-gap: 20px;
+  justify-content: center;
+  justify-items: center;
+}
+
+.main-grid-content-volume {
+  display: grid;
+  align-items: flex-start;
+  grid-template-columns: repeat(1, 1fr 1fr 1fr);
+  grid-column-gap: 20px;
+  justify-content: center;
+  justify-items: center;
+}
+
+.main-grid-content-music {
+  display: grid;
+  align-items: flex-start;
+  grid-template-columns: repeat(1, 1fr 1fr);
+  grid-column-gap: 20px;
+  justify-content: center;
+  justify-items: center;
+}
+
+.grid-column {
+  width: 100%;
+  height: 76px;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+}
+
+/*
+ * Style for the app-button
+*/
+:host ::ng-deep app-button .btn {
+  border-radius: 24px !important;
+}
+
+/*
+ * Style for the divider
+*/
+.divider {
+  height: 4px;
+  color: #f29d38;
+  background-color: #f29d38;
+  border: none;
+  border-radius: 20px;
+}
+
+/*
+ * Icon color style
+*/
+.icon-color {
+  color: #f29d38;
+}
+
+/*
+ * Style for icons
+*/
+.icon-display {
+  transform: scale(2);
+}
+
+/*
+ * Style for the volume slider
+*/
+.mat-slider-style {
+  margin-left: 20px;
+  width: 75%;
+}
+
+/*
+ * Styles for the mat-slider
+*/
+:host ::ng-deep .mat-mdc-slider.mat-primary {
+  --mdc-slider-handle-color: #f29d38;
+  --mdc-slider-focus-handle-color: #f29d38;
+  --mdc-slider-hover-handle-color: #f29d38;
+  --mdc-slider-active-track-color: #f29d38;
+  --mdc-slider-inactive-track-color: rgba(105, 105, 105, 0.5);
+
+  --mdc-slider-with-tick-marks-active-container-color: #f29d38;
+  --mdc-slider-with-tick-marks-inactive-container-color: rgba(
+      255,
+      255,
+      255,
+      0.002
+  );
+
+  --mat-mdc-slider-ripple-color: #f29d38;
+  --mat-mdc-slider-hover-ripple-color: rgba(242, 157, 56, 0.05);
+  --mat-mdc-slider-focus-ripple-color: rgba(242, 157, 56, 0.2);
+  --mdc-slider-inactive-track-height: 12px;
+  --mdc-slider-active-track-height: 12px;
+}
+
+/*
+ * Media Query for mobile devices
+*/
+@media screen and (max-width: 992px) {
+  .main-grid-content-password {
+    grid-template-columns: repeat(1, 1fr 1fr 1fr);
+    grid-column-gap: 20px;
+    justify-content: left;
+    justify-items: left;
+  }
+}
+
+/*
+ * Media Query for mobile devices
+*/
+@media screen and (max-width: 768px) {
+  .main-grid-content-password {
+    grid-template-columns: repeat(1, 1fr 1fr);
+    grid-column-gap: 20px;
+  }
+  .main-grid-content-volume {
+    grid-template-columns: repeat(1, 1fr 1fr);
+    grid-column-gap: 20px;
+  }
+  .main-grid-content-music {
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: 20px;
+  }
+}
+
+/*
+ * Media Query for mobile devices
+*/
+@media screen and (max-width: 576px) {
+  .main-grid-content-password {
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: 20px;
+  }
+  .main-grid-content-volume {
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: 20px;
+  }
+
+}
+
+///*
+// * Media Query for mobile devices
+//*/
+//@media screen and (max-width: 1260px) {
+//  .main-grid-content {
+//    grid-template-columns: repeat(1, 1fr 1fr 1fr);
+//    grid-column-gap: 20px;
+//    justify-content: left;
+//    justify-items: left;
+//  }
+//}
+//
+///*
+// * Media Query for mobile devices
+//*/
+//@media screen and (max-width: 1260px) {
+//  .main-grid-content {
+//    grid-template-columns: repeat(1, 1fr 1fr);
+//    grid-column-gap: 20px;
+//  }
+//}
+//
+///*
+// * Media Query for mobile devices
+//*/
+//@media screen and (max-width: 700px) {
+//  .main-grid-content {
+//    grid-template-columns: repeat(1, 1fr);
+//    grid-column-gap: 20px;
+//  }
+//}
+//
+///*
+// * Media Query for mobile devices
+//*/
+//@media screen and (max-width: 384px) {
+//  .inputLabels {
+//    min-width: 200px;
+//  }
+//}
+
+
+
+
