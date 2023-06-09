@@ -1,0 +1,150 @@
+/*
+ * Styles for the header
+ */
+.header {
+  position: relative;
+  width: 100%;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/*
+ * Styles for the title
+ */
+.title {
+  font-size: 32px;
+  margin-left: 16px;
+}
+
+/*
+ * Styles for the login-container
+ */
+.login-container {
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 64px); /* Subtract the height of the header */
+  margin: 0;
+
+  @media screen and (max-width: 768px) {
+    justify-content: unset;
+    flex-direction: column;
+    height: 100vh; /* Remove subtraction */
+    padding-top: 0; /* Remove padding-top */
+  }
+}
+
+/*
+ * Styles for the login-image-container
+ */
+.login-image-container {
+  background-color: #ffe1bd;
+  flex-basis: 50%;
+  max-width: 50%;
+  display: flex;
+  align-items: center; /* Centers the image vertically */
+  justify-content: center; /* Centers the image horizontally */
+  height: 100vh;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 25px;
+    flex-basis: 100%; /* Take up full width */
+    max-width: 450px; /* Increase width */
+    max-height: 300px; /* Increase height */
+  }
+}
+
+/*
+ * Styles for the login-image
+ */
+.login-image {
+  width: 100%;
+  height: 90%;
+  object-fit: contain;
+}
+
+/*
+ * Styles for the login-form-title
+ */
+.login-form-title {
+  color: #f29d38;
+  font-weight: bold;
+  font-variant-caps: all-petite-caps;
+}
+
+/*
+ * Styles for the login-form
+ */
+.login-form {
+  flex-basis: 50%;
+  max-width: 50%;
+  margin: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  --btn-width: 200px;
+
+  @media screen and (max-width: 768px) {
+    flex-basis: 20%;
+    max-width: 100%;
+    --btn-width: 150px;
+  }
+}
+
+/*
+ * Styles for the form-field
+ */
+.form-field {
+  width: 400px;
+
+  @media screen and (max-width: 1024px) {
+    width: 300px;
+  }
+
+  @media screen and (max-width: 350px) {
+    width: 100%;
+  }
+}
+
+/*
+  * Styles for error-message
+  */
+.error-message {
+  display: flex;
+  align-items: center;
+  color: #f44336;
+  font-size: 1rem;
+  padding: 10px;
+  border: 1px solid #f44336;
+  border-radius: 4px;
+  background-color: #ffebee;
+}
+
+/*
+  * Styles for error-icon
+  */
+.error-icon {
+  margin-right: 10px;
+}
+
+/*
+* Styles for the loading spinner
+*/
+.mat-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: #f29d38;
+}
