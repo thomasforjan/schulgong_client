@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
-import {Ringtime} from '../models/Ringtime';
-import {Ringtone} from '../models/Ringtone';
-import {Holiday} from '../models/Holiday';
-import {Playlist} from "../models/Playlist";
-import {Song} from "../models/Song";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Ringtime } from '../models/Ringtime';
+import { Ringtone } from '../models/Ringtone';
+import { Holiday } from '../models/Holiday';
+import { Playlist } from '../models/Playlist';
+import { Song } from '../models/Song';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -25,6 +25,7 @@ export enum RoutingLinks {
   CalendarLink = 'calendar',
   UserLink = 'user',
   MusicLink = 'music',
+  LoginLink = 'login',
 }
 
 /**
@@ -54,6 +55,7 @@ export enum TabTitleNames {
   Calendar = 'Kalender',
   User = 'Benutzer',
   Music = 'Musik',
+  Login = 'Anmelden',
 }
 
 /**
@@ -152,17 +154,17 @@ export class StoreService {
    * private BehaviorSubject for playlist
    */
   private _playlist$ = new BehaviorSubject<Playlist>({
-    speakerState: "STOPPED",
+    speakerState: 'STOPPED',
     volume: 0,
     mute: false,
     actualSong: {
       id: 0,
       index: 0,
-      name: "",
-      filePath: "",
-      song: "",
-    }, songDTOList: []
-
+      name: '',
+      filePath: '',
+      song: '',
+    },
+    songDTOList: [],
   });
   /**
    * public Observable instance for playlist
@@ -177,7 +179,6 @@ export class StoreService {
    * public Observable instance for songList
    */
   public songList$ = this._songList$.asObservable();
-
 
   // Method to update ringtoneList
   updateRingtoneList(newList: Ringtone[]) {
