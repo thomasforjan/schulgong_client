@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {filter, map} from 'rxjs';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, map } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -15,24 +16,31 @@ import {filter, map} from 'rxjs';
 })
 export class HeaderComponent {
   /**
-   * The current route name.
+   * @description The current route name.
    */
   currentRouteName: string = '';
+
   /**
-   * A boolean input property indicating whether the sidebar is open or closed.
+   * @description A boolean input property indicating whether the sidebar is open or closed.
    */
   @Input() isSidebarOpen!: boolean;
+
   /**
-   * An event emitter output property that emits an event to toggle the sidebar.
+   * @description An event emitter output property that emits an event to toggle the sidebar.
    */
   @Output() toggleSidenav = new EventEmitter<void>();
 
   /**
-   * Constructor for the header component.
+   * @description Constructor for the header component.
    * @param _router router
    * @param _route activated route
+   * @param _authService auth service
    */
-  constructor(private _router: Router, private _route: ActivatedRoute) {
+  constructor(
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private _authService: AuthService
+  ) {
     this._router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd),
@@ -48,5 +56,13 @@ export class HeaderComponent {
       .subscribe((route) => {
         this.currentRouteName = route.snapshot.data['title'];
       });
+  }
+
+  /**
+   * @description Method to invoke logout and switch route.
+   */
+  onLogout() {
+    this._authService.logout();
+    this._router.navigate(['/login']).catch(() => {});
   }
 }
