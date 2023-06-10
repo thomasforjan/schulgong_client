@@ -1,34 +1,43 @@
-import {Component, ViewChild} from '@angular/core';
-import {SidebarComponent} from './layout/sidebar/sidebar.component';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AuthService } from './services/auth.service';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
- * @version: 0.0.2
- * @since: April 2023
- * @description: App component
+ * @version: 0.0.1
+ * @since: June 2023
+ * @description: App Component
  */
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   /**
-   * A ViewChild property to reference the SidebarComponent.
+   * @description Constructor
+   * @param _authService AuthService
    */
-  @ViewChild('sidebar') sidebar!: SidebarComponent;
+  constructor(private _authService: AuthService) {}
 
   /**
-   * A boolean indicating whether the sidebar is opened or closed.
+   * @description OnInit lifecycle hook
    */
-  sidebarOpened = false;
+  ngOnInit() {
+    this._authService.getToken().subscribe({
+      next: () => {
+        this._authService.startTokenVerification();
+      },
+      error: (err) => {
+        console.log('Error retrieving token:', err);
+      },
+    });
+  }
 
   /**
-   * Toggles the sidebar by calling the toggle method of the SidebarComponent and updating the value of sidebarOpened.
-   @returns void
+   * @description OnDestroy lifecycle hook
    */
-  toggleSidebar(): void {
-    this.sidebar.toggle();
-    this.sidebarOpened = !this.sidebarOpened;
+  ngOnDestroy() {
+    this._authService.stopTokenVerification();
   }
 }

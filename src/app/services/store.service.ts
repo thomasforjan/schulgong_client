@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
-import {Ringtime} from '../models/Ringtime';
-import {Ringtone} from '../models/Ringtone';
-import {Holiday} from '../models/Holiday';
-import {Playlist} from "../models/Playlist";
-import {Song} from "../models/Song";
-import {Configuration} from "../models/Configuration";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Ringtime } from '../models/Ringtime';
+import { Ringtone } from '../models/Ringtone';
+import { Holiday } from '../models/Holiday';
+import { Playlist } from '../models/Playlist';
+import { Song } from '../models/Song';
+import { Configuration } from "../models/Configuration";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -26,6 +26,7 @@ export enum RoutingLinks {
   CalendarLink = 'calendar',
   SettingsLink = 'settings',
   MusicLink = 'music',
+  LoginLink = 'login',
 }
 
 /**
@@ -55,6 +56,7 @@ export enum TabTitleNames {
   Calendar = 'Kalender',
   Settings = 'Einstellungen',
   Music = 'Musik',
+  Login = 'Anmelden',
 }
 
 /**
@@ -121,7 +123,7 @@ export class StoreService {
   /**
    * @description URL to backend endpoint
    */
-  public readonly BACKEND_URL = 'https://schulgong-server-dev.herokuapp.com';
+  public readonly BACKEND_URL = 'https://schulgong-server-prod.herokuapp.com';
 
   /**
    * public flag if alarm is running
@@ -154,17 +156,17 @@ export class StoreService {
    * private BehaviorSubject for playlist
    */
   private _playlist$ = new BehaviorSubject<Playlist>({
-    speakerState: "STOPPED",
+    speakerState: 'STOPPED',
     volume: 0,
     mute: false,
     actualSong: {
       id: 0,
       index: 0,
-      name: "",
-      filePath: "",
-      song: "",
-    }, songDTOList: []
-
+      name: '',
+      filePath: '',
+      song: '',
+    },
+    songDTOList: [],
   });
   /**
    * public Observable instance for playlist
@@ -192,8 +194,10 @@ export class StoreService {
    */
   public configuration$ = this._configuration$.asObservable();
 
-
-  // Method to update ringtoneList
+  /**
+   * Method to update ringtoneList
+   * @param newList ringtone list
+   */
   updateRingtoneList(newList: Ringtone[]) {
     this._ringtoneList$.next(newList);
   }

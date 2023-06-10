@@ -14,14 +14,13 @@
     aria-label="User Profile"
     class="clickable-icon"
     style="height: 64px; width: 70px"
-  >account_circle
-  </mat-icon
-  >
+    >account_circle
+  </mat-icon>
   <!-- Menu which is called on mat-icon (User profile icon) -->
   <mat-menu #menu="matMenu">
-    <button class="menu-person" mat-menu-item>
-      <mat-icon class="menu-icon-person">person</mat-icon>
-      Admin
+    <button (click)="onLogout()" class="menu-icon" mat-menu-item>
+      <mat-icon class="menu-icon-person">logout</mat-icon>
+      Abmelden
     </button>
   </mat-menu>
 </mat-toolbar>
