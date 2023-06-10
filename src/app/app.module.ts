@@ -41,7 +41,7 @@ import { RingtimeComponent } from './pages/ringtime/ringtime.component';
 import { LiveComponent } from './pages/live/live.component';
 import { HolidayComponent } from './pages/holiday/holiday.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
-import { UserComponent } from './pages/user/user.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 import { AddEditRingtonesComponent } from './pages/ringtones/add-edit-ringtones/add-edit-ringtones.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { AddEditRingtimeComponent } from './pages/ringtime/add-edit-ringtime/add-edit-ringtime.component';
@@ -90,13 +90,13 @@ export const EUROPEAN_DATE_FORMAT = {
     LiveComponent,
     HolidayComponent,
     CalendarComponent,
-    UserComponent,
     AddEditRingtonesComponent,
     DeleteDialogComponent,
     AddEditRingtimeComponent,
     AddEditHolidaysComponent,
     MusicComponent,
     ChooseMusicComponent,
+    SettingsComponent,
     LoginComponent,
     LayoutComponent,
   ],

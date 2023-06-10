@@ -1,0 +1,151 @@
+<app-hero-image [imageUrl]="settingsHeroImage"></app-hero-image>
+
+<mat-card class="settingsCard">
+  <mat-card-content>
+    <h2>Konfiguration Benutzer</h2>
+    <h3>Passwort ändern</h3>
+    <form [formGroup]="passwordForm" class="main-grid-content-password">
+      <mat-form-field
+        appearance="fill"
+        aria-label="Bezeichnung-Aktuelles-Passwort"
+        class="grid-column"
+      >
+        <mat-label>Aktuelles Passwort</mat-label>
+        <input
+          matInput
+          type="password"
+          value="asdfsd"
+          class="inputFields"
+        />
+      </mat-form-field>
+      <mat-form-field
+        appearance="fill"
+        aria-label="Bezeichnung-Neues-Passwort"
+        class="grid-column"
+      >
+        <mat-label>Neues Passwort</mat-label>
+        <input
+          matInput
+          type="password"
+          value="asdfsd"
+          class="inputFields"
+        />
+      </mat-form-field>
+      <mat-form-field
+        appearance="fill"
+        aria-label="Bezeichnung-Neues-Passwort-bestätigen"
+        class="grid-column"
+      >
+        <mat-label>Neues Passwort bestätigen</mat-label>
+        <input
+          matInput
+          type="password"
+          value="asdfsd"
+          class="inputFields"
+        />
+      </mat-form-field>
+      <div class="button-container">
+        <app-button
+          (btnClick)="onSubmitClick()"
+          [height]="45"
+          [hoverActive]="true"
+          [width]="100"
+          aria-label="ringtimeSaveButton"
+          bgColor="#F29D38"
+          class="submitBtn"
+          hoverColor="#FFA24A"
+          icon="check_circle"
+        ></app-button>
+      </div>
+    </form>
+    <hr class="divider"/>
+    <h2>Konfiguration Lautstärke</h2>
+    <div class="main-grid-content-volume">
+      <div class="grid-column">
+        <mat-label class="inputLabels">Lautstärke Klingelzeiten</mat-label>
+        <div class="slider-container">
+          <mat-icon class="icon-color icon-display">
+            volume_up
+          </mat-icon>
+          <mat-slider
+            [max]="100"
+            [min]="0"
+            [step]="1"
+            class="mat-slider-style"
+            discrete showTickMarks
+          >
+            <input (dragEnd)="onRingtimeVolumeChange($event)" [value]="configuration.ringtimeVolume" matSliderThumb>
+          </mat-slider>
+        </div>
+      </div>
+      <div class="grid-column">
+        <mat-label class="inputLabels">Lautstärke Alarm</mat-label>
+        <div class="slider-container">
+          <mat-icon class="icon-color icon-display">
+            volume_up
+          </mat-icon>
+          <mat-slider
+            [max]="100"
+            [min]="0"
+            [step]="1"
+            class="mat-slider-style"
+            discrete showTickMarks
+          >
+            <input (dragEnd)="onAlarmVolumeChange($event)" [value]="configuration.alarmVolume" matSliderThumb>
+          </mat-slider>
+        </div>
+      </div>
+      <div class="grid-column">
+        <mat-label class="inputLabels">Lautstärke Durchsage</mat-label>
+        <div class="slider-container">
+          <mat-icon class="icon-color icon-display">
+            volume_up
+          </mat-icon>
+          <mat-slider
+            [max]="100"
+            [min]="0"
+            [step]="1"
+            class="mat-slider-style"
+            discrete showTickMarks
+          >
+            <input (dragEnd)="onAnnouncementVolumeChange($event)" [value]="configuration.announcementVolume"
+                   matSliderThumb>
+          </mat-slider>
+        </div>
+      </div>
+    </div>
+    <hr class="divider"/>
+    <h2>Konfiguration Musik</h2>
+    <form [formGroup]="musicForm" class="main-grid-content-music">
+      <mat-form-field
+        appearance="fill"
+        aria-label="Bezeichnung-Verzeichnis-Klingeltöne"
+        class="grid-column"
+      >
+        <mat-label>Verzeichnis Klingeltöne</mat-label>
+        <input
+          [readonly]="true"
+          matInput
+          formControlName="ringtimeDirectory"
+          type="text"
+          class="inputFields"
+        />
+      </mat-form-field>
+      <mat-form-field
+        appearance="fill"
+        aria-label="Bezeichnung-Verzeichnis-Playlist"
+        class="grid-column"
+      >
+        <mat-label>Verzeichnis Playlist</mat-label>
+        <input
+          [readonly]="true"
+          matInput
+          formControlName="playlistDirectory"
+          type="text"
+          class="inputFields"
+        />
+      </mat-form-field>
+    </form>
+
+  </mat-card-content>
+</mat-card>

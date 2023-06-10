@@ -10,7 +10,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { RingtonesComponent } from './pages/ringtones/ringtones.component';
 import { LiveComponent } from './pages/live/live.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
-import { UserComponent } from './pages/user/user.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 import { HolidayComponent } from './pages/holiday/holiday.component';
 import { RingtimeComponent } from './pages/ringtime/ringtime.component';
 import { MusicComponent } from './pages/live/music/music.component';
@@ -78,10 +78,10 @@ const routes: Routes = [
         title: TabTitleNames.Schulgong + TabTitleNames.Calendar,
       },
       {
-        path: RoutingLinks.UserLink,
-        component: UserComponent,
-        data: { title: MenuNames.User },
-        title: TabTitleNames.Schulgong + TabTitleNames.User,
+        path: RoutingLinks.SettingsLink,
+        component: SettingsComponent,
+        data: { title: MenuNames.Settings },
+        title: TabTitleNames.Schulgong + TabTitleNames.Settings,
       },
       {
         path: RoutingLinks.MusicLink,
@@ -91,6 +91,7 @@ const routes: Routes = [
       },
     ],
   },
+
   // otherwise redirect to dashboard ('/')
   { path: '**', redirectTo: '' },
 ];

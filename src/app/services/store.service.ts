@@ -23,7 +23,7 @@ export enum RoutingLinks {
   LiveLink = 'live',
   HolidayLink = 'holiday',
   CalendarLink = 'calendar',
-  UserLink = 'user',
+  SettingsLink = 'settings',
   MusicLink = 'music',
   LoginLink = 'login',
 }
@@ -38,7 +38,7 @@ export enum MenuNames {
   Live = 'Live',
   Holiday = 'Schulfrei',
   Calendar = 'Kalender',
-  User = 'Benutzer',
+  Settings = 'Einstellungen',
   Music = 'Musik spielen',
 }
 
@@ -53,7 +53,7 @@ export enum TabTitleNames {
   Live = 'Live',
   Holiday = 'Schulfrei',
   Calendar = 'Kalender',
-  User = 'Benutzer',
+  Settings = 'Einstellungen',
   Music = 'Musik',
   Login = 'Anmelden',
 }
@@ -77,7 +77,7 @@ export enum MenuIcons {
   LiveIcon = '../../../assets/images/sidebar/live.svg',
   HolidayIcon = '../../../assets/images/sidebar/holiday.svg',
   CalendarIcon = '../../../assets/images/sidebar/calendar.svg',
-  UserIcon = '../../../assets/images/sidebar/user.svg',
+  SettingsIcon = '../../../assets/images/sidebar/settings.svg',
 }
 
 /**
@@ -90,6 +90,7 @@ export enum HeroImages {
   DeleteHeroImage = '../../../assets/images/pages/delete_shield.svg',
   LiveHeroImage = '../../../assets/images/pages/live.svg',
   CalendarHeroImage = '../../../assets/images/pages/calendar.svg',
+  SettingsHeroImage = '../../../assets/images/pages/settings.svg',
 }
 
 /**
@@ -101,7 +102,7 @@ export enum DashboardIcons {
   LiveIcon = '../../../assets/images/dashboard/live.svg',
   HolidayIcon = '../../../assets/images/dashboard/holiday.svg',
   CalendarIcon = '../../../assets/images/dashboard/calendar.svg',
-  UserIcon = '../../../assets/images/dashboard/user.svg',
+  SettingsIcon = '../../../assets/images/dashboard/settings.svg',
 }
 
 /**
@@ -121,7 +122,7 @@ export class StoreService {
   /**
    * @description URL to backend endpoint
    */
-  public readonly BACKEND_URL = 'https://schulgong-server-dev.herokuapp.com';
+  public readonly BACKEND_URL = 'https://schulgong-server-prod.herokuapp.com';
 
   /**
    * public flag if alarm is running
