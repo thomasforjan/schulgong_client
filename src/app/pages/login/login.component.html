@@ -1,0 +1,43 @@
+<mat-toolbar class="header" color="primary">
+  <span class="title">Schulgong</span>
+</mat-toolbar>
+<div class="login-container">
+  <div class="login-image-container">
+    <img
+      [src]="authenticationImage"
+      alt="Human with laptop performing authentication."
+      class="login-image"
+    />
+  </div>
+
+  <form [formGroup]="authenticationForm" class="login-form">
+    <mat-spinner *ngIf="loadingSpinner"></mat-spinner>
+    <div *ngIf="loginFailed" class="error-message">
+      <i class="error-icon material-icons">error_outline</i>
+      <span>{{ loginErrorMessage }}</span>
+    </div>
+    <div class="login-form-title">
+      <h1>Anmelden</h1>
+    </div>
+    <div class="form-field-container form-fields">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Passwort</mat-label>
+        <input
+          formControlName="passwordFormControl"
+          matInput
+          type="password"
+          placeholder="Passwort eingeben..."
+        />
+      </mat-form-field>
+    </div>
+    <app-button
+      (btnClick)="onLoginClick()"
+      [hoverActive]="true"
+      bgColor="#F29D38"
+      class="loginBtn"
+      hoverColor="#FFA24A"
+      text="Log In"
+      [disabled]="loadingSpinner"
+    ></app-button>
+  </form>
+</div>

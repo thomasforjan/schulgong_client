@@ -6,6 +6,7 @@
   aria-label="ariaLabelText"
   class="btn"
 >
+  <p *ngIf="text" class="text">{{ text }}</p>
   <div *ngIf="icon || playIcon" class="icon-container">
     <mat-icon *ngIf="!playIcon; else playIconTemplate" class="icon-color">
       {{ icon }}

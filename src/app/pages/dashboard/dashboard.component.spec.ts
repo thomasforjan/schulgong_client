@@ -108,9 +108,10 @@ describe('DashboardComponent', () => {
       By.directive(RouterLinkDirectiveStub)
     );
 
-    // Filter out the music link
+    // Filter out the music and login link
     const enumValues = Object.values(RoutingLinks).filter(
-      (value) => value !== RoutingLinks.MusicLink
+      (value) =>
+        value !== RoutingLinks.MusicLink && value !== RoutingLinks.LoginLink
     );
 
     expect(routerLinks.length).toBe(enumValues.length - 1);
