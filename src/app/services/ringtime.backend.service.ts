@@ -1,10 +1,14 @@
-import {Injectable} from "@angular/core";
-import {StoreService} from "./store.service";
-import {HttpClient, HttpResponse} from "@angular/common/http";
-import {Observable, tap} from "rxjs";
-import {Ringtime, RingtimePayload, RingtimeResponse} from "../models/Ringtime";
-import {map} from "rxjs/operators";
-import {UtilsService} from "./utils.service";
+import { Injectable } from '@angular/core';
+import { StoreService } from './store.service';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
+import {
+  Ringtime,
+  RingtimePayload,
+  RingtimeResponse,
+} from '../models/Ringtime';
+import { map } from 'rxjs/operators';
+import { UtilsService } from './utils.service';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -16,7 +20,6 @@ import {UtilsService} from "./utils.service";
   providedIn: 'root',
 })
 export class RingtimeBackendService {
-
   /**
    * @description URLs to ringtime endpoint
    */
@@ -29,9 +32,11 @@ export class RingtimeBackendService {
    * @param _http Injected HttpClient
    * @param _utilsService General services
    */
-  constructor(private _storeService: StoreService, private _http: HttpClient, private _utilsService: UtilsService) {
-  }
-
+  constructor(
+    private _storeService: StoreService,
+    private _http: HttpClient,
+    private _utilsService: UtilsService
+  ) {}
 
   /**
    * GET Ringtimes from server
@@ -40,13 +45,18 @@ export class RingtimeBackendService {
    */
   getRingtimeResponse(): Observable<Ringtime[] | null> {
     return this._http
-      .get<RingtimeResponse>(`${this._storeService.BACKEND_URL}${this._RINGTIME_URL}`, {
-        observe: 'response',
-      })
+      .get<RingtimeResponse>(
+        `${this._storeService.BACKEND_URL}${this._RINGTIME_URL}`,
+        {
+          observe: 'response',
+        }
+      )
       .pipe(
         map((response) => {
           if (response.body && response.body._embedded) {
-            return this._utilsService.sortRingtimes(response.body._embedded.ringtimeDTOList)
+            return this._utilsService.sortRingtimes(
+              response.body._embedded.ringtimeDTOList
+            );
           }
           return null;
         }),
@@ -116,5 +126,4 @@ export class RingtimeBackendService {
       `${this._storeService.BACKEND_URL}${this._RINGTIME_URL}${this._RINGTIME_SERVER_TIME_URL}`
     );
   }
-
 }

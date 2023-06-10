@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
-import {Observable, tap} from "rxjs";
-import {Holiday, HolidayPayload, HolidayResponse} from "../models/Holiday";
-import {map} from "rxjs/operators";
-import {StoreService} from "./store.service";
-import {HttpClient, HttpResponse} from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { Observable, tap } from 'rxjs';
+import { Holiday, HolidayPayload, HolidayResponse } from '../models/Holiday';
+import { map } from 'rxjs/operators';
+import { StoreService } from './store.service';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -15,7 +15,6 @@ import {HttpClient, HttpResponse} from "@angular/common/http";
   providedIn: 'root',
 })
 export class HolidayBackendService {
-
   /**
    * @description URL to holiday endpoint
    */
@@ -27,8 +26,7 @@ export class HolidayBackendService {
    * @param _storeService Injected StoreService
    * @param _http Injected HttpClient
    */
-  constructor(private _storeService: StoreService, private _http: HttpClient) {
-  }
+  constructor(private _storeService: StoreService, private _http: HttpClient) {}
 
   /**
    * GET Holidays from server
@@ -37,9 +35,12 @@ export class HolidayBackendService {
    */
   getHolidayResponse(): Observable<Holiday[] | null> {
     return this._http
-      .get<HolidayResponse>(`${this._storeService.BACKEND_URL}${this._HOLIDAY_URL}`, {
-        observe: 'response',
-      })
+      .get<HolidayResponse>(
+        `${this._storeService.BACKEND_URL}${this._HOLIDAY_URL}`,
+        {
+          observe: 'response',
+        }
+      )
       .pipe(
         map((response) => {
           if (response.body && response.body._embedded) {
@@ -112,5 +113,4 @@ export class HolidayBackendService {
       `${this._storeService.BACKEND_URL}${this._HOLIDAY_URL}${this._HOLIDAY_TODAY_URL}`
     );
   }
-
 }

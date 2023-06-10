@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, timer, Subscription } from 'rxjs';
-import { StoreService } from './store.service';
+import { RoutingLinks, StoreService } from './store.service';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -15,6 +15,11 @@ import { StoreService } from './store.service';
   providedIn: 'root',
 })
 export class AuthService {
+  /**
+   * @description URL for authentication endpoint
+   */
+  private readonly _AUTH_URL = '/auth';
+
   /**
    * @description URL for login
    */
@@ -51,7 +56,7 @@ export class AuthService {
     const body = JSON.stringify({ password: password });
 
     return this._http.post(
-      `${this._storeService.BACKEND_URL}${this._LOGIN_URL}`,
+      `${this._storeService.BACKEND_URL}${this._AUTH_URL}${this._LOGIN_URL}`,
       body,
       { headers: headers }
     );
@@ -71,7 +76,7 @@ export class AuthService {
    */
   async logout(): Promise<void> {
     localStorage.removeItem('token');
-    await this._router.navigate(['/login']); // or where your login page is located
+    await this._router.navigate([RoutingLinks.LoginLink]); // navigate to login page after logout
   }
 
   /**
@@ -102,10 +107,13 @@ export class AuthService {
       : new HttpHeaders();
 
     this._http
-      .get(`${this._storeService.BACKEND_URL}${this._VERIFY_TOKEN_URL}`, {
-        headers,
-        observe: 'response',
-      })
+      .get(
+        `${this._storeService.BACKEND_URL}${this._AUTH_URL}${this._VERIFY_TOKEN_URL}`,
+        {
+          headers,
+          observe: 'response',
+        }
+      )
       .subscribe({
         next: (response) => {},
         error: (error) => {

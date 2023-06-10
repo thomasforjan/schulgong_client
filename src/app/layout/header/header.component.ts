@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { RoutingLinks } from 'src/app/services/store.service';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -63,6 +64,6 @@ export class HeaderComponent {
    */
   onLogout() {
     this._authService.logout();
-    this._router.navigate(['/login']).catch(() => {});
+    this._router.navigate([RoutingLinks.LoginLink]).catch(() => {});
   }
 }

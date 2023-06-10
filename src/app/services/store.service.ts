@@ -5,7 +5,7 @@ import { Ringtone } from '../models/Ringtone';
 import { Holiday } from '../models/Holiday';
 import { Playlist } from '../models/Playlist';
 import { Song } from '../models/Song';
-import { Configuration } from "../models/Configuration";
+import { Configuration } from '../models/Configuration';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -26,7 +26,7 @@ export enum RoutingLinks {
   CalendarLink = 'calendar',
   SettingsLink = 'settings',
   MusicLink = 'music',
-  LoginLink = 'login',
+  LoginLink = 'auth/login',
 }
 
 /**
@@ -123,7 +123,8 @@ export class StoreService {
   /**
    * @description URL to backend endpoint
    */
-  public readonly BACKEND_URL = 'https://schulgong-server-prod.herokuapp.com';
+  public readonly BACKEND_URL =
+    'https://schulgong-server-dev.herokuapp.com/api';
 
   /**
    * public flag if alarm is running
@@ -186,7 +187,12 @@ export class StoreService {
    * private BehaviorSubject for configuration
    */
   private _configuration$ = new BehaviorSubject<Configuration>({
-    alarmVolume: 0, announcementVolume: 0, password: "", playlistDirectory: "", ringtimeDirectory: "", ringtimeVolume: 0
+    alarmVolume: 0,
+    announcementVolume: 0,
+    password: '',
+    playlistDirectory: '',
+    ringtimeDirectory: '',
+    ringtimeVolume: 0,
   });
 
   /**
