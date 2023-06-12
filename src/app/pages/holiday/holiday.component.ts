@@ -207,7 +207,7 @@ export class HolidayComponent implements OnInit {
   /**
    * Method to delete all holidays
    */
-  holidayDeleteAllDialog() {
+  onDeleteAllHolidays() {
     const dialogRef = this._dialog.open(DeleteDialogComponent, {
       width: '720px',
       height: '500px',
