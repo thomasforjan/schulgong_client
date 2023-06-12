@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {take} from "rxjs/operators";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {Ringtime} from "../models/Ringtime";
 
 /**
@@ -33,5 +33,18 @@ export class UtilsService {
    */
   sortRingtimes(ringtimes: Ringtime[]) {
     return ringtimes.sort((a: Ringtime, b: Ringtime) => a.playTime > b.playTime ? 1 : -1)
+  }
+
+  /**
+   * Method to check, if given list is empty
+   *
+   * @param list$ variable list of storeService
+   */
+  onDisableDeleteAllBtn(list$: Observable<any[]>) {
+    return list$.pipe(
+      map((ringtimeList) => {
+          return ringtimeList.length == 0
+        }
+      ));
   }
 }

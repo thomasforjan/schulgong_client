@@ -78,6 +78,11 @@ export class RingtimeComponent implements OnInit{
     )
   );
 
+  /**
+   * Boolean for delete-all-button
+   */
+  disableDeleteAllBtn$ = this._utilsService.onDisableDeleteAllBtn(this.storeService.ringtimeList$);
+
   constructor(
     public storeService: StoreService,
     private _ringtimeBackendService: RingtimeBackendService,
@@ -332,5 +337,30 @@ export class RingtimeComponent implements OnInit{
       }
     });
     return ringtone;
+  }
+
+  /**
+   * Opens a Modal-Dialog for deleting a ringtime
+   */
+  onDeleteAllRingtimes(): void {
+    const dialogRef = this._dialog.open(DeleteDialogComponent, {
+      width: '720px',
+      height: '500px',
+      data: {titleText: "Möchten Sie alle Einträge"},
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this._ringtimeBackendService.deleteAllRingtimeResource().subscribe(
+          () => {
+            this.storeService.updateRingtimeList([]);
+            this._snackBar.open('Alle Klingelzeit-Einträge erfolgreich gelöscht!', 'Ok', {
+              horizontalPosition: 'end',
+              verticalPosition: 'bottom',
+              duration: 2000,
+            });
+          },
+        );
+      }
+    });
   }
 }
