@@ -19,7 +19,7 @@
     <div class="button">
       <app-button
         (btnClick)="onDeleteAllHolidays()"
-        [disabled]="disableDeleteAllBtn"
+        [disabled]="disableDeleteAllBtn$ | async"
         [height]="40"
         [hoverActive]="true"
         [width]="117"

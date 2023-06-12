@@ -49,7 +49,7 @@ export class HolidayComponent implements OnInit {
   /**
    * Boolean for delete-all-button
    */
-  disableDeleteAllBtn!: boolean
+  disableDeleteAllBtn$ = this._utilsService.onDisableDeleteAllBtn(this.storeService.holidayList$);
 
   constructor(
     public storeService: StoreService,
@@ -62,7 +62,6 @@ export class HolidayComponent implements OnInit {
 
   ngOnInit(): void {
     this.getHolidays();
-    this.setDisableDeleteAllBtn();
   }
 
   /**
@@ -123,7 +122,6 @@ export class HolidayComponent implements OnInit {
               duration: 2000,
             });
           }
-          this.setDisableDeleteAllBtn();
         });
       }
     });
@@ -187,7 +185,6 @@ export class HolidayComponent implements OnInit {
             this.storeService.holidayList$
               .pipe(take(1))
               .subscribe((holidayList) => {
-                this.disableDeleteAllBtn = holidayList.length - 1 == 0;
                 const updateHolidayList = holidayList.filter(
                   (holiday) => holiday.id !== index
                 );
@@ -225,17 +222,7 @@ export class HolidayComponent implements OnInit {
             });
           },
         );
-        this.disableDeleteAllBtn = true;
       }
-    });
-  }
-
-  /**
-   * Method to disable the all-delete button
-   */
-  setDisableDeleteAllBtn() {
-    this.storeService.holidayList$.pipe(take(1)).subscribe((list) => {
-      this.disableDeleteAllBtn = list.length == 0;
     });
   }
 }

@@ -1,12 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges,} from '@angular/core';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -23,7 +15,7 @@ export class ButtonComponent implements OnChanges {
   /**
    * Defines the disabled state of the button.
    */
-  @Input() disabled?: boolean;
+  @Input() disabled?: boolean | any;
 
   /**
    * Defines the width of the button.
