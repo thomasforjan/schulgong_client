@@ -49,12 +49,13 @@
           (btnClick)="onSubmitClick()"
           [height]="45"
           [hoverActive]="true"
-          [width]="100"
+          [width]=ButtonWidths.submitButton
           aria-label="ringtimeSaveButton"
           bgColor="#F29D38"
           class="submitBtn"
           hoverColor="#FFA24A"
           icon="check_circle"
+          text="{{ButtonValue.submitButton}}"
         ></app-button>
       </div>
     </form>
