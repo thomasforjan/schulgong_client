@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HeroImages, StoreService} from '../../services/store.service';
+import {ButtonValue, ButtonWidths, HeroImages, StoreService} from '../../services/store.service';
 import {map, take} from 'rxjs/operators';
 import {Ringtone} from '../../models/Ringtone';
 import {MatDialog} from '@angular/material/dialog';
@@ -10,7 +10,6 @@ import {DeleteDialogComponent} from '../../components/delete-dialog/delete-dialo
 import {DateUtilsService} from 'src/app/services/date-utils.service';
 import {UtilsService} from "../../services/utils.service";
 import {RingtoneBackendService} from "../../services/ringtone.backend.service";
-import {Observable} from "rxjs";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -40,6 +39,10 @@ export class RingtonesComponent implements OnInit, OnDestroy {
    * Ringtone Hero Image from enum in store service
    */
   ringtoneHeroImage: string = HeroImages.RingtonesHeroImage;
+
+  protected readonly ButtonValue = ButtonValue;
+  protected readonly ButtonWidths = ButtonWidths;
+
   /**
    * Get the length of the ringtone list
    */
