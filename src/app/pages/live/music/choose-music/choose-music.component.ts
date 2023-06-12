@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {LiveIcons, StoreService} from "../../../../services/store.service";
+import {ButtonValue, ButtonWidths, LiveIcons, StoreService} from "../../../../services/store.service";
 import {Song} from "../../../../models/Song";
 import {PlaylistSong} from "../../../../models/PlaylistSong";
 import {ListboxValueChangeEvent} from "@angular/cdk/listbox";
@@ -33,6 +33,9 @@ export class ChooseMusicComponent implements OnInit {
   isRemoveSlctSongsFromPlaylistBtnDisabled: boolean = true;
   isMoveSelectedSongsUpDownBtnDisabled: boolean = true;
   isSongListChanged: boolean = false;
+
+  protected readonly ButtonValue = ButtonValue;
+  protected readonly ButtonWidths = ButtonWidths;
 
   constructor(
     public dialogRef: MatDialogRef<ChooseMusicComponent>,
@@ -392,5 +395,4 @@ export class ChooseMusicComponent implements OnInit {
   sortPlayList() {
     this.playlist.sort((a, b) => a.index - b.index);
   }
-
 }
