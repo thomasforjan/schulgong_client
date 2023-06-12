@@ -21,11 +21,12 @@
         (btnClick)="onSubmitClick()"
         [height]="45"
         [hoverActive]="true"
-        [width]="100"
+        [width]=ButtonWidths.submitButton
         bgColor="#F29D38"
         class="submitBtn"
         hoverColor="#FFA24A"
         icon="check_circle"
+        text="{{ButtonValue.submitButton}}"
       ></app-button>
 
       <app-button
@@ -35,11 +36,12 @@
         "
         [height]="45"
         [hoverActive]="true"
-        [width]="100"
+        [width]=ButtonWidths.cancelButton
         bgColor="#B9B9B9"
         class="cancelBtn"
         hoverColor="#C9C9C9"
         icon="cancel"
+        text="{{ButtonValue.cancelButton}}"
       ></app-button>
     </div>
   </div>

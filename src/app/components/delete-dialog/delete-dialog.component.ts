@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {HeroImages} from 'src/app/services/store.service';
+import {ButtonValue, ButtonWidths, HeroImages} from 'src/app/services/store.service';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -18,6 +18,9 @@ export class DeleteDialogComponent {
    Delete Hero Image, enum is in store service
    */
   deleteHeroImage: string = HeroImages.DeleteHeroImage;
+
+  protected readonly ButtonValue = ButtonValue;
+  protected readonly ButtonWidths = ButtonWidths;
 
   constructor(
     public dialogRef: MatDialogRef<DeleteDialogComponent>,
