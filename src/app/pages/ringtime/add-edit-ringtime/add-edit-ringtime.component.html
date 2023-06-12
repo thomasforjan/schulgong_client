@@ -242,12 +242,13 @@
           [disabled]="ringtimeForm.invalid"
           [height]="45"
           [hoverActive]="true"
-          [width]="100"
+          [width]=ButtonWidths.submitButton
           aria-label="ringtimeSaveButton"
           bgColor="#F29D38"
           class="submitBtn"
           hoverColor="#FFA24A"
           icon="check_circle"
+          text="{{ButtonValue.addButton}}"
         ></app-button>
       </div>
 
@@ -259,12 +260,13 @@
           "
           [height]="45"
           [hoverActive]="true"
-          [width]="100"
+          [width]=ButtonWidths.cancelButton
           aria-label="ringtimeCancelButton"
           bgColor="#B9B9B9"
           class="cancelBtn"
           hoverColor="#C9C9C9"
           icon="cancel"
+          text="{{ButtonValue.cancelButton}}"
         ></app-button>
       </div>
     </div>
