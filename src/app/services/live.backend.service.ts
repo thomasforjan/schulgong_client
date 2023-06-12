@@ -68,7 +68,7 @@ export class LiveBackendService {
    */
   postLiveAnnouncement(data: Blob) {
     return this._http
-      .post<Blob>(`${this._storeService.BACKEND_URL}${this._LIVE_URL}}`, data)
+      .post<Blob>(`${this._storeService.BACKEND_URL}${this._LIVE_URL}`, data)
       .subscribe();
   }
 
