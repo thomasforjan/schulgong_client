@@ -396,7 +396,7 @@ export class RingtonesComponent implements OnInit, OnDestroy {
   /**
    * Method which is called when the delete button is clicked
    */
-  onDeleteAllRingtone(): void {
+  onDeleteAllRingtones(): void {
     const dialogRef = this._dialog.open(DeleteDialogComponent, {
       width: '720px',
       height: '500px',
