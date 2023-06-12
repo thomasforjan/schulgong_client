@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {map, take} from 'rxjs';
-import {HeroImages, StoreService,} from 'src/app/services/store.service';
+import {ButtonHeight, ButtonValue, ButtonWidths, HeroImages, StoreService,} from 'src/app/services/store.service';
 import {Ringtime, RingtimeDialog, RingtimePayload,} from '../../models/Ringtime';
 import {AddEditRingtimeComponent} from './add-edit-ringtime/add-edit-ringtime.component';
 import {MatDialog} from '@angular/material/dialog';
@@ -23,11 +23,15 @@ import {RingtoneBackendService} from "../../services/ringtone.backend.service";
   templateUrl: './ringtime.component.html',
   styleUrls: ['./ringtime.component.scss'],
 })
-export class RingtimeComponent implements OnInit{
+export class RingtimeComponent implements OnInit {
   /**
    * Ringtime Hero Image from enum in store service
    */
   ringtimeHeroImage: string = HeroImages.RingtimeHeroImage;
+
+  protected readonly ButtonValue = ButtonValue;
+  protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
 
   /**
    * Get the length of the ringtime list

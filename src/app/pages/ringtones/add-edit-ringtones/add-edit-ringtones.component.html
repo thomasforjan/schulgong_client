@@ -93,13 +93,15 @@
     >
       <app-button
         (btnClick)="onUploadRingtone()"
-        [height]="45"
+        [height]=ButtonHeight.uploadButton
         [hoverActive]="true"
-        [width]="85"
+        [width]=ButtonWidths.uploadButton
+        aria-label="Upload"
         bgColor="#F29D38"
         class="uploadBtn"
         hoverColor="#FFA24A"
         icon="upload"
+        text="{{ButtonValue.uploadButton}}"
       ></app-button>
     </div>
 
@@ -108,13 +110,15 @@
         <app-button
           (btnClick)="onSubmitClick()"
           [disabled]="ringtoneForm.invalid"
-          [height]="45"
+          [height]=ButtonHeight.submitButton
           [hoverActive]="true"
-          [width]="100"
+          [width]=ButtonWidths.submitButton
+          aria-label="Submit"
           bgColor="#F29D38"
           class="submitBtn"
           hoverColor="#FFA24A"
           icon="check_circle"
+          text="{{ButtonValue.submitButton}}"
         ></app-button>
       </div>
 
@@ -124,13 +128,15 @@
           [boxShadow]="
             '0 4px 4px rgba(185, 185, 185, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
           "
-          [height]="45"
+          [height]=ButtonHeight.cancelButton
           [hoverActive]="true"
-          [width]="100"
+          [width]=ButtonWidths.cancelButton
+          aria-label="Cancel"
           bgColor="#B9B9B9"
           class="cancelBtn"
           hoverColor="#C9C9C9"
           icon="cancel"
+          text="{{ButtonValue.cancelButton}}"
         ></app-button>
       </div>
     </div>

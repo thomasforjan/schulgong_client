@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HeroImages, StoreService} from "../../services/store.service";
+import {ButtonHeight, ButtonValue, ButtonWidths, HeroImages, StoreService} from "../../services/store.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Configuration} from "../../models/Configuration";
 import {MatSliderDragEvent} from "@angular/material/slider";
@@ -17,6 +17,11 @@ export class SettingsComponent implements OnInit {
    * Live Hero Image from enum in store service
    */
   settingsHeroImage: string = HeroImages.SettingsHeroImage;
+
+  protected readonly ButtonValue = ButtonValue;
+  protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
+
   /**
    * Form group for the password
    */

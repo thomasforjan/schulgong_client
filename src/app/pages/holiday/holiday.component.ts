@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HeroImages, StoreService} from "../../services/store.service";
+import {ButtonHeight, ButtonValue, ButtonWidths, HeroImages, StoreService} from "../../services/store.service";
 import {map, take} from "rxjs/operators";
 import {MatDialog} from "@angular/material/dialog";
 import {Holiday} from "../../models/Holiday";
@@ -18,6 +18,10 @@ export class HolidayComponent implements OnInit {
    * Holiday Hero Image from enum in store service
    */
   holidayHeroImage: string = HeroImages.HolidayHeroImage;
+
+  protected readonly ButtonValue = ButtonValue;
+  protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
 
   /**
    * Get the length of the holiday list

@@ -47,14 +47,15 @@
       <div class="button-container">
         <app-button
           (btnClick)="onSubmitClick()"
-          [height]="45"
+          [height]=ButtonHeight.submitButton
           [hoverActive]="true"
-          [width]="100"
-          aria-label="ringtimeSaveButton"
+          [width]=ButtonWidths.submitButton
+          aria-label="SaveSettings"
           bgColor="#F29D38"
           class="submitBtn"
           hoverColor="#FFA24A"
           icon="check_circle"
+          text="{{ButtonValue.submitButton}}"
         ></app-button>
       </div>
     </form>

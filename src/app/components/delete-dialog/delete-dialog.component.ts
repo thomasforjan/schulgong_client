@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {HeroImages} from 'src/app/services/store.service';
+import {ButtonHeight, ButtonValue, ButtonWidths, HeroImages} from 'src/app/services/store.service';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -19,6 +19,10 @@ export class DeleteDialogComponent {
    */
   deleteHeroImage: string = HeroImages.DeleteHeroImage;
   titleText: string;
+
+  protected readonly ButtonValue = ButtonValue;
+  protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
 
   constructor(
     public dialogRef: MatDialogRef<DeleteDialogComponent>,

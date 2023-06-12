@@ -5,30 +5,30 @@
     <div class="button">
       <app-button
         (btnClick)="holidayAddDialog()"
-        [height]="40"
+        [height]=ButtonHeight.addButton
         [hoverActive]="true"
-        [width]="117"
+        [width]=ButtonWidths.addButton
+        aria-label="Add"
         bgColor="#F29D38"
         class="uploadBtn"
         hoverColor="#FFA24A"
         icon="add"
-        matTooltip="Hinzufügen"
-        title="uploadBtn"
+        text="{{ButtonValue.addButton}}"
       ></app-button>
     </div>
     <div class="button">
       <app-button
         (btnClick)="onDeleteAllHolidays()"
         [disabled]="disableDeleteAllBtn$ | async"
-        [height]="40"
+        [height]=ButtonHeight.deleteAllButton
         [hoverActive]="true"
-        [width]="117"
+        [width]=ButtonWidths.deleteAllButton
+        aria-label="DeleteAll"
         bgColor="#EB3223"
         class="deleteBtn"
         hoverColor="#FF3626"
         icon="delete"
-        matTooltip="Alle löschen"
-        title="deleteAllBtn"
+        text="{{ButtonValue.deleteAllButton}}"
       ></app-button>
     </div>
   </div>

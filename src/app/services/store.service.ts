@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { Ringtime } from '../models/Ringtime';
-import { Ringtone } from '../models/Ringtone';
-import { Holiday } from '../models/Holiday';
-import { Playlist } from '../models/Playlist';
-import { Song } from '../models/Song';
-import { Configuration } from "../models/Configuration";
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {Ringtime} from '../models/Ringtime';
+import {Ringtone} from '../models/Ringtone';
+import {Holiday} from '../models/Holiday';
+import {Playlist} from '../models/Playlist';
+import {Song} from '../models/Song';
+import {Configuration} from "../models/Configuration";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -114,6 +114,30 @@ export enum LiveIcons {
   MusicIcon = '../../../assets/images/pages/live/music.svg',
   AlarmIcon = '../../../assets/images/pages/live/alarm.svg',
   RecordIcon = '../../../assets/images/pages/live/record.svg',
+}
+
+export enum ButtonValue {
+  submitButton = "Bestätigen",
+  cancelButton = "Abbrechen",
+  uploadButton = "Upload",
+  addButton = "Hinzufügen",
+  deleteAllButton = "Alle Löschen"
+}
+
+export enum ButtonWidths {
+  submitButton = 125,
+  cancelButton = 125,
+  uploadButton = 110,
+  addButton = 130,
+  deleteAllButton = 130
+}
+
+export enum ButtonHeight {
+  submitButton = 45,
+  cancelButton = 45,
+  uploadButton = 45,
+  addButton = 40,
+  deleteAllButton = 40
 }
 
 @Injectable({
