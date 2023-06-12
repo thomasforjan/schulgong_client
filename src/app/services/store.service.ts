@@ -128,7 +128,8 @@ export enum ButtonWidths {
   submitButton = 125,
   cancelButton = 125,
   uploadButton = 110,
-  addButton = 130
+  addButton = 130,
+  deleteAllButton = 130
 }
 
 @Injectable({

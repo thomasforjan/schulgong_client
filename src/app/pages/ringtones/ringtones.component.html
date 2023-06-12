@@ -7,12 +7,13 @@
         (btnClick)="ringtoneAddDialog()"
         [height]="40"
         [hoverActive]="true"
-        [width]="117"
+        [width]=ButtonWidths.addButton
         bgColor="#F29D38"
         class="uploadBtn"
         hoverColor="#FFA24A"
         icon="add"
         matTooltip="Hinzufügen"
+        text="{{ButtonValue.addButton}}"
       ></app-button>
     </div>
     <div class="button">
@@ -21,13 +22,14 @@
         [disabled]="disableDeleteAllBtn$ | async"
         [height]="40"
         [hoverActive]="true"
-        [width]="117"
+        [width]=ButtonWidths.deleteAllButton
         bgColor="#EB3223"
         class="deleteBtn"
         hoverColor="#FF3626"
         icon="delete"
         matTooltip="Alle löschen"
         title="deleteAllBtn"
+        text="{{ButtonValue.deleteAllButton}}"
       ></app-button>
     </div>
   </div>
