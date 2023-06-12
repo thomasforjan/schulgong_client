@@ -58,7 +58,9 @@ export class AuthService {
     return this._http.post(
       `${this._storeService.BACKEND_URL}${this._AUTH_URL}${this._LOGIN_URL}`,
       body,
-      { headers: headers }
+      {
+        headers: headers,
+      }
     );
   }
 
