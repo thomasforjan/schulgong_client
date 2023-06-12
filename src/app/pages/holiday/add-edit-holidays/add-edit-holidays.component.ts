@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Holiday, HolidayPayload} from 'src/app/models/Holiday';
 import {DateUtilsService} from 'src/app/services/date-utils.service';
-import {HeroImages} from 'src/app/services/store.service';
+import {ButtonValue, ButtonWidths, HeroImages} from 'src/app/services/store.service';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -21,6 +21,8 @@ export class AddEditHolidaysComponent implements OnInit {
    * Ringtones Hero Image, enum is in store service
    */
   holidaysHeroImage: string = HeroImages.HolidayHeroImage;
+  protected readonly ButtonValue = ButtonValue;
+  protected readonly ButtonWidths = ButtonWidths;
 
   /**
    * Formgroup of holidayForm
