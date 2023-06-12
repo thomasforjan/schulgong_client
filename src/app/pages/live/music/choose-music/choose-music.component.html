@@ -148,7 +148,7 @@
   <div class="uploadBtn-container">
     <app-button
       (btnClick)="onUploadSongs()"
-      [height]="45"
+      [height]=ButtonHeight.uploadButton
       [hoverActive]="true"
       [width]=ButtonWidths.uploadButton
       bgColor="#F29D38"
@@ -163,7 +163,7 @@
     <div class="button-container">
       <app-button
         (btnClick)="onSubmitClick()"
-        [height]="45"
+        [height]=ButtonHeight.submitButton
         [hoverActive]="true"
         [width]=ButtonWidths.submitButton
         aria-label="playlistSaveButton"
@@ -181,7 +181,7 @@
         [boxShadow]="
             '0 4px 4px rgba(185, 185, 185, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
           "
-        [height]="45"
+        [height]=ButtonHeight.cancelButton
         [hoverActive]="true"
         [width]=ButtonWidths.cancelButton
         aria-label="playlistCancelButton"

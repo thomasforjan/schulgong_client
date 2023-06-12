@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ButtonValue, ButtonWidths, HeroImages, StoreService} from '../../services/store.service';
+import {ButtonHeight, ButtonValue, ButtonWidths, HeroImages, StoreService} from '../../services/store.service';
 import {map, take} from 'rxjs/operators';
 import {Ringtone} from '../../models/Ringtone';
 import {MatDialog} from '@angular/material/dialog';
@@ -42,6 +42,7 @@ export class RingtonesComponent implements OnInit, OnDestroy {
 
   protected readonly ButtonValue = ButtonValue;
   protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
 
   /**
    * Get the length of the ringtone list

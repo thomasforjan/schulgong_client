@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {map, take} from 'rxjs';
-import {ButtonValue, ButtonWidths, HeroImages, StoreService,} from 'src/app/services/store.service';
+import {ButtonHeight, ButtonValue, ButtonWidths, HeroImages, StoreService,} from 'src/app/services/store.service';
 import {Ringtime, RingtimeDialog, RingtimePayload,} from '../../models/Ringtime';
 import {AddEditRingtimeComponent} from './add-edit-ringtime/add-edit-ringtime.component';
 import {MatDialog} from '@angular/material/dialog';
@@ -31,6 +31,7 @@ export class RingtimeComponent implements OnInit {
 
   protected readonly ButtonValue = ButtonValue;
   protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
 
   /**
    * Get the length of the ringtime list

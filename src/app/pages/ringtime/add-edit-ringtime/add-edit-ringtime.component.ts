@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {RingtimeDialog} from '../../../models/Ringtime';
-import {ButtonValue, ButtonWidths, HeroImages, StoreService} from '../../../services/store.service';
+import {ButtonHeight, ButtonValue, ButtonWidths, HeroImages, StoreService} from '../../../services/store.service';
 import {DateUtilsService} from 'src/app/services/date-utils.service';
 import {RingtoneBackendService} from "../../../services/ringtone.backend.service";
 
@@ -35,6 +35,7 @@ export class AddEditRingtimeComponent implements OnInit {
 
   protected readonly ButtonValue = ButtonValue;
   protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
 
   constructor(
     private _ringtoneBackendService: RingtoneBackendService,

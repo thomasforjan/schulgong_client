@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ButtonValue, ButtonWidths, HeroImages, StoreService} from "../../services/store.service";
+import {ButtonHeight, ButtonValue, ButtonWidths, HeroImages, StoreService} from "../../services/store.service";
 import {map, take} from "rxjs/operators";
 import {MatDialog} from "@angular/material/dialog";
 import {Holiday} from "../../models/Holiday";
@@ -21,6 +21,7 @@ export class HolidayComponent implements OnInit {
 
   protected readonly ButtonValue = ButtonValue;
   protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
 
   /**
    * Get the length of the holiday list

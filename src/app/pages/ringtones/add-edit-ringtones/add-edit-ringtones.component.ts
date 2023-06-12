@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import {ButtonValue, ButtonWidths, HeroImages, StoreService} from '../../../services/store.service';
+import {ButtonHeight, ButtonValue, ButtonWidths, HeroImages, StoreService} from '../../../services/store.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Ringtone} from 'src/app/models/Ringtone';
 
@@ -23,6 +23,7 @@ export class AddEditRingtonesComponent implements OnInit {
 
   protected readonly ButtonValue = ButtonValue;
   protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
 
   /**
    * Formgroup of ringtoneForm

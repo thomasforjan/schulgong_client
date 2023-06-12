@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {ButtonValue, ButtonWidths, LiveIcons, StoreService} from "../../../../services/store.service";
+import {ButtonHeight, ButtonValue, ButtonWidths, LiveIcons, StoreService} from "../../../../services/store.service";
 import {Song} from "../../../../models/Song";
 import {PlaylistSong} from "../../../../models/PlaylistSong";
 import {ListboxValueChangeEvent} from "@angular/cdk/listbox";
@@ -36,6 +36,7 @@ export class ChooseMusicComponent implements OnInit {
 
   protected readonly ButtonValue = ButtonValue;
   protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
 
   constructor(
     public dialogRef: MatDialogRef<ChooseMusicComponent>,

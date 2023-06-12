@@ -5,7 +5,7 @@
     <div class="button">
       <app-button
         (btnClick)="holidayAddDialog()"
-        [height]="40"
+        [height]=ButtonHeight.addButton
         [hoverActive]="true"
         [width]=ButtonWidths.addButton
         bgColor="#F29D38"
@@ -20,7 +20,7 @@
       <app-button
         (btnClick)="onDeleteAllHolidays()"
         [disabled]="disableDeleteAllBtn$ | async"
-        [height]="40"
+        [height]=ButtonHeight.deleteAllButton
         [hoverActive]="true"
         [width]=ButtonWidths.deleteAllButton
         bgColor="#EB3223"

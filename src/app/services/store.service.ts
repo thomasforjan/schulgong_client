@@ -132,6 +132,14 @@ export enum ButtonWidths {
   deleteAllButton = 130
 }
 
+export enum ButtonHeight {
+  submitButton = 45,
+  cancelButton = 45,
+  uploadButton = 45,
+  addButton = 40,
+  deleteAllButton = 40
+}
+
 @Injectable({
   providedIn: 'root',
 })

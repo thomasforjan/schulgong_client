@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ButtonValue, ButtonWidths, HeroImages, StoreService} from "../../services/store.service";
+import {ButtonHeight, ButtonValue, ButtonWidths, HeroImages, StoreService} from "../../services/store.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Configuration} from "../../models/Configuration";
 import {MatSliderDragEvent} from "@angular/material/slider";
@@ -20,6 +20,7 @@ export class SettingsComponent implements OnInit {
 
   protected readonly ButtonValue = ButtonValue;
   protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
 
   /**
    * Form group for the password
