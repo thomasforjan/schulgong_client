@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { Ringtime } from '../models/Ringtime';
-import { Ringtone } from '../models/Ringtone';
-import { Holiday } from '../models/Holiday';
-import { Playlist } from '../models/Playlist';
-import { Song } from '../models/Song';
-import { Configuration } from "../models/Configuration";
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {Ringtime} from '../models/Ringtime';
+import {Ringtone} from '../models/Ringtone';
+import {Holiday} from '../models/Holiday';
+import {Playlist} from '../models/Playlist';
+import {Song} from '../models/Song';
+import {Configuration} from "../models/Configuration";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -116,6 +116,21 @@ export enum LiveIcons {
   RecordIcon = '../../../assets/images/pages/live/record.svg',
 }
 
+export enum ButtonValue {
+  submitButton = "Bestätigen",
+  cancelButton = "Abbrechen",
+  uploadButton = "Upload",
+  addButton = "Hinzufügen",
+  deleteAllButton = "Alle Löschen"
+}
+
+export enum ButtonWidths {
+  submitButton = 125,
+  cancelButton = 125,
+  uploadButton = 110,
+  addButton = 130
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -123,7 +138,7 @@ export class StoreService {
   /**
    * @description URL to backend endpoint
    */
-  public readonly BACKEND_URL = 'https://schulgong-server-prod.herokuapp.com';
+  public readonly BACKEND_URL = 'https://schulgong-client-dev.herokuapp.com/';
 
   /**
    * public flag if alarm is running
