@@ -107,6 +107,17 @@ export class RingtimeBackendService {
   }
 
   /**
+   * DELETE Ringtime Resource
+   * @description DELETE HTTP-Method to delete Ringtime from server
+   * @returns Observable<void>
+   */
+  deleteAllRingtimeResource(): Observable<void> {
+    return this._http.delete<void>(
+      `${this._storeService.BACKEND_URL}${this._RINGTIME_URL}`
+    );
+  }
+
+  /**
    * GET Server Time from server
    * @description GET HTTP-Method to retrive Server Time from server
    * @returns Observable<{ time: string }>

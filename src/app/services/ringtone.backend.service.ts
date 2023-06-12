@@ -122,5 +122,16 @@ export class RingtoneBackendService {
     );
   }
 
+  /**
+   * DELETE All Ringtone Resources
+   * @description DELETE HTTP-Method to delete all Ringtone from server
+   * @returns Observable<void>
+   */
+  deleteAllRingtoneResource(): Observable<void> {
+    return this._http.delete<void>(
+      `${this._storeService.BACKEND_URL}${this._RINGTONE_URL}`
+    );
+  }
+
 
 }

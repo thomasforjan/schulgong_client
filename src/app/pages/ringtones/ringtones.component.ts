@@ -96,6 +96,11 @@ export class RingtonesComponent implements OnInit, OnDestroy {
     })
   )
 
+  /**
+   * Boolean for delete-all-button
+   */
+  disableDeleteAllBtn$ = this._utilsService.onDisableDeleteAllBtn(this.storeService.ringtoneList$);
+
   constructor(
     public storeService: StoreService,
     private _ringtoneBackendService: RingtoneBackendService,
@@ -390,5 +395,37 @@ export class RingtonesComponent implements OnInit, OnDestroy {
       sound.unload();
     });
     this._soundMap.clear();
+  }
+
+  /**
+   * Method which is called when the delete button is clicked
+   */
+  onDeleteAllRingtones(): void {
+    const dialogRef = this._dialog.open(DeleteDialogComponent, {
+      width: '720px',
+      height: '500px',
+      data: {titleText: "Möchten Sie alle Einträge"},
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this._ringtoneBackendService.deleteAllRingtoneResource().subscribe(() => {
+          this._ringtoneBackendService.getRingtoneResponse().subscribe((ringtoneList) => {
+            if (ringtoneList != undefined && ringtoneList.length > 1) {
+              this._snackBar.open('Es konnten nicht alle Klingelton-Einträge gelöscht werden, da diese bei Klingelzeiten in Verwendung sind!', 'Ok', {
+                horizontalPosition: 'end',
+                verticalPosition: 'bottom',
+                duration: 4000,
+              });
+            } else {
+              this._snackBar.open('Alle Klingelton-Einträge erfolgreich gelöscht! (Alarm darf nicht gelöscht werden)', 'Ok', {
+                horizontalPosition: 'end',
+                verticalPosition: 'bottom',
+                duration: 4000,
+              });
+            }
+          });
+        });
+      }
+    });
   }
 }
