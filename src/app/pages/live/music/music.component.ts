@@ -27,8 +27,6 @@ export class MusicComponent implements OnInit, OnDestroy {
   musicIcons = [LiveIcons.MusicIcon];
   playlistHeroImage: string = HeroImages.RingtonesHeroImage;
 
-  // timeInterval!: Subscription;
-
   speakerState$ = this.storeService.playlist$.pipe(map((playlist) => {
     if(playlist) {
       return playlist.speakerState
@@ -102,18 +100,12 @@ export class MusicComponent implements OnInit, OnDestroy {
         this.storeService.updatePlaylist(playlist);
       }
     });
-    // if(this.storeService.isPlaylistEnabled && !this.storeService.isAlarmEnabled) {
-    //   this.startPoll();
-    // }
     if(!this.storeService.isAlarmEnabled) {
       this.startPoll();
     }
   }
 
   ngOnDestroy(): void {
-    // if(!this.storeService.isPlaylistEnabled && this.storeService.timeInterval !== undefined && !this.storeService.timeInterval.closed) {
-    //   this.storeService.timeInterval.unsubscribe();
-    // }
     if(this.storeService.timeInterval !== undefined && !this.storeService.timeInterval.closed) {
       this.storeService.timeInterval.unsubscribe();
     }
@@ -127,7 +119,6 @@ export class MusicComponent implements OnInit, OnDestroy {
       switchMap(() => this._liveBackendService.getPlaylist()),
       takeUntil(this.closeTimer$)).subscribe((playlist) => {
         if (!this.interaction) {
-          console.log(playlist)
           this.storeService.updatePlaylist(playlist);
         }
       }
@@ -139,24 +130,9 @@ export class MusicComponent implements OnInit, OnDestroy {
    */
   stopPoll() {
     if (this.storeService.timeInterval !== undefined && !this.storeService.timeInterval.closed) {
-      console.log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC")
       this.storeService.timeInterval.unsubscribe();
     }
   }
-
-  /**
-   * Start the poll again after a playlist action
-   */
-  // startPollAfterAction() {
-  //   // await new Promise(f => setTimeout(f, 2000));
-  //   // if (this.storeService.isPlaylistEnabled && this.storeService.timeInterval !== undefined &&  this.storeService.timeInterval.closed) {
-  //   //   this.startPoll();
-  //   // }
-  //   if (this.storeService.timeInterval !== undefined &&  this.storeService.timeInterval.closed) {
-  //     console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-  //     this.startPoll();
-  //   }
-  // }
 
   /**
    * Method for start playing the playlist
