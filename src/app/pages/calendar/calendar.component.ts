@@ -171,40 +171,86 @@ export class CalendarComponent implements OnInit, OnDestroy {
    * @param ringtimes ringtimes to add
    */
   addRingtimeEvents(ringtimes: Ringtime[]) {
-    const events: EventInput[] = [];
+    // Using a Map to count the ringtimes per day
+    let ringtimesPerDay = new Map<string, number>();
 
     ringtimes.forEach((ringtime: Ringtime) => {
       const startDate = new Date(ringtime.startDate);
       const endDate = new Date(ringtime.endDate);
 
       for (
-        let date = new Date(startDate);
-        date <= endDate;
-        date.setDate(date.getDate() + 1)
+        let day = 0;
+        day <=
+        Math.floor(
+          (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24) // The calculation returns the number of full days between two dates (startDate and endDate).
+        );
+        day++
       ) {
-        const dayOfWeek = date.getDay();
+        let date = new Date(startDate);
+        date.setDate(date.getDate() + day);
+        const dayOfWeek = date.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
 
         if (this.checkRingtimeDay(ringtime, dayOfWeek)) {
-          if (
-            !this.addedRingtimeDates.some(
-              (addedDate) => addedDate.toDateString() === date.toDateString()
-            )
-          ) {
-            events.push({
-              title: '🔔',
-              start: new Date(date),
-              end: new Date(date),
-              backgroundColor: '#F5D259',
-            });
-
-            this.addedRingtimeDates.push(new Date(date));
-          }
+          const dateKey = this.formatDate(date);
+          ringtimesPerDay.set(dateKey, (ringtimesPerDay.get(dateKey) ?? 0) + 1);
         }
+      }
+    });
+
+    // create the events
+    const events: EventInput[] = [];
+    ringtimesPerDay.forEach((count, dateKey) => {
+      if (count > 0) {
+        events.push({
+          title: `${count} 🔔`,
+          start: dateKey,
+          end: this.formatDate(
+            new Date(new Date(dateKey).setDate(new Date(dateKey).getDate() + 1))
+          ),
+          backgroundColor: '#F5D259',
+        });
       }
     });
 
     const currentEvents = (this.calendarOptions.events as any[]) || [];
     this.calendarOptions.events = currentEvents.concat(events);
+  }
+
+  /**
+   * Defines the holidays to be displayed in the calendar
+   * @param holidays holidays to add
+   */
+  addHolidayEvents(holidays: Holiday[]) {
+    const events = holidays.map((holiday: Holiday) => {
+      const startDate = new Date(holiday.startDate);
+      const endDate = new Date(holiday.endDate);
+      endDate.setDate(endDate.getDate() + 1); // add one day to include the end date
+
+      return {
+        title: holiday.name,
+        start: this.formatDate(new Date(startDate)),
+        end: this.formatDate(endDate),
+        backgroundColor: '#67B602',
+        allDay: true, // all day event must be set on holidays otherwise the end date is one day before
+      };
+    });
+
+    const currentEvents = (this.calendarOptions.events as any[]) || [];
+    this.calendarOptions.events = currentEvents.concat(events);
+  }
+
+  /**
+   * @ description Converts a Date to an ISO string using the local timezone
+   * @param date date to convert
+   * @returns ISO string of the date in the local timezone
+   */
+  toLocalISOString(date: Date): string {
+    const tzoffset = date.getTimezoneOffset() * 60000; //offset in milliseconds
+    return new Date(date.getTime() - tzoffset).toISOString();
+  }
+
+  formatDate(date: Date): string {
+    return this.toLocalISOString(date).split('T')[0];
   }
 
   /**
@@ -232,27 +278,5 @@ export class CalendarComponent implements OnInit, OnDestroy {
       default:
         return false;
     }
-  }
-
-  /**
-   * Defines the holidays to be displayed in the calendar
-   * @param holidays holidays to add
-   */
-  addHolidayEvents(holidays: Holiday[]) {
-    const events = holidays.map((holiday: Holiday) => {
-      const endDate = new Date(holiday.endDate);
-      endDate.setDate(endDate.getDate() + 1); // add one day to include the end date
-
-      return {
-        title: holiday.name,
-        start: holiday.startDate,
-        end: endDate,
-        backgroundColor: '#67B602',
-        allDay: true, // all day event must be set on holidays otherwise the end date is one day before
-      };
-    });
-
-    const currentEvents = (this.calendarOptions.events as any[]) || [];
-    this.calendarOptions.events = currentEvents.concat(events);
   }
 }
