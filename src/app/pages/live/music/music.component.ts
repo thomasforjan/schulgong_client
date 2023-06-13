@@ -27,7 +27,7 @@ export class MusicComponent implements OnInit, OnDestroy {
   musicIcons = [LiveIcons.MusicIcon];
   playlistHeroImage: string = HeroImages.RingtonesHeroImage;
 
-  timeInterval!: Subscription;
+  // timeInterval!: Subscription;
 
   speakerState$ = this.storeService.playlist$.pipe(map((playlist) => {
     if(playlist) {
@@ -78,6 +78,13 @@ export class MusicComponent implements OnInit, OnDestroy {
       return "";
     }
   }));
+  looping$ = this.storeService.playlist$.pipe(map((playlist) => {
+    if(playlist) {
+      return playlist.looping
+    }else {
+      return false;
+    }
+  }));
 
   closeTimer$ = new Subject<any>();
   interaction = false;
@@ -90,14 +97,25 @@ export class MusicComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._liveBackendService.postSetPlaylist(false);
+    this._liveBackendService.getPlaylist().subscribe((playlist) => {
+      if (!this.interaction) {
+        this.storeService.updatePlaylist(playlist);
+      }
+    });
+    // if(this.storeService.isPlaylistEnabled && !this.storeService.isAlarmEnabled) {
+    //   this.startPoll();
+    // }
     if(!this.storeService.isAlarmEnabled) {
       this.startPoll();
     }
   }
 
   ngOnDestroy(): void {
-    if(this.timeInterval !== undefined && !this.timeInterval.closed) {
-      this.timeInterval.unsubscribe();
+    // if(!this.storeService.isPlaylistEnabled && this.storeService.timeInterval !== undefined && !this.storeService.timeInterval.closed) {
+    //   this.storeService.timeInterval.unsubscribe();
+    // }
+    if(this.storeService.timeInterval !== undefined && !this.storeService.timeInterval.closed) {
+      this.storeService.timeInterval.unsubscribe();
     }
   }
 
@@ -105,10 +123,11 @@ export class MusicComponent implements OnInit, OnDestroy {
    * Method for start the poll to check in a specific intervall the speaker state
    */
   startPoll() {
-    this.timeInterval = timer(0, 2000).pipe(
+    this.storeService.timeInterval = timer(4000, 2000).pipe(
       switchMap(() => this._liveBackendService.getPlaylist()),
       takeUntil(this.closeTimer$)).subscribe((playlist) => {
         if (!this.interaction) {
+          console.log(playlist)
           this.storeService.updatePlaylist(playlist);
         }
       }
@@ -119,25 +138,30 @@ export class MusicComponent implements OnInit, OnDestroy {
    * Method for to stop the poll
    */
   stopPoll() {
-    if (this.timeInterval !== undefined && !this.timeInterval.closed) {
-      this.timeInterval.unsubscribe();
+    if (this.storeService.timeInterval !== undefined && !this.storeService.timeInterval.closed) {
+      console.log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC")
+      this.storeService.timeInterval.unsubscribe();
     }
   }
 
   /**
    * Start the poll again after a playlist action
    */
-  async startPollAfterAction() {
-    await new Promise(f => setTimeout(f, 2000));
-    if (this.timeInterval.closed) {
-      this.startPoll();
-    }
-  }
+  // startPollAfterAction() {
+  //   // await new Promise(f => setTimeout(f, 2000));
+  //   // if (this.storeService.isPlaylistEnabled && this.storeService.timeInterval !== undefined &&  this.storeService.timeInterval.closed) {
+  //   //   this.startPoll();
+  //   // }
+  //   if (this.storeService.timeInterval !== undefined &&  this.storeService.timeInterval.closed) {
+  //     console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+  //     this.startPoll();
+  //   }
+  // }
 
   /**
    * Method for start playing the playlist
    */
-  async playPlaylist() {
+  playPlaylist() {
     this.stopPoll();
     this.storeService.playlist$.pipe(take(1)).subscribe((playlist) => {
       playlist.speakerState = SpeakerState.PLAYING.valueOf();
@@ -158,14 +182,15 @@ export class MusicComponent implements OnInit, OnDestroy {
       parameter: ""
     }
 
+    this.storeService.isPlaylistEnabled = true;
     this._liveBackendService.postPlaylistCommands(speakerCommand);
-    await this.startPollAfterAction();
+    this.startPoll();
   }
 
   /**
    * Method for stop playing the playlist
    */
-  async stopPlaylist() {
+  stopPlaylist() {
     this.stopPoll();
     this.storeService.playlist$.pipe(take(1)).subscribe((playlist) => {
       playlist.speakerState = SpeakerState.PAUSED_PLAYBACK.valueOf();
@@ -184,14 +209,15 @@ export class MusicComponent implements OnInit, OnDestroy {
       command: "STOP",
       parameter: ""
     }
+    this.storeService.isPlaylistEnabled = false;
     this._liveBackendService.postPlaylistCommands(speakerCommand);
-    await this.startPollAfterAction();
+    this.startPoll();
   }
 
   /**
    * Method for switch to the previous song
    */
-  async playPreviousSong() {
+  playPreviousSong() {
     this.stopPoll();
     this.storeService.playlist$.pipe(take(1)).subscribe((playlist) => {
       if (playlist.actualSong.index === 1) {
@@ -206,13 +232,13 @@ export class MusicComponent implements OnInit, OnDestroy {
       parameter: ""
     }
     this._liveBackendService.postPlaylistCommands(speakerCommand);
-    await this.startPollAfterAction();
+    this.startPoll();
   }
 
   /**
    * Method for switch to the next song
    */
-  async playNextSong() {
+  playNextSong() {
     this.stopPoll();
     this.storeService.playlist$.pipe(take(1)).subscribe((playlist) => {
       if (playlist.actualSong.index === playlist.songDTOList.length) {
@@ -227,13 +253,13 @@ export class MusicComponent implements OnInit, OnDestroy {
       parameter: ""
     }
     this._liveBackendService.postPlaylistCommands(speakerCommand);
-    await this.startPollAfterAction();
+    this.startPoll();
   }
 
   /**
    * Method for mute and unmute
    */
-  async setMute() {
+  setMute() {
     this.stopPoll();
     let mute = false;
     this.storeService.playlist$.pipe(take(1)).subscribe((playlist) => {
@@ -247,20 +273,20 @@ export class MusicComponent implements OnInit, OnDestroy {
       parameter: String(mute)
     }
     this._liveBackendService.postPlaylistCommands(speakerCommand);
-    await this.startPollAfterAction();
+    this.startPoll();
   }
 
   /**
    * Method for set the volume
    */
-  async onVolumeChange(event: MatSliderDragEvent) {
+  onVolumeChange(event: MatSliderDragEvent) {
     this.stopPoll();
     let speakerCommand = {
       command: "VOLUME",
       parameter: String(event.value),
     }
     this._liveBackendService.postPlaylistCommands(speakerCommand);
-    await this.startPollAfterAction();
+    this.startPoll();
   }
 
   /**
@@ -290,8 +316,24 @@ export class MusicComponent implements OnInit, OnDestroy {
         this.acualSongName$ = this.storeService.playlist$.pipe(map((playlist) => playlist.actualSong.name));
         this._liveBackendService.postSavePlaylist(result);
       }
-      await this.startPollAfterAction();
+      this.startPoll();
     });
+  }
+
+  /**
+   * Action by clicking the loop button
+   */
+  repeatPlaylist() {
+    this.stopPoll();
+    let repeat: boolean = false;
+    this.storeService.playlist$.pipe(take(1)).subscribe((playlist) => {
+      playlist.looping = !playlist.looping;
+      repeat = playlist.looping;
+    });
+    this.looping$ = this.storeService.playlist$.pipe(map((playlist) => playlist.looping));
+
+    this._liveBackendService.postPlaylistRepeat(repeat);
+    this.startPoll();
   }
 
 }

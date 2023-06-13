@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
 import {Ringtime} from '../models/Ringtime';
 import {Ringtone} from '../models/Ringtone';
 import {Holiday} from '../models/Holiday';
@@ -147,12 +147,23 @@ export class StoreService {
   /**
    * @description URL to backend endpoint
    */
-  public readonly BACKEND_URL = 'https://schulgong-server-dev.herokuapp.com';
+    // public readonly BACKEND_URL = 'https://schulgong-server-dev.herokuapp.com';
+  public readonly BACKEND_URL = 'http://localhost:8080';
 
   /**
    * public flag if alarm is running
    */
   public isAlarmEnabled = false;
+
+  /**
+   * public flag if playlist is running
+   */
+  public isPlaylistEnabled = false;
+
+  /**
+   * public timer subscription to get playlistinfo
+   */
+  public timeInterval!: Subscription;
 
   // private BehaviorSubject for ringtoneList
   private _ringtoneList$ = new BehaviorSubject<Ringtone[]>([]);
@@ -180,17 +191,19 @@ export class StoreService {
    * private BehaviorSubject for playlist
    */
   private _playlist$ = new BehaviorSubject<Playlist>({
-    speakerState: 'STOPPED',
+    speakerState: "STOPPED",
     volume: 0,
     mute: false,
+    looping: false,
+    playingPlaylist: false,
     actualSong: {
       id: 0,
       index: 0,
-      name: '',
-      filePath: '',
-      song: '',
-    },
-    songDTOList: [],
+      name: "",
+      filePath: "",
+      song: "",
+    }, songDTOList: []
+
   });
   /**
    * public Observable instance for playlist
