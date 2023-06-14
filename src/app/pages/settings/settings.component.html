@@ -47,14 +47,15 @@
       <div class="button-container">
         <app-button
           (btnClick)="onSubmitClick()"
-          [height]="45"
+          [height]=ButtonHeight.submitButton
           [hoverActive]="true"
-          [width]="100"
-          aria-label="ringtimeSaveButton"
+          [width]=ButtonWidths.submitButton
+          aria-label="SaveSettings"
           bgColor="#F29D38"
           class="submitBtn"
           hoverColor="#FFA24A"
           icon="check_circle"
+          text="{{ButtonValue.submitButton}}"
         ></app-button>
       </div>
     </form>
@@ -116,7 +117,7 @@
     </div>
     <hr class="divider"/>
     <h2>Konfiguration Musik</h2>
-    <form [formGroup]="musicForm" class="main-grid-content-music">
+    <form class="main-grid-content-music">
       <mat-form-field
         appearance="fill"
         aria-label="Bezeichnung-Verzeichnis-Klingeltöne"
@@ -126,9 +127,9 @@
         <input
           [readonly]="true"
           matInput
-          formControlName="ringtimeDirectory"
           type="text"
           class="inputFields"
+          [value]="ringtonesDirectory$ | async"
         />
       </mat-form-field>
       <mat-form-field
@@ -140,9 +141,9 @@
         <input
           [readonly]="true"
           matInput
-          formControlName="playlistDirectory"
           type="text"
           class="inputFields"
+          [value]="playlistDirectory$ | async"
         />
       </mat-form-field>
     </form>

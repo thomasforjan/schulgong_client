@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HeroImages, StoreService} from "../../services/store.service";
+import {ButtonHeight, ButtonValue, ButtonWidths, HeroImages, StoreService} from "../../services/store.service";
 import {map, take} from "rxjs/operators";
 import {MatDialog} from "@angular/material/dialog";
 import {Holiday} from "../../models/Holiday";
@@ -7,6 +7,7 @@ import {DeleteDialogComponent} from "../../components/delete-dialog/delete-dialo
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AddEditHolidaysComponent} from "./add-edit-holidays/add-edit-holidays.component";
 import {HolidayBackendService} from "../../services/holiday.backend.service";
+import {UtilsService} from "../../services/utils.service";
 
 @Component({
   selector: 'app-holiday', templateUrl: './holiday.component.html', styleUrls: ['./holiday.component.scss']
@@ -17,6 +18,10 @@ export class HolidayComponent implements OnInit {
    * Holiday Hero Image from enum in store service
    */
   holidayHeroImage: string = HeroImages.HolidayHeroImage;
+
+  protected readonly ButtonValue = ButtonValue;
+  protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
 
   /**
    * Get the length of the holiday list
@@ -45,11 +50,17 @@ export class HolidayComponent implements OnInit {
         return `${formattedStartDate} - ${formattedEndDate}`;
       })));
 
+  /**
+   * Boolean for delete-all-button
+   */
+  disableDeleteAllBtn$ = this._utilsService.onDisableDeleteAllBtn(this.storeService.holidayList$);
+
   constructor(
     public storeService: StoreService,
     private _holidayBackendService: HolidayBackendService,
     private _dialog: MatDialog,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _utilsService: UtilsService,
   ) {
   }
 
@@ -75,7 +86,7 @@ export class HolidayComponent implements OnInit {
    * @param index index of the holiday entry
    */
   onEditHoliday(index: number) {
-    const realId = this.getRealId(index);
+    const realId = this._utilsService.getRealObjectId(index, this.storeService.holidayList$);
     if (realId !== undefined) {
       this.storeService.holidayList$.pipe(take(1)).subscribe((holidayList) => {
         const holidayToEdit = holidayList.find(
@@ -164,7 +175,7 @@ export class HolidayComponent implements OnInit {
    * @param index index of the holiday entry
    */
   onDeleteHoliday(index: any): void {
-    index = this.getRealId(index);
+    index = this._utilsService.getRealObjectId(index, this.storeService.holidayList$);
 
     const dialogRef = this._dialog.open(DeleteDialogComponent, {
       width: '720px',
@@ -195,14 +206,27 @@ export class HolidayComponent implements OnInit {
   }
 
   /**
-   * Transform shown number into real id of object
-   * @param index of object
-   * @returns real id of object
+   * Method to delete all holidays
    */
-  getRealId(index: number) {
-    this.storeService.holidayList$.pipe(take(1)).subscribe((holidayList) => {
-      index = holidayList[index].id;
+  onDeleteAllHolidays() {
+    const dialogRef = this._dialog.open(DeleteDialogComponent, {
+      width: '720px',
+      height: '500px',
+      data: {titleText: "Möchten Sie alle Einträge"},
     });
-    return index;
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this._holidayBackendService.deleteAllHolidayResource().subscribe(
+          () => {
+            this.storeService.updateHolidayList([]);
+            this._snackBar.open('Alle Schulfrei-Einträge erfolgreich gelöscht!', 'Ok', {
+              horizontalPosition: 'end',
+              verticalPosition: 'bottom',
+              duration: 2000,
+            });
+          },
+        );
+      }
+    });
   }
 }

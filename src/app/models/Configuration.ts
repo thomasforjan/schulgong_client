@@ -9,8 +9,8 @@ export interface Configuration {
   ringtimeVolume: number | any;
   alarmVolume: number | any;
   announcementVolume: number | any;
-  ringtimeDirectory: string;
-  playlistDirectory: string;
+  ringtimeDirectory: string | any;
+  playlistDirectory: string | any;
 }
 
 

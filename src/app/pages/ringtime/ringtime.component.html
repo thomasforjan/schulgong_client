@@ -1,36 +1,52 @@
 <app-hero-image [imageUrl]="ringtimeHeroImage"></app-hero-image>
 
 <div class="container">
-  <div class="button">
-    <app-button
-      (btnClick)="openDialogAddRingtime()"
-      [height]="40"
-      [hoverActive]="true"
-      [width]="117"
-      aria-label="addRingtime"
-      bgColor="#F29D38"
-      class="uploadBtn"
-      hoverColor="#FFA24A"
-      icon="add"
-      matTooltip="Hinzufügen"
-    ></app-button>
+  <div>
+    <div class="button">
+      <app-button
+        (btnClick)="openDialogAddRingtime()"
+        [height]=ButtonHeight.addButton
+        [hoverActive]="true"
+        [width]=ButtonWidths.addButton
+        aria-label="addRingtime"
+        bgColor="#F29D38"
+        class="uploadBtn"
+        hoverColor="#FFA24A"
+        icon="add"
+        text="{{ButtonValue.addButton}}"
+      ></app-button>
+    </div>
+    <div class="button">
+      <app-button
+        (btnClick)="onDeleteAllRingtimes()"
+        [disabled]="disableDeleteAllBtn$ | async"
+        [height]=ButtonHeight.deleteAllButton
+        [hoverActive]="true"
+        [width]=ButtonWidths.deleteAllButton
+        aria-label="DeleteAll"
+        bgColor="#EB3223"
+        class="deleteBtn"
+        hoverColor="#FF3626"
+        icon="delete"
+        text="{{ButtonValue.deleteAllButton}}"
+      ></app-button>
+    </div>
+    <div class="content-container">
+      <app-grid-cards
+        (delete)="onDeleteRingtime($event)"
+        (edit)="onEditRingtime($event)"
+        [cards]="cardLength$ | async"
+        [cards_height]="220"
+        [cards_width]="330"
+        [index]="true"
+        [matCardContentParagraphs2]="weekDaysAsString$ | async"
+        [matCardContentParagraphs3]="ringtimePeriod$ | async"
+        [matCardContentParagraphs]="ringingPlaytime$ | async"
+        [matCardSubtitle]="ringtoneName$ | async"
+        [matCardTitle]="ringtimeName$ | async"
+        [showButtonContainer]="true"
+        [showDeleteButton]="true"
+        [showEditButton]="true"
+      ></app-grid-cards>
+    </div>
   </div>
-  <div class="content-container">
-    <app-grid-cards
-      (delete)="onDeleteRingtime($event)"
-      (edit)="onEditRingtime($event)"
-      [cards]="cardLength$ | async"
-      [cards_height]="220"
-      [cards_width]="330"
-      [index]="true"
-      [matCardContentParagraphs2]="weekDaysAsString$ | async"
-      [matCardContentParagraphs3]="ringtimePeriod$ | async"
-      [matCardContentParagraphs]="ringingPlaytime$ | async"
-      [matCardSubtitle]="ringtoneName$ | async"
-      [matCardTitle]="ringtimeName$ | async"
-      [showButtonContainer]="true"
-      [showDeleteButton]="true"
-      [showEditButton]="true"
-    ></app-grid-cards>
-  </div>
-</div>

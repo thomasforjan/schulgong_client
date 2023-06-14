@@ -36,7 +36,16 @@
 */
 .button {
   margin-bottom: 1rem;
+  margin-right: 10px;
   width: fit-content;
+  float: left;
+}
+
+/*
+ * Style for grid-card container
+*/
+.content-container {
+  clear: both;
 }
 
 /*

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HeroImages, StoreService} from "../../services/store.service";
+import {ButtonHeight, ButtonValue, ButtonWidths, HeroImages, StoreService} from "../../services/store.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Configuration} from "../../models/Configuration";
 import {MatSliderDragEvent} from "@angular/material/slider";
@@ -17,6 +17,11 @@ export class SettingsComponent implements OnInit {
    * Live Hero Image from enum in store service
    */
   settingsHeroImage: string = HeroImages.SettingsHeroImage;
+
+  protected readonly ButtonValue = ButtonValue;
+  protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
+
   /**
    * Form group for the password
    */
@@ -29,10 +34,6 @@ export class SettingsComponent implements OnInit {
     ringtimeDirectory: "C:/Desktop/ringtimes",
     playlistDirectory: "C:/Desktop/playlist",
   };
-  /**
-   * Form group for the music configuration
-   */
-  musicForm!: FormGroup;
 
   volumeRingtime$ = this.storeService.configuration$.pipe(map((configuration) => {
     if(configuration) {
@@ -58,6 +59,22 @@ export class SettingsComponent implements OnInit {
     }
   }));
 
+  ringtonesDirectory$ = this.storeService.configuration$.pipe(map((configuration) => {
+    if(configuration) {
+      return configuration.ringtimeDirectory;
+    }else {
+      return "";
+    }
+  }));
+
+  playlistDirectory$ = this.storeService.configuration$.pipe(map((configuration) => {
+    if(configuration) {
+      return configuration.playlistDirectory;
+    }else {
+      return "";
+    }
+  }));
+
 
   constructor(
     public storeService: StoreService,
@@ -75,12 +92,6 @@ export class SettingsComponent implements OnInit {
         currentPassword: new FormControl('', Validators.required),
         newPassword: new FormControl('', Validators.required),
         confirmPassword: new FormControl('', Validators.required),
-      },
-    );
-    this.musicForm = new FormGroup(
-      {
-        ringtimeDirectory: new FormControl(this.configuration.ringtimeDirectory, Validators.required),
-        playlistDirectory: new FormControl(this.configuration.playlistDirectory, Validators.required),
       },
     );
   }

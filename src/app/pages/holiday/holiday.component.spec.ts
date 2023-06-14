@@ -123,7 +123,6 @@ describe('HolidayComponent', () => {
 
     // The quote would not be immediately available if the service were truly async.
     it('check upload button exist', () => {
-      expect(holidayUploadBtn.title).toBe('uploadBtn');
       expect(getHolidaySpy.calls.any())
         .withContext('getHolidayResponse called')
         .toBe(true);

@@ -104,6 +104,17 @@ export class HolidayBackendService {
   }
 
   /**
+   * DELETE all Holiday Resource
+   * @description DELETE HTTP-Method to delete all Holiday from server
+   * @returns Observable<void>
+   */
+  deleteAllHolidayResource(): Observable<void> {
+    return this._http.delete<void>(
+      `${this._storeService.BACKEND_URL}${this._HOLIDAY_URL}`
+    );
+  }
+
+  /**
    * @description Fetch the holiday object for the current day from the backend API.
    * @returns An observable that emits the Holiday object for today or throws an error if no holiday is found.
    */
