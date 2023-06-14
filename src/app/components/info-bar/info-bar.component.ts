@@ -1,23 +1,23 @@
-import {Time} from '@angular/common';
 import {Component, OnInit} from '@angular/core';
+import {StoreService} from 'src/app/services/store.service';
+import {HolidayBackendService} from "../../services/holiday.backend.service";
+import {RingtimeBackendService} from "../../services/ringtime.backend.service";
+import {Ringtime} from "../../models/Ringtime";
 import {
   catchError,
   combineLatest,
   distinctUntilChanged,
-  map,
   Observable,
   of,
   shareReplay,
   startWith,
   switchMap,
-  timer,
-} from 'rxjs';
-import {Ringtime} from 'src/app/models/Ringtime';
-import {StoreService} from 'src/app/services/store.service';
-import {DateUtilsService} from 'src/app/services/date-utils.service';
-import {Holiday} from 'src/app/models/Holiday';
-import {HolidayBackendService} from "../../services/holiday.backend.service";
-import {RingtimeBackendService} from "../../services/ringtime.backend.service";
+  timer
+} from "rxjs";
+import {Holiday} from "../../models/Holiday";
+import {map} from "rxjs/operators";
+import {DateUtilsService} from "../../services/date-utils.service";
+import {Time} from "@angular/common";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -210,6 +210,7 @@ export class InfoBarComponent implements OnInit {
       of(currentTime),
     ]).pipe(
       map(([ringtimes, currentTime]) => {
+
         /**
          * Creation of a new Date object that points to exactly one minute (60,000 milliseconds) after the current time. It is used to ensure that
          * the next gong is at least one minute in the future.
@@ -295,78 +296,6 @@ export class InfoBarComponent implements OnInit {
   }
 
   /**
-   * @description Gets the next gong from a list of ringtimes based on the current time
-   * @param ringtimes The list of ringtimes to check
-   * @param currentTime The current time
-   * @returns The next gong ringtime, or null if there are no upcoming gongs
-   */
-  private getNextGong(
-    ringtimes: Ringtime[],
-    currentTime: Date
-  ): Ringtime | null {
-    // Get the current day of the week as an integer (0 for Sunday, 1 for Monday, etc.)
-    const currentWeekDay = currentTime.getDay();
-
-    // Map the integer to the corresponding day of the week string
-    const currentDayOfWeek = [
-      'sunday',
-      'monday',
-      'tuesday',
-      'wednesday',
-      'thursday',
-      'friday',
-      'saturday',
-    ][currentWeekDay];
-
-    // Filter the list of ringtimes to only include upcoming ringtimes for the current day
-    const upcomingRingtimes = this.getUpcomingRingtimes(
-      ringtimes,
-      currentTime,
-      currentDayOfWeek
-    );
-
-    // Return the first upcoming ringtime if any exist, otherwise return null
-    return upcomingRingtimes.length > 0 ? upcomingRingtimes[0] : null;
-  }
-
-  /**
-   * @description Filter the upcoming ringtimes based on the current day and time
-   * @param ringtimes List of all ringtimes
-   * @param currentTime Current time
-   * @param currentDayOfWeek Current day of the week
-   * @returns Filtered list of upcoming ringtimes
-   */
-  private getUpcomingRingtimes(
-    ringtimes: Ringtime[],
-    currentTime: Date,
-    currentDayOfWeek: string
-  ): Ringtime[] {
-    let currentDate: Date = new Date();
-    this.currentDate$.subscribe(date => {
-        currentDate = new Date(date);
-      }
-    )
-    // Filtering of the ring times according to the current day of the week
-    const filteredRingtimes = ringtimes.filter(
-      (rt) => (rt as any)[currentDayOfWeek]
-    );
-
-    // Filtering of the ring times that have already taken place
-    const upcomingRingtimes = filteredRingtimes.filter((rt) => {
-      const playTime = this.timeToDate(rt.playTime);
-      return playTime >= currentTime && currentDate.getDate() <= new Date(rt.endDate).getDate() && currentDate.getDate() >= new Date(rt.startDate).getDate() && currentDate.getMonth() <= new Date(rt.endDate).getMonth() && currentDate.getMonth() >= new Date(rt.startDate).getMonth() && currentDate.getFullYear() <= new Date(rt.endDate).getFullYear() && currentDate.getFullYear() >= new Date(rt.startDate).getFullYear();
-    });
-
-    // Sorting of the ring times according to the time of the start
-    // Return of the sorted ring times
-    return upcomingRingtimes.sort(
-      (a, b) =>
-        this.timeToDate(a.playTime).getTime() -
-        this.timeToDate(b.playTime).getTime()
-    );
-  }
-
-  /**
    * @description Converts a `Time` object to a `Date` object with the same hours and minutes.
    * @param time The `Time` object to convert.
    * @returns A `Date` object with the same hours and minutes as the input `Time`.
@@ -378,4 +307,115 @@ export class InfoBarComponent implements OnInit {
     date.setMinutes(+minutes);
     return date;
   }
+
+  getRightRingtimes(ringtimes: Ringtime[], currentTime: Date): Ringtime[] {
+    let infoItems: any[] = [];
+
+    ringtimes.forEach((ringtime) => {
+      const exists = infoItems.some(rt => rt.id === ringtime.id)
+      let checkDays = this.checkDays(ringtime);
+      if (!exists && checkDays[0]) {
+
+        let today = new Date().getDay()
+        console.log(today);
+        console.log(checkDays[1].getDay());
+        if (checkDays[1].getDay() != today || checkDays[1].getDay() == today && this.timeToDate(ringtime.playTime) >= currentTime) {
+          infoItems.push([ringtime, checkDays[1]]);
+        }
+
+
+      }
+    })
+
+    infoItems.sort((a, b) => {
+      const compareDay = a[1].valueOf() - b[1].valueOf();
+
+      if (compareDay === 0) {
+        return a[0].playTime - b[0].playTime;
+      }
+      return compareDay;
+    });
+
+    ringtimes = [];
+
+    infoItems.forEach(infoItem => {
+      ringtimes.push(infoItem[0]);
+
+    })
+
+    return ringtimes;
+  }
+
+  checkDays(item: Ringtime): [boolean, Date] {
+    let today: Date = new Date();
+    this.currentDate$.subscribe(date => {
+        today = new Date(date);
+      }
+    )
+    let checkDays: boolean = false;
+    let checkPeriod: boolean = false;
+
+    for (let i = 0; i < 4; i++) {
+      switch (today.getDay()) {
+        case 0:
+          checkDays = item.sunday;
+          break;
+        case 1:
+          checkDays = item.monday;
+          break;
+        case 2:
+          checkDays = item.tuesday;
+          break;
+        case 3:
+          checkDays = item.wednesday;
+          break;
+        case 4:
+          checkDays = item.thursday;
+          break;
+        case 5:
+          checkDays = item.friday;
+          break;
+        case 6:
+          checkDays = item.saturday;
+          break;
+        default:
+          break;
+      }
+
+      if (checkDays && this.checkPeriod(item, today)) {
+        checkPeriod = true;
+        continue;
+      }
+
+      today.setDate(today.getDate() + 1);
+    }
+    return [checkPeriod, today];
+  }
+
+  checkPeriod(item: Ringtime, today: Date): boolean {
+    const startDate = new Date(item.startDate);
+    const endDate = new Date(item.endDate);
+    startDate.setHours(0, 0, 0);
+    endDate.setHours(0, 0, 0);
+    endDate.setDate(endDate.getDate() + 1);
+
+    return today.valueOf() >= startDate.valueOf() && today.valueOf() <= endDate.valueOf();
+  }
+
+  /**
+   * @description Gets the next gong from a list of ringtimes based on the current time
+   * @param ringtimes The list of ringtimes to check
+   * @param currentTime The current time
+   * @returns The next gong ringtime, or null if there are no upcoming gongs
+   */
+  private getNextGong(ringtimes: Ringtime[], currentTime: Date): Ringtime | null {
+
+    // Filter the list of ringtimes to only include upcoming ringtimes for the current or the next three days
+    const upcomingRingtimes = this.getRightRingtimes(ringtimes, currentTime);
+
+    // Return the first upcoming ringtime if any exist, otherwise return null
+    return upcomingRingtimes.length > 0 ? upcomingRingtimes[0] : null;
+  }
+
+
 }
