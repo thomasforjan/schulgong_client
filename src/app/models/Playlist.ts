@@ -10,6 +10,8 @@ export interface Playlist {
   speakerState: string;
   volume: number | any;
   mute: boolean;
+  looping: boolean;
+  playingPlaylist: boolean;
   actualSong: PlaylistSong;
   songDTOList: PlaylistSong[];
 }
