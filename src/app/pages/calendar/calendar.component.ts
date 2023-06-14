@@ -88,6 +88,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
       list: 'Übersicht',
     },
     views: {},
+    contentHeight: 'auto',
   };
 
   /**
