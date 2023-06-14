@@ -87,6 +87,22 @@ export class RingtimeComponent implements OnInit {
    */
   disableDeleteAllBtn$ = this._utilsService.onDisableDeleteAllBtn(this.storeService.ringtimeList$);
 
+  /**
+   * Get if ringtime is in the past
+   */
+  entryInPast$ = this.storeService.ringtimeList$.pipe(
+    map((ringtimeList) =>
+      ringtimeList.map((ringtime) => {
+        let now = new Date();
+        let endDate = new Date(ringtime.endDate);
+        const [hours, minutes] = ringtime.playTime.toString().split(':');
+        endDate.setHours(+hours);
+        endDate.setMinutes(+minutes);
+        return endDate < now;
+      })
+    )
+  );
+
   constructor(
     public storeService: StoreService,
     private _ringtimeBackendService: RingtimeBackendService,
