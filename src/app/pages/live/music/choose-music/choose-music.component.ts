@@ -195,7 +195,7 @@ export class ChooseMusicComponent implements OnInit {
     list.sort((a, b) => a.index - b.index);
     list.reverse();
     for (const playlistSong of list) {
-      if (list[list.length - 1].index >= this.playlist.length) {
+      if (playlistSong.index >= this.playlist.length) {
         break;
       }
       let i = playlistSong.index - 1;

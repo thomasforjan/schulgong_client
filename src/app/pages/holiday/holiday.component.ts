@@ -51,6 +51,25 @@ export class HolidayComponent implements OnInit {
       })));
 
   /**
+   * Get if holiday is in the past
+   */
+  entryInPast$ = this.storeService.holidayList$.pipe(
+    map((holidayList) =>
+      holidayList.map((holiday) => {
+        let now = new Date();
+        now.setHours(23);
+        now.setMinutes(58);
+        let endDate = new Date(holiday.endDate);
+        endDate.setHours(23);
+        endDate.setMinutes(59);
+        console.log(endDate);
+        console.log(now);
+        return endDate < now;
+      })
+    )
+  );
+
+  /**
    * Boolean for delete-all-button
    */
   disableDeleteAllBtn$ = this._utilsService.onDisableDeleteAllBtn(this.storeService.holidayList$);

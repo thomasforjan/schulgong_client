@@ -49,6 +49,13 @@ $originalColumn: 2;
 }
 
 /*
+ * Style for repeat button
+*/
+.repeatBtn {
+  margin-left: 10px;
+}
+
+/*
  * Style for center elements
 */
 .centerElements {
@@ -63,7 +70,7 @@ $originalColumn: 2;
 .playlistCard {
   margin-top: 10px;
   margin-bottom: 10px;
-  width: 250px;
+  width: 300px;
   border-radius: 10px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -89,6 +96,13 @@ $originalColumn: 2;
 */
 .icon-display {
   transform: scale(2);
+}
+
+/*
+ * Style color for repeat icons
+*/
+.repeat-icon-color-off {
+  color: #D8D8D8;
 }
 
 /*
@@ -204,6 +218,7 @@ $originalColumn: 2;
     align-items: center !important;
     $dynamicCardWidth: calc((100vw - (25px * (#{$column} + 1))) / #{$column});
     $cardWidth: min($originalCardWidth, $dynamicCardWidth);
+    width: $cardWidth !important;
     grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
     grid-column-gap: 0px !important;
     grid-row-gap: 75px;
@@ -249,7 +264,7 @@ $originalColumn: 2;
 /*
  * Media queries for devices til max width of 768 px
 */
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 320px) {
 
   :host ::ng-deep .card-icon {
     height: 75px !important;
@@ -279,6 +294,11 @@ $originalColumn: 2;
   .mat-slider-style {
     width: 100px;
   }
+
+  .repeatBtn {
+    margin-left: 0px;
+  }
+
 }
 
 
