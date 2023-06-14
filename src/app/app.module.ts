@@ -117,6 +117,7 @@ export const EUROPEAN_DATE_FORMAT = {
       deps: [MAT_DATE_LOCALE],
     },
     { provide: MAT_DATE_FORMATS, useValue: EUROPEAN_DATE_FORMAT },
+    { provide: MAT_DATE_LOCALE, useValue: 'de-DE' },
   ],
 
   bootstrap: [AppComponent],
