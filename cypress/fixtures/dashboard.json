@@ -5,7 +5,7 @@
     "../../../assets/images/dashboard/live.svg",
     "../../../assets/images/dashboard/holiday.svg",
     "../../../assets/images/dashboard/calendar.svg",
-    "../../../assets/images/dashboard/user.svg"
+    "../../../assets/images/dashboard/settings.svg"
   ],
 
   "titles": [
@@ -15,7 +15,7 @@
     " Live ",
     " Schulfrei ",
     " Kalender ",
-    " Benutzer "
+    " Einstellungen "
   ],
   "routerLinks": [
     "/ringtones",
@@ -23,6 +23,6 @@
     "/live",
     "/holiday",
     "/calendar",
-    "/user"
+    "/settings"
   ]
 }

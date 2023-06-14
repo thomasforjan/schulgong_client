@@ -6,8 +6,15 @@
  */
 describe('DashboardComponent', () => {
   beforeEach(() => {
-    cy.visit('/'); // Replace with the correct path to your DashboardComponent
+    cy.visit('/');
     cy.fixture('dashboard').as('dashboardData');
+
+    // Enter password
+    cy.get('[data-cy=input-password]').type('Schulgong').type('{enter}'); // '{enter}' submits the form
+
+    // Press login button
+    cy.get('[data-cy=login-button]').click();
+    cy.wait(3000);
   });
 
   /**
@@ -22,7 +29,7 @@ describe('DashboardComponent', () => {
    */
   it('should render app-grid-cards component with correct inputs', function () {
     cy.get('app-grid-cards').within(() => {
-      cy.get('[data-cy=icon]').each(($icon, index) => {
+      cy.get('[data-cy=icons]').each(($icon, index) => {
         cy.wrap($icon).should(
           'have.attr',
           'src',
@@ -30,7 +37,7 @@ describe('DashboardComponent', () => {
         );
       });
 
-      cy.get('[data-cy=matCardContentParagraph]').each(($paragraph, index) => {
+      cy.get('[data-cy=matCardContentParagraphs]').each(($paragraph, index) => {
         cy.wrap($paragraph).should(
           'have.text',
           this['dashboardData'].titles[index + 1]
