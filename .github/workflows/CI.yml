@@ -85,12 +85,12 @@ jobs:
         run: |
           npm run test -- --configuration production
 
-      - name: Conventional Changelog Action
-        id: changelog
-        uses: TriPSs/conventional-changelog-action@v3
-        with:
-          github-token: ${{ secrets.TOKEN_SCHULGONG_CLIENT }}
-          output-file: "false"
+      # - name: Conventional Changelog Action
+      #   id: changelog
+      #   uses: TriPSs/conventional-changelog-action@v3
+      #   with:
+      #     github-token: ${{ secrets.TOKEN_SCHULGONG_CLIENT }}
+      #     output-file: "false"
 
   create-release:
     runs-on: ubuntu-latest
