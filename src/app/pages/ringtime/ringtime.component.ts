@@ -202,36 +202,23 @@ export class RingtimeComponent implements OnInit {
   /**
    * Opens a Modal-Dialog for adding a ringtime
    */
-  openDialogAddRingtime() {
-    let ringtime: RingtimePayload;
-    const dialogRef = this._dialog.open(AddEditRingtimeComponent, {
+  openDialogAddRingtime(result?: RingtimeDialog) {
+    if(result) {
+      result.name = "";
+    }
+    let dialogRef = this._dialog.open(AddEditRingtimeComponent, {
       width: '720px',
       height: '',
-      data: {isAddRingtime: true},
+      data: {isAddRingtime: true, ringtimeDialog: result},
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        ringtime = this.createRingtimePayloadFromDialogResult(result);
-        this._ringtimeBackendService
-          .postRingtimeRequest(ringtime)
-          .subscribe((response) => {
-            const newRingtone = response.body;
-            if (newRingtone) {
-              this.storeService.ringtimeList$
-                .pipe(take(1))
-                .subscribe((currentRingtoneList) => {
-                  const updatedList = this._utilsService.sortRingtimes([...currentRingtoneList, newRingtone]);
-                  this.storeService.updateRingtimeList(updatedList);
-                });
-            }
-          });
-
-        this._snackBar.open('Klingelzeit wird hinzugefügt', 'Ok', {
-          horizontalPosition: 'end',
-          verticalPosition: 'bottom',
-          duration: 2000,
-        });
+        this.postRingtimeFromDialog(result);
+        if(result.saveAndFurther) {
+          result.saveAndFurther = false;
+          this.openDialogAddRingtime(result);
+        }
       }
     });
   }
@@ -341,6 +328,32 @@ export class RingtimeComponent implements OnInit {
       }
     });
     return ringtone;
+  }
+
+  /**
+   * Post ringtime from dialog into backend
+   */
+  postRingtimeFromDialog(ringtimeDialog: RingtimeDialog) {
+    let ringtime = this.createRingtimePayloadFromDialogResult(ringtimeDialog);
+    this._ringtimeBackendService
+      .postRingtimeRequest(ringtime)
+      .subscribe((response) => {
+        const newRingtone = response.body;
+        if (newRingtone) {
+          this.storeService.ringtimeList$
+            .pipe(take(1))
+            .subscribe((currentRingtoneList) => {
+              const updatedList = this._utilsService.sortRingtimes([...currentRingtoneList, newRingtone]);
+              this.storeService.updateRingtimeList(updatedList);
+            });
+        }
+      });
+
+    this._snackBar.open('Klingelzeit wird hinzugefügt', 'Ok', {
+      horizontalPosition: 'end',
+      verticalPosition: 'bottom',
+      duration: 2000,
+    });
   }
 
   /**

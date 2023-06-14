@@ -58,6 +58,7 @@ export interface RingtimeDialog {
   friday: boolean;
   saturday: boolean;
   sunday: boolean;
+  saveAndFurther: boolean;
 }
 
 export interface RingtoneOnlyId {
