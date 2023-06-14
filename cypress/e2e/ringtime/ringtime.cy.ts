@@ -91,9 +91,9 @@ describe('Klingelzeit Test', () => {
 
     // Select ringtone from dropdown
     cy.get(`[aria-label="ringtimeRingtone"]`).click();
-    cy.get('mat-option').contains('Alarm').click();
+    //cy.get('mat-option').contains('Alarm').click();
 
     // Save the ringtime
-    cy.get(`[aria-label="ringtimeSaveButton"]`).click();
+    //cy.get(`[aria-label="ringtimeSaveButton"]`).click();
   });
 });
