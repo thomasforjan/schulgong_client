@@ -319,6 +319,10 @@ export class InfoBarComponent implements OnInit {
       if (!exists && checkDays[0]) {
 
         let today = new Date().getDay()
+        this.currentDate$.subscribe(date => {
+          today = new Date(date).getDay();
+        }
+        )
         console.log(today);
         console.log(checkDays[1].getDay());
 
@@ -355,8 +359,10 @@ export class InfoBarComponent implements OnInit {
   }
 
   checkDays(item: Ringtime, currentTime: Date): [boolean, Date] {
+    let countDay: Date = new Date();
     let today: Date = new Date();
     this.currentDate$.subscribe(date => {
+        countDay = new Date(date);
         today = new Date(date);
       }
     )
@@ -364,7 +370,7 @@ export class InfoBarComponent implements OnInit {
     let checkPeriod: boolean = false;
 
     for (let i = 0; i < 4; i++) {
-      switch (today.getDay()) {
+      switch (countDay.getDay()) {
         case 0:
           checkDays = item.sunday;
           break;
@@ -390,16 +396,16 @@ export class InfoBarComponent implements OnInit {
           break;
       }
 
-      if (checkDays && this.checkPeriod(item, today)) {
-        if (today.getDate() !== new Date().getDate() || this.timeToDate(item.playTime) >= currentTime){
+      if (checkDays && this.checkPeriod(item, countDay)) {
+        if (countDay.getDate() !== today.getDate() || this.timeToDate(item.playTime) >= currentTime){
           checkPeriod = true;
           continue;
         }
       }
-      today.setDate(today.getDate() + 1);
+      countDay.setDate(countDay.getDate() + 1);
     }
 
-    return [checkPeriod, today];
+    return [checkPeriod, countDay];
   }
 
   checkPeriod(item: Ringtime, today: Date): boolean {
