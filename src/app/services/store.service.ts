@@ -119,6 +119,7 @@ export enum LiveIcons {
 export enum ButtonValue {
   submitButton = "Bestätigen",
   cancelButton = "Abbrechen",
+  duplicateButton = "Duplizieren",
   uploadButton = "Upload",
   addButton = "Hinzufügen",
   deleteAllButton = "Alle Löschen"
@@ -127,6 +128,7 @@ export enum ButtonValue {
 export enum ButtonWidths {
   submitButton = 125,
   cancelButton = 125,
+  duplicateButton = 125,
   uploadButton = 110,
   addButton = 130,
   deleteAllButton = 130
@@ -135,6 +137,7 @@ export enum ButtonWidths {
 export enum ButtonHeight {
   submitButton = 45,
   cancelButton = 45,
+  duplicateButton = 45,
   uploadButton = 45,
   addButton = 40,
   deleteAllButton = 40
