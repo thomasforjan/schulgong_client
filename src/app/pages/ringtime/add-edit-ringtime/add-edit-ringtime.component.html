@@ -260,14 +260,15 @@
           <app-button
             (btnClick)="onSubmitAndFurtherClick()"
             [disabled]="ringtimeForm.invalid"
-            [height]="45"
+            [height]="ButtonHeight.duplicateButton"
             [hoverActive]="true"
-            [width]="100"
+            [width]=ButtonWidths.duplicateButton
             aria-label="ringtimeSaveButton"
             bgColor="#F29D38"
             class="submitBtn"
             hoverColor="#FFA24A"
             icon="add_circle"
+            text="{{ButtonValue.duplicateButton}}"
           ></app-button>
         </div>
       </ng-container>
