@@ -46,6 +46,13 @@ $originalColumn: 6;
 }
 
 /*
+ * Mark ringtime or holiday grid-cards in the past
+*/
+.markEntryInPast {
+  background-color: #d6d6d6;
+}
+
+/*
  * Grid container style properties
 */
 .grid-container {

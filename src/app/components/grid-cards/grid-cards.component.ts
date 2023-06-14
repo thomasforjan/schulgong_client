@@ -183,6 +183,11 @@ export class GridCardsComponent implements OnChanges {
   @Input() isDeleteBtnDisabled?: boolean[] | any = [];
 
   /**
+   * Defines if the ringtime or holiday is in the past
+   */
+  @Input() isEntryInPast?: boolean[] | any = [];
+
+  /**
    * Defines the music EventEmitter of the cards.
    */
   @Output() clickMusicEvent = new EventEmitter<number>();
