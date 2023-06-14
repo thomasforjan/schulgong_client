@@ -225,8 +225,8 @@ export class InfoBarComponent implements OnInit {
         const nextGong = this.getNextGong(ringtimes, currentTimePlusOneMinute);
         // Return an object with the display time of the next gong and the next gong itself
         return {
-          displayTime: this.getDisplayTime(nextGong),
-          nextGong: nextGong,
+          displayTime: nextGong.displayItem,
+          nextGong: nextGong.ringtime,
         };
       }),
       // Update the next gong in the store
@@ -238,11 +238,11 @@ export class InfoBarComponent implements OnInit {
     );
   }
 
-  /**
+ /* /!**
    * @description Get the display time of the next gong
    * @param nextGong Next Gong
    * @returns display time of the next gong
-   */
+   *!/
   getDisplayTime(nextGong: Ringtime | null): string | null {
     // If nextGong exists, format its playTime as a localized time string, otherwise return null
     return nextGong
@@ -251,7 +251,7 @@ export class InfoBarComponent implements OnInit {
         minute: '2-digit',
       })
       : null;
-  }
+  }*/
 
   /**
    * @description Update the display time of the next gong and trigger a new update when the next gong is played
@@ -263,6 +263,8 @@ export class InfoBarComponent implements OnInit {
     displayTime: string | null,
     nextGong: Ringtime | null
   ): Observable<string | null> {
+    console.log(displayTime);
+    console.log(nextGong);
     if (nextGong) {
       // If there is a next gong, proceed with the update logic
       return this.serverTime$.pipe(
@@ -272,11 +274,11 @@ export class InfoBarComponent implements OnInit {
             this.timeToDate(nextGong.playTime).getTime() -
             currentTime.getTime();
           // If the time remaining is less than or equal to 0, the next gong has already played
-          if (timeToNextGong <= 0) {
+/*          if (timeToNextGong <= 0) {
             // Calculate the next gong since the current one has already played
             return this.calculateNextGong$(currentTime);
           }
-          // If the next gong hasn't played yet, return the current display time
+          // If the next gong hasn't played yet, return the current display time*/
           return of(displayTime);
         })
       );
@@ -308,19 +310,22 @@ export class InfoBarComponent implements OnInit {
     return date;
   }
 
-  getRightRingtimes(ringtimes: Ringtime[], currentTime: Date): Ringtime[] {
+  getRightRingtimes(ringtimes: Ringtime[], currentTime: Date): any[] {
     let infoItems: any[] = [];
 
     ringtimes.forEach((ringtime) => {
       const exists = infoItems.some(rt => rt.id === ringtime.id)
-      let checkDays = this.checkDays(ringtime);
+      let checkDays = this.checkDays(ringtime, currentTime);
       if (!exists && checkDays[0]) {
 
         let today = new Date().getDay()
         console.log(today);
         console.log(checkDays[1].getDay());
-        if (checkDays[1].getDay() != today || checkDays[1].getDay() == today && this.timeToDate(ringtime.playTime) >= currentTime) {
-          infoItems.push([ringtime, checkDays[1]]);
+
+        if (checkDays[1].getDay() == today) {
+          infoItems.push([ringtime, checkDays[1], ringtime.playTime]);
+        } else {
+          infoItems.push([ringtime, checkDays[1], checkDays[1].toLocaleDateString("de-De") + ", " + ringtime.playTime])
         }
 
 
@@ -336,17 +341,20 @@ export class InfoBarComponent implements OnInit {
       return compareDay;
     });
 
-    ringtimes = [];
+    let displayArray: any[] = [];
 
     infoItems.forEach(infoItem => {
-      ringtimes.push(infoItem[0]);
+      displayArray.push({
+        ringtime: infoItem[0],
+        displayItem: infoItem[2]
+      });
 
     })
 
-    return ringtimes;
+    return displayArray;
   }
 
-  checkDays(item: Ringtime): [boolean, Date] {
+  checkDays(item: Ringtime, currentTime: Date): [boolean, Date] {
     let today: Date = new Date();
     this.currentDate$.subscribe(date => {
         today = new Date(date);
@@ -383,12 +391,14 @@ export class InfoBarComponent implements OnInit {
       }
 
       if (checkDays && this.checkPeriod(item, today)) {
-        checkPeriod = true;
-        continue;
+        if (today.getDate() !== new Date().getDate() || this.timeToDate(item.playTime) >= currentTime){
+          checkPeriod = true;
+          continue;
+        }
       }
-
       today.setDate(today.getDate() + 1);
     }
+
     return [checkPeriod, today];
   }
 
@@ -408,13 +418,13 @@ export class InfoBarComponent implements OnInit {
    * @param currentTime The current time
    * @returns The next gong ringtime, or null if there are no upcoming gongs
    */
-  private getNextGong(ringtimes: Ringtime[], currentTime: Date): Ringtime | null {
+  private getNextGong(ringtimes: Ringtime[], currentTime: Date) {
 
     // Filter the list of ringtimes to only include upcoming ringtimes for the current or the next three days
     const upcomingRingtimes = this.getRightRingtimes(ringtimes, currentTime);
 
     // Return the first upcoming ringtime if any exist, otherwise return null
-    return upcomingRingtimes.length > 0 ? upcomingRingtimes[0] : null;
+    return upcomingRingtimes.length > 0 ? upcomingRingtimes[0] : "";
   }
 
 
