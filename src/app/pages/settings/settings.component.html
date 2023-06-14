@@ -4,118 +4,139 @@
   <mat-card-content>
     <h2>Konfiguration Benutzer</h2>
     <h3>Passwort ändern</h3>
-    <form [formGroup]="passwordForm" class="main-grid-content-password">
-      <mat-form-field
-        appearance="fill"
-        aria-label="Bezeichnung-Aktuelles-Passwort"
-        class="grid-column"
-      >
-        <mat-label>Aktuelles Passwort</mat-label>
-        <input
-          matInput
-          type="password"
-          value="asdfsd"
-          class="inputFields"
-        />
-      </mat-form-field>
-      <mat-form-field
-        appearance="fill"
-        aria-label="Bezeichnung-Neues-Passwort"
-        class="grid-column"
-      >
-        <mat-label>Neues Passwort</mat-label>
-        <input
-          matInput
-          type="password"
-          value="asdfsd"
-          class="inputFields"
-        />
-      </mat-form-field>
-      <mat-form-field
-        appearance="fill"
-        aria-label="Bezeichnung-Neues-Passwort-bestätigen"
-        class="grid-column"
-      >
-        <mat-label>Neues Passwort bestätigen</mat-label>
-        <input
-          matInput
-          type="password"
-          value="asdfsd"
-          class="inputFields"
-        />
-      </mat-form-field>
-      <div class="button-container">
-        <app-button
-          (btnClick)="onSubmitClick()"
-          [height]=ButtonHeight.submitButton
-          [hoverActive]="true"
-          [width]=ButtonWidths.submitButton
-          aria-label="SaveSettings"
-          bgColor="#F29D38"
-          class="submitBtn"
-          hoverColor="#FFA24A"
-          icon="check_circle"
-          text="{{ButtonValue.submitButton}}"
-        ></app-button>
+    <div class="form-container">
+      <div class="overlay-container" *ngIf="loadingSpinner">
+        <mat-spinner [diameter]="50"></mat-spinner>
       </div>
-    </form>
-    <hr class="divider"/>
+      <form [formGroup]="passwordForm" class="main-grid-content-password">
+        <mat-form-field
+          appearance="fill"
+          aria-label="Bezeichnung-Aktuelles-Passwort"
+          class="grid-column"
+        >
+          <mat-label>Aktuelles Passwort</mat-label>
+          <input
+            matInput
+            type="password"
+            class="inputFields"
+            formControlName="currentPassword"
+          />
+        </mat-form-field>
+        <mat-form-field
+          appearance="fill"
+          aria-label="Bezeichnung-Neues-Passwort"
+          class="grid-column"
+        >
+          <mat-label>Neues Passwort</mat-label>
+          <input
+            matInput
+            type="password"
+            class="inputFields"
+            formControlName="newPassword"
+          />
+        </mat-form-field>
+        <mat-form-field
+          appearance="fill"
+          aria-label="Bezeichnung-Neues-Passwort-bestätigen"
+          class="grid-column"
+        >
+          <mat-label>Neues Passwort bestätigen</mat-label>
+          <input
+            matInput
+            type="password"
+            class="inputFields"
+            formControlName="confirmNewPassword"
+          />
+        </mat-form-field>
+        <div class="button-container">
+          <app-button
+            (btnClick)="onSubmitClick()"
+            [height]="ButtonHeight.submitButton"
+            [hoverActive]="true"
+            [width]="ButtonWidths.submitButton"
+            aria-label="SaveSettings"
+            bgColor="#F29D38"
+            class="submitBtn"
+            hoverColor="#FFA24A"
+            icon="check_circle"
+            text="{{ ButtonValue.submitButton }}"
+          ></app-button>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="updatePasswordFormErrorMessage" class="error-message">
+      <i class="error-icon material-icons">error_outline</i>
+      <span>{{ updatePasswordFormErrorMessage }}</span>
+    </div>
+    <div *ngIf="updatePasswordFormSuccessMessage" class="success-message">
+      <i class="success-icon material-icons">done</i>
+      <span>{{ updatePasswordFormSuccessMessage }}</span>
+    </div>
+    <hr class="divider" />
     <h2>Konfiguration Lautstärke</h2>
     <div class="main-grid-content-volume">
       <div class="grid-column">
         <mat-label class="inputLabels">Lautstärke Klingelzeiten</mat-label>
         <div class="slider-container">
-          <mat-icon class="icon-color icon-display">
-            volume_up
-          </mat-icon>
+          <mat-icon class="icon-color icon-display"> volume_up </mat-icon>
           <mat-slider
             [max]="100"
             [min]="0"
             [step]="1"
             class="mat-slider-style"
-            discrete showTickMarks
+            discrete
+            showTickMarks
           >
-            <input (dragEnd)="onRingtimeVolumeChange($event)" [value]="volumeRingtime$ | async" matSliderThumb>
+            <input
+              (dragEnd)="onRingtimeVolumeChange($event)"
+              [value]="volumeRingtime$ | async"
+              matSliderThumb
+            />
           </mat-slider>
         </div>
       </div>
       <div class="grid-column">
         <mat-label class="inputLabels">Lautstärke Alarm</mat-label>
         <div class="slider-container">
-          <mat-icon class="icon-color icon-display">
-            volume_up
-          </mat-icon>
+          <mat-icon class="icon-color icon-display"> volume_up </mat-icon>
           <mat-slider
             [max]="100"
             [min]="0"
             [step]="1"
             class="mat-slider-style"
-            discrete showTickMarks
+            discrete
+            showTickMarks
           >
-            <input (dragEnd)="onAlarmVolumeChange($event)" [value]="volumeAlarm$ | async" matSliderThumb>
+            <input
+              (dragEnd)="onAlarmVolumeChange($event)"
+              [value]="volumeAlarm$ | async"
+              matSliderThumb
+            />
           </mat-slider>
         </div>
       </div>
       <div class="grid-column">
         <mat-label class="inputLabels">Lautstärke Durchsage</mat-label>
         <div class="slider-container">
-          <mat-icon class="icon-color icon-display">
-            volume_up
-          </mat-icon>
+          <mat-icon class="icon-color icon-display"> volume_up </mat-icon>
           <mat-slider
             [max]="100"
             [min]="0"
             [step]="1"
             class="mat-slider-style"
-            discrete showTickMarks
+            discrete
+            showTickMarks
           >
-            <input (dragEnd)="onAnnouncementVolumeChange($event)" [value]="volumeAnnouncement$ | async"
-                   matSliderThumb>
+            <input
+              (dragEnd)="onAnnouncementVolumeChange($event)"
+              [value]="volumeAnnouncement$ | async"
+              matSliderThumb
+            />
           </mat-slider>
         </div>
       </div>
     </div>
-    <hr class="divider"/>
+    <hr class="divider" />
     <h2>Konfiguration Musik</h2>
     <form class="main-grid-content-music">
       <mat-form-field
@@ -147,6 +168,5 @@
         />
       </mat-form-field>
     </form>
-
   </mat-card-content>
 </mat-card>

@@ -2,6 +2,10 @@
   width: 100%;
 }
 
+mat-label {
+  font-size: 13px;
+}
+
 .inputLabels {
   font-weight: bold;
   display: block;
@@ -104,10 +108,10 @@
 
   --mdc-slider-with-tick-marks-active-container-color: #f29d38;
   --mdc-slider-with-tick-marks-inactive-container-color: rgba(
-      255,
-      255,
-      255,
-      0.002
+    255,
+    255,
+    255,
+    0.002
   );
 
   --mat-mdc-slider-ripple-color: #f29d38;
@@ -127,6 +131,12 @@
     justify-content: left;
     justify-items: left;
   }
+
+  .error-message,
+  .success-message {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 }
 
 /*
@@ -145,6 +155,12 @@
     grid-template-columns: repeat(1, 1fr);
     grid-column-gap: 20px;
   }
+
+  .error-message,
+  .success-message {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 }
 
 /*
@@ -160,8 +176,84 @@
     grid-column-gap: 20px;
   }
 
+  .error-message,
+  .success-message {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 }
 
+/*
+  * Styles for error-message
+  */
+.error-message {
+  display: flex;
+  align-items: center;
+  color: #f44336;
+  font-size: 1rem;
+  padding: 10px;
+  border: 1px solid #f44336;
+  border-radius: 4px;
+  background-color: #ffebee;
+  max-width: fit-content;
+}
 
+/*
+    * Styles for error-icon
+    */
+.error-icon {
+  margin-right: 10px;
+}
 
+/*
+ * Styles for success-message
+ */
+.success-message {
+  display: flex;
+  align-items: center;
+  color: #4caf50;
+  font-size: 1rem;
+  padding: 10px;
+  border: 1px solid #4caf50;
+  border-radius: 4px;
+  background-color: #e8f5e9;
+  max-width: fit-content;
+}
 
+/*
+ * Styles for success-icon
+ */
+.success-icon {
+  margin-right: 10px;
+}
+
+/*
+* Styles for the loading spinner
+*/
+.mat-spinner {
+}
+
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: #f29d38;
+}
+
+.form-container {
+  position: relative;
+}
+
+.overlay-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 105%;
+  background: #fafafa;
+  z-index: 20;
+}
+
+.mat-spinner {
+  z-index: 30;
+}
