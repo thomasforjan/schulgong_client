@@ -1,22 +1,19 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import {
-  MenuNames,
-  RoutingLinks,
-  TabTitleNames,
-} from './services/store.service';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {MenuNames, RoutingLinks, TabTitleNames,} from './services/store.service';
 
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { RingtonesComponent } from './pages/ringtones/ringtones.component';
-import { LiveComponent } from './pages/live/live.component';
-import { CalendarComponent } from './pages/calendar/calendar.component';
-import { SettingsComponent } from './pages/settings/settings.component';
-import { HolidayComponent } from './pages/holiday/holiday.component';
-import { RingtimeComponent } from './pages/ringtime/ringtime.component';
-import { MusicComponent } from './pages/live/music/music.component';
-import { LoginComponent } from './pages/login/login.component';
-import { AuthGuard } from './auth/auth.guard';
-import { LayoutComponent } from './layout/layout.component';
+import {DashboardComponent} from './pages/dashboard/dashboard.component';
+import {RingtonesComponent} from './pages/ringtones/ringtones.component';
+import {LiveComponent} from './pages/live/live.component';
+import {CalendarComponent} from './pages/calendar/calendar.component';
+import {SettingsComponent} from './pages/settings/settings.component';
+import {HolidayComponent} from './pages/holiday/holiday.component';
+import {RingtimeComponent} from './pages/ringtime/ringtime.component';
+import {MusicComponent} from './pages/live/music/music.component';
+import {LoginComponent} from './pages/login/login.component';
+import {AuthGuard} from './auth/auth.guard';
+import {LayoutComponent} from './layout/layout.component';
+import {RouterLinkDirectiveStub} from "./spec-helpers/router-link-directive.stub";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -98,6 +95,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule, RouterLinkDirectiveStub],
+  declarations: [
+    RouterLinkDirectiveStub
+  ]
 })
 export class AppRoutingModule {}

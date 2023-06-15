@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {StoreService} from 'src/app/services/store.service';
+import {RoutingLinks, StoreService} from 'src/app/services/store.service';
 import {HolidayBackendService} from "../../services/holiday.backend.service";
 import {RingtimeBackendService} from "../../services/ringtime.backend.service";
 import {Ringtime} from "../../models/Ringtime";
@@ -18,6 +18,8 @@ import {Holiday} from "../../models/Holiday";
 import {map} from "rxjs/operators";
 import {DateUtilsService} from "../../services/date-utils.service";
 import {Time} from "@angular/common";
+import {LiveBackendService} from "../../services/live.backend.service";
+import {Router} from "@angular/router";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -36,11 +38,13 @@ export class InfoBarComponent implements OnInit {
    */
   nextGong$!: Observable<string | null>;
 
+  togglePlaylistAlarm!: string;
+  isAlarmEnabled!: boolean;
+  isPlaylistEnabled!: boolean;
   /**
    * @description Observable for no upcoming gongs
    */
   noUpcomingGongs$!: Observable<boolean>;
-
   /**
    * @description Observable for holidays
    */
@@ -78,19 +82,23 @@ export class InfoBarComponent implements OnInit {
   currentTime$: Observable<string> = this.serverTime$.pipe(
     map((serverTime) => new Date(serverTime).toLocaleTimeString())
   );
+  protected readonly RoutingLinks = RoutingLinks;
 
   /**
    * @description Constructor
    * @param _storeService Injected StoreService
    * @param _holidayBackendService Injected Holiday-BackendService
    * @param _ringtimeBackendService Injected Ringtime-BackendService
+   * @param _liveBackendServvice Injected Live-BackendService
    * @param _dateUtilsService Injected DateService
    */
   constructor(
     private _storeService: StoreService,
     private _holidayBackendService: HolidayBackendService,
     private _ringtimeBackendService: RingtimeBackendService,
-    private _dateUtilsService: DateUtilsService
+    private _liveBackendServvice: LiveBackendService,
+    private _dateUtilsService: DateUtilsService,
+    private _router: Router
   ) {
   }
 
@@ -225,9 +233,29 @@ export class InfoBarComponent implements OnInit {
         const nextGong = this.getRightRingtime(ringtimes, currentTimePlusOneMinute);
         // Return an object with the display time of the next gong and the next gong itself
 
+
+        // fetch state of alarm
+        this._liveBackendServvice.getIsPlayingAlarm().subscribe(isAlarm => {
+          this._storeService.isAlarmEnabled = isAlarm;
+          this.isAlarmEnabled = isAlarm;
+        });
+
+        // fetch state of playlist
+        this._liveBackendServvice.getIsPlayingPlaylist().subscribe(isPlaylist => {
+          this._storeService.isPlaylistEnabled = isPlaylist;
+          this.isPlaylistEnabled = isPlaylist;
+        });
+
+
+        if (this._storeService.isAlarmEnabled) {
+          this.togglePlaylistAlarm = "ALARM"
+        } else if (this._storeService.isPlaylistEnabled) {
+          this.togglePlaylistAlarm = "PLAYLIST"
+        }
+
         return {
           displayTime: nextGong.displayItem,
-          nextGong: nextGong.ringtime,
+          nextGong: nextGong.ringtime
         };
       }),
       // Update the next gong in the store
@@ -276,7 +304,7 @@ export class InfoBarComponent implements OnInit {
         if (checkDaysAndPlaytime[1].getDay() == today) {
           ringtimesArray.push([ringtime, checkDaysAndPlaytime[1], ringtime.playTime]);
         } else {
-          ringtimesArray.push([ringtime, checkDaysAndPlaytime[1], checkDaysAndPlaytime[1].toLocaleDateString("de-De") + ", " + ringtime.playTime])
+          ringtimesArray.push([ringtime, checkDaysAndPlaytime[1], checkDaysAndPlaytime[1].toLocaleDateString('de-De') + ", " + ringtime.playTime])
         }
 
 
@@ -375,6 +403,20 @@ export class InfoBarComponent implements OnInit {
     endDate.setDate(endDate.getDate() + 1);
 
     return today.valueOf() >= startDate.valueOf() && today.valueOf() <= endDate.valueOf();
+  }
+
+  /**
+   * @description get to Live-Site if clicking on the alarm-icon
+   */
+  public onAlarmBtnClick() {
+    this._router.navigate([RoutingLinks.LiveLink])
+  }
+
+  /**
+   * @description get to Music-Site if clicking on the alarm-icon
+   */
+  public onPlaylistBtnClick() {
+    this._router.navigate([RoutingLinks.MusicLink])
   }
 
   /**

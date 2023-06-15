@@ -6,22 +6,40 @@
       <span class="currentTimeText">Uhr</span>
     </div>
   </div>
-  <app-button bgColor="#f29d38" class="btn" icon="schedule"></app-button>
+  <ng-container *ngIf="!isAlarmEnabled && !isPlaylistEnabled">
+    <app-button bgColor="#f29d38" class="btn" icon="schedule"></app-button>
+  </ng-container>
+  <ng-container *ngIf="isAlarmEnabled">
+    <app-button (btnClick)="onAlarmBtnClick()" [hoverActive]="true" bgColor="red" class="btn" hoverColor="#FF3626"
+                icon="notifications_active"></app-button>
+  </ng-container>
+  <ng-container *ngIf="isPlaylistEnabled && !isAlarmEnabled">
+    <app-button (btnClick)="onPlaylistBtnClick()" [hoverActive]="true" [routerLink]="RoutingLinks.MusicLink" bgColor="#f29d38"
+                class="btn" hoverColor="#FFA24A" icon="music_note"></app-button>
+  </ng-container>
   <div class="next-gong">
     <div class="next-gong-label">
-      {{ (holiday$ | async) ? "Schulfrei" : "Nächster Gong" }}
+      <div *ngIf="isAlarmEnabled || isPlaylistEnabled" class="next-gong-time">
+        {{ togglePlaylistAlarm }}
+      </div>
+      <div *ngIf="!isAlarmEnabled && !isPlaylistEnabled" class="next-gong-time">
+        {{ (holiday$ | async) ? "Schulfrei" : "Nächster Gong" }}
+      </div>
+
     </div>
     <div *ngIf="holiday$ | async as holiday" class="next-gong-time">
-      {{ holiday.name }}
+      <div *ngIf="!isAlarmEnabled && !isPlaylistEnabled" class="next-gong-time">
+        {{ holiday.name }}
+      </div>
     </div>
     <div
-      *ngIf="!((holiday$ | async) && (nextGong$ | async))"
+      *ngIf="!((holiday$ | async) && (nextGong$ | async)) && (!isAlarmEnabled) && (!isPlaylistEnabled)"
       class="next-gong-time"
     >
-      {{ nextGong$ | async }} <span *ngIf="nextGong$ | async">Uhr</span>
+      {{ nextGong$ | async }} <span *ngIf="nextGong$ | async"> Uhr</span>
     </div>
     <div
-      *ngIf="(noUpcomingGongs$ | async) && !(holiday$ | async)"
+      *ngIf="(noUpcomingGongs$ | async) && !(holiday$ | async) && (!isAlarmEnabled) && (!isPlaylistEnabled)"
       class="next-gong-message"
     >
       Kein weiterer Gong

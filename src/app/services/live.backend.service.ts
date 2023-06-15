@@ -24,6 +24,7 @@ export class LiveBackendService {
    */
   private readonly _LIVE_URL = '/live';
   private readonly _LIVE_ALARM_ISPLAYING_URL = '/alarm/isplaying';
+  private readonly _LIVE_PLAYLIST_ISPLAYLING_URL = '/playlist/isplaying';
   private readonly _LIVE_MUSIC_STATE = '/music/state';
   private readonly _LIVE_PLAYLIST_COMMAND = '/music/control';
   private readonly _LIVE_PLAYLIST_REPEAT = '/music/repeat';
@@ -46,6 +47,16 @@ export class LiveBackendService {
   getIsPlayingAlarm(): Observable<boolean> {
     return this._http.get<boolean>(
       `${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_ALARM_ISPLAYING_URL}`
+    );
+  }
+
+  /**
+   * @description Fetch the playlist flag from the backend API.
+   * @returns An observable that emits the playlist flag.
+   */
+  getIsPlayingPlaylist(): Observable<boolean> {
+    return this._http.get<boolean>(
+      `${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_PLAYLIST_ISPLAYLING_URL}`
     );
   }
 
