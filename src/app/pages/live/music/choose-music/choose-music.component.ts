@@ -1,5 +1,4 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { LiveIcons, StoreService } from '../../../../services/store.service';
 import { Song } from '../../../../models/Song';
 import { PlaylistSong } from '../../../../models/PlaylistSong';
 import { ListboxValueChangeEvent } from '@angular/cdk/listbox';
