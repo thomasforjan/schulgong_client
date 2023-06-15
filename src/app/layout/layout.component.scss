@@ -86,28 +86,28 @@ main {
   margin-top: 80px;
 }
 
-/*
- * Media query for small screens which styles the app-info-bar component
-*/
-@media screen and (max-width: 600px) {
-  .app-info-bar {
-    grid-template-columns: auto 1fr auto;
-  }
-}
-
-/*
- * Galaxy Fold specific media query
-*/
-@media screen and (max-width: 280px), screen and (max-height: 653px) {
-  .info-bar-container {
-    position: relative;
-    margin-left: 40px;
-  }
-
-  .main-content {
-    margin-top: 0;
-  }
-}
+///*
+// * Media query for small screens which styles the app-info-bar component
+//*/
+//@media screen and (max-width: 600px) {
+//  .app-info-bar {
+//    grid-template-columns: auto 1fr auto;
+//  }
+//}
+//
+///*
+// * Galaxy Fold specific media query
+//*/
+//@media screen and (max-width: 280px), screen and (max-height: 653px) {
+//  .info-bar-container {
+//    position: relative;
+//    margin-left: 40px;
+//  }
+//
+//  .main-content {
+//    margin-top: 0;
+//  }
+//}
 
 /*
  * IPad Air specific media query
