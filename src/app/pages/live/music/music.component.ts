@@ -70,7 +70,7 @@ export class MusicComponent implements OnInit, OnDestroy {
     }
   }))
   acualSongName$ = this.storeService.playlist$.pipe(map((playlist) => {
-    if(playlist) {
+    if(playlist && playlist.actualSong) {
       return playlist.actualSong.name
     }else {
       return "";
@@ -202,7 +202,12 @@ export class MusicComponent implements OnInit, OnDestroy {
         playlist.actualSong = playlist.songDTOList[playlist.actualSong.index - 2]
       }
     });
-    this.acualSongName$ = this.storeService.playlist$.pipe(map((playlist) => playlist.actualSong.name))
+    this.acualSongName$ = this.storeService.playlist$.pipe(map((playlist) => {
+      if(playlist && playlist.actualSong) {
+        return playlist.actualSong.name
+      }
+      return "";
+    }));
     let speakerCommand = {
       command: "PREVIOUS",
       parameter: ""
@@ -223,7 +228,12 @@ export class MusicComponent implements OnInit, OnDestroy {
         playlist.actualSong = playlist.songDTOList[playlist.actualSong.index]
       }
     });
-    this.acualSongName$ = this.storeService.playlist$.pipe(map((playlist) => playlist.actualSong.name))
+    this.acualSongName$ = this.storeService.playlist$.pipe(map((playlist) => {
+      if(playlist && playlist.actualSong) {
+        return playlist.actualSong.name
+      }
+      return "";
+    }));
     let speakerCommand = {
       command: "NEXT",
       parameter: ""
@@ -289,7 +299,12 @@ export class MusicComponent implements OnInit, OnDestroy {
           playlist.songDTOList = result.playlistSongDTOList;
           playlist.actualSong = result.playlistSongDTOList[0];
         });
-        this.acualSongName$ = this.storeService.playlist$.pipe(map((playlist) => playlist.actualSong.name));
+        this.acualSongName$ = this.storeService.playlist$.pipe(map((playlist) => {
+          if(playlist && playlist.actualSong) {
+            return playlist.actualSong.name
+          }
+          return "";
+        }));
         this._liveBackendService.postSavePlaylist(result);
       }
       this.startPoll();
