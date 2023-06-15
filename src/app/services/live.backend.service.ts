@@ -26,6 +26,7 @@ export class LiveBackendService {
   private readonly _LIVE_ALARM_ISPLAYING_URL = '/alarm/isplaying';
   private readonly _LIVE_MUSIC_STATE = '/music/state';
   private readonly _LIVE_PLAYLIST_COMMAND = '/music/control';
+  private readonly _LIVE_PLAYLIST_REPEAT = '/music/repeat';
   private readonly _LIVE_SONG_LIST = '/music/songs/available';
   private readonly _LIVE_SAVE0_PLAYLIST = '/music/songs/save';
   private readonly _LIVE_SET_PLAYLIST = '/music/songs/set/playlist';
@@ -134,6 +135,19 @@ export class LiveBackendService {
         data
       )
       .subscribe();
+  }
+
+  /**
+   * Post set repeat playlist
+   *
+   * @param data flag for turn on or off the repeat function
+   */
+  postPlaylistRepeat(
+    data: boolean
+  ) {
+    return this._http.post<SpeakerCommand>(
+      `${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_PLAYLIST_REPEAT}/${data}`, ""
+    ).subscribe();
   }
 
   /**

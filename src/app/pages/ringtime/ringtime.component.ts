@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {map, take} from 'rxjs';
-import {HeroImages, StoreService,} from 'src/app/services/store.service';
+import {ButtonHeight, ButtonValue, ButtonWidths, HeroImages, StoreService,} from 'src/app/services/store.service';
 import {Ringtime, RingtimeDialog, RingtimePayload,} from '../../models/Ringtime';
 import {AddEditRingtimeComponent} from './add-edit-ringtime/add-edit-ringtime.component';
 import {MatDialog} from '@angular/material/dialog';
@@ -23,11 +23,15 @@ import {RingtoneBackendService} from "../../services/ringtone.backend.service";
   templateUrl: './ringtime.component.html',
   styleUrls: ['./ringtime.component.scss'],
 })
-export class RingtimeComponent implements OnInit{
+export class RingtimeComponent implements OnInit {
   /**
    * Ringtime Hero Image from enum in store service
    */
   ringtimeHeroImage: string = HeroImages.RingtimeHeroImage;
+
+  protected readonly ButtonValue = ButtonValue;
+  protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
 
   /**
    * Get the length of the ringtime list
@@ -74,6 +78,27 @@ export class RingtimeComponent implements OnInit{
       ringtimeList.map((ringtime) => {
         const weekDays = this.getWeekDaysFromOneRingtimeAsString(ringtime);
         return `${weekDays}`;
+      })
+    )
+  );
+
+  /**
+   * Boolean for delete-all-button
+   */
+  disableDeleteAllBtn$ = this._utilsService.onDisableDeleteAllBtn(this.storeService.ringtimeList$);
+
+  /**
+   * Get if ringtime is in the past
+   */
+  entryInPast$ = this.storeService.ringtimeList$.pipe(
+    map((ringtimeList) =>
+      ringtimeList.map((ringtime) => {
+        let now = new Date();
+        let endDate = new Date(ringtime.endDate);
+        const [hours, minutes] = ringtime.playTime.toString().split(':');
+        endDate.setHours(+hours);
+        endDate.setMinutes(+minutes);
+        return endDate < now;
       })
     )
   );
@@ -193,36 +218,23 @@ export class RingtimeComponent implements OnInit{
   /**
    * Opens a Modal-Dialog for adding a ringtime
    */
-  openDialogAddRingtime() {
-    let ringtime: RingtimePayload;
-    const dialogRef = this._dialog.open(AddEditRingtimeComponent, {
+  openDialogAddRingtime(result?: RingtimeDialog) {
+    if(result) {
+      result.name = "";
+    }
+    let dialogRef = this._dialog.open(AddEditRingtimeComponent, {
       width: '720px',
       height: '',
-      data: {isAddRingtime: true},
+      data: {isAddRingtime: true, ringtimeDialog: result},
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        ringtime = this.createRingtimePayloadFromDialogResult(result);
-        this._ringtimeBackendService
-          .postRingtimeRequest(ringtime)
-          .subscribe((response) => {
-            const newRingtone = response.body;
-            if (newRingtone) {
-              this.storeService.ringtimeList$
-                .pipe(take(1))
-                .subscribe((currentRingtoneList) => {
-                  const updatedList = this._utilsService.sortRingtimes([...currentRingtoneList, newRingtone]);
-                  this.storeService.updateRingtimeList(updatedList);
-                });
-            }
-          });
-
-        this._snackBar.open('Klingelzeit wird hinzugefügt', 'Ok', {
-          horizontalPosition: 'end',
-          verticalPosition: 'bottom',
-          duration: 2000,
-        });
+        this.postRingtimeFromDialog(result);
+        if(result.saveAndFurther) {
+          result.saveAndFurther = false;
+          this.openDialogAddRingtime(result);
+        }
       }
     });
   }
@@ -332,5 +344,56 @@ export class RingtimeComponent implements OnInit{
       }
     });
     return ringtone;
+  }
+
+  /**
+   * Post ringtime from dialog into backend
+   */
+  postRingtimeFromDialog(ringtimeDialog: RingtimeDialog) {
+    let ringtime = this.createRingtimePayloadFromDialogResult(ringtimeDialog);
+    this._ringtimeBackendService
+      .postRingtimeRequest(ringtime)
+      .subscribe((response) => {
+        const newRingtone = response.body;
+        if (newRingtone) {
+          this.storeService.ringtimeList$
+            .pipe(take(1))
+            .subscribe((currentRingtoneList) => {
+              const updatedList = this._utilsService.sortRingtimes([...currentRingtoneList, newRingtone]);
+              this.storeService.updateRingtimeList(updatedList);
+            });
+        }
+      });
+
+    this._snackBar.open('Klingelzeit wird hinzugefügt', 'Ok', {
+      horizontalPosition: 'end',
+      verticalPosition: 'bottom',
+      duration: 2000,
+    });
+  }
+
+  /**
+   * Opens a Modal-Dialog for deleting a ringtime
+   */
+  onDeleteAllRingtimes(): void {
+    const dialogRef = this._dialog.open(DeleteDialogComponent, {
+      width: '720px',
+      height: '500px',
+      data: {titleText: "Möchten Sie alle Einträge"},
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this._ringtimeBackendService.deleteAllRingtimeResource().subscribe(
+          () => {
+            this.storeService.updateRingtimeList([]);
+            this._snackBar.open('Alle Klingelzeit-Einträge erfolgreich gelöscht!', 'Ok', {
+              horizontalPosition: 'end',
+              verticalPosition: 'bottom',
+              duration: 2000,
+            });
+          },
+        );
+      }
+    });
   }
 }

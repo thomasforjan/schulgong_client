@@ -7,6 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { LiveBackendService } from '../../../../services/live.backend.service';
 import { SavePlaylist } from '../../../../models/SavePlaylist';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {ButtonHeight, ButtonValue, ButtonWidths, LiveIcons, StoreService} from "../../../../services/store.service";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -33,6 +34,10 @@ export class ChooseMusicComponent implements OnInit {
   isRemoveSlctSongsFromPlaylistBtnDisabled: boolean = true;
   isMoveSelectedSongsUpDownBtnDisabled: boolean = true;
   isSongListChanged: boolean = false;
+
+  protected readonly ButtonValue = ButtonValue;
+  protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
 
   constructor(
     public dialogRef: MatDialogRef<ChooseMusicComponent>,
@@ -188,7 +193,7 @@ export class ChooseMusicComponent implements OnInit {
     list.sort((a, b) => a.index - b.index);
     list.reverse();
     for (const playlistSong of list) {
-      if (list[list.length - 1].index >= this.playlist.length) {
+      if (playlistSong.index >= this.playlist.length) {
         break;
       }
       let i = playlistSong.index - 1;

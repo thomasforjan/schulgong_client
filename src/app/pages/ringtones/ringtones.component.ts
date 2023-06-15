@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HeroImages, StoreService} from '../../services/store.service';
+import {ButtonHeight, ButtonValue, ButtonWidths, HeroImages, StoreService} from '../../services/store.service';
 import {map, take} from 'rxjs/operators';
 import {Ringtone} from '../../models/Ringtone';
 import {MatDialog} from '@angular/material/dialog';
@@ -10,7 +10,6 @@ import {DeleteDialogComponent} from '../../components/delete-dialog/delete-dialo
 import {DateUtilsService} from 'src/app/services/date-utils.service';
 import {UtilsService} from "../../services/utils.service";
 import {RingtoneBackendService} from "../../services/ringtone.backend.service";
-import {Observable} from "rxjs";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -40,6 +39,11 @@ export class RingtonesComponent implements OnInit, OnDestroy {
    * Ringtone Hero Image from enum in store service
    */
   ringtoneHeroImage: string = HeroImages.RingtonesHeroImage;
+
+  protected readonly ButtonValue = ButtonValue;
+  protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
+
   /**
    * Get the length of the ringtone list
    */
@@ -92,6 +96,11 @@ export class RingtonesComponent implements OnInit, OnDestroy {
       return ringtonelist.map((ringtone) => ringtone.name.toLowerCase() === "alarm")
     })
   )
+
+  /**
+   * Boolean for delete-all-button
+   */
+  disableDeleteAllBtn$ = this._utilsService.onDisableDeleteAllBtn(this.storeService.ringtoneList$);
 
   constructor(
     public storeService: StoreService,
@@ -387,5 +396,37 @@ export class RingtonesComponent implements OnInit, OnDestroy {
       sound.unload();
     });
     this._soundMap.clear();
+  }
+
+  /**
+   * Method which is called when the delete button is clicked
+   */
+  onDeleteAllRingtones(): void {
+    const dialogRef = this._dialog.open(DeleteDialogComponent, {
+      width: '720px',
+      height: '500px',
+      data: {titleText: "Möchten Sie alle Einträge"},
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this._ringtoneBackendService.deleteAllRingtoneResource().subscribe(() => {
+          this._ringtoneBackendService.getRingtoneResponse().subscribe((ringtoneList) => {
+            if (ringtoneList != undefined && ringtoneList.length > 1) {
+              this._snackBar.open('Es konnten nicht alle Klingelton-Einträge gelöscht werden, da diese bei Klingelzeiten in Verwendung sind!', 'Ok', {
+                horizontalPosition: 'end',
+                verticalPosition: 'bottom',
+                duration: 4000,
+              });
+            } else {
+              this._snackBar.open('Alle Klingelton-Einträge erfolgreich gelöscht! (Alarm darf nicht gelöscht werden)', 'Ok', {
+                horizontalPosition: 'end',
+                verticalPosition: 'bottom',
+                duration: 4000,
+              });
+            }
+          });
+        });
+      }
+    });
   }
 }

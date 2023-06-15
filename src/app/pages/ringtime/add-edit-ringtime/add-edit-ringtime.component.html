@@ -14,7 +14,7 @@
       <app-hero-image [imageUrl]="ringtimeHeroImage"></app-hero-image>
     </div>
 
-    <hr class="divider" />
+    <hr class="divider"/>
 
     <div *ngIf="isEditRingtime" class="form-field-container form-fields">
       <mat-form-field appearance="fill" class="form-field index-form-field">
@@ -130,7 +130,7 @@
         <div class="klingeldays">
           <p>
             MO
-            <br />
+            <br/>
             <mat-checkbox
               aria-label="ringtimeCheckboxMonday"
               formControlName="monday"
@@ -138,7 +138,7 @@
           </p>
           <p>
             DI
-            <br />
+            <br/>
             <mat-checkbox
               aria-label="ringtimeCheckboxTuesday"
               formControlName="tuesday"
@@ -146,7 +146,7 @@
           </p>
           <p>
             MI
-            <br />
+            <br/>
             <mat-checkbox
               aria-label="ringtimeCheckboxWednesday"
               formControlName="wednesday"
@@ -154,7 +154,7 @@
           </p>
           <p>
             DO
-            <br />
+            <br/>
             <mat-checkbox
               aria-label="ringtimeCheckboxThursday"
               formControlName="thursday"
@@ -162,7 +162,7 @@
           </p>
           <p style="text-align: center">
             FR
-            <br />
+            <br/>
             <mat-checkbox
               aria-label="ringtimeCheckboxFriday"
               formControlName="friday"
@@ -170,7 +170,7 @@
           </p>
           <p style="text-align: center">
             SA
-            <br />
+            <br/>
             <mat-checkbox
               aria-label="ringtimeCheckboxSaturday"
               formControlName="saturday"
@@ -178,7 +178,7 @@
           </p>
           <p style="text-align: center">
             SO
-            <br />
+            <br/>
             <mat-checkbox
               aria-label="ringtimeCheckboxSunday"
               formControlName="sunday"
@@ -221,7 +221,7 @@
           <mat-option
             *ngFor="let item of storeService.ringtoneList$ | async"
             [value]="item.id"
-            >{{ item?.name }}
+          >{{ item?.name }}
           </mat-option>
         </mat-select>
         <ng-container
@@ -240,31 +240,53 @@
         <app-button
           (btnClick)="onSubmitClick()"
           [disabled]="ringtimeForm.invalid"
-          [height]="45"
+          [height]=ButtonHeight.submitButton
           [hoverActive]="true"
-          [width]="100"
+          [width]=ButtonWidths.submitButton
           aria-label="ringtimeSaveButton"
           bgColor="#F29D38"
           class="submitBtn"
           hoverColor="#FFA24A"
           icon="check_circle"
+          text="{{ButtonValue.submitButton}}"
         ></app-button>
       </div>
-
+      <ng-container
+        *ngIf="
+            data.isAddRingtime
+          "
+      >
+        <div class="button-container">
+          <app-button
+            (btnClick)="onSubmitAndFurtherClick()"
+            [disabled]="ringtimeForm.invalid"
+            [height]="ButtonHeight.duplicateButton"
+            [hoverActive]="true"
+            [width]=ButtonWidths.duplicateButton
+            aria-label="ringtimeSaveButton"
+            bgColor="#F29D38"
+            class="submitBtn"
+            hoverColor="#FFA24A"
+            icon="add_circle"
+            text="{{ButtonValue.duplicateButton}}"
+          ></app-button>
+        </div>
+      </ng-container>
       <div class="button-container">
         <app-button
           (btnClick)="onCancelClick()"
           [boxShadow]="
             '0 4px 4px rgba(185, 185, 185, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
           "
-          [height]="45"
+          [height]=ButtonHeight.cancelButton
           [hoverActive]="true"
-          [width]="100"
+          [width]=ButtonWidths.cancelButton
           aria-label="ringtimeCancelButton"
           bgColor="#B9B9B9"
           class="cancelBtn"
           hoverColor="#C9C9C9"
           icon="cancel"
+          text="{{ButtonValue.cancelButton}}"
         ></app-button>
       </div>
     </div>

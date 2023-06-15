@@ -9,7 +9,7 @@
         <hr class="divider" />
 
         <div class="title" mat-dialog-title>
-          <span class="title-word">Möchten Sie den Eintrag</span>
+          <span class="title-word">{{titleText}}</span>
           <span class="title-word">wirklich</span>
           <span class="title-word">löschen?</span>
         </div>
@@ -19,13 +19,15 @@
     <div class="actions-container" mat-dialog-actions>
       <app-button
         (btnClick)="onSubmitClick()"
-        [height]="45"
+        [height]=ButtonHeight.submitButton
         [hoverActive]="true"
-        [width]="100"
+        [width]=ButtonWidths.submitButton
+        aria-label="Submit"
         bgColor="#F29D38"
         class="submitBtn"
         hoverColor="#FFA24A"
         icon="check_circle"
+        text="{{ButtonValue.submitButton}}"
       ></app-button>
 
       <app-button
@@ -33,13 +35,15 @@
         [boxShadow]="
           '0 4px 4px rgba(185, 185, 185, 0.25), inset 2px 1px 4px rgba(255, 255, 255, 0.25)'
         "
-        [height]="45"
+        [height]=ButtonHeight.cancelButton
         [hoverActive]="true"
-        [width]="100"
+        [width]=ButtonWidths.cancelButton
+        aria-label="Cancel"
         bgColor="#B9B9B9"
         class="cancelBtn"
         hoverColor="#C9C9C9"
         icon="cancel"
+        text="{{ButtonValue.cancelButton}}"
       ></app-button>
     </div>
   </div>

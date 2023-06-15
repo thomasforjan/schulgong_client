@@ -1,19 +1,36 @@
 <app-hero-image [imageUrl]="holidayHeroImage"></app-hero-image>
 
 <div class="container">
-  <div class="button">
-    <app-button
-      (btnClick)="holidayAddDialog()"
-      [height]="40"
-      [hoverActive]="true"
-      [width]="117"
-      bgColor="#F29D38"
-      class="uploadBtn"
-      hoverColor="#FFA24A"
-      icon="add"
-      matTooltip="Hinzufügen"
-      title="uploadBtn"
-    ></app-button>
+  <div>
+    <div class="button">
+      <app-button
+        (btnClick)="holidayAddDialog()"
+        [height]=ButtonHeight.addButton
+        [hoverActive]="true"
+        [width]=ButtonWidths.addButton
+        aria-label="Add"
+        bgColor="#F29D38"
+        class="uploadBtn"
+        hoverColor="#FFA24A"
+        icon="add"
+        text="{{ButtonValue.addButton}}"
+      ></app-button>
+    </div>
+    <div class="button">
+      <app-button
+        (btnClick)="onDeleteAllHolidays()"
+        [disabled]="disableDeleteAllBtn$ | async"
+        [height]=ButtonHeight.deleteAllButton
+        [hoverActive]="true"
+        [width]=ButtonWidths.deleteAllButton
+        aria-label="DeleteAll"
+        bgColor="#EB3223"
+        class="deleteBtn"
+        hoverColor="#FF3626"
+        icon="delete"
+        text="{{ButtonValue.deleteAllButton}}"
+      ></app-button>
+    </div>
   </div>
   <div class="content-container">
     <app-grid-cards
@@ -28,6 +45,7 @@
       [showButtonContainer]="true"
       [showDeleteButton]="true"
       [showEditButton]="true"
+      [isEntryInPast]="entryInPast$ | async"
     ></app-grid-cards>
   </div>
 </div>

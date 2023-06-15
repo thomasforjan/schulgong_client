@@ -1,4 +1,16 @@
 describe('Klingelzeit Test', () => {
+  beforeEach(() => {
+    cy.visit('/');
+    cy.fixture('dashboard').as('dashboardData');
+
+    // Enter password
+    cy.get('[data-cy=input-password]').type('Schulgong').type('{enter}'); // '{enter}' submits the form
+
+    // Press login button
+    cy.get('[data-cy=login-button]').click();
+    cy.wait(3000);
+  });
+
   it('Visit the ringtime page', () => {
     cy.visit('/ringtime');
 
@@ -12,7 +24,7 @@ describe('Klingelzeit Test', () => {
 
     //  Check if all elements exists
     cy.contains('Klingelzeit hinzufügen');
-    cy.get(`[aria-label="ringtimeName"]`);
+    cy.get(`[aria-label="Klingelzeitbezeichnung"]`);
     cy.get(`[aria-label="ringtimeStartdate"]`);
     cy.get(`[aria-label="ringtimeEnddate"]`);
     cy.contains('MO');
@@ -39,12 +51,14 @@ describe('Klingelzeit Test', () => {
     );
 
     //  Get an input, type into it
-    cy.get(`[aria-label="ringtimeName"]`).type('Beginn 2.Stunde');
+    cy.get(`[aria-label="Klingelzeitbezeichnung"]`).type(
+      'Cypress Ringtime Test'
+    );
 
     //  Verify that the value has been updated
-    cy.get(`[aria-label="ringtimeName"]`)
+    cy.get(`[aria-label="Klingelzeitbezeichnung"]`)
       .find('input')
-      .should('have.value', 'Beginn 2.Stunde');
+      .should('have.value', 'Cypress Ringtime Test');
 
     //  Get an input, type into it
     cy.get(`[aria-label="ringtimeStartdate"]`).type('2022-09-01');
@@ -59,5 +73,27 @@ describe('Klingelzeit Test', () => {
     cy.get(`[aria-label="ringtimeEnddate"]`)
       .find('input')
       .should('have.value', '2023-07-30');
+
+    cy.get(`[aria-label="ringtimeCheckboxMonday"]`).click();
+    cy.get(`[aria-label="ringtimeCheckboxTuesday"]`).click();
+    cy.get(`[aria-label="ringtimeCheckboxWednesday"]`).click();
+    cy.get(`[aria-label="ringtimeCheckboxThursday"]`).click();
+    cy.get(`[aria-label="ringtimeCheckboxFriday"]`).click();
+    cy.get(`[aria-label="ringtimeCheckboxSaturday"]`).click();
+    cy.get(`[aria-label="ringtimeCheckboxSunday"]`).click();
+
+    // Get an input, type into it
+    cy.get(`[aria-label="ringtimePlaytime"]`).type('08:00');
+    //  Verify that the value has been updated
+    cy.get(`[aria-label="ringtimePlaytime"]`)
+      .find('input')
+      .should('have.value', '08:00');
+
+    // Select ringtone from dropdown
+    cy.get(`[aria-label="ringtimeRingtone"]`).click();
+    //cy.get('mat-option').contains('Alarm').click();
+
+    // Save the ringtime
+    //cy.get(`[aria-label="ringtimeSaveButton"]`).click();
   });
 });

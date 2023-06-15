@@ -34,6 +34,17 @@
                 mat-icon-button>
           <mat-icon class="icon-display">skip_next</mat-icon>
         </button>
+        <button (click)="repeatPlaylist()" [disabled]="storeService.isAlarmEnabled" aria-label="repeatPlaylist" class="iconBtn repeatBtn"
+                mat-icon-button>
+          <mat-icon *ngIf="looping$ | async; else loopingIconTemplate">
+            repeat
+          </mat-icon>
+          <ng-template #loopingIconTemplate>
+            <mat-icon class="repeat-icon-color-off">
+              repeat
+            </mat-icon>
+          </ng-template>
+        </button>
       </mat-card-content>
     </mat-card>
     <div class="centerElements">

@@ -1,10 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import {HeroImages, StoreService} from '../../../services/store.service';
+import {AbstractControl, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
+import {ButtonHeight, ButtonValue, ButtonWidths, HeroImages, StoreService} from '../../../services/store.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Ringtone} from 'src/app/models/Ringtone';
-import {map} from "rxjs";
-import {take} from "rxjs/operators";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -22,6 +20,10 @@ export class AddEditRingtonesComponent implements OnInit {
    * Ringtones Hero Image, enum is in store service
    */
   ringtonesHeroImage: string = HeroImages.RingtonesHeroImage;
+
+  protected readonly ButtonValue = ButtonValue;
+  protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
 
   /**
    * Formgroup of ringtoneForm
@@ -139,5 +141,4 @@ export class AddEditRingtonesComponent implements OnInit {
       return null;
     };
   }
-
 }

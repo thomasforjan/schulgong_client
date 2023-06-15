@@ -14,6 +14,7 @@
         }"
         [routerLink]="getRoutingLink(i)"
         class="card"
+        [class.markEntryInPast]="isEntryInPast[i]"
         data-cy="card"
         (click)="toggleCard(i); onClickMusicCard(i, $event)"
       >

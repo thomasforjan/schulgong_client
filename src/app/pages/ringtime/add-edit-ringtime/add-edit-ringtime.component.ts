@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {RingtimeDialog} from '../../../models/Ringtime';
-import {HeroImages, StoreService} from '../../../services/store.service';
+import {ButtonHeight, ButtonValue, ButtonWidths, HeroImages, StoreService} from '../../../services/store.service';
 import {DateUtilsService} from 'src/app/services/date-utils.service';
 import {RingtoneBackendService} from "../../../services/ringtone.backend.service";
 
@@ -32,6 +32,10 @@ export class AddEditRingtimeComponent implements OnInit {
    * Ringtime Hero image from enum in store service
    */
   ringtimeHeroImage: string = HeroImages.RingtimeHeroImage;
+
+  protected readonly ButtonValue = ButtonValue;
+  protected readonly ButtonWidths = ButtonWidths;
+  protected readonly ButtonHeight = ButtonHeight;
 
   constructor(
     private _ringtoneBackendService: RingtoneBackendService,
@@ -107,21 +111,21 @@ export class AddEditRingtimeComponent implements OnInit {
    */
   onSubmitClick() {
     if (this.ringtimeForm?.valid) {
-      const startDate = new Date(this.ringtimeForm.value.startDate);
-      const endDate = new Date(this.ringtimeForm.value.endDate);
-      this.ringtimeForm.value.startDate =
-        this.dateUtilsService.convertDateTimeToString(startDate, 'en-CA');
-      this.ringtimeForm.value.endDate =
-        this.dateUtilsService.convertDateTimeToString(endDate, 'en-CA');
+      this.submitAction();
+      this.ringtimeForm.value.saveAndFurther = false;
 
-      // Check if end date is greater or equal than start date
-      const errors = this.dateUtilsService.dateRangeValidator(
-        this.ringtimeForm
-      );
-      if (errors) {
-        this.ringtimeForm.setErrors(errors);
-        return;
-      }
+      // If no errors, close dialog
+      this.dialogRef.close(this.ringtimeForm.value);
+    }
+  }
+
+  /**
+   * Method which is called when the submit and further button is clicked
+   */
+  onSubmitAndFurtherClick() {
+    if (this.ringtimeForm?.valid) {
+      this.submitAction();
+      this.ringtimeForm.value.saveAndFurther = true;
 
       // If no errors, close dialog
       this.dialogRef.close(this.ringtimeForm.value);
@@ -133,5 +137,26 @@ export class AddEditRingtimeComponent implements OnInit {
    */
   onCancelClick() {
     this.dialogRef.close();
+  }
+
+  /**
+   * Method with the actions that are performed when submit.
+   */
+  submitAction() {
+    const startDate = new Date(this.ringtimeForm.value.startDate);
+    const endDate = new Date(this.ringtimeForm.value.endDate);
+    this.ringtimeForm.value.startDate =
+      this.dateUtilsService.convertDateTimeToString(startDate, 'en-CA');
+    this.ringtimeForm.value.endDate =
+      this.dateUtilsService.convertDateTimeToString(endDate, 'en-CA');
+
+    // Check if end date is greater or equal than start date
+    const errors = this.dateUtilsService.dateRangeValidator(
+      this.ringtimeForm
+    );
+    if (errors) {
+      this.ringtimeForm.setErrors(errors);
+      return;
+    }
   }
 }

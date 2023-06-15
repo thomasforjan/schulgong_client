@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { Ringtime } from '../models/Ringtime';
-import { Ringtone } from '../models/Ringtone';
-import { Holiday } from '../models/Holiday';
-import { Playlist } from '../models/Playlist';
-import { Song } from '../models/Song';
-import { Configuration } from '../models/Configuration';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Subscription} from 'rxjs';
+import {Ringtime} from '../models/Ringtime';
+import {Ringtone} from '../models/Ringtone';
+import {Holiday} from '../models/Holiday';
+import {Playlist} from '../models/Playlist';
+import {Song} from '../models/Song';
+import {Configuration} from "../models/Configuration";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -116,6 +116,33 @@ export enum LiveIcons {
   RecordIcon = '../../../assets/images/pages/live/record.svg',
 }
 
+export enum ButtonValue {
+  submitButton = "Bestätigen",
+  cancelButton = "Abbrechen",
+  duplicateButton = "Duplizieren",
+  uploadButton = "Upload",
+  addButton = "Hinzufügen",
+  deleteAllButton = "Alle Löschen"
+}
+
+export enum ButtonWidths {
+  submitButton = 125,
+  cancelButton = 125,
+  duplicateButton = 125,
+  uploadButton = 110,
+  addButton = 130,
+  deleteAllButton = 130
+}
+
+export enum ButtonHeight {
+  submitButton = 45,
+  cancelButton = 45,
+  duplicateButton = 45,
+  uploadButton = 45,
+  addButton = 40,
+  deleteAllButton = 40
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -123,13 +150,23 @@ export class StoreService {
   /**
    * @description URL to backend endpoint
    */
-  public readonly BACKEND_URL =
-    'https://schulgong-server-dev.herokuapp.com/api';
+  public readonly BACKEND_URL = 'https://schulgong-server-dev.herokuapp.com/api';
+
 
   /**
    * public flag if alarm is running
    */
   public isAlarmEnabled = false;
+
+  /**
+   * public flag if playlist is running
+   */
+  public isPlaylistEnabled = false;
+
+  /**
+   * public timer subscription to get playlistinfo
+   */
+  public timeInterval!: Subscription;
 
   // private BehaviorSubject for ringtoneList
   private _ringtoneList$ = new BehaviorSubject<Ringtone[]>([]);
@@ -157,17 +194,19 @@ export class StoreService {
    * private BehaviorSubject for playlist
    */
   private _playlist$ = new BehaviorSubject<Playlist>({
-    speakerState: 'STOPPED',
+    speakerState: "STOPPED",
     volume: 0,
     mute: false,
+    looping: false,
+    playingPlaylist: false,
     actualSong: {
       id: 0,
       index: 0,
-      name: '',
-      filePath: '',
-      song: '',
-    },
-    songDTOList: [],
+      name: "",
+      filePath: "",
+      song: "",
+    }, songDTOList: []
+
   });
   /**
    * public Observable instance for playlist

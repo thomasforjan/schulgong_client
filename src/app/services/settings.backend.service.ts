@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { StoreService } from './store.service';
 import { HttpClient } from '@angular/common/http';
 import { Configuration } from '../models/Configuration';
@@ -20,8 +20,8 @@ export class SettingsBackendService {
   private readonly _SETTINGS_URL = '/settings';
   private readonly _SETTINGS_SET_RINGTIME_VOLUME_URL = '/volume/ringtime';
   private readonly _SETTINGS_SET_ALARM_VOLUME_URL = '/volume/alarm';
-  private readonly _SETTINGS_SET_ANNOUNCEMENT_VOLUME_URL =
-    '/volume/announcement';
+  private readonly _SETTINGS_SET_ANNOUNCEMENT_VOLUME_URL = '/volume/announcement';
+  private readonly _SETTINGS_CHANGE_PASSWORD_URL = '/updatePassword';
 
   /**
    * @description Constructor
@@ -76,5 +76,24 @@ export class SettingsBackendService {
         undefined
       )
       .subscribe();
+  }
+
+  /**
+   * POST - Method for updating the password
+   * @param currentPassword current password
+   * @param newPassword new password
+   * @param confirmNewPassword confirm new password
+   * @returns Observable
+   */
+  postNewPassword(
+    currentPassword: string,
+    newPassword: string,
+    confirmNewPassword: string
+  ): Observable<any> {
+    return this._http.post(
+      `${this._storeService.BACKEND_URL}${this._SETTINGS_URL}${this._SETTINGS_CHANGE_PASSWORD_URL}`,
+      { currentPassword, newPassword, confirmNewPassword },
+      { responseType: 'text' }
+    );
   }
 }
