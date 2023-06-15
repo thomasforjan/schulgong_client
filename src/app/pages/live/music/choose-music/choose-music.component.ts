@@ -1,5 +1,4 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { LiveIcons, StoreService } from '../../../../services/store.service';
 import { Song } from '../../../../models/Song';
 import { PlaylistSong } from '../../../../models/PlaylistSong';
 import { ListboxValueChangeEvent } from '@angular/cdk/listbox';
@@ -7,7 +6,13 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { LiveBackendService } from '../../../../services/live.backend.service';
 import { SavePlaylist } from '../../../../models/SavePlaylist';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {ButtonHeight, ButtonValue, ButtonWidths, LiveIcons, StoreService} from "../../../../services/store.service";
+import {
+  ButtonHeight,
+  ButtonValue,
+  ButtonWidths,
+  LiveIcons,
+  StoreService,
+} from '../../../../services/store.service';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
