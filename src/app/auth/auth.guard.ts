@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { RoutingLinks, StoreService } from '../services/store.service';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -33,7 +34,7 @@ export class AuthGuard {
     }
 
     // not logged in so redirect to login page with the return url
-    await this._router.navigate(['/login'], {
+    await this._router.navigate([RoutingLinks.LoginLink], {
       queryParams: { returnUrl: state.url },
     });
     return false;

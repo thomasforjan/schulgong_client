@@ -1,12 +1,13 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { LiveIcons, StoreService } from '../../../../services/store.service';
+import { Song } from '../../../../models/Song';
+import { PlaylistSong } from '../../../../models/PlaylistSong';
+import { ListboxValueChangeEvent } from '@angular/cdk/listbox';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { LiveBackendService } from '../../../../services/live.backend.service';
+import { SavePlaylist } from '../../../../models/SavePlaylist';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {ButtonHeight, ButtonValue, ButtonWidths, LiveIcons, StoreService} from "../../../../services/store.service";
-import {Song} from "../../../../models/Song";
-import {PlaylistSong} from "../../../../models/PlaylistSong";
-import {ListboxValueChangeEvent} from "@angular/cdk/listbox";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {LiveBackendService} from "../../../../services/live.backend.service";
-import {SavePlaylist} from "../../../../models/SavePlaylist";
-import {MatSnackBar} from "@angular/material/snack-bar";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -17,7 +18,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 @Component({
   selector: 'app-choose-music',
   templateUrl: './choose-music.component.html',
-  styleUrls: ['./choose-music.component.scss']
+  styleUrls: ['./choose-music.component.scss'],
 })
 export class ChooseMusicComponent implements OnInit {
   chooseMusicHeroImage: string = LiveIcons.MusicIcon;
@@ -49,8 +50,6 @@ export class ChooseMusicComponent implements OnInit {
     }
   ) {
     this.playlist = data.playlist;
-    console.log(this.data);
-    console.log(this.playlist);
   }
 
   ngOnInit(): void {
@@ -58,7 +57,7 @@ export class ChooseMusicComponent implements OnInit {
     this.storeService.songList$.pipe().subscribe((songList) => {
       this.songList = songList;
       this.sortSongList();
-    })
+    });
     this.sortPlayList();
   }
 
@@ -75,7 +74,7 @@ export class ChooseMusicComponent implements OnInit {
         song: song.song,
       });
     }
-    this.removeElementsFromSongList()
+    this.removeElementsFromSongList();
     this.songListSelected = [];
     this.isDeleteBtnDisabled = true;
   }
@@ -108,7 +107,7 @@ export class ChooseMusicComponent implements OnInit {
         song: song.song,
       });
     }
-    this.removeElemntsFromPlaylistList()
+    this.removeElemntsFromPlaylistList();
     this.playlistSelected = [];
     this.sortSongList();
   }
@@ -169,7 +168,6 @@ export class ChooseMusicComponent implements OnInit {
     }
   }
 
-
   /**
    * Method to move selected songs in the playlist up (sort)
    */
@@ -209,11 +207,17 @@ export class ChooseMusicComponent implements OnInit {
    * Method to delete selected songs from the songList
    */
   deleteSlctItemsFromSongList() {
-    if (this.songListSelected != undefined && this.songListSelected.length > 0) {
+    if (
+      this.songListSelected != undefined &&
+      this.songListSelected.length > 0
+    ) {
       this.removeElementsFromSongList();
       this.songListSelected = [];
     }
-    if (this.playlistSelected !== undefined && this.playlistSelected.length > 0) {
+    if (
+      this.playlistSelected !== undefined &&
+      this.playlistSelected.length > 0
+    ) {
       this.removeElemntsFromPlaylistList();
       this.playlistSelected = [];
     }
@@ -227,7 +231,7 @@ export class ChooseMusicComponent implements OnInit {
    * @param $event event to select multiple songs
    */
   onSelectSongListItems($event: ListboxValueChangeEvent<Song>) {
-    this.songListSelected = $event.value
+    this.songListSelected = $event.value;
     if (this.songListSelected.length > 0) {
       this.isDeleteBtnDisabled = false;
       this.isSlctSongsToPlaylistBtnDisabled = false;
@@ -243,7 +247,7 @@ export class ChooseMusicComponent implements OnInit {
    * @param $event event to select multiple songs
    */
   onSelectPlaylistItems($event: ListboxValueChangeEvent<PlaylistSong>) {
-    this.playlistSelected = $event.value
+    this.playlistSelected = $event.value;
     if (this.playlistSelected.length > 0) {
       this.isRemoveSlctSongsFromPlaylistBtnDisabled = false;
       this.isMoveSelectedSongsUpDownBtnDisabled = false;
@@ -255,7 +259,6 @@ export class ChooseMusicComponent implements OnInit {
     }
   }
 
-
   /**
    * Method which is called when the submit button is clicked
    */
@@ -266,15 +269,15 @@ export class ChooseMusicComponent implements OnInit {
           id: playlistSong.id,
           name: playlistSong.name,
           filePath: playlistSong.filePath,
-          song: playlistSong.song
-        })
+          song: playlistSong.song,
+        });
       }
     }
     let savePlaylist: SavePlaylist = {
       songListChanged: this.isSongListChanged,
       actualSongList: this.isSongListChanged ? this.songList : [],
-      playlistSongDTOList: this.playlist
-    }
+      playlistSongDTOList: this.playlist,
+    };
     this.dialogRef.close(savePlaylist);
   }
 
@@ -304,17 +307,19 @@ export class ChooseMusicComponent implements OnInit {
             reader.onloadend = function () {
               base64data = reader.result;
               pushSongsToList(file, base64data);
-              console.log(base64data);
-            }
+            };
             let songList = this.songList;
             let indexAddedSongs = this.indexAddedSongs;
 
-            function pushSongsToList(file: File, base64data: string | ArrayBuffer | null) {
+            function pushSongsToList(
+              file: File,
+              base64data: string | ArrayBuffer | null
+            ) {
               songList.push({
                 id: indexAddedSongs,
-                filePath: "",
+                filePath: '',
                 name: file.name,
-                song: base64data
+                song: base64data,
               });
             }
 
@@ -358,7 +363,7 @@ export class ChooseMusicComponent implements OnInit {
    * Method to tell user, that a song already exist
    */
   showSnackBar() {
-    let message = this.existedSongList.join(" | ");
+    let message = this.existedSongList.join(' | ');
     this._snackBar.open(
       `Folgende Lieder wurden nicht hinzugefügt, da es bereits ein Lied mit dem selben Namen gibt: ${message}`,
       'Ok',
@@ -369,7 +374,7 @@ export class ChooseMusicComponent implements OnInit {
         panelClass: ['snackbar'],
       }
     );
-    this.existedSongList = []
+    this.existedSongList = [];
   }
 
   /**
@@ -387,7 +392,7 @@ export class ChooseMusicComponent implements OnInit {
    * Method to sort songs
    */
   sortSongList() {
-    this.songList.sort((a: Song, b: Song) => a.name > b.name ? 1 : -1);
+    this.songList.sort((a: Song, b: Song) => (a.name > b.name ? 1 : -1));
   }
 
   /**

@@ -1,12 +1,12 @@
-import {Injectable} from "@angular/core";
-import {Observable, tap} from "rxjs";
-import {StoreService} from "./store.service";
-import {HttpClient} from "@angular/common/http";
-import {SavePlaylist} from "../models/SavePlaylist";
-import {Song, SongResponse} from "../models/Song";
-import {map} from "rxjs/operators";
-import {Playlist} from "../models/Playlist";
-import {SpeakerCommand} from "../models/SpeakerCommand";
+import { Injectable } from '@angular/core';
+import { Observable, tap } from 'rxjs';
+import { StoreService } from './store.service';
+import { HttpClient } from '@angular/common/http';
+import { SavePlaylist } from '../models/SavePlaylist';
+import { Song, SongResponse } from '../models/Song';
+import { map } from 'rxjs/operators';
+import { Playlist } from '../models/Playlist';
+import { SpeakerCommand } from '../models/SpeakerCommand';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -18,11 +18,11 @@ import {SpeakerCommand} from "../models/SpeakerCommand";
   providedIn: 'root',
 })
 export class LiveBackendService {
-
   /**
    * @description URLs to live endpoint
    */
   private readonly _LIVE_URL = '/live';
+  private readonly _ALARM_URL = '/alarm';
   private readonly _LIVE_ALARM_ISPLAYING_URL = '/alarm/isplaying';
   private readonly _LIVE_MUSIC_STATE = '/music/state';
   private readonly _LIVE_PLAYLIST_COMMAND = '/music/control';
@@ -36,8 +36,7 @@ export class LiveBackendService {
    * @param _storeService Injected StoreService
    * @param _http Injected HttpClient
    */
-  constructor(private _storeService: StoreService, private _http: HttpClient) {
-  }
+  constructor(private _storeService: StoreService, private _http: HttpClient) {}
 
   /**
    * @description Fetch the play alarm flag from the backend API.
@@ -55,8 +54,12 @@ export class LiveBackendService {
    * @param data flag to signal start or stop
    */
   postIsPlayingAlarmRequest(data: boolean) {
-    this._http.post<boolean>(
-      `${this._storeService.BACKEND_URL}${this._LIVE_URL}/alarm`, data).subscribe();
+    this._http
+      .post<boolean>(
+        `${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._ALARM_URL}`,
+        data
+      )
+      .subscribe();
   }
 
   /**
@@ -64,13 +67,10 @@ export class LiveBackendService {
    * @description POST HTTP-Method to play the announcement on speakers
    * @param data Blob
    */
-  postLiveAnnouncement(
-    data: Blob
-  ) {
-    return this._http.post<Blob>(
-      `http://localhost:8080/live`,
-      data
-    ).subscribe();
+  postLiveAnnouncement(data: Blob) {
+    return this._http
+      .post<Blob>(`${this._storeService.BACKEND_URL}${this._LIVE_URL}`, data)
+      .subscribe();
   }
 
   /**
@@ -79,15 +79,17 @@ export class LiveBackendService {
    * @returns Observable<Song[]>
    */
   getSongResponse(): Observable<Song[]> {
-    console.log(`${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_SONG_LIST}`)
     return this._http
-      .get<SongResponse>(`${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_SONG_LIST}`, {
-        observe: 'response',
-      })
+      .get<SongResponse>(
+        `${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_SONG_LIST}`,
+        {
+          observe: 'response',
+        }
+      )
       .pipe(
         map((response) => {
           if (response.body && response.body._embedded) {
-            return response.body._embedded.songDTOList
+            return response.body._embedded.songDTOList;
           }
           return [];
         }),
@@ -103,13 +105,13 @@ export class LiveBackendService {
    * @param data SavePlaylist
    * @returns SavePlaylist
    */
-  postSavePlaylist(
-    data: SavePlaylist
-  ) {
-    return this._http.post<SavePlaylist>(
-      `${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_SAVE0_PLAYLIST}`,
-      data
-    ).subscribe();
+  postSavePlaylist(data: SavePlaylist) {
+    return this._http
+      .post<SavePlaylist>(
+        `${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_SAVE0_PLAYLIST}`,
+        data
+      )
+      .subscribe();
   }
 
   /**
@@ -126,13 +128,13 @@ export class LiveBackendService {
    *
    * @param data command for control the network speaker
    */
-  postPlaylistCommands(
-    data: SpeakerCommand
-  ) {
-    return this._http.post<SpeakerCommand>(
-      `${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_PLAYLIST_COMMAND}`,
-      data
-    ).subscribe();
+  postPlaylistCommands(data: SpeakerCommand) {
+    return this._http
+      .post<SpeakerCommand>(
+        `${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_PLAYLIST_COMMAND}`,
+        data
+      )
+      .subscribe();
   }
 
   /**
@@ -153,11 +155,12 @@ export class LiveBackendService {
    *
    * @param force flag to force setting the playlist
    */
-  postSetPlaylist(
-    force: boolean
-  ) {
-    return this._http.post(
-      `${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_SET_PLAYLIST}/${force}`, undefined).subscribe();
+  postSetPlaylist(force: boolean) {
+    return this._http
+      .post(
+        `${this._storeService.BACKEND_URL}${this._LIVE_URL}${this._LIVE_SET_PLAYLIST}/${force}`,
+        undefined
+      )
+      .subscribe();
   }
-
 }

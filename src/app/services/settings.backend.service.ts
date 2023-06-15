@@ -20,8 +20,7 @@ export class SettingsBackendService {
   private readonly _SETTINGS_URL = '/settings';
   private readonly _SETTINGS_SET_RINGTIME_VOLUME_URL = '/volume/ringtime';
   private readonly _SETTINGS_SET_ALARM_VOLUME_URL = '/volume/alarm';
-  private readonly _SETTINGS_SET_ANNOUNCEMENT_VOLUME_URL =
-    '/volume/announcement';
+  private readonly _SETTINGS_SET_ANNOUNCEMENT_VOLUME_URL = '/volume/announcement';
   private readonly _SETTINGS_CHANGE_PASSWORD_URL = '/updatePassword';
 
   /**

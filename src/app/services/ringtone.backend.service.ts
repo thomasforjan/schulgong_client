@@ -1,9 +1,13 @@
-import {Injectable} from "@angular/core";
-import {StoreService} from "./store.service";
-import {HttpClient, HttpResponse} from "@angular/common/http";
-import {Observable, tap} from "rxjs";
-import {Ringtone, RingtonePayload, RingtoneResponse} from "../models/Ringtone";
-import {map} from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { StoreService } from './store.service';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
+import {
+  Ringtone,
+  RingtonePayload,
+  RingtoneResponse,
+} from '../models/Ringtone';
+import { map } from 'rxjs/operators';
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -15,7 +19,6 @@ import {map} from "rxjs/operators";
   providedIn: 'root',
 })
 export class RingtoneBackendService {
-
   /**
    * @description URLs to ringtone endpoint
    */
@@ -27,8 +30,7 @@ export class RingtoneBackendService {
    * @param _storeService Injected StoreService
    * @param _http Injected HttpClient
    */
-  constructor(private _storeService: StoreService, private _http: HttpClient) {
-  }
+  constructor(private _storeService: StoreService, private _http: HttpClient) {}
 
   /**
    * GET Ringtones from Backend
@@ -37,9 +39,12 @@ export class RingtoneBackendService {
    */
   getRingtoneResponse(): Observable<Ringtone[] | null> {
     return this._http
-      .get<RingtoneResponse>(`${this._storeService.BACKEND_URL}${this._RINGTONE_URL}`, {
-        observe: 'response',
-      })
+      .get<RingtoneResponse>(
+        `${this._storeService.BACKEND_URL}${this._RINGTONE_URL}`,
+        {
+          observe: 'response',
+        }
+      )
       .pipe(
         map((response) => {
           if (response.body && response.body._embedded) {
@@ -132,6 +137,4 @@ export class RingtoneBackendService {
       `${this._storeService.BACKEND_URL}${this._RINGTONE_URL}`
     );
   }
-
-
 }

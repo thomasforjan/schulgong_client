@@ -91,7 +91,7 @@ describe('HeaderComponent', () => {
   it('should call authService.logout and router.navigate when onLogout is called', () => {
     component.onLogout();
     expect(authService.logout).toHaveBeenCalled();
-    expect(router.navigate).toHaveBeenCalledWith(['/login']);
+    expect(router.navigate).toHaveBeenCalledWith(['auth/login']);
   });
 
   /**
