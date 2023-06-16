@@ -115,7 +115,7 @@ export class MusicComponent implements OnInit, OnDestroy {
    * Method for start the poll to check in a specific intervall the speaker state
    */
   startPoll() {
-    this.storeService.timeInterval = timer(4000, 2000).pipe(
+    this.storeService.timeInterval = timer(10000, 2000).pipe(
       switchMap(() => this._liveBackendService.getPlaylist()),
       takeUntil(this.closeTimer$)).subscribe((playlist) => {
         if (!this.interaction) {

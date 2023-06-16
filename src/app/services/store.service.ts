@@ -150,7 +150,7 @@ export class StoreService {
   /**
    * @description URL to backend endpoint
    */
-  public readonly BACKEND_URL = 'https://schulgong-server-dev.herokuapp.com/api';
+  public readonly BACKEND_URL = 'https://schulgong:8080/api';
 
 
   /**
