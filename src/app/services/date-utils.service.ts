@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AbstractControl, FormGroup, ValidationErrors} from '@angular/forms';
+import {en} from "@fullcalendar/core/internal-common";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
@@ -49,11 +50,10 @@ export class DateUtilsService {
   dateRangeValidator(control: AbstractControl): ValidationErrors | null {
     const startDate = control.get('startDate')?.value;
     const endDate = control.get('endDate')?.value;
-
     if (startDate && endDate) {
       const minEndDate = new Date(startDate);
       minEndDate.setDate(minEndDate.getDate());
-      if (endDate < minEndDate) {
+      if (new Date(endDate) < minEndDate) {
         control.get('endDate')?.setErrors({ invalidDateRange: true });
         return { invalidDateRange: true };
       } else {
