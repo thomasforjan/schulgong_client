@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {AbstractControl, FormGroup, ValidationErrors} from '@angular/forms';
-import {en} from "@fullcalendar/core/internal-common";
 
 /**
  * @author: Thomas Forjan, Philipp Wildzeiss, Martin Kral
