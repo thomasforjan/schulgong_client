@@ -41,12 +41,12 @@ npm run client:open
 
 ## :nut_and_bolt: Tech Stack & Libraries
 
-- **Framework:** Angular
-- **Component Library:** Angular Material
-- **Sound Library:** Howler.js
-- **Calendar Library:** FullCalendar
-- **Recording Library:** RecordRTC
-- **Testing:** Jasmine, Karma, Cypress
+- **Framework:** - [Angular](https://angular.io/) - version 15.2.0
+- **Component Library:** - [Angular Material](https://material.angular.io//) - version 15.2.5
+- **Sound Library:** [Howler.js](https://howlerjs.com/) - version 2.2.3
+- **Calendar Library:** [FullCalendar](https://fullcalendar.io/) - version 6.1.7
+- **Recording Library:** [RecordRTC](https://recordrtc.org/) - version 5.6.2
+- **Testing:** [Jasmine](https://jasmine.github.io/), [Karma](https://karma-runner.github.io/latest/index.html), [Cypress](https://www.cypress.io/),
 
 ## :busts_in_silhouette: Contributing
 
