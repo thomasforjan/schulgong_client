@@ -29,7 +29,7 @@
     "@dotcom-tool-kit/heroku-postbuild": "^0.2.17",
     "@fullcalendar/angular": "^6.1.7",
     "@fullcalendar/core": "^6.1.7",
-    "@fullcalendar/daygrid": "^6.1.7",
+    "@fullcalendar/daygrid": "^6.1.17",
     "@fullcalendar/interaction": "^6.1.7",
     "@fullcalendar/list": "^6.1.7",
     "@fullcalendar/timegrid": "^6.1.7",
